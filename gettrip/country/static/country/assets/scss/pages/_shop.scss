@@ -1,0 +1,188 @@
+/*=========================
+  4.19 Shop Page CSS start
+==========================*/
+
+.search-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .search-bar {
+        position: relative;
+        width: calc(100% - 55px);
+        i {
+            font-size: 16px;
+            color: $content-color;
+        }
+        input {
+            padding: 6px 35px;
+        }
+        .search-icon, .camera-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .camera-icon {
+            right: 10px;
+            left: unset;
+        }
+    }
+    .filter-btn {
+        width: 35px;
+        height: 35px;
+        border-radius: 3px;
+        background-color: $theme-color;
+        color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+            font-size: 18px;
+            color: #ffffff;
+        }
+    }
+    &.w-back {
+        .back-btn {
+            color: $title-color;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+        .search-bar {
+            width: calc(100% - 35px);
+        }
+    }
+}
+
+.filter-modal {
+    .modal-header {
+        border-bottom: none;
+        box-shadow: $shadow-1;
+        i {
+            font-size: 18px;
+            color: $title-color;
+        }
+    }
+    .modal-footer {
+        box-shadow: $shadow-1;
+        border: none;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        background-color: $white;
+        a {
+            width: 46%;
+            text-align: center;
+        }
+        .reset-link {
+            color: $title-color;
+        }
+        .btn {
+            font-size: 14px;
+            color: #ffffff;
+        }
+    }
+    .filter-title {
+        font-weight: 400;
+        margin-bottom: 12px;
+    }
+    .filter-box {
+        margin-bottom: 25px;
+    }
+    .pricing-slider {
+        .irs-min, .irs-max {
+            display: none;
+        }
+        .irs-from, .irs-to, .irs-single {
+            background-color: $theme-20;
+            color: $title-color;
+            font-size: 12px;
+        }
+        .irs-line {
+            height: 4px;
+            border: none;
+            background-color: $grey-light;
+            background: $grey-light;
+            border-radius: 2px;
+        }
+        .irs-bar {
+            height: 4px;
+            border: none;
+            background-color: $theme-color;
+            background: $theme-color;
+            border-radius: 2px;
+        }
+        .irs-slider {
+            height: 22px;
+            width: 22px;
+            background: $white;
+            border: 1px solid $theme-color;
+            &:after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: $theme-color;
+                width: 12.5px;
+                height: 12.5px;
+                border-radius: 100%;
+            }
+        }
+    }
+}
+
+.filter-color {
+    margin: -4px -7px;
+    li {
+        margin: 4px 7px;
+        .color-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 100%;
+            position: relative;
+            &:after {
+                content: "";
+                background-image: url("../svg/tick.svg");
+                top: 8px;
+                right: 5px;
+                height: 17px;
+                width: 17px;
+                background-repeat: no-repeat;
+                position: absolute;
+                transform: scale(0);
+                transition: all 0.3s ease;
+            }
+        }
+        &.active {
+            .color-box {
+                &:after {
+                    transform: scale(0.8);
+                    transition: all 0.3s ease;
+                }
+            }
+        }
+    }
+}
+
+
+.filter-row {
+    li {
+        &.active {
+            .filter-col {
+                background-color: $theme-color;
+                color: #ffffff;
+                transition: all 0.5s ease;
+            }
+        }
+    }
+    .filter-col {
+        background-color: $grey-light-45;
+        color: $title-color;
+        font-size: 14px;
+        padding: 7px;
+        text-align: center;
+        border-radius: 5px;
+        transition: all 0.5s ease;
+        text-transform: capitalize;
+    }
+}

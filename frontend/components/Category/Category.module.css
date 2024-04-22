@@ -1,0 +1,9 @@
+.cat {
+    display: inline-block;
+    background-color: rgb(244, 244, 244);
+    color: #222222;
+    font-size: 14px;
+    padding: 7px;
+    text-align: center;
+    border-radius: 5px;
+}

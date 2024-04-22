@@ -1,0 +1,42 @@
+/*=========================
+ 4.7  Elements Page CSS start
+==========================*/
+
+.element-menu {
+    ul {
+        li {
+            display: block;
+            position: relative;
+            margin-bottom: 8px;
+            text-transform: capitalize;
+            a {
+                font-size: 16px;
+                color: $title-color;
+                text-transform: uppercase;
+                display: block;
+            }
+            &:after {
+                font-size: 16px;
+                background: none;
+                content: "\e90d";
+                font-family: 'iconly' !important;
+                font-weight: 200;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                [dir="rtl"] & {
+                    right: unset;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+
+.margin-default {
+    margin: -6px;
+    > * {
+        margin: 6px;
+    }
+}

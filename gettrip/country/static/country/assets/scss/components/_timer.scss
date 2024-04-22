@@ -1,0 +1,44 @@
+/*=====================
+   2.13 Timer CSS start
+==========================*/
+
+.title-timer {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+
+  .counter {
+    background-color: $theme-color;
+    border-radius: 3px;
+    width: calc(30px + (40 - 30) * ((100vw - 320px) / (1920 - 320)));
+    height: calc(30px + (40 - 30) * ((100vw - 320px) / (1920 - 320)));
+    color: $white;
+    margin-right: 8px;
+    position: relative;
+    padding: calc(6px + (8 - 6) * ((100vw - 320px) / (1920 - 320)));
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+
+    span {
+      color: $white;
+      font-size: calc(15px + (20 - 15) * ((100vw - 320px) / (1920 - 320)));
+      font-weight: 700;
+    }
+
+    p {
+      font-size: calc(6px + (8 - 6) * ((100vw - 320px) / (1920 - 320)));
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      color: $white;
+    }
+
+    [dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+  }
+}

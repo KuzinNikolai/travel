@@ -1,0 +1,36 @@
+/*=====================
+   2.7 Loader CSS start
+==========================*/
+
+
+.loader {
+    display: flex;
+    padding: 0px;
+    text-align: left;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $white;
+    z-index: 9;
+    align-items: center;
+    justify-content: center;
+    span {
+        position:absolute;
+        display:inline-block;
+        width:50px;
+        height:50px;
+        border-radius:100%;
+        background:$theme-color;
+        animation:loader 1.5s linear infinite;
+        &:last-child {
+            animation-delay:-0.9s;
+         }
+     }
+ }
+
+ @keyframes loader {
+    0% {transform: scale(0, 0);opacity:0.8;}
+    100% {transform: scale(1, 1);opacity:0;}
+ }

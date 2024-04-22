@@ -1,0 +1,243 @@
+/*=====================
+  3.2  Header CSS start
+==========================*/
+header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    position: fixed;
+    left: 0;
+    top: -1px;
+    width: 100%;
+    background-color: $white;
+    z-index: 3;
+    .back-links {
+        a {
+            display: flex;
+            align-items: center;
+            i {
+                color: $title-color;
+                font-size: 20px;
+                margin-right: 10px;
+                [dir="rtl"] & {
+                    margin-right: 0;
+                    margin-left: 10px;
+                }
+            }
+            .content {
+                h2 {
+                    color: $title-color;
+                    text-transform: capitalize;
+                    display: flex;
+                    align-items: center;
+                }
+                h6 {
+                    color: $content-color;
+                }
+                span {
+                    display: flex;
+                    align-items: center;
+                    color: $content-color;
+                    font-size: 14px;
+                    font-weight: 400;
+                    margin-left: 4px;
+                    margin-top: 3px;
+                    i {
+                        font-size: 14px;
+                        color: $content-color;
+                        margin-right: 3px;
+                    }
+                }
+            }
+        }
+    }
+    .nav-bar {
+        margin-right: calc(10px + (15 - 10) * ((100vw - 320px) / (1920 - 320)));
+        display: flex;
+        align-items: center;
+        [dir="rtl"] & {
+            margin-right: 0;
+            margin-left: calc(10px + (15 - 10) * ((100vw - 320px) / (1920 - 320)));
+        }
+        svg {
+            stroke: $title-color;
+        }
+        img {
+            width: 20px;
+            [class="dark"] & {
+                filter: invert(1);
+            }
+        }
+    }
+    .brand-logo {
+        img {
+            width: 125px;
+        }
+    }
+    .header-option {
+        margin-left: auto;
+        [dir="rtl"] & {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        ul {
+            display: flex;
+            align-items: center;
+            li {
+                line-height: 1;
+                a {
+                    display: block;
+                }
+                i {
+                    font-size: calc(20px + (22 - 20) * ((100vw - 320px) / (1920 - 320)));
+                    color: $title-color;
+                }
+                + li {
+                    margin-left: calc(10px + (12 - 10) * ((100vw - 320px) / (1920 - 320)));
+                    [dir="rtl"] & {
+                        margin-right: calc(10px + (12 - 10) * ((100vw - 320px) / (1920 - 320)));
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+    &.darkHeader {
+        box-shadow: 0px 0px 4px rgba($black, 0.1);
+        &.bg-transparent {
+            background-color: $white !important;
+        }
+    }
+}
+
+// header sidebar
+.overlay-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    z-index: 3;
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.5s ease;
+    }
+}
+.header-sidebar {
+    position: fixed;
+    left: -320px;
+    top: 0;
+    background-color: $white;
+    width: 310px;
+    height: 100vh;
+    transition: all 0.5s ease;
+    z-index: 3;
+    overflow: auto;
+    [dir="rtl"] & {
+        left: unset;
+        right: -320px;
+    }
+    &.show {
+        left: 0;
+        transition: all 0.5s ease;
+        [dir="rtl"] & {
+           left: unset;
+           right: 0;
+        }
+    }
+    .user-panel {
+        padding: 16px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: $grey-light-25;
+        .user-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            object-fit: cover;
+            margin-right: 16px;
+            [dir="rtl"] & {
+                margin-right: 0;
+                margin-left: 16px;
+            }
+        }
+        .icli {
+            margin-left: 2px;
+            font-size: 16px;
+            color: $title-color;
+            margin-bottom: -1px;
+        }
+        span {
+            display: inline-block;
+            color: $title-color;
+            font-size: 14px;
+            font-weight: 700;
+        }
+    }
+    @media (max-width: 340px) {
+        width: 290px;
+    }
+}
+
+.sidebar-content {
+    padding: 25px 0;
+    .link-section {
+        padding: 0 22px;
+        li {
+            width: 100%;
+            padding: 16px 6px;
+            border-bottom: 1px solid $grey-light-60;
+            a, > div {
+                display: flex;
+                align-items: center;
+                i {
+                    font-size: 20px;
+                    color: $title-color;
+                    margin-right: 16px;
+                    [dir="rtl"] & {
+                        margin-right: 0;
+                        margin-left: 16px;
+                    }
+                }
+                img {
+                    margin-right: 16px;
+                    [dir="rtl"] & {
+                        margin-right: 0;
+                        margin-left: 16px;
+                    }
+                    width: 20px;
+                }
+                .content {
+                    h4 {
+                        color: $title-color;
+                        margin-bottom: 2px;
+                        font-weight: 700;
+                        text-transform: capitalize;
+                    }
+                    h6 {
+                        color: $content-color;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+            &:first-child {
+                padding-top: 0;
+            }
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+        }
+    }
+}
+
+// bottom panel
+.bottom-panel {
+    background-color: $white;
+}

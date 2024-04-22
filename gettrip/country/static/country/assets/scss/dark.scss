@@ -1,0 +1,64 @@
+// utils scss files
+@import "utils/variables";
+$black: #ffffff;
+$white: #2B2B2B;
+$title-color: #EFEFEF;
+$content-color: #BABABA;
+$grey-light: #232323;
+$grey-light-60: #232323;
+$grey-light-45: #232323;
+$grey-light-40: #232323;
+$grey-light-25: #232323;
+$gradient-3: linear-gradient(270.08deg, rgba(#2B2B2B, 0.33) 0.07%,#2B2B2B 81.25%);
+$gradient-4: linear-gradient(1.82deg, #2B2B2B 1.55%, rgba(#2B2B2B, 0.15) 98.46%);
+
+// base scss files
+@import "base/reset";
+@import "base/typography";
+
+// components scss files
+@import "components/accordion";
+@import "components/alert";
+@import "components/animation";
+@import "components/button";
+@import "components/faq";
+@import "components/form";
+@import "components/loader";
+@import "components/offcanvas";
+@import "components/ratio";
+@import "components/slider";
+@import "components/switch";
+@import "components/tab";
+@import "components/timer";
+
+
+// layout scss files
+@import "layout/bottom-panel";
+@import "layout/header";
+@import "layout/product-box";
+
+// pages
+@import "pages/about";
+@import "pages/apply-coupon";
+@import "pages/authentication";
+@import "pages/cart";
+@import "pages/category";
+@import "pages/delivery";
+@import "pages/element";
+@import "pages/home";
+@import "pages/notification";
+@import "pages/onboarding";
+@import "pages/order-history";
+@import "pages/order-success";
+@import "pages/order-tracking";
+@import "pages/payment";
+@import "pages/product";
+@import "pages/profile";
+@import "pages/saved-cards";
+@import "pages/search";
+@import "pages/settings";
+@import "pages/shop";
+
+
+// themes scss files
+@import "themes/rtl";

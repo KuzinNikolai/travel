@@ -1,0 +1,72 @@
+.button {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+    padding: calc(5px + (8 - 5) * ((100vw - 320px) / (1920 - 320))) 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn_solid {
+    background-color: #FF4C3B;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.btn_solid:hover {
+    background-color: #ffffff;
+    border: 1px solid #FF4C3B;
+    color: #FF4C3B;
+    font-weight: 400;
+    transition: all 0.2s;
+}
+
+.w_100_btn_solid {
+    width: 100%;
+    background-color: #FF4C3B;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.w_100_btn_solid:hover {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #FF4C3B;
+    color: #FF4C3B;
+    font-weight: 400;
+    transition: all 0.2s;
+}
+
+
+.btn_outline {
+    background-color: #ffffff;
+    border: 1px solid #FF4C3B;
+    color: #FF4C3B;
+    font-weight: 400;
+}    
+
+.btn_outline:hover {
+    background-color: #FF4C3B;
+    color: #ffffff;
+    font-weight: 400;
+    transition: all 0.2s;
+}
+
+.w_100_btn_outline {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #FF4C3B;
+    color: #FF4C3B;
+    font-weight: 400;
+}
+
+.w_100_btn_outline:hover {
+    width: 100%;
+    background-color: #FF4C3B;
+    color: #ffffff;
+    font-weight: 400;
+    transition: all 0.2s;
+}
