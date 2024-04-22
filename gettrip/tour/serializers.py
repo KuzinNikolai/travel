@@ -22,7 +22,7 @@ class TourListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tour
-        fields = ('id', 'country', 'city', 'title', 'description', 'slug', 'cat', 'tags', 'min_price', 'average_rating')
+        fields = ('id', 'country', 'city', 'title', 'description', 'slug', 'cat', 'tags', 'min_price', 'photo', 'average_rating')
 
 # Вывод всех туров конец        
 
