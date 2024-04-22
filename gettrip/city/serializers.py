@@ -18,10 +18,10 @@ class CityDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'description', 'tours')
+        fields = ('id', 'name', 'title', 'description', 'tours', 'photo')
 
 
-# Вывод города со списком туров в нем   
+# Вывод category со списком туров в нем   
 class CategoryDetailSerializer(serializers.ModelSerializer):
 
     tours = TourListSerializer(read_only=True, many=True)
