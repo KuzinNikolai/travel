@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsOwnerOnly
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import render
 from filter import *
 
 from .models import *
@@ -40,6 +41,15 @@ class TourDetailView(generics.RetrieveAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourDetailSerializer
     lookup_field = 'slug'
+
+
+def tour_detail(request, slug):
+    # Получаем тур по slug
+    tour = Tour.objects.get(slug=slug)
+    context = {
+        'tour': tour
+    }
+    return render(request, 'tour/tour.html', context)    
 
 
 # Подробная информация о туре и возможность редактировать
