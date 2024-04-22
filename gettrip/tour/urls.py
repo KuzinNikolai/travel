@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
    path('tours/', views.TourListView.as_view()),
-   path('tours/<slug:slug>/', views.TourDetailView.as_view()),
+   path('tours/<slug:slug>/', views.TourDetailView.as_view(), name='api-tour'),
    path('tours/<slug:slug>/', views.tour_detail, name='tour'),
    path('tour/update/<int:pk>', views.TourUpdateView.as_view()),
    path('tours/create/', views.TourCreateView.as_view()),
