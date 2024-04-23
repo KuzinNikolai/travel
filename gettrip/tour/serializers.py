@@ -1,6 +1,26 @@
 from rest_framework import serializers
 from .models import *
 
+# Полный вывод тегов
+class TagSerializer(serializers.ModelSerializer):
+    active_image = serializers.SerializerMethodField()
+    inactive_image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TagTour
+        fields = ['tag', 'slug', 'active_image', 'inactive_image']
+
+    def get_active_image(self, tag):
+        if tag.active_image:
+            return tag.active_image.url
+        return None
+
+    def get_inactive_image(self, tag):
+        if tag.inactive_image:
+            return tag.inactive_image.url
+        return None
+      
+
 
 # Вывод всех туров
 class TourListSerializer(serializers.ModelSerializer):
@@ -18,7 +38,8 @@ class TourListSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='name', read_only=True)  
     city = serializers.SlugRelatedField(slug_field='name', read_only=True)
     cat = serializers.SlugRelatedField(slug_field='name', read_only=True)
-    tags = serializers.SlugRelatedField(slug_field='tag', read_only=True, many=True)  
+
+    tags = TagSerializer(many=True)
 
     class Meta:
         model = Tour
@@ -65,26 +86,6 @@ class ProgramSerializer(serializers.ModelSerializer):
         model = Programm
         fields = ('id', 'title', 'description', 'adult_price', 'child_price')   
 
-
-
-class TagSerializer(serializers.ModelSerializer):
-    active_image = serializers.SerializerMethodField()
-    inactive_image = serializers.SerializerMethodField()
-
-    class Meta:
-        model = TagTour
-        fields = ['tag', 'active_image', 'inactive_image']
-
-    def get_active_image(self, tag):
-        if tag.active_image:
-            return tag.active_image.url
-        return None
-
-    def get_inactive_image(self, tag):
-        if tag.inactive_image:
-            return tag.inactive_image.url
-        return None
-      
 
 
 class TourDetailSerializer(serializers.ModelSerializer):
