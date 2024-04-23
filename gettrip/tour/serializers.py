@@ -63,7 +63,28 @@ class FaqSerializer(serializers.Serializer):
 class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
         model = Programm
-        fields = ('id', 'title', 'description', 'adult_price', 'child_price')    
+        fields = ('id', 'title', 'description', 'adult_price', 'child_price')   
+
+
+
+class TagSerializer(serializers.ModelSerializer):
+    active_image = serializers.SerializerMethodField()
+    inactive_image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TagTour
+        fields = ['tag', 'active_image', 'inactive_image']
+
+    def get_active_image(self, tag):
+        if tag.active_image:
+            return tag.active_image.url
+        return None
+
+    def get_inactive_image(self, tag):
+        if tag.inactive_image:
+            return tag.inactive_image.url
+        return None
+      
 
 
 class TourDetailSerializer(serializers.ModelSerializer):
@@ -71,12 +92,13 @@ class TourDetailSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='name', read_only=True)
     city = serializers.SlugRelatedField(slug_field='name', read_only=True)
     cat = serializers.SlugRelatedField(slug_field='name', read_only=True)
-    tags = serializers.SlugRelatedField(slug_field='tag', read_only=True, many=True)
     type = serializers.SlugRelatedField(slug_field='name', read_only=True)
     lang = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
     transfer = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
     faqs = FaqSerializer(many=True)
     programs = ProgramSerializer(many=True, read_only=True)
+
+    tags = TagSerializer(many=True)
 
     class Meta:
         model = Tour
