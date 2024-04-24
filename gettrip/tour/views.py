@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -16,7 +17,7 @@ class TourListView(generics.ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourListSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_class = TourFilter
+    filterset_class = TourFilter      
     
     
 # Добавление тура   
@@ -41,15 +42,6 @@ class TourDetailView(generics.RetrieveAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourDetailSerializer
     lookup_field = 'slug'
-
-
-def tour_detail(request, slug):
-    # Получаем тур по slug
-    tour = Tour.objects.get(slug=slug)
-    context = {
-        'tour': tour
-    }
-    return render(request, 'tour/tour.html', context)    
 
 
 # Подробная информация о туре и возможность редактировать
@@ -85,4 +77,5 @@ class CategoryView(generics.ListAPIView):
 class CategoryTourView(generics.ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourListSerializer
-    filter_backends = (DjangoFilterBackend,)       
+    filter_backends = (DjangoFilterBackend,)     
+      

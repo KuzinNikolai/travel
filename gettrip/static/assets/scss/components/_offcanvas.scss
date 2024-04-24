@@ -1,0 +1,30 @@
+/*=====================
+  2.8 Offcanvas CSS start
+==========================*/
+.addtohome-popup {
+  height: 150px !important;
+  .btn-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  .install-app {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+  .app-info {
+    display: flex;
+    align-items: center;
+    .content {
+      padding-left: 15px;
+      h3 {
+        font-weight: 600;
+        color: $title-color;
+      }
+      a {
+        color: $content-color;
+      }
+    }
+  }
+}

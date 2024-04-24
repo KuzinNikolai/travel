@@ -1,0 +1,47 @@
+/*=====================
+  2.4  Button CSS start
+==========================*/
+
+button:focus {
+  outline: none;
+}
+
+.btn {
+  font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+  padding: calc(5px + (8 - 5) * ((100vw - 320px) / (1920 - 320))) 18px;
+  text-transform: uppercase;
+  &:focus,
+  &.focus {
+    outline: none;
+    box-shadow: none;
+  }
+  &.btn-sm {
+    font-size: 14px;
+    padding: 4px 14px;
+  }
+}
+
+.btn-solid {
+  background-color: $theme-color;
+  color: $white;
+  font-weight: 400;
+  [class="dark"] & {
+    color: #ffffff;
+  }
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.btn-outline {
+  background-color: $white;
+  border: 1px solid $theme-color;
+  color: $theme-color;
+  font-weight: 400;
+  &.content-color {
+    border-color: $content-color;
+  }
+  &:hover {
+    color: $theme-color;
+  }
+}

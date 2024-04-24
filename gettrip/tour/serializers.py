@@ -38,6 +38,7 @@ class TourListSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='name', read_only=True)  
     city = serializers.SlugRelatedField(slug_field='name', read_only=True)
     cat = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
 
     tags = TagSerializer(many=True)
 

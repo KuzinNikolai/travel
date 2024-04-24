@@ -1,0 +1,149 @@
+/*=========================
+   4.5 Category page CSS start
+==========================*/
+
+.category-listing {
+    .category-wrap {
+        display: block;
+        border-radius: 5px;
+        background-color: #e7e7e7;
+        display: flex;
+        align-items: center;
+        padding: 20px 25px;
+        position: relative;
+        .sale-gif {
+            width: 46px;
+        }
+        .content-part {
+            width: 60%;
+            h2 {
+                text-transform: uppercase;
+                color: $title-color;
+                margin-top: -5px;
+            }
+            h4 {
+                color: $content-color;
+                margin-top: 5px;
+                margin-bottom: -1px;
+                white-space: nowrap;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        + .category-wrap {
+            margin-top: 22px;
+        }
+        .img-part {
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            [dir="rtl"] & {
+                right: unset;
+                left: 10px;
+            }
+            img {
+                height:  calc(85px + (105 - 85) * ((100vw - 320px) / (1920 - 320)));
+            }
+        }
+        &:first-child {
+            padding: 12px 25px;
+        }
+        &:nth-child(even) {
+            .content-part {
+                text-align: right;
+                margin-left: auto;
+                [dir="rtl"] & {
+                    text-align: left;
+                    margin-left: unset;
+                    margin-right: auto;
+                }
+            }
+            .img-part {
+                right: unset;
+                left: 10px;
+                [dir="rtl"] & {
+                    left: unset;
+                    right: 10px;
+                }
+            }
+        }
+        &:nth-child(2) {
+            background-color: #cacaca;
+            [class="dark"] & {
+                background-color: $grey-light;
+            }
+        }
+        &:nth-child(4) {
+            background-color: #ded5d3;
+            [class="dark"] & {
+                background-color: $grey-light;
+            }
+        }
+        &:nth-child(6) {
+            background-color: #e0e0e1;
+            [class="dark"] & {
+                background-color: $grey-light;
+            }
+        }
+    }
+}
+
+.category-menu {
+    .accordion-button, .accordion-collapse {
+        border: none;
+    }
+    .accordion-item {
+        border: none;
+        + .accordion-item {
+            margin-top: 15px;
+        }
+    }
+    .accordion-button {
+        padding: 0;
+        background: none;
+        font-size: 16px;
+        color: $title-color;
+        box-shadow: none;
+        &.collapsed {
+            &:after {
+                content: "\e903";
+            }
+        }
+        &:after {
+            background: none;
+            content: "\e912";
+            font-family: 'iconly' !important;
+            font-weight: 200;
+            transform: none;
+        }
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    .accordion-body {
+        ul {
+            li {
+                display: block;
+                a {
+                    color: $content-color;
+                    font-size: 16px;
+                    text-transform: capitalize;
+                }
+                + li {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+}
+
+
+.inner-category {
+    text-align: center;
+    h4 {
+        margin-top: 8px;
+        text-transform: capitalize;
+        color: $title-color;
+    }
+}

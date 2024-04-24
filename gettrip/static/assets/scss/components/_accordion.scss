@@ -1,0 +1,50 @@
+/*=====================
+  2.1  Accordion CSS start
+==========================*/
+
+.accordion-button {
+    color: $title-color;
+    background-color: $white;
+}
+
+.accordion-item {
+    background-color: $white;
+}
+
+.classic-accordion {
+    .accordion-item {
+        border: none;
+        + .accordion-item {
+            margin-top: 5px;
+        }
+    }
+    .accordion-header {
+        border-left: 2px solid $content-color;
+    }
+    .accordion-button {
+        padding-left: 40px;
+        background-color: $grey-light-60;
+        color: $title-color;
+        &:after {
+            background-image: none;
+            content: "+";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        &:not(.collapsed) {
+            color: $title-color;
+            box-shadow: none;
+            &:after {
+                content: "x";
+            }
+        }
+        &:focus {
+            box-shadow: none;
+        }
+        &:hover {
+            z-index: unset;
+        }
+    }
+}

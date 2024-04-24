@@ -1,0 +1,32 @@
+/*=========================
+ 4.17  Search Page CSS start
+==========================*/
+
+.recent-search-section {
+    ul {
+        li {
+            display: block;
+            position: relative;
+            a {
+                font-size: 14px;
+                color: $content-color;
+                i {
+                    margin-right: 4px;
+                }
+            }
+            .delete-icon {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                [dir="rtl"] & {
+                    right: unset;
+                    left: 0;
+                }
+            }
+            + li {
+                margin-top: 6px;
+            }
+        }
+    }
+}

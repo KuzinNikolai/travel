@@ -1,0 +1,32 @@
+/*=========================
+  4.1 About Page CSS start
+==========================*/
+
+.about-stats {
+    .stats-box {
+        background-color: $grey-light-45;
+        padding: 14px 8px;
+        .top-part {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            img {
+                margin-right: 10px;
+                width: 25%;
+                [dir="rtl"] & {
+                    margin-right: 0;
+                    margin-left: 10px;
+                }
+                [class="dark"] & {
+                    filter: invert(1);
+                }
+            }
+            h2 {
+                font-weight: 500;
+                span {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

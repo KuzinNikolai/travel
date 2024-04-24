@@ -1,0 +1,18 @@
+/*=====================
+  5.1 RTL CSS start
+==========================*/
+// general css
+[dir="rtl"] {
+    .slick-slider {
+        direction: ltr;
+    }
+    .slick-slide {
+        float: left;
+    }
+    .form-floating {
+        > label {
+            left: unset;
+            right: 16px;
+        }
+    }
+}

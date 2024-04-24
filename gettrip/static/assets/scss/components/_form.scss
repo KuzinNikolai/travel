@@ -1,0 +1,178 @@
+/*=====================
+   2.6 Form CSS start
+==========================*/
+.form-control, .form-select {
+    background-color: $white;
+    color: $title-color;
+    &:focus {
+        background-color: $white;
+        border-color: #ced4da;
+        color: $title-color;
+    }
+}
+
+.form-floating {
+    > .form-control {
+        height: 42px;
+    }
+}
+
+.radio_animated {
+    position: relative;
+    margin: -2px 1rem 0 1px;
+    [dir="rtl"] & {
+        margin: -2px 1px 0 1rem;
+    }
+    cursor: pointer;
+    &:before {
+        transition: transform 0.4s cubic-bezier(0.45, 1.8, 0.5, 0.75);
+        transform: scale(0, 0);
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 3px;
+        z-index: 1;
+        width: 0.55rem;
+        height: 0.55rem;
+        background: $theme-color;
+        border-radius: 50%;
+        [dir="rtl"] & {
+            left: unset;
+            right: 3px;
+        }
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -1px;
+        width: 1.05rem;
+        height: 1.05rem;
+        background: $white;
+        border: 1px solid $border-color;
+        border-radius: 50%;
+        [dir="rtl"] & {
+            left: unset;
+            right: -1px;
+        }
+    }
+    &:checked {
+        &:before {
+            transform: scale(1, 1);
+        }
+        &:after {
+            border: 1px solid $theme-color;
+        }
+    }
+}
+
+.checkbox_animated {
+    padding-left: 0;
+    [dir="rtl"] & {
+        padding-right: 0;
+    }
+    input[type="checkbox"] {
+        display: none;
+        + label {
+            display: flex;
+            align-items: center;
+            color: $content-color;
+            cursor: pointer;
+            &:before {
+                content: "\2714";
+                border: 1px solid #c2c2c2;
+                border-radius: 3px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 16px;
+                height: 16px;
+                padding-left: 0;
+                padding-bottom: 0;
+                margin-right: 10px;
+                vertical-align: bottom;
+                color: transparent;
+                transition: 0.2s;
+                line-height: 1;
+                [dir="rtl"] & {
+                    padding-right: 0;
+                    margin-right: 0;
+                    margin-left: 10px;
+                }
+            }
+            &:active {
+                &:before {
+                    transform: scale(0);
+                }
+            }
+        }
+        &:checked {
+            + label {
+                &:before {
+                    background-color: $theme-color;
+                    border-color: $theme-color;
+                    color: #fff;
+                }
+            }
+            &:disabled {
+                _ label {
+                    &:before {
+                        transform: scale(1);
+                        background-color: rgba($theme-color, 0.2);
+                        border-color: rgba($theme-color, 0.2);
+                    }
+                }
+            }
+        }
+        &:disabled {
+            _ label {
+                &:before {
+                    transform: scale(1);
+                    border-color: #aaa;
+                }
+            }
+        }
+    }
+}
+
+.form-theme {
+    background-color: $grey-light-45;
+    border: none;
+    font-size: 16px;
+    color: $content-color;
+    &:focus {
+        background-color: $grey-light-45;
+    }
+}
+
+.form-floating {
+    > label {
+        padding: 2px 5px;
+        background-color: $white;
+        height: auto;
+        left: 16px;
+        top: -12px;
+        color: $content-color;
+        text-transform: capitalize;
+    }
+    > .form-select,
+    > .form-control {
+        padding: 5px 15px !important;
+        height: 42px;
+    }
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    opacity: 1;
+    transform: none;
+}
+
+
+.form-select {
+    &:focus {
+        box-shadow: none;
+        border-color: #ced4da;
+    }
+}

@@ -1,0 +1,89 @@
+/*=========================
+  4.6 Delivery Page CSS start
+==========================*/
+
+.delivery-option-section {
+    ul {
+        li {
+            width: 100%;
+            position: relative;
+            .check-box {
+                width: 100%;
+                background-color: $grey-light-25;
+                border: 1px solid $grey-light-25;
+                border-radius: 3px;
+                padding: 15px 15px 50px;
+                position: relative;
+                label { 
+                    width: 100%;
+                    position: absolute;
+                }
+                .label {
+                    position: absolute;
+                    top: 14px;
+                    right: 16px;
+                    background-color: $theme-color;
+                    color: $white;
+                    font-size: 10px;
+                    font-weight: 700;
+                    padding: 1px 6px;
+                    border-radius: 2px;
+                    [class="dark"] & {
+                        color: #ffffff;
+                    }
+                    [dir="rtl"] & {
+                        left: 16px;
+                        right: unset;
+                    }
+                }
+                .name {
+                    font-weight: 700;
+                }
+                .addess {
+                    margin: 6px 0 8px 0;
+                    h4 {
+                        color: $content-color;
+                    }
+                }
+            }
+            .buttons {
+                left: 42px;
+                position: absolute;
+                bottom: 12px;
+                [dir="rtl"] & {
+                    right: 42px;
+                    left: unset;
+                }
+                a {
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    background-color: $grey-light-60;
+                    color: $content-color;
+                    padding: 4px 10px;
+                    display: inline-block;
+                    margin-right: 10px;
+                    [dir="rtl"] & {
+                        margin-right: 0;
+                        margin-left: 10px;
+                    }
+                }
+                &.l-15 {
+                    left: 15px;
+                    [dir="rtl"] & {
+                        right: 15px;
+                        left: unset;
+                    }
+                }
+            }
+            &.active {
+                .check-box {
+                    background-color: $theme-5;
+                border: 1px solid $theme-color;
+                }
+            }
+            + li {
+                margin-top: 15px;
+            }
+        }
+    }
+}
