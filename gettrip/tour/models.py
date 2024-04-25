@@ -173,13 +173,21 @@ class FAQ(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    program = models.ForeignKey(Programm, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=50, blank=True, null=False)
+    phone = models.CharField(max_length=30, blank=True, null=False)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, default=None)
+    program = models.ForeignKey(Programm, on_delete=models.CASCADE, related_name='orders')
     transfer = models.ForeignKey(Transfer, on_delete=models.CASCADE, blank=True, null=True)
-    quantity_adults = models.IntegerField(default=0)
+    hotel = models.CharField(max_length=150, blank=True, null=True)
+    text = models.TextField(default=None, max_length=200, blank=True, null=True)
+    quantity_adults = models.IntegerField(default=1)
     quantity_children = models.IntegerField(default=0)
+    quantity_infant = models.IntegerField(default=0)
+
     
 
     def total_price(self):
@@ -196,6 +204,10 @@ class Order(models.Model):
             total_price += self.transfer.price
 
         return total_price
+    
+    class Meta:
+        verbose_name = ("Заказ")
+        verbose_name_plural = ("Заказы")
     
 
 

@@ -19,6 +19,7 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from gettrip import settings
+from tour import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +28,8 @@ urlpatterns = [
     path('api/v1/', include('city.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('', include('tour.urls')), 
+
+    path('api/v1/orders/', views.OrderCreateAPIView.as_view(), name='order-create'),
 
     path('api/v1/auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),

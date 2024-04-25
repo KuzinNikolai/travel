@@ -121,3 +121,9 @@ class CategoryListSerializer(serializers.ModelSerializer):
         model = Category
         fields = ('name', 'description',)
 
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'        
+
