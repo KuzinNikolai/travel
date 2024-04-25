@@ -219,3 +219,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
 }
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': ('http://127.0.0.1:8000/api/v1/auth/users/reset_password/{uid}/{token}'),
+}
