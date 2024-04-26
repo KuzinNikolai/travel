@@ -172,7 +172,7 @@ class FAQ(models.Model):
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='wishlist')
     
 
 class Order(models.Model):
@@ -213,7 +213,7 @@ class Order(models.Model):
 
 class Reviews(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='reviews')
     text = models.TextField()
     rating = models.IntegerField(choices=[
         (1, 'Очень плохо'),

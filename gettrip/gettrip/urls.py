@@ -30,6 +30,14 @@ urlpatterns = [
     path('', include('tour.urls')), 
 
     path('api/v1/orders/', views.OrderCreateAPIView.as_view(), name='order-create'),
+    path('api/v1/my_orders/', views.MyOrdersListView.as_view(), name='my-orders'),
+    path('api/v1/orders/<int:pk>/edit/', views.OrderUpdateView.as_view(), name='order-edit'),
+
+    path('api/v1/<slug:tour_slug>/add_review/', views.ReviewCreateAPIView.as_view(), name='create-review'),
+
+    path('api/v1/<int:pk>/add_wishlist/', views.AddToWishlistView.as_view(), name='add-wishlist'),
+    path('api/v1/<int:pk>/remove_wishlist/', views.RemoveFromWishlistView.as_view(), name='remove-wishlist'),
+    path('api/v1/my_wishlist/', views.WishlistListView.as_view(), name='wishlist-list'),
 
     path('api/v1/auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),

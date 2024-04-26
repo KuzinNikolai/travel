@@ -19,6 +19,12 @@ class TagSerializer(serializers.ModelSerializer):
         if tag.inactive_image:
             return tag.inactive_image.url
         return None
+    
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reviews
+        fields = '__all__'     
       
 
 
@@ -102,6 +108,8 @@ class TourDetailSerializer(serializers.ModelSerializer):
 
     tags = TagSerializer(many=True)
 
+    reviews = ReviewSerializer(many=True)
+
     class Meta:
         model = Tour
         exclude = ('is_published', )
@@ -125,5 +133,18 @@ class CategoryListSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'        
+        fields = '__all__'   
+
+
+
+class AddToWishlistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wishlist
+        fields = '__all__' 
+
+
+class WishlistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wishlist
+        fields = '__all__'         
 

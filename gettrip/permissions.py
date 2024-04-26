@@ -21,3 +21,12 @@ class IsOwnerOnly(permissions.BasePermission):
             return True
         # Здесь проверяем, что текущий пользователь автором всех туров в queryset
         return request.author == request.user
+    
+
+# Только турист видит список туров
+class IsOwnerOrderOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        # Здесь проверяем, что текущий пользователь автором всех туров в queryset
+        return request.user == request.user

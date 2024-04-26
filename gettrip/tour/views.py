@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
-from permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsOwnerOnly
+from permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsOwnerOnly, IsOwnerOrderOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
 from filter import *
@@ -77,9 +77,10 @@ class CategoryView(generics.ListAPIView):
 class CategoryTourView(generics.ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourListSerializer
-    filter_backends = (DjangoFilterBackend,)   
+    filter_backends = (DjangoFilterBackend,) 
 
 
+# VIEWS ORDERS ------------------------------
 
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.all()
@@ -90,5 +91,68 @@ class OrderCreateAPIView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)      
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) 
+
+
+class OrderUpdateView(generics.RetrieveUpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = (IsOwnerOrderOnly, )
+
+
+# Вывод заказов только для пользователя автора
+class MyOrdersListView(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = (IsOwnerOrderOnly, )   
+
+# VIEWS ORDERS END ------------------------------    
+
+
+# VIEWS REVIEWS ------------------------------
+class ReviewCreateAPIView(generics.CreateAPIView):
+    queryset = Reviews.objects.all()
+    serializer_class = ReviewSerializer
+    lookup_field = 'slug'
+# VIEWS REVIEWS END ------------------------------
+
+
+# VIEWS ADD TO WISHLIST ------------------------------
+class AddToWishlistView(generics.CreateAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = AddToWishlistSerializer
+    lookup_field = 'slug'
+
+    def create(self, request, *args, **kwargs):
+        # Проверяем, существует ли уже объект вишлиста для этого тура и текущего пользователя
+        if Wishlist.objects.filter(user=request.user, tour__slug=request.data.get('slug')).exists():
+            return Response({"detail": "Этот тур уже добавлен в избранное."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)  # Сохраняем пользователя, отправившего запрос
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+
+
+class WishlistListView(generics.ListAPIView):
+    serializer_class = WishlistSerializer
+    permission_classes = (IsOwnerOrderOnly, )
+
+    def get_queryset(self):
+        user = self.request.user
+        return Wishlist.objects.filter(user=user)
+    
+
+
+class RemoveFromWishlistView(generics.DestroyAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer
+    permission_classes = (IsOwnerOrderOnly, )
+
+    def get_queryset(self):
+        # Ограничиваем запросы только элементами вишлиста текущего пользователя
+        return self.queryset.filter(user=self.request.user)    
+# VIEWS ADD TO WISHLIST END ------------------------------
+
       
