@@ -171,7 +171,7 @@ class FAQ(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='wishlist')
     
 

@@ -1,5 +1,6 @@
 from django.http import Http404
 from rest_framework.response import Response
+from django.core.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import status
@@ -17,7 +18,7 @@ class TourListView(generics.ListAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourListSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_class = TourFilter      
+    filterset_class = TourFilter  
     
     
 # Добавление тура   
@@ -104,7 +105,24 @@ class OrderUpdateView(generics.RetrieveUpdateAPIView):
 class MyOrdersListView(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = (IsOwnerOrderOnly, )   
+    permission_classes = [IsOwnerOrderOnly] 
+
+    def get_queryset(self):
+        # Фильтруем queryset, чтобы пользователь видел только свои заказы
+        user = self.request.user
+        if not user.is_authenticated:
+            raise PermissionDenied("Для просмотра заказов необходимо войти в систему")  # Вызываем исключение PermissionDenied
+        return Order.objects.filter(user=user)
+
+    # Обработка исключения PermissionDenied
+    def handle_permission_denied(self, exc):
+        return Response({"error": str(exc)}, status=status.HTTP_403_FORBIDDEN)
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except PermissionDenied as exc:
+            return self.handle_permission_denied(exc)
 
 # VIEWS ORDERS END ------------------------------    
 
@@ -137,11 +155,24 @@ class AddToWishlistView(generics.CreateAPIView):
 
 class WishlistListView(generics.ListAPIView):
     serializer_class = WishlistSerializer
-    permission_classes = (IsOwnerOrderOnly, )
+    permission_classes = [IsOwnerOrderOnly]
 
     def get_queryset(self):
+        # Фильтруем queryset, чтобы пользователь видел только свои заказы
         user = self.request.user
+        if not user.is_authenticated:
+            raise PermissionDenied("Для просмотра сохраненных туров необходимо войти в систему")  # Вызываем исключение PermissionDenied
         return Wishlist.objects.filter(user=user)
+
+    # Обработка исключения PermissionDenied
+    def handle_permission_denied(self, exc):
+        return Response({"error": str(exc)}, status=status.HTTP_403_FORBIDDEN)
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except PermissionDenied as exc:
+            return self.handle_permission_denied(exc)
     
 
 
