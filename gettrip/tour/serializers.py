@@ -105,6 +105,7 @@ class TourDetailSerializer(serializers.ModelSerializer):
     transfer = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
     faqs = FaqSerializer(many=True)
     programs = ProgramSerializer(many=True, read_only=True)
+    average_rating = serializers.FloatField(default=0.00)
 
     tags = TagSerializer(many=True)
 
