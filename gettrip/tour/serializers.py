@@ -21,11 +21,18 @@ class TagSerializer(serializers.ModelSerializer):
         return None
     
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'email']     
+    
+
 class ReviewSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer()
     class Meta:
         model = Reviews
-        fields = '__all__'     
-      
+        fields = '__all__'             
 
 
 # Вывод всех туров
