@@ -6,7 +6,7 @@ from .models import *
 User = get_user_model()
 
 class CustomUserCreateSerializer(UserCreateSerializer):
-    photo = serializers.ImageField()
+    photo = serializers.ImageField(required=False)
 
     class Meta(UserCreateSerializer.Meta):
         model = User

@@ -1,8 +1,11 @@
+export const dynamic = 'force-dynamic';
+
 interface City {
   id: number;
   name: string;
   title: string;
   slug: string;
+  meta_desc: string;
   description: string;
   image: string;
   country: string;
@@ -20,7 +23,7 @@ async function getCities(): Promise<City[]> {
  
 export default async function Home() {
   const data = await getCities();
- 
+
   return (
     <main>
       {data.map((city) => (
@@ -28,6 +31,7 @@ export default async function Home() {
           <h1>{city.name}</h1>
           <p>{city.title}</p>
           <p>{city.slug}</p>
+          <p>{city.meta_desc}</p>
           <p>{city.description}</p>
         </div>
       ))}

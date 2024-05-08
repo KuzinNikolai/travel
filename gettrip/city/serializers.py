@@ -8,7 +8,7 @@ class CityListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'slug', 'photo')
+        fields = ('id', 'name', 'title', 'slug', 'meta_desc', 'description', 'photo')
 
 
 # Вывод города со списком туров в нем   
