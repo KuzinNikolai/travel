@@ -8,6 +8,18 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         return bool(request.user and request.user.is_staff)
     
 
+class IsOwnerOrAdmin(permissions.BasePermission):
+    """
+    Проверяет, является ли пользователь владельцем объекта или администратором.
+    """
+    def has_object_permission(self, request, view, obj):
+        # Разрешить доступ только администраторам
+        if request.user.is_staff:
+            return True
+        # Разрешить доступ только владельцу объекта
+        return obj == request.user    
+    
+
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:

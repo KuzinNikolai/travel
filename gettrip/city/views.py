@@ -25,6 +25,15 @@ class CityDetailView(generics.RetrieveAPIView):
     lookup_field = 'slug'
 
 
+# Представление для английской версии города
+class CityDetailViewEn(generics.RetrieveAPIView):
+    queryset = City.objects.all()
+    serializer_class = CityDetailSerializerEn
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CityFilter
+    lookup_field = 'slug'    
+
+
 class CategoryDetailView(ListAPIView):
     serializer_class = TourListSerializer
 
