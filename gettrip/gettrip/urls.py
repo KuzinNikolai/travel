@@ -43,6 +43,7 @@ urlpatterns = [
     path('api/v1/my_wishlist/', views.WishlistListView.as_view(), name='wishlist-list'),
     
     path('api-auth/', include('rest_framework.urls')),
+    path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/users/', CustomUserViewSet.as_view({'get': 'list', 'post': 'create'}), name='user-list'),
     path('api/v1/users/<int:pk>/', CustomUserViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='user-detail'),
     path('api/v1/users/update/<int:pk>/', UserUpdateView.as_view(), name='user-update'),
