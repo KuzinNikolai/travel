@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
 
+User = get_user_model()
+
 # Полный вывод тегов
 class TagSerializer(serializers.ModelSerializer):
     active_image = serializers.SerializerMethodField()
@@ -26,13 +28,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'first_name', 'email', 'photo']     
     
-
+ 
 class ReviewSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer()
     class Meta:
         model = Reviews
-        fields = '__all__'             
+        fields = '__all__'            
 
 
 # Вывод всех туров

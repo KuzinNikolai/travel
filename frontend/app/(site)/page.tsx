@@ -1,3 +1,6 @@
+import { Button } from "../../components/Button/Button";
+import styles from "../../components/Htag/Htag.module.css";
+
 export const dynamic = 'force-dynamic';
 
 interface City {
@@ -28,11 +31,16 @@ export default async function Home() {
     <main>
       {data.map((city) => (
         <div key={city.id}>
-          <h1>{city.name}</h1>
+          <h1 className={styles.h1}>
+             {city.name}
+          </h1>
           <p>{city.title}</p>
           <p>{city.slug}</p>
           <p>{city.meta_desc}</p>
           <p>{city.description}</p>
+          <Button appearance = 'btn_solid'>
+             {city.name}
+          </Button>
         </div>
       ))}
     </main>

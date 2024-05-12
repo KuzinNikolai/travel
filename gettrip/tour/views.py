@@ -3,11 +3,13 @@ from rest_framework.response import Response
 from django.core.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework.generics import CreateAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsOwnerOnly, IsOwnerOrderOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
+from rest_framework.generics import get_object_or_404
 from filter import *
 
 from .models import *
@@ -128,10 +130,20 @@ class MyOrdersListView(generics.ListAPIView):
 
 
 # VIEWS REVIEWS ------------------------------
-class ReviewCreateAPIView(generics.CreateAPIView):
+class ReviewCreateAPIView(CreateAPIView):
     queryset = Reviews.objects.all()
     serializer_class = ReviewSerializer
     lookup_field = 'slug'
+
+    def post(self, request, pk):
+        tour = get_object_or_404(Tour, pk=pk)  # Получаем экземпляр тура по его идентификатору
+        serializer = ReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(tour=tour)  # Присваиваем полю tour экземпляр тура
+            return Response({'reviews': serializer.data}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 # VIEWS REVIEWS END ------------------------------
 
 

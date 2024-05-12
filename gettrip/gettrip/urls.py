@@ -36,7 +36,7 @@ urlpatterns = [
     path('api/v1/my_orders/', views.MyOrdersListView.as_view(), name='my-orders'),
     path('api/v1/orders/<int:pk>/edit/', views.OrderUpdateView.as_view(), name='order-edit'),
 
-    path('api/v1/<slug:tour_slug>/add_review/', views.ReviewCreateAPIView.as_view(), name='create-review'),
+    path('api/v1/tours/add_review/<int:pk>', views.ReviewCreateAPIView.as_view(), name='create-review'),
 
     path('api/v1/add_wishlist/<int:pk>', views.AddToWishlistView.as_view(), name='add-wishlist'),
     path('api/v1/remove_wishlist/<int:pk>', views.RemoveFromWishlistView.as_view(), name='remove-wishlist'),
