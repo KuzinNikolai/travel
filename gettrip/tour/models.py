@@ -178,15 +178,19 @@ class Wishlist(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50, blank=True, null=False)
+    email = models.EmailField(max_length=254, blank=True, null=False)
     phone = models.CharField(max_length=30, blank=True, null=False)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, default=None)
     program = models.ForeignKey(Programm, on_delete=models.CASCADE, related_name='orders')
     transfer = models.ForeignKey(Transfer, on_delete=models.CASCADE, blank=True, null=True)
     hotel = models.CharField(max_length=150, blank=True, null=True)
+    room_number = models.CharField(max_length=30, blank=True, null=True)
+    pickup_time = models.CharField(max_length=20, blank=True, null=True)
     text = models.TextField(default=None, max_length=200, blank=True, null=True)
     quantity_adults = models.IntegerField(default=1)
     quantity_children = models.IntegerField(default=0)
     quantity_infant = models.IntegerField(default=0)
+    trip_date = models.DateField(blank=True, null=True)
 
     
 

@@ -6,7 +6,7 @@ from rest_framework import generics
 from rest_framework.generics import CreateAPIView
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
-from permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsOwnerOnly, IsOwnerOrderOnly
+from permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsOwnerOnly, IsOwnerOrderOnly, IsLoggedUserOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
 from rest_framework.generics import get_object_or_404
@@ -88,6 +88,7 @@ class CategoryTourView(generics.ListAPIView):
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsLoggedUserOnly]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -39,3 +39,9 @@ class IsOwnerOrderOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # Проверяем, является ли текущий пользователь владельцем заказа
         return obj.user == request.user
+    
+
+class IsLoggedUserOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Проверяем, является ли текущий пользователь аутентифицированным
+        return request.user and request.user.is_authenticated    

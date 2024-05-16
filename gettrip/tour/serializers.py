@@ -29,11 +29,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'email', 'photo']     
     
  
+
 class ReviewSerializer(serializers.ModelSerializer):
+    user_full_name = serializers.SerializerMethodField()  # Добавляем поле для вывода полного имени пользователя
 
     class Meta:
         model = Reviews
-        fields = '__all__'            
+        fields = ['id', 'user_full_name', 'user', 'tour', 'rating', 'text', 'created_date']  # Указываем новое поле
+
+    def get_user_full_name(self, obj):
+        return obj.user.get_full_name()            
 
 
 # Вывод всех туров
@@ -140,9 +145,15 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    tour_title = serializers.SerializerMethodField()
+
     class Meta:
         model = Order
-        fields = '__all__'   
+        fields = ['id', 'tour_title', 'user', 'tour', 'email', 'phone', 'program', 'hotel', 
+                  'room_number', 'pickup_time', 'quantity_adults', 'quantity_children', 'quantity_infant', 'trip_date', 'transfer']
+
+    def get_tour_title(self, obj):
+        return obj.tour.title  
 
 
 

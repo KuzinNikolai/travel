@@ -1,3 +1,5 @@
+import { getAllTours } from "../../actions/getAllTours";
+
 export const dynamic = 'force-dynamic';
 
 interface Tour {
@@ -10,23 +12,13 @@ interface Tour {
   country: string;
   city: string;
 }
-
-async function getTours(): Promise<Tour[]> {
-  const res = await fetch('http://127.0.0.1:8000/api/v1/tours/')
- 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
- 
-  return res.json();
-}
  
 export default async function Tour() {
-  const data = await getTours();
+  const tours = await getAllTours();
 
   return (
     <main>
-      {data.map((tour) => (
+      {tours.map((tour) => (
         <div key={tour.id}>
           <h1>{tour.title}</h1>
           <p>{tour.slug}</p>
