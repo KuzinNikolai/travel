@@ -29,6 +29,7 @@ interface City {
     adult_price: number;
     duration: number;
     tags: Tag[];
+    programs: Programm[];
     min_price: number;
     photo: string;
     average_rating: number;

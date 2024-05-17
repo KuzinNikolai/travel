@@ -72,7 +72,7 @@ class Tour(models.Model):
 
     def get_absolute_url(self):
         if self.slug:
-            return reverse('tour', kwargs={'tour_slug': str(self.slug)})
+            return reverse('tour-detail', kwargs={'slug': str(self.slug)})
         return '/'
     
 

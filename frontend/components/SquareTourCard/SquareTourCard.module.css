@@ -1,3 +1,7 @@
 .card {
    border: 2px solid #261b1b;
 }
+
+.content {
+   width: 100%;
+}

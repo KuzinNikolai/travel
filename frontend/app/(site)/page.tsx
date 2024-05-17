@@ -42,7 +42,8 @@ export default async function Home() {
               price={tour.adult_price}
               image={tour.photo}
               children={undefined} 
-              average_rating={tour.average_rating}           />
+              average_rating={tour.average_rating}
+            />
           </React.Fragment>
         ))}
       </section>

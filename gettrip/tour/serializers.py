@@ -58,12 +58,13 @@ class TourListSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field='name', read_only=True)
     cat = serializers.SlugRelatedField(slug_field='name', read_only=True)
     average_rating = serializers.FloatField(default=0.00)
+    type = serializers.SlugRelatedField(slug_field='name', read_only=True)
 
     tags = TagSerializer(many=True)
 
     class Meta:
         model = Tour
-        fields = ('id', 'country', 'city', 'title', 'description', 'slug', 'cat', 'tags', 'min_price', 'photo', 'average_rating')
+        fields = ('id', 'country', 'city', 'title', 'description', 'duration', 'type', 'slug', 'cat', 'tags', 'min_price', 'photo', 'average_rating')
 
 # Вывод всех туров конец        
 
@@ -123,10 +124,18 @@ class TourDetailSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
 
     reviews = ReviewSerializer(many=True)
+    tour_link = serializers.SerializerMethodField()
 
     class Meta:
         model = Tour
         exclude = ('is_published', )
+
+     # Метод для получения ссылки на текущий тур
+    def get_tour_link(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return request.build_absolute_uri(obj.get_absolute_url())
+    
 
 # Подробная информация о туре и возможность редактиров конец        
 
