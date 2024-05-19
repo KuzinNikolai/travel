@@ -25,6 +25,7 @@ interface Tour {
   title: string;
   slug: string;
   meta_desc: string;
+  duration: string;
   description: string;
   image: string;
   country: string;
@@ -36,7 +37,7 @@ interface Tour {
   min_price: number;
   photo: string;
   average_rating: number;
-  cat: Category[];
+  cat: string;
 }
 
 interface Category {

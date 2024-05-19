@@ -6,7 +6,9 @@ export interface SquareTourCardProps extends DetailedHTMLProps<DetailsHTMLAttrib
     appearance: 'card';
     href?: string;
     title: string;
+    meta_desc: string;
     description?: string;
+    duration: string;
     price?: number;
     programs?: string;
     image?: string;

@@ -1,7 +1,8 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import styles from '../[slug]/СityDetail.module.css';
-import { City, Tour } from '../../../../types'; // Импортируем типы из файла types.d.ts
+import { City, Tour, Tag } from '../../../../types'; // Импортируем типы из файла types.d.ts
+import { SquareTourCard } from '../../../../components/SquareTourCard/SquareTourCard';
 
 type Props = {
   params: {
@@ -25,27 +26,53 @@ const CityDetail = async ({ params }: Props) => {
     notFound();
   }
 
+  // Сбор всех уникальных тегов из туров
+  const allTags: Tag[] = [];
+  city.tours.forEach((tour: Tour) => {
+    tour.tags.forEach((tag: Tag) => {
+      if (!allTags.some((existingTag) => existingTag.slug === tag.slug)) {
+        allTags.push(tag);
+      }
+    });
+  });
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{city.name}</h1>
       <h2 className={styles.subtitle}>{city.title}</h2>
       <p className={styles.meta}>{city.meta_desc}</p>
       <p className={styles.description}>{city.description}</p>
-      {/* Add any other city details here */}
-
-      <h3>Tours</h3>
+      
+      {/* Вывод всех уникальных тегов */}
+      <h3>Теги</h3>
       <ul>
-        {city.tours.map((tour: Tour) => (
-          <li key={tour.id}>
-            {tour.photo && <img src={tour.photo} alt={tour.title} />}
-            <h4>{tour.title}</h4>
-            <p>{tour.description}</p>
-            {tour.tags && tour.tags.length > 0 && (
-             <p>Tags: {tour.tags.map((tag) => tag.tag).join(', ')}</p> 
-            )}
-            <p>Category: {tour.category}</p>
-          </li>
+        {allTags.map((tag: Tag) => (
+          <li key={tag.slug}>{tag.tag}</li>
         ))}
+      </ul>
+      
+      <h3>Туры</h3>
+      <ul>
+      <section>
+        <h2>Tours</h2>
+        <div className={styles.cardContainer}>
+          {city.tours.map((tour) => (
+            <div key={tour.id} className={styles.cardItem}>
+              <SquareTourCard
+                appearance="card"
+                title={tour.title}
+                meta_desc={tour.meta_desc}
+                description={tour.description}
+                duration={tour.duration}
+                price={tour.adult_price}
+                image={tour.photo}
+                children={undefined} 
+                average_rating={tour.average_rating}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
       </ul>
     </div>
   );

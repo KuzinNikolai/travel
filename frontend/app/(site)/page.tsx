@@ -5,6 +5,7 @@ import { SquareTourCard } from "../../components/SquareTourCard/SquareTourCard";
 import { getAllCities } from "../actions/getAllCities";
 import { getAllTours } from "../actions/getAllTours";
 import styles from "../page.module.css"; 
+import { title } from "process";
 
 export const dynamic = 'force-dynamic';
 
@@ -46,7 +47,9 @@ export default async function Home() {
               <SquareTourCard
                 appearance="card"
                 title={tour.title}
+                meta_desc={tour.meta_desc}
                 description={tour.description}
+                duration={tour.duration}
                 price={tour.adult_price}
                 image={tour.photo}
                 children={undefined} 
