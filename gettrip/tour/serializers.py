@@ -26,7 +26,13 @@ class TagSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'email', 'photo']     
+        fields = ['id', 'username', 'first_name', 'email', 'photo']    
+
+
+class PhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = ['id', 'image']         
     
  
 
@@ -125,6 +131,8 @@ class TourDetailSerializer(serializers.ModelSerializer):
 
     reviews = ReviewSerializer(many=True)
     tour_link = serializers.SerializerMethodField()
+
+    photos = PhotoSerializer(many=True)
 
     class Meta:
         model = Tour

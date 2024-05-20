@@ -27,21 +27,9 @@ class Tour(models.Model):
     meta_keywords = models.CharField(max_length=255, blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     description = models.TextField(blank=True, db_index=True)
-    included = models.TextField(blank=True, default="""Обед, 
-Маски и трубки, 
-Трансфер из отеля,
-Завтрак, 
-Русский гид""")
-    not_included = models.TextField(blank=True, default="""Сувениры, 
-Личные покупки,
-Трансфер из дальних районов""")
-    take_with_you = models.TextField(blank=True, default="""Солнцезащитный крем, 
-Солнцезащитные очки,
-Деньги на личные расходы, 
-Полотенце, 
-Купальник, 
-Шляпу,
-Сменную одежду""")
+    included = models.ManyToManyField('Included', blank=True)
+    notincluded = models.ManyToManyField('NotIncluded', blank=True)
+    take = models.ManyToManyField('Take', blank=True)
     adult_price = models.IntegerField(blank=True, null=True,)
     child_price = models.IntegerField(blank=True, null=True,)
     children_possible = models.BooleanField(default=False, null=True)
@@ -118,6 +106,27 @@ class Programm(models.Model):
     
 
 class Transfer(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+
+class NotIncluded(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+
+class Included(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+
+class Take(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):

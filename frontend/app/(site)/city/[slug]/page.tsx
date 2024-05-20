@@ -1,8 +1,11 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import styles from '../[slug]/СityDetail.module.css';
+import TourList from '../../../../components/TourList/TourList';
 import { City, Tour, Tag } from '../../../../types'; // Импортируем типы из файла types.d.ts
 import { SquareTourCard } from '../../../../components/SquareTourCard/SquareTourCard';
+
+export const dynamic = 'force-dynamic';
 
 type Props = {
   params: {
@@ -64,7 +67,7 @@ const CityDetail = async ({ params }: Props) => {
                 meta_desc={tour.meta_desc}
                 description={tour.description}
                 duration={tour.duration}
-                price={tour.adult_price}
+                min_price={tour.min_price}
                 image={tour.photo}
                 children={undefined} 
                 average_rating={tour.average_rating}
@@ -74,6 +77,7 @@ const CityDetail = async ({ params }: Props) => {
         </div>
       </section>
       </ul>
+      <TourList tours={city.tours} citySlug={params.slug} />
     </div>
   );
 };

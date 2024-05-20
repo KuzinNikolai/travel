@@ -24,3 +24,15 @@
     margin-bottom: 1rem;
   }
   
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem; /* Добавляет промежуток между карточками */
+  }
+
+  .cardItem {
+    flex: 1 1 calc(33.333% - 1rem);
+    box-sizing: border-box;
+    margin: 0.5rem;
+  }

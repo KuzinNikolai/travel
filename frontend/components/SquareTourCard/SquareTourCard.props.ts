@@ -9,7 +9,7 @@ export interface SquareTourCardProps extends DetailedHTMLProps<DetailsHTMLAttrib
     meta_desc: string;
     description?: string;
     duration: string;
-    price?: number;
+    min_price?: number;
     programs?: string;
     image?: string;
     average_rating: number;

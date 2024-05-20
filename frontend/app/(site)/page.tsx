@@ -50,7 +50,7 @@ export default async function Home() {
                 meta_desc={tour.meta_desc}
                 description={tour.description}
                 duration={tour.duration}
-                price={tour.adult_price}
+                min_price={tour.min_price}
                 image={tour.photo}
                 children={undefined} 
                 average_rating={tour.average_rating}
