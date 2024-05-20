@@ -29,10 +29,22 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'email', 'photo']    
 
 
-class PhotoSerializer(serializers.ModelSerializer):
+class IncludedSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Photo
-        fields = ['id', 'image']         
+        model = Included
+        fields = ['id', 'name']   
+
+
+class NotIncludedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NotIncluded
+        fields = ['id', 'name'] 
+
+
+class TakeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Take
+        fields = ['id', 'name']         
     
  
 
@@ -126,13 +138,13 @@ class TourDetailSerializer(serializers.ModelSerializer):
     faqs = FaqSerializer(many=True)
     programs = ProgramSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(default=0.00)
-
     tags = TagSerializer(many=True)
-
+    included = IncludedSerializer(many=True)
+    notincluded = NotIncludedSerializer(many=True)
+    take = TakeSerializer(many=True)
     reviews = ReviewSerializer(many=True)
     tour_link = serializers.SerializerMethodField()
-
-    photos = PhotoSerializer(many=True)
+    photos = serializers.SerializerMethodField()
 
     class Meta:
         model = Tour
@@ -142,8 +154,15 @@ class TourDetailSerializer(serializers.ModelSerializer):
     def get_tour_link(self, obj):
         request = self.context.get('request')
         if request is not None:
-            return request.build_absolute_uri(obj.get_absolute_url())
-    
+            return request.build_absolute_uri(obj.get_absolute_url()) 
+        
+
+      # Метод для получения списка URL фотографий
+    def get_photos(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return [request.build_absolute_uri(photo.image.url) for photo in obj.photos.all()]
+        return [photo.image.url for photo in obj.photos.all()]    
 
 # Подробная информация о туре и возможность редактиров конец        
 
