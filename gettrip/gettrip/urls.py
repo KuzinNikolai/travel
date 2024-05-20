@@ -41,6 +41,9 @@ urlpatterns = [
     path('api/v1/add_wishlist/<int:pk>', views.AddToWishlistView.as_view(), name='add-wishlist'),
     path('api/v1/remove_wishlist/<int:pk>', views.RemoveFromWishlistView.as_view(), name='remove-wishlist'),
     path('api/v1/my_wishlist/', views.WishlistListView.as_view(), name='wishlist-list'),
+
+    path('api/v1/help/', views.HelpCreateAPIView.as_view(), name='get-help'),
+    path('api/v1/my_help/', views.MyHelpListView.as_view(), name='my-help'),
     
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('djoser.urls')),

@@ -96,6 +96,42 @@ class OrderCreateAPIView(generics.CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) 
+    
+
+class HelpCreateAPIView(generics.CreateAPIView):
+    queryset = NeedHelp.objects.all()
+    serializer_class = HelpSerializer
+    permission_classes = [IsLoggedUserOnly]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) 
+    
+
+class MyHelpListView(generics.ListAPIView):
+    queryset = NeedHelp.objects.all()
+    serializer_class = HelpSerializer
+    permission_classes = [IsOwnerOrderOnly] 
+
+    def get_queryset(self):
+        # Фильтруем queryset, чтобы пользователь видел только свои заказы
+        user = self.request.user
+        if not user.is_authenticated:
+            raise PermissionDenied("Для просмотра обращений необходимо войти в систему")  # Вызываем исключение PermissionDenied
+        return NeedHelp.objects.filter(user=user)
+
+    # Обработка исключения PermissionDenied
+    def handle_permission_denied(self, exc):
+        return Response({"error": str(exc)}, status=status.HTTP_403_FORBIDDEN)
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except PermissionDenied as exc:
+            return self.handle_permission_denied(exc)    
 
 
 class OrderUpdateView(generics.RetrieveUpdateAPIView):

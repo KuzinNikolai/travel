@@ -189,8 +189,18 @@ class OrderSerializer(serializers.ModelSerializer):
                   'room_number', 'pickup_time', 'quantity_adults', 'quantity_children', 'quantity_infant', 'trip_date', 'transfer']
 
     def get_tour_title(self, obj):
-        return obj.tour.title  
+        return obj.tour.title 
 
+
+class HelpSerializer(serializers.ModelSerializer):
+    tour_title = serializers.SerializerMethodField()
+
+    class Meta:
+        model = NeedHelp
+        fields = '__all__'
+
+    def get_tour_title(self, obj):
+        return obj.tour.title     
 
 
 class AddToWishlistSerializer(serializers.ModelSerializer):

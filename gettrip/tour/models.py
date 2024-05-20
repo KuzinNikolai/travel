@@ -255,4 +255,16 @@ class Reviews(models.Model):
 
     class Meta:
         verbose_name = ("Отзыв")
-        verbose_name_plural = ("Отзывы")     
+        verbose_name_plural = ("Отзывы") 
+
+
+class NeedHelp(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)  
+    full_name = models.CharField(max_length=50, blank=True, null=False)
+    email = models.EmailField(max_length=254, blank=True, null=False)
+    phone = models.CharField(max_length=30, blank=True, null=True)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, default=None)
+    text = models.TextField(max_length=500, blank=True, null=False) 
+    
+    def __str__(self):
+        return self.full_name         
