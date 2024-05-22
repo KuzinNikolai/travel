@@ -171,7 +171,6 @@ class TourDetailSerializer(serializers.ModelSerializer):
         if request is not None:
             return request.build_absolute_uri(obj.get_absolute_url()) 
      
-
 # Подробная информация о туре и возможность редактиров конец        
 
 
@@ -202,10 +201,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class HelpSerializer(serializers.ModelSerializer):
     tour_title = serializers.SerializerMethodField()
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = NeedHelp
-        fields = '__all__'
+        fields = '__all__'        
 
     def get_tour_title(self, obj):
         return obj.tour.title     

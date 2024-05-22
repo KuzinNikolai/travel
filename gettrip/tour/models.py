@@ -259,7 +259,7 @@ class Reviews(models.Model):
 
 
 class NeedHelp(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)  
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)   
     full_name = models.CharField(max_length=50, blank=True, null=False)
     email = models.EmailField(max_length=254, blank=True, null=False)
     phone = models.CharField(max_length=30, blank=True, null=True)
