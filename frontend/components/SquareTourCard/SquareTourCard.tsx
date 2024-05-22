@@ -5,7 +5,7 @@ import { Htag } from "../Htag/Htag";
 import RatingPreview from "../RatingPreview/RatingPreview";
 
 
-export const SquareTourCard = ({ appearance, children, title, meta_desc, description, duration, min_price, image, href, className, average_rating, ...props }: SquareTourCardProps): JSX.Element => {
+export const SquareTourCard = ({ appearance, children, title, meta_desc, description, duration, min_price, image, href, className, photo, photos, average_rating, ...props }: SquareTourCardProps): JSX.Element => {
     return (
         <section className={cn(styles.card, className, { [styles.card]: appearance == 'card' })} {...props}>
             <div className={styles.row}>

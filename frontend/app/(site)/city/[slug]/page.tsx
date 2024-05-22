@@ -53,31 +53,7 @@ const CityDetail = async ({ params }: Props) => {
           <li key={tag.slug}>{tag.tag}</li>
         ))}
       </ul>
-      
-      <h3>Туры</h3>
-      <ul>
-      <section>
-        <h2>Tours</h2>
-        <div className={styles.cardContainer}>
-          {city.tours.map((tour) => (
-            <div key={tour.id} className={styles.cardItem}>
-              <SquareTourCard
-                appearance="card"
-                title={tour.title}
-                meta_desc={tour.meta_desc}
-                description={tour.description}
-                duration={tour.duration}
-                min_price={tour.min_price}
-                image={tour.photo}
-                children={undefined} 
-                average_rating={tour.average_rating}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-      </ul>
-      <TourList tours={city.tours} citySlug={params.slug} />
+      <TourList tours={city.tours} />
     </div>
   );
 };

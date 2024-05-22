@@ -26,10 +26,13 @@ interface Tour {
   slug: string;
   meta_desc: string;
   duration: string;
+  included: string[];
+  notincluded: string[];
   description: string;
   image: string;
   country: string;
   city: string;
+  citySlug: string;
   adult_price: number;
   duration: number;
   tags: Tag[];
@@ -38,6 +41,12 @@ interface Tour {
   photo: string;
   average_rating: number;
   cat: string;
+  photos: string[];
+}
+
+interface Photo {
+  id: number;
+  image: string;
 }
 
 interface Category {

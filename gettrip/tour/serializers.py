@@ -146,6 +146,21 @@ class TourDetailSerializer(serializers.ModelSerializer):
     tour_link = serializers.SerializerMethodField()
     photos = serializers.SerializerMethodField()
 
+    def get_photos(self, obj):
+        request = self.context.get('request')
+        if request is not None:
+            return [request.build_absolute_uri(photo.image.url) for photo in obj.photos.all()]
+        return [photo.image.url for photo in obj.photos.all()]
+
+    min_price = serializers.SerializerMethodField()
+
+    def get_min_price(self, tour):
+        try:
+            min_program = tour.programs.order_by('adult_price').first()
+            return min_program.adult_price
+        except AttributeError:
+            return None
+
     class Meta:
         model = Tour
         exclude = ('is_published', )
@@ -155,14 +170,7 @@ class TourDetailSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request is not None:
             return request.build_absolute_uri(obj.get_absolute_url()) 
-        
-
-      # Метод для получения списка URL фотографий
-    def get_photos(self, obj):
-        request = self.context.get('request')
-        if request is not None:
-            return [request.build_absolute_uri(photo.image.url) for photo in obj.photos.all()]
-        return [photo.image.url for photo in obj.photos.all()]    
+     
 
 # Подробная информация о туре и возможность редактиров конец        
 

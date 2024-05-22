@@ -8,17 +8,16 @@ export const dynamic = 'force-dynamic';
 
 type TourListProps = {
   tours: Tour[];
-  citySlug: string;
 };
 
-const TourList: React.FC<TourListProps> = ({ tours, citySlug }) => {
+const TourList: React.FC<TourListProps> = ({ tours }) => {
   return (
     <section>
       <h2>Tours</h2>
       <div className={styles.cardContainer}>
         {tours.map((tour) => (
-          <div key={tour.id} className={styles.cardItem}>
-            <Link href={`/city/${citySlug}/tours/${tour.slug}`} legacyBehavior>
+          <div key={tour.slug} className={styles.cardItem}>
+            <Link href={`/tours/${tour.slug}`} legacyBehavior>
               <a>
                 {tour.photo && <img src={tour.photo} alt={tour.title} />}
                 <h4>{tour.title}</h4>

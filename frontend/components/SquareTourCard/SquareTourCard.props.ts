@@ -13,4 +13,6 @@ export interface SquareTourCardProps extends DetailedHTMLProps<DetailsHTMLAttrib
     programs?: string;
     image?: string;
     average_rating: number;
+    photo?: string;
+    photos?: string[];
 }

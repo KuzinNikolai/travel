@@ -97,11 +97,11 @@ class OrderCreateAPIView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) 
     
-
+    
+# VIEWS HELP ------------------------------
 class HelpCreateAPIView(generics.CreateAPIView):
     queryset = NeedHelp.objects.all()
     serializer_class = HelpSerializer
-    permission_classes = [IsLoggedUserOnly]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
