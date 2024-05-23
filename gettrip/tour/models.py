@@ -263,7 +263,7 @@ class NeedHelp(models.Model):
     full_name = models.CharField(max_length=50, blank=True, null=False)
     email = models.EmailField(max_length=254, blank=True, null=False)
     phone = models.CharField(max_length=30, blank=True, null=True)
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, default=None)
+    tour = models.ForeignKey(Tour, on_delete=models.SET_NULL, null=True, blank=True)
     text = models.TextField(max_length=500, blank=True, null=False) 
     
     def __str__(self):

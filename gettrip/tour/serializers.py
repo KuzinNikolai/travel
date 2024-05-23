@@ -200,15 +200,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class HelpSerializer(serializers.ModelSerializer):
-    tour_title = serializers.SerializerMethodField()
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
+    tour = serializers.PrimaryKeyRelatedField(queryset=Tour.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = NeedHelp
-        fields = '__all__'        
-
-    def get_tour_title(self, obj):
-        return obj.tour.title     
+        fields = '__all__'    
 
 
 class AddToWishlistSerializer(serializers.ModelSerializer):
