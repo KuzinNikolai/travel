@@ -13,13 +13,15 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['tag', 'slug', 'active_image', 'inactive_image']
 
     def get_active_image(self, tag):
-        if tag.active_image:
-            return tag.active_image.url
+        request = self.context.get('request')
+        if tag.active_image and request:
+            return request.build_absolute_uri(tag.active_image.url)
         return None
 
     def get_inactive_image(self, tag):
-        if tag.inactive_image:
-            return tag.inactive_image.url
+        request = self.context.get('request')
+        if tag.inactive_image and request:
+            return request.build_absolute_uri(tag.inactive_image.url)
         return None
     
 
@@ -72,8 +74,13 @@ class TourListSerializer(serializers.ModelSerializer):
         except AttributeError:
             return None
         
+
+    def get_currency_prefix(self, tour):
+        return tour.country.currency_prefix    
+        
     country = serializers.SlugRelatedField(slug_field='name', read_only=True)  
     city = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    currency_prefix = serializers.SerializerMethodField()
     cat = serializers.SlugRelatedField(slug_field='name', read_only=True)
     average_rating = serializers.FloatField(default=0.00)
     type = serializers.SlugRelatedField(slug_field='name', read_only=True)
@@ -82,7 +89,7 @@ class TourListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tour
-        fields = ('id', 'country', 'city', 'title', 'meta_desc', 'description', 'duration', 'type', 'slug', 'cat', 'tags', 'min_price', 'photo', 'average_rating')
+        fields = ('id', 'country', 'city', 'title', 'meta_desc', 'description', 'duration', 'type', 'slug', 'cat', 'tags', 'min_price', 'photo', 'average_rating','currency_prefix')
 
 # Вывод всех туров конец        
 
@@ -131,6 +138,7 @@ class TourDetailSerializer(serializers.ModelSerializer):
 
     country = serializers.SlugRelatedField(slug_field='name', read_only=True)
     city = serializers.SlugRelatedField(slug_field='name', read_only=True)
+    currency_prefix = serializers.SerializerMethodField()
     cat = serializers.SlugRelatedField(slug_field='name', read_only=True)
     type = serializers.SlugRelatedField(slug_field='name', read_only=True)
     lang = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
@@ -160,6 +168,11 @@ class TourDetailSerializer(serializers.ModelSerializer):
             return min_program.adult_price
         except AttributeError:
             return None
+        
+
+    def get_currency_prefix(self, tour):
+        return tour.country.currency_prefix
+        
 
     class Meta:
         model = Tour

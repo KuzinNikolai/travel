@@ -164,7 +164,7 @@ class LangTour(models.Model):
 
 class Photo(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='photos')
-    image = models.ImageField(upload_to=get_upload_path)    
+    image = models.ImageField(blank=True, null=True, upload_to=get_upload_path)    
 
 
 class FAQ(models.Model):
