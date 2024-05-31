@@ -6,19 +6,27 @@ from tour.serializers import *
 
 class CityListSerializer(serializers.ModelSerializer):
 
+    tour_count = serializers.SerializerMethodField()
+
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'slug', 'meta_desc', 'description', 'photo')
+        fields = ('id', 'name', 'title', 'slug', 'meta_desc', 'description', 'photo', 'tour_count')
+
+    def get_tour_count(self, city):
+        return city.tours.count()    
 
 
 # Вывод города со списком туров в нем   
 class CityDetailSerializer(serializers.ModelSerializer):
-
     tours = TourListSerializer(read_only=True, many=True)
+    tour_count = serializers.SerializerMethodField()
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'slug', 'description', 'tours', 'photo')
+        fields = ('id', 'name', 'title', 'slug', 'description', 'tour_count', 'tours', 'photo')
+
+    def get_tour_count(self, city):
+        return city.tours.count()
 
 
 # Сериализатор для английской версии города

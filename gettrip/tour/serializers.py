@@ -13,13 +13,15 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['tag', 'slug', 'active_image', 'inactive_image']
 
     def get_active_image(self, tag):
-        if tag.active_image:
-            return tag.active_image.url
+        request = self.context.get('request')
+        if tag.active_image and request:
+            return request.build_absolute_uri(tag.active_image.url)
         return None
 
     def get_inactive_image(self, tag):
-        if tag.inactive_image:
-            return tag.inactive_image.url
+        request = self.context.get('request')
+        if tag.inactive_image and request:
+            return request.build_absolute_uri(tag.inactive_image.url)
         return None
     
 
