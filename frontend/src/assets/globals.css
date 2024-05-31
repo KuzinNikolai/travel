@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #f5f4f6;
+    --background-400: #fffdff;
+
+    --primary: #0a080a;
+    --primary-300: #87868a;
+    --primary-250: #8d8b92;
+
+    /* TODO: Set vars for secondary */
+    /* --secondary: #0a080a; */
+    /* --secondary-400: #1f2937; */
+
+    --accent: #dc4d47;
+    --success: #24851f;
+    --danger: #d52631;
+    --star: #f6dead;
+    --border: #f9f7fc;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-primary;
+  }
+}
