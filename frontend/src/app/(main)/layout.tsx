@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 const font = Inter({ axes: ["slnt"], subsets: ['cyrillic'] });
 
-const RootLayout: FC<PropsWithChildren> = ({ children }) => {
+const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
       <body className={font.className}>
@@ -29,4 +29,4 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default RootLayout;
+export default MainLayout;
