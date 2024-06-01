@@ -254,8 +254,8 @@ export const Tours = [
 
 export const PopularTours = () => {
   return (
-    <Box className="px-0 py-2" as="section">
-      <div className="container">
+    <Box className="px-0 py-2 bg-background-400" as="section">
+      <div className="container flex flex-col gap-3">
         <Typography variant="h3" as="h2" width="bold" className="mb-3">
           Most popular tours
         </Typography>

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Star } from "lucide-react";
 import clsx from "clsx";
+import { Icon } from "../Icon";
 
 interface IRatingProps {
   rating: number;
@@ -12,8 +12,9 @@ export const Rating: FC<IRatingProps> = ({ rating }) => {
       <label className="sr-only">{rating}</label>
 
       {new Array(5).fill(0).map((_, index) => (
-        <Star
+        <Icon
           key={index}
+          name="Star"
           aria-hidden
           className={clsx(
             "w-5 h-5 stroke-[2px] stroke-star",

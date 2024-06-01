@@ -38,7 +38,7 @@ const Cities: ICityItem[] = [
 
 export const PopularCities = () => {
   return (
-    <Box className="px-0 py-2" as="section">
+    <Box className="px-0 py-2 bg-background-400" as="section">
       <div className="container">
         <Typography variant="h3" as="h2" width="bold" className="mb-3">
           Most popular cities

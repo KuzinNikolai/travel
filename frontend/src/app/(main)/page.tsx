@@ -5,12 +5,11 @@ import { PopularTours } from "./_components/PopularTours"
 
 const MainPage = () => {
   return (
-    // TODO: Remove h-screen class
     <div className="flex flex-col gap-3">
       <PopularCities />
       <Advantages />
       <PopularTours />
-      <Box as="div" className="h-[10px]" />
+      <Box as="div" className="h-[10px] bg-background-400" />
     </div>
   )
 }

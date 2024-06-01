@@ -2,8 +2,8 @@ import { Header } from "@/components/Header";
 import { siteConfig } from "@/configs/siteConfig";
 import "@assets/globals.css";
 import { Metadata } from "next";
-import { FC, PropsWithChildren } from "react";
-import { Inter } from 'next/font/google'
+import React, { FC, PropsWithChildren } from "react";
+import { Inter } from "next/font/google";
 
 export const metadata: Metadata = {
   title: {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-const font = Inter({ axes: ["slnt"], subsets: ['cyrillic'] });
+const font = Inter({ axes: ["slnt"], subsets: ["cyrillic"] });
 
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (

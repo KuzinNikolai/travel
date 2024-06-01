@@ -44,6 +44,11 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        loading: {
+          to: {
+            backgroundPosition: "100% 0, 0 0, 0 50%,  0 100%, 100% 100%",
+          }
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },

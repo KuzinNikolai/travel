@@ -13,7 +13,7 @@ export const Box: FC<PropsWithChildren<IBoxProps>> = ({
 }) => {
   return createElement(
     as,
-    { ...props, className: clsx("bg-background-400", props.tw, props.className) },
+    { ...props, className: clsx(props.tw, props.className) },
     children
   );
 };
