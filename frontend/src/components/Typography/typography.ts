@@ -1,17 +1,17 @@
 type Classes = Record<string, string>;
 
 export const variants = {
-  h1: ["h1", "text-2xl font-semibold"],
-  h2: ["h2", "text-2xl font-semibold"],
-  h3: ["h3", "text-1xl font-semibold"],
-  h4: ["h4", "text-xl font-semibold"],
-  h5: ["h5", "text-lg font-semibold"],
-  paragraph: ["p", "text-base font-medium"],
-  span: ["span", "text-base font-medium"],
-  label: ["label", "text-base/8 font-medium"],
-  small: ["span", "text-sm font-medium"],
-  button: "text-base font-light uppercase",
-  link: "text-base font-medium underline",
+  h1: ["h1", "text-2xl leading-5"],
+  h2: ["h2", "text-2xl leading-5"],
+  h3: ["h3", "text-1xl leading-5"],
+  h4: ["h4", "text-xl leading-5"],
+  h5: ["h5", "text-lg leading-5"],
+  paragraph: ["p", "text-base leading-5"],
+  span: ["span", "text-base leading-5"],
+  label: ["label", "text-base/8 leading-5"],
+  small: ["span", "text-sm leading-5"],
+  button: "text-base leading-5",
+  link: "text-base leading-5 underline",
 } satisfies Record<
   string,
   string | [tag: keyof HTMLElementTagNameMap | JSX.Element, classes: string]

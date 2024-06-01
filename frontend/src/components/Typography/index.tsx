@@ -13,21 +13,21 @@ interface ITypographyProps extends PropsWithChildren<HTMLAttributes<HTMLElement>
 }
 
 export const Typography: FC<ITypographyProps> = ({
-  as = "p",
+  as,
   variant,
   ...props
 }) => {
   return createElement(
-    as,
+    variants[variant][0] || as || "p",
     { 
       ...props, 
       className: clsx(
-        variants[variant],
-        props.width && weight[props.width],
+        variants[variant][1],
         props.textStyle && style[props.textStyle],
         props.align && align[props.align],
         props.transform && transform[props.transform],
         props.bold && "font-bold",
+        props.width && weight[props.width],
         props.className
       ) 
     },

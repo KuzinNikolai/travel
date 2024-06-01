@@ -7,9 +7,10 @@
     --background: #f5f4f6;
     --background-400: #fffdff;
 
+    
     --primary: #0a080a;
-    --primary-300: #87868a;
-    --primary-250: #8d8b92;
+    --primary-400: #87868a;
+    --primary-100: #fbfafe;
 
     /* TODO: Set vars for secondary */
     /* --secondary: #0a080a; */
@@ -18,7 +19,7 @@
     --accent: #dc4d47;
     --success: #24851f;
     --danger: #d52631;
-    --star: #f6dead;
+    --star: #f2bc5f;
     --border: #f9f7fc;
 
     --radius: 0.5rem;

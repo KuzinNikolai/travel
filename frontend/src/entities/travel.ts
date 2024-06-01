@@ -4,7 +4,8 @@ export interface ICityItem {
   slug: string;
   title: string;
   description: string;
-  photo: string | null;
+  photo: string;
+  meta_desc: string;
   tour_count: number;
 }
 
@@ -36,7 +37,7 @@ export interface ICity {
   id: number;
   name: string;
   title: string;
-  slug: "phuket";
+  slug: string;
   meta_desc: string;
   description: string;
   photo: string;
@@ -48,5 +49,5 @@ export interface ICountry {
   slug: string;
   title: string;
   description: string;
-  cities: ICity[]
+  cities: ICity[];
 }

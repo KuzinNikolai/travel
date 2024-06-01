@@ -10,7 +10,7 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
         "2xl": "1400px",
       },
@@ -24,7 +24,8 @@ const config = {
         
         primary: {
           DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          400: "var(--primary-400)",
+          100: "var(--primary-100)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
@@ -34,7 +35,7 @@ const config = {
         accent: "var(--accent)",
         success: "var(--success)",
         danger: "var(--danger)",
-        star: "var(--star-color)",
+        star: "var(--star)",
         border: "var(--border)",
       },
       borderRadius: {
