@@ -11,7 +11,7 @@ export const Icon: FC<IconProps> = ({ name, className, ...props }) => {
   return (
     <NewIcon
       {...props}
-      className={clsx("w-6 h-6 stroke-1 stroke-primary", className)}
+      className={clsx("w-6 h-6 stroke-1", className)}
     />
   );
 };

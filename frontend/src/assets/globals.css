@@ -12,9 +12,7 @@
     --primary-400: #87868a;
     --primary-100: #fbfafe;
 
-    /* TODO: Set vars for secondary */
-    /* --secondary: #0a080a; */
-    /* --secondary-400: #1f2937; */
+    --secondary: #0081ff;
 
     --accent: #dc4d47;
     --success: #24851f;

@@ -29,7 +29,7 @@ const config = {
         },
         secondary: {
           DEFAULT: "var(--secondary)",
-          400: "var(--secondary-400)",
+          // 400: "var(--secondary-400)",
         },
 
         accent: "var(--accent)",
