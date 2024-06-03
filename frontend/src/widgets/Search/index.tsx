@@ -1,11 +1,10 @@
 "use client";
 
-import { Separator } from "@/components/@ui/separator";
 import { Icon } from "@/components/Icon";
 import { FullScreenModal } from "@/components/Modals/FullScreenModal";
-import { SearchItem } from "./components/searcItem";
 import { ISearchGroup } from "@/entities/search";
 import clsx from "clsx";
+import { SearchItem } from "./components/searchItem";
 
 const SearchElements = [
   {
@@ -39,7 +38,7 @@ export const SearchMenu = () => {
   return (
     <FullScreenModal
       trigger={<Icon name="Search" />}
-      className="bg-background slide-in-from-right-0 -right-[100%] animate-in delay-100"
+      className="bg-background"
     >
       <header className="w-full py-2 pr-1">
         <FullScreenModal.CloseTrigger className="flex flex-row text-secondary [&>svg]:stroke-secondary p-1">
@@ -49,6 +48,7 @@ export const SearchMenu = () => {
 
       <div className="w-full h-[300px] p-2">
         input search
+
         <ul className="list-none flex flex-col gap-2">
           {SearchElements.map((group, index) => (
             <ul
@@ -59,7 +59,7 @@ export const SearchMenu = () => {
               )}
             >
               <li>
-                <ul>
+                <ul className="flex flex-col gap-2">
                   {group.items.map((searchItem, index) => (
                     <SearchItem
                       key={index}
