@@ -13,15 +13,15 @@ interface IFullScreenModalSubComponents {
 interface IFullScreenModalProps extends PropsWithChildren {
   trigger?: React.ReactNode;
   expand?: boolean;
+  onOpenChange?: (open: boolean) => void;
   className?: string;
 }
 
-const onOpenChange = (open: boolean) => {
+const openChange = (open: boolean) => {
   if (open) {
-    document.body.style.pointerEvents = "none";
     document.body.style.overflow = "hidden";
   } else {
-    document.body.removeAttribute("style");
+    document.body.style.overflow = "auto";
   }
 };
 
@@ -30,10 +30,14 @@ export const FullScreenModal: FC<IFullScreenModalProps> &
   expand,
   trigger,
   className,
+  onOpenChange,
   children,
 }) => {
   return (
-    <Dialog open={expand} onOpenChange={onOpenChange}>
+    <Dialog
+      open={expand}
+      onOpenChange={(expand) => (openChange(expand), onOpenChange?.(expand))}
+    >
       {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
       <Portal>
         <DialogContent
