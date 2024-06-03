@@ -10,11 +10,11 @@ export const variants = {
   span: ["span", "text-base leading-5"],
   label: ["label", "text-base/8 leading-5"],
   small: ["span", "text-sm leading-5"],
-  button: "text-base leading-5",
-  link: "text-base leading-5 underline",
+  button: [undefined, "text-base leading-5"],
+  link: [undefined, "text-base leading-5 underline"],
 } satisfies Record<
   string,
-  string | [tag: keyof HTMLElementTagNameMap | JSX.Element, classes: string]
+  [tag: keyof HTMLElementTagNameMap | undefined, classes: string]
 >;
 
 export const weight = {
