@@ -11,8 +11,17 @@ interface ITourProps {
 
 export const Tour: FC<ITourProps> = ({ tour }) => {
   return (
-    <li className={clsx("grid grid-cols-[137px_1fr] gap-4 w-full", style["under-line"])}>
-      <img src={tour.photo} alt={tour.meta_desc} className="h-full rounded object-cover object-center" />
+    <li
+      className={clsx(
+        "grid grid-cols-[137px_1fr] gap-4 w-full",
+        style["under-line"]
+      )}
+    >
+      <img
+        src={tour.photo}
+        alt={tour.meta_desc}
+        className="h-full rounded object-cover object-center"
+      />
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex flex-row flex-wrap justify-between gap-x-2">
           <Typography

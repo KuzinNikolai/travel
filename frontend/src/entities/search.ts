@@ -1,6 +1,6 @@
 export interface ISearchGroup {
-  items: ISearchItem[]
-} 
+  items: ISearchItem[];
+}
 
 export interface ISearchItem {
   title: string;

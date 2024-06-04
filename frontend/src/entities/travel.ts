@@ -1,11 +1,31 @@
-export interface ICityItem {
+import { DateTime } from "@/packages/utilsTypes/time";
+import { IQuestion } from "./question";
+import { IReview } from "./review";
+
+export interface ICountry {
   id: number;
   name: string;
   slug: string;
   title: string;
   description: string;
-  photo: string;
+  cities: ICity[];
+}
+
+export interface IDetailCountry extends ICountry {
+  cities: ICityItem[];
+}
+
+export interface ICity {
+  id: number;
+  name: string;
+  title: string;
+  slug: string;
   meta_desc: string;
+  description: string;
+  photo: string;
+}
+
+export interface ICityItem extends ICity {
   tour_count: number;
 }
 
@@ -33,21 +53,27 @@ export interface ITour {
   average_rating: number;
 }
 
-export interface ICity {
-  id: number;
-  name: string;
-  title: string;
-  slug: string;
-  meta_desc: string;
-  description: string;
+export interface IDetailTour extends ITour {
+  currency_prefix: string;
+  lang: string[];
+  transfer: string[];
+  faqs: IQuestion[];
+  programs: string[];
+  included: string[];
+  notincluded: string[];
+  take: string[];
+  reviews: IReview[];
+  photos: string[];
+  meta_keywords: string;
+  adult_price: number;
+  child_price: number;
+  children_possible: boolean;
+  what_age_child_free: number;
+  pregnant_possible: boolean;
   photo: string;
-}
-
-export interface ICountry {
-  id: number;
-  name: string;
-  slug: string;
-  title: string;
-  description: string;
-  cities: ICity[];
+  usage_policy: string;
+  time_create: DateTime;
+  time_update: DateTime | null;
+  promotions: number;
+  author: number;
 }

@@ -1,9 +1,9 @@
-import { Box } from "@/components/Box"
-import { Advantages } from "./_components/Advantages"
-import { PopularCities } from "./_components/PopularCities"
-import { PopularTours } from "./_components/PopularTours"
+import { Box } from "@/components/Box";
+import { Advantages } from "./_components/Advantages";
+import { PopularCities } from "./_components/PopularCities";
+import { PopularTours } from "./_components/PopularTours";
 
-const MainPage = () => {
+const MainPage = async () => {
   return (
     <div className="flex flex-col gap-3">
       <PopularCities />
@@ -11,7 +11,7 @@ const MainPage = () => {
       <PopularTours />
       <Box as="div" className="h-[10px] bg-background-400" />
     </div>
-  )
-}
+  );
+};
 
-export default MainPage
+export default MainPage;
