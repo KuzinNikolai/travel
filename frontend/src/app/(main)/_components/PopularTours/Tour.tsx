@@ -49,7 +49,7 @@ export const Tour: FC<ITourProps> = ({ tour }) => {
           width="light"
           className="flex-1 text-primary-400 leading-5"
         >
-          {tour.description}
+          {tour.meta_desc}
         </Typography>
         <div className="flex flex-row justify-between">
           <Rating rating={tour.average_rating} />

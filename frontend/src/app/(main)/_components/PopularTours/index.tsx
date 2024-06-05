@@ -5,10 +5,6 @@ import { Tour } from "./Tour";
 
 export const PopularTours = async () => {
   const tours = (await serverApi.tours.getTours())
-    ?.filter((tour) => tour.average_rating >= 4)
-    .sort(
-      (currTour, nextTour) => nextTour.average_rating - currTour.average_rating
-    );
 
   return (
     <Box className="px-0 py-2 bg-background-400" as="section">

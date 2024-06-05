@@ -13,7 +13,7 @@ export const CityItem: FC<ICityProps> = ({ city: city }) => {
       <div className="absolute left-0 top-0 w-full h-full bg-background-300">
         <img
           src={city.photo}
-          alt={city.description}
+          alt={city.meta_desc}
           className="object-cover object-center w-full"
         />
         <div className="absolute left-0 top-0 w-full h-full bg-primary opacity-40"></div>
