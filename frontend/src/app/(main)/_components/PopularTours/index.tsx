@@ -2,9 +2,13 @@ import { Box } from "@/components/Box";
 import { Typography } from "@/components/Typography";
 import { serverApi } from "@/packages/API";
 import { Tour } from "./Tour";
+import { ITour } from "@/entities/travel";
 
 export const PopularTours = async () => {
-  const tours = (await serverApi.tours.getTours())
+  const tours = (await serverApi.cities.getCities())?.reduce(
+    (acc, city) => (acc.push(...city.popular_tours), acc),
+    [] as ITour[]
+  );
 
   return (
     <Box className="px-0 py-2 bg-background-400" as="section">

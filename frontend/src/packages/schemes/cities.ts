@@ -1,5 +1,6 @@
 import { ICity, ICityItem } from "@/entities/travel";
 import { z } from "zod";
+import { tourSchema } from "./tours";
 
 export const citySchema = z.object({
   id: z.number(),
@@ -13,6 +14,7 @@ export const citySchema = z.object({
 
 export const cityItemSchema = z.object({
   tour_count: z.number(),
+  popular_tours: z.array(tourSchema),
   ...citySchema.shape
 }) satisfies z.ZodType<ICityItem>
 

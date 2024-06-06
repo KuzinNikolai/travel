@@ -25,6 +25,7 @@ export const tourSchema = z.object({
   min_price: z.number().nullable(),
   photo: z.string(),
   average_rating: z.number(),
+  currency_prefix: z.string(),
 }) satisfies z.ZodType<ITour>;
 
 export const arrToursSchema = z.array(tourSchema) satisfies z.ZodType<ITour[]>;

@@ -27,6 +27,7 @@ export interface ICity {
 
 export interface ICityItem extends ICity {
   tour_count: number;
+  popular_tours: ITour[];
 }
 
 export interface ITag {
@@ -51,6 +52,7 @@ export interface ITour {
   min_price: number | null;
   photo: string;
   average_rating: number;
+  currency_prefix: string;
 }
 
 export interface IDetailTour extends ITour {
