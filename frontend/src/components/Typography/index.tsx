@@ -18,7 +18,7 @@ export const Typography: FC<ITypographyProps> = ({
   ...props
 }) => {
   return createElement(
-    variants[variant][0] || as || "p",
+    as || variants[variant][0] || "p",
     { 
       ...props, 
       className: clsx(
