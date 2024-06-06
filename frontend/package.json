@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "analyze": "ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -29,6 +30,7 @@
     "zustand": "4.5.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.3",
     "@next/env": "14.2.3",
     "@types/node": "^20",
     "@types/react": "^18",
