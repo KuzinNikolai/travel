@@ -22,7 +22,8 @@ export const serverApi = async <T = unknown>(
     });
 
     if (!data.ok) {
-      throw new Error(data.statusText);
+      console.error(data);
+      return;
     }
 
     const json = await data.json();
@@ -36,6 +37,7 @@ export const serverApi = async <T = unknown>(
     if (e instanceof Error) {
       console.error(e);
     }
+
     return;
   }
 };

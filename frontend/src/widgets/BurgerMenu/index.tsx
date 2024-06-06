@@ -1,4 +1,8 @@
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/@ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger
+} from "@/components/@ui/sheet";
 import { BurgerIcon } from "./_components/BurgerIcon";
 import { BurgerSheet } from "./_components/BurgerSheet";
 
@@ -8,7 +12,7 @@ export const BurgerMenu = () => {
       <SheetTrigger>
         <BurgerIcon />
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent side="left" className="w-[60%]">
         <BurgerSheet />
       </SheetContent>
     </Sheet>

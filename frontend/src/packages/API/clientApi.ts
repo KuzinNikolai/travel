@@ -4,7 +4,7 @@ import { FDate } from "../FDate";
 import { API_DOMAIN } from "./constants";
 
 export const instance = axios.create({
-  baseURL: `${API_DOMAIN}api/v1/tours`,
+  baseURL: `${API_DOMAIN}api/v1`,
   timeout: 1000,
   headers: {
     Accept: "",

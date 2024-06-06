@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header";
+import { Header } from "@/app/(main)/_components/Header";
 import { siteConfig } from "@/configs/siteConfig";
 import "@assets/globals.css";
 import { Metadata } from "next";
@@ -22,7 +22,6 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
       <body className={font.className}>
-        <Header />
         <main>{children}</main>
       </body>
     </html>
