@@ -1,6 +1,8 @@
+import { ReactElement } from "react";
+
 export interface IAdvantage {
   id: number;
-  icon: JSX.Element;
+  icon: ReactElement;
   iconLabel: string;
   title: string;
   description: string;

@@ -1,7 +1,9 @@
-import { arrToursSchema } from "@/packages/schemes/tours";
-import { serverApi } from "../serverApi";
+import { detailTourSchema, tourSchema } from "@/packages/schemes/travel/tour.schema";
+import { fetchApi } from "../serverApi";
+import { z } from "zod";
 
 export const getTours = async () =>
-  await serverApi("/tours", "GET", {
-    schema: arrToursSchema,
-  });
+  await fetchApi("/tours", "GET", { schema: z.array(tourSchema) });
+
+export const getDetailTour = async (tourSlug: string) => 
+  await fetchApi(`/tour/${tourSlug}`,"GET", { schema: detailTourSchema })

@@ -4,10 +4,11 @@ import { API_DOMAIN } from "./constants";
 export type fetchMethods = NonNullable<Parameters<typeof fetch>[1]>;
 
 const globalMethods = {
-  cache: "no-store",
+  cache: "default",
+  next: { revalidate: 6 },
 } satisfies fetchMethods;
 
-export const serverApi = async <T = unknown>(
+export const fetchApi = async <T = unknown>(
   url: string,
   method: "POST" | "GET" | "PUT" | "DEL",
   options?: Omit<RequestInit, "method"> & { schema?: z.ZodType<T> }

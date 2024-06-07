@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Icon } from "@components/Icon";
-import { INavigation } from "@/entities/navigation";
+import { INavigation } from "@/entities/navigation.entity";
 
 interface SiteConfig extends Metadata {
   name: string;

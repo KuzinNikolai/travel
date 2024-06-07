@@ -2,7 +2,7 @@ import { Box } from "@/components/Box";
 import { Typography } from "@/components/Typography";
 import { serverApi } from "@/packages/API";
 import { Tour } from "./Tour";
-import { ITour } from "@/entities/travel";
+import { ITour } from "@/entities/travel/Tour.entity";
 
 export const PopularTours = async () => {
   const tours = (await serverApi.cities.getCities())?.reduce(

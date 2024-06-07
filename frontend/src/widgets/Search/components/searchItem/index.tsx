@@ -1,6 +1,6 @@
 import { Icon } from "@/components/Icon";
 import { Typography } from "@/components/Typography";
-import { ISearchItem } from "@/entities/search";
+import { ISearchItem } from "@/entities/search.entity";
 import Link from "next/link";
 import { FC } from "react";
 

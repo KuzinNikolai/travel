@@ -2,7 +2,7 @@
 
 import { Icon } from "@/components/Icon";
 import { FullScreenModal } from "@/components/Modals/FullScreenModal";
-import { ISearchGroup } from "@/entities/search";
+import { ISearchGroup } from "@/entities/search.entity";
 import clsx from "clsx";
 import { SearchItem } from "./components/searchItem";
 

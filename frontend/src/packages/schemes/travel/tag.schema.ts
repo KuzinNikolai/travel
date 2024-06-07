@@ -1,4 +1,4 @@
-import { ITag } from "@/entities/travel";
+import { ITag } from "@/entities/travel/Tag.entity";
 import { z } from "zod";
 
 export const tagSchema = z.object({

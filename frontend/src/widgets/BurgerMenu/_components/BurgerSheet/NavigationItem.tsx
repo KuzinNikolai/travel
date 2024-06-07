@@ -1,5 +1,5 @@
 import { Typography } from "@/components/Typography";
-import { INavigation } from "@/entities/navigation";
+import { INavigation } from "@/entities/navigation.entity";
 import Link from "next/link";
 import { FC } from "react";
 

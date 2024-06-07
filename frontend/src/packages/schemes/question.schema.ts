@@ -1,4 +1,4 @@
-import { IQuestion } from "@/entities/question";
+import { IQuestion } from "@/entities/question.entity";
 import { z } from "zod";
 
 export const questionSchema = z.object({

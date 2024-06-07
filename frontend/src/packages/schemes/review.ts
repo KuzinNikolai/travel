@@ -1,6 +1,6 @@
-import { dateTimeSchema } from "@/entities/dateTimeSchema";
-import { IReview } from "@/entities/review";
+import { IReview } from "@/entities/review.entity";
 import { z } from "zod";
+import { dateTimeSchema } from "./dateTimeSchema";
 
 export const reviewSchema = z.object({
   id: z.number(),

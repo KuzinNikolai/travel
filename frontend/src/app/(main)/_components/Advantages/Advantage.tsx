@@ -1,6 +1,6 @@
 import { Box } from "@/components/Box";
 import { Typography } from "@/components/Typography";
-import { IAdvantage } from "@/entities/advatage";
+import { IAdvantage } from "@/entities/advantage.entity";
 import { FC } from "react";
 
 export interface IAdvantageProps {

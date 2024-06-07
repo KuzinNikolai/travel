@@ -1,5 +1,5 @@
 import { Typography } from "@/components/Typography";
-import { ICityItem } from "@/entities/travel";
+import { ICityItem } from "@/entities/travel/City.entity";
 import { FC } from "react";
 
 interface ICityProps {

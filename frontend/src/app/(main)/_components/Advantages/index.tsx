@@ -1,7 +1,7 @@
 import { Box } from "@/components/Box";
 import { Icon } from "@/components/Icon";
 import { Typography } from "@/components/Typography";
-import { IAdvantage } from "@/entities/advatage";
+import { IAdvantage } from "@/entities/advantage.entity";
 import { Advantage } from "./Advantage";
 
 export const AdvantageList = [

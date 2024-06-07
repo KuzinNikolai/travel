@@ -1,4 +1,4 @@
-import { ITour } from "@/entities/travel";
+import { ITour } from "@/entities/travel/Tour.entity";
 import clsx from "clsx";
 import { FC } from "react";
 import style from "./PopularTour.module.css";
