@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { API_DOMAIN } from "./constants";
+import { consola } from "consola";
 
 export type fetchMethods = NonNullable<Parameters<typeof fetch>[1]>;
 
@@ -29,7 +30,20 @@ export const fetchApi = async <T = unknown>(
 
     const json = await data.json();
 
-    if (options?.schema?.parse(json)) {
+    const parsedData = options?.schema?.safeParse(json);
+
+    if (parsedData?.error) {
+      // console.error(parsedData.error)
+      consola.warn(
+        `URL: ${url}`,
+        "Data:", 
+        JSON.stringify(json, undefined, 2)
+      );
+      consola.error(
+        parsedData.error.name,
+        parsedData.error.message,
+        JSON.stringify(parsedData, undefined, 2)
+      );
       return json;
     }
 

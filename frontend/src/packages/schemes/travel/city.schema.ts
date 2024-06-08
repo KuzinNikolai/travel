@@ -15,8 +15,6 @@ export const citySchema = z.object({
 export const cityItemSchema = z.object({
   ...citySchema.shape,
 
-  country_slug: z.string(),
-  city_slug: z.string(),
   photo_alt: z.string(),
   tour_count: z.number(),
   popular_tours: z.array(tourSchema),
