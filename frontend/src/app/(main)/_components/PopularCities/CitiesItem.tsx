@@ -1,5 +1,6 @@
 import { Typography } from "@/components/Typography";
 import { ICityItem } from "@/entities/travel/City.entity";
+import Image from "next/image";
 import { FC } from "react";
 
 interface ICityProps {
@@ -10,9 +11,9 @@ export const CityItem: FC<ICityProps> = ({ city: city }) => {
   return (
     <li className="relative w-full h-[140px] rounded-lg overflow-hidden bg-background-400">
       <div className="absolute left-0 top-0 w-full h-full">
-        <img
+        <Image
           src={city.photo}
-          alt={city.meta_desc}
+          alt=""
           className="object-cover object-center w-full"
         />
         {/* <div className="absolute left-0 top-0 w-full h-full bg-primary opacity-20"></div> */}
