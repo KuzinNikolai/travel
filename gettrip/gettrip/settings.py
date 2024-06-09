@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
+    'django.contrib.sitemaps',
     'djoser',
 ]
 
@@ -232,7 +233,11 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': ('http://127.0.0.1:8000/api/v1/auth/users/reset_password/{uid}/{token}'),
+    'SERIALIZERS': {
+        'user': 'users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
+    }
 }
+
 
 AUTH_USER_MODEL = 'users.User'

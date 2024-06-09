@@ -7,23 +7,37 @@ from tour.serializers import *
 class CityListSerializer(serializers.ModelSerializer):
 
     tour_count = serializers.SerializerMethodField()
+    popular_tours = serializers.SerializerMethodField()
+    photo_alt = serializers.SerializerMethodField()
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'slug', 'meta_desc', 'description', 'photo', 'tour_count')
+        fields = ('id', 'name', 'title', 'slug', 'meta_desc', 'description', 'photo', 'photo_alt', 'tour_count', 'popular_tours')
 
     def get_tour_count(self, city):
-        return city.tours.count()    
+        return city.tours.count() 
+    
+    def get_photo_alt(self, city):
+        return city.title
+
+    def get_popular_tours(self, city):
+        popular_tours = city.tours.filter(average_rating=5)[:3]
+        context = {'request': self.context.get('request')}
+        return TourListSerializer(popular_tours, many=True, context=context).data
 
 
 # Вывод города со списком туров в нем   
 class CityDetailSerializer(serializers.ModelSerializer):
     tours = TourListSerializer(read_only=True, many=True)
     tour_count = serializers.SerializerMethodField()
+    photo_alt = serializers.SerializerMethodField()
+
+    def get_photo_alt(self, city):
+        return city.title
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'slug', 'description', 'tour_count', 'tours', 'photo')
+        fields = ('id', 'name', 'title', 'slug', 'description', 'tour_count', 'tours', 'photo', 'photo_alt')
 
     def get_tour_count(self, city):
         return city.tours.count()

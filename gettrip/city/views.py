@@ -15,6 +15,9 @@ from .serializers import *
 class CityListView(generics.ListAPIView):
     queryset = City.objects.all()
     serializer_class = CityListSerializer
+
+    def get_serializer_context(self):
+        return {'request': self.request}
     
 
 class CityDetailView(generics.RetrieveAPIView):

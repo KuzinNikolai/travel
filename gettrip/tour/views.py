@@ -26,17 +26,8 @@ class TourListView(generics.ListAPIView):
 # Добавление тура   
 class TourCreateView(generics.CreateAPIView):
     queryset = Tour.objects.all()
-    serializer_class = TourCreateSerializer 
-    permission_classes = (IsAdminOrReadOnly, )   
-        
-    def post(self, request):
-        serializer = TourCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()    
-            return Response({'tours': serializer.data}, status=status.HTTP_201_CREATED)
-        
-        # Если данные неверны, возвращаем сообщение об ошибке
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = TourCreateSerializer
+    permission_classes = (IsAdminOrReadOnly, )
 
 
     
@@ -171,6 +162,7 @@ class ReviewCreateAPIView(CreateAPIView):
     queryset = Reviews.objects.all()
     serializer_class = ReviewSerializer
     lookup_field = 'slug'
+    permission_classes = [IsLoggedUserOnly]
 
     def post(self, request, pk):
         tour = get_object_or_404(Tour, pk=pk)  # Получаем экземпляр тура по его идентификатору

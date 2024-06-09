@@ -19,14 +19,20 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from gettrip import settings
+from django.contrib.sitemaps.views import sitemap
+from tour.sitemaps import TourAPISitemap
 from tour import views
 from users.views import *
+
+sitemaps = {
+    'tours': TourAPISitemap,
+}
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('tour.urls')),
-    path('', include('country.urls')),
+    path('api/v1/', include('country.urls')),
     path('api/v1/cities', include('city.urls')),
     path('api/v1/', include('city.urls')),
     path('api/v1/en/', include('city.urls')),
@@ -47,8 +53,8 @@ urlpatterns = [
     
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('djoser.urls')),
-    re_path(r'^auth/', include('djoser.urls.authtoken')),
-
+    re_path(r'auth/', include('djoser.urls.authtoken')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ]
 
 if settings.DEBUG:
