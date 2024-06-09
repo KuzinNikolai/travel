@@ -6,4 +6,4 @@ export const getTours = async () =>
   await fetchApi("/tours", "GET", { schema: z.array(tourSchema) });
 
 export const getDetailTour = async (tourSlug: string) => 
-  await fetchApi(`/tour/${tourSlug}`,"GET", { schema: detailTourSchema })
+  await fetchApi(`/tours/${tourSlug}`,"GET", { schema: detailTourSchema })

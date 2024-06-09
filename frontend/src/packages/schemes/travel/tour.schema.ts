@@ -1,10 +1,10 @@
 import { IDetailTour, ITour } from "@/entities/travel/Tour.entity";
 import { z } from "zod";
-import { tagSchema } from "./tag.schema";
-import { dateTimeSchema } from "../dateTimeSchema";
-import { reviewSchema } from "../review";
 import { questionSchema } from "../question.schema";
+import { reviewSchema } from "../review";
+import { infoItemSchema } from "./infoItem.schema";
 import { programSchema } from "./program.schema";
+import { tagSchema } from "./tag.schema";
 
 export const tourSchema = z.object({
   id: z.number(),
@@ -41,20 +41,20 @@ export const detailTourSchema = z.object({
   programs: z.array(programSchema),
   reviews: z.array(reviewSchema),
 
-  included: z.array(z.string()),
-  notincluded: z.array(z.string()),
-  take: z.array(z.string()),
+  included: z.array(infoItemSchema),
+  notincluded: z.array(infoItemSchema),
+  take: z.array(infoItemSchema),
 
   photos: z.array(z.string()),
-  adult_price: z.number(),
-  child_price: z.number(),
+  adult_price: z.number().nullable(),
+  child_price: z.number().nullable(),
   children_possible: z.boolean(),
   what_age_child_free: z.number(),
   pregnant_possible: z.boolean(),
   usage_policy: z.string(),
-  promotions: z.number(),
+  promotions: z.boolean(),
   author: z.number(),
 
-  time_create: dateTimeSchema,
-  time_update: dateTimeSchema.nullable(),
+  time_create: z.string(),
+  time_update: z.string().nullable(),
 }) satisfies z.ZodType<IDetailTour>;

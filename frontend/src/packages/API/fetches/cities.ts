@@ -9,4 +9,4 @@ export const getCity = async (citySlug: string) =>
   (await getCities())?.filter((item) => item.slug === citySlug)?.[0];
 
 export const getCityDetail = async (citySlug: string) =>
-  await fetchApi(`/cities/${citySlug}`, "GET", { schema: detailCitySchema });
+  await fetchApi(`/city/${citySlug}`, "GET", { schema: detailCitySchema });

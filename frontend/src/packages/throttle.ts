@@ -1,4 +1,7 @@
-export const createThrottle = <T extends any[]>(cb: (...args: T) => void, delay: number) => {
+export const createThrottle = <T extends any[]>(
+  cb: (...args: T) => void,
+  delay: number
+) => {
   let pause = false;
 
   const throttleEffect = (...arr: T) => {
@@ -7,12 +10,12 @@ export const createThrottle = <T extends any[]>(cb: (...args: T) => void, delay:
     }
 
     pause = true;
-    
+
     setTimeout(() => {
       cb(...arr);
       pause = false;
     }, delay);
-  }
+  };
 
-  return throttleEffect
-}
+  return throttleEffect;
+};

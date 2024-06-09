@@ -3,6 +3,7 @@ import { ITag } from "./Tag.entity";
 import { IQuestion } from "../question.entity";
 import { IReview } from "../review.entity";
 import { IProgram } from "./program.entity";
+import { IInfoItem } from "./InfoItem.entity";
 
 export interface ITour {
   id: number;
@@ -37,18 +38,18 @@ export interface IDetailTour extends ITour {
   programs: IProgram[];
   reviews: IReview[];
 
-  included: string[];
-  notincluded: string[];
-  take: string[];
+  included: IInfoItem[];
+  notincluded: IInfoItem[];
+  take: IInfoItem[];
 
   photos: string[];
-  adult_price: number;
-  child_price: number;
+  adult_price: number | null;
+  child_price: number | null;
   children_possible: boolean;
   what_age_child_free: number;
   pregnant_possible: boolean;
   usage_policy: string;
-  promotions: number;
+  promotions: boolean;
   author: number;
 
   time_create: DateTime;

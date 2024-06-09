@@ -7,7 +7,7 @@ export const citySchema = z.object({
   name: z.string(),
   title: z.string(),
   slug: z.string(),
-  meta_desc: z.string(),
+  // meta_desc: z.string(),
   description: z.string(),
   photo: z.string(),
 }) satisfies z.ZodType<ICity>;

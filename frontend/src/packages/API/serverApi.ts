@@ -5,7 +5,6 @@ import { consola } from "consola";
 export type fetchMethods = NonNullable<Parameters<typeof fetch>[1]>;
 
 const globalMethods = {
-  cache: "default",
   next: { revalidate: 6 },
 } satisfies fetchMethods;
 
@@ -17,6 +16,8 @@ export const fetchApi = async <T = unknown>(
   let _url = url.trim().replace(/^\//, "");
 
   try {
+    consola.log("Fetch data by url", `${API_DOMAIN?.trim()}/api/v1/${_url}`)
+
     const data = await fetch(`${API_DOMAIN?.trim()}/api/v1/${_url}`, {
       method,
       ...(options || {}),
@@ -34,11 +35,7 @@ export const fetchApi = async <T = unknown>(
 
     if (parsedData?.error) {
       // console.error(parsedData.error)
-      consola.warn(
-        `URL: ${url}`,
-        "Data:", 
-        JSON.stringify(json, undefined, 2)
-      );
+      consola.warn(`URL: ${url}`, "Data:", JSON.stringify(json, undefined, 2));
       consola.error(
         parsedData.error.name,
         parsedData.error.message,

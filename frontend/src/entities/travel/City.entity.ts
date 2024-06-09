@@ -16,7 +16,7 @@ export interface ICity {
   name: string;
   title: string;
   slug: string;
-  meta_desc: string;
+  // meta_desc: string;
   description: string;
   photo: string;
 }
