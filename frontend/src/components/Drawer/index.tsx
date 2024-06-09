@@ -28,13 +28,13 @@ export const Drawer: FC<IDrawerProps> = ({
     <UIDrawer open={expand}>
       {trigger && <UIDrawerTrigger asChild>{trigger}</UIDrawerTrigger>}
       <UIDrawerContent className="container">
-        <div className="container pb-4">
-          <Box className="py-2 pt-4">
+        <div className="pb-4">
+          <div className="py-2 pt-4">
             <Typography variant="h2" width="medium" className="w-full">
               {title}
             </Typography>
-          </Box>
-          <div className="overflow-y-auto">{children}</div>
+          </div>
+          <div className="max-h-[80vh] overflow-y-auto ">{children}</div>
         </div>
       </UIDrawerContent>
     </UIDrawer>
