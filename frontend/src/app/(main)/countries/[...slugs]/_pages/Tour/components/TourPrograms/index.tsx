@@ -18,7 +18,7 @@ export const ToutPrograms: FC<ITourProgramsProps> = ({ tour }) => {
       </div>
       <ul className="container flex flex-col gap-1">
         {tour.programs.map((program) => (
-          <Program currency={tour.currency_prefix} program={program} />
+          <Program key={program.id + program.title} currency={tour.currency_prefix} program={program} />
         ))}
       </ul>
     </Box>

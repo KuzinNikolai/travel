@@ -4,12 +4,15 @@ import { FC } from "react";
 import style from "./Tour.module.css";
 import { Typography } from "@/components/Typography";
 import { Rating } from "@/components/Rating";
+import Link from "next/link";
 
 interface ITourProps {
   tour: ITour;
 }
 
 export const Tour: FC<ITourProps> = ({ tour }) => {
+  const pathToTour = `countries/${tour.country_slug}/${tour.city_slug}/${tour.slug}`;
+
   return (
     <li
       className={clsx(
@@ -17,11 +20,17 @@ export const Tour: FC<ITourProps> = ({ tour }) => {
         style["under-line"]
       )}
     >
-      <img
-        src={tour.photo}
-        alt={tour.meta_desc}
-        className="h-full rounded object-cover object-center"
-      />
+      <div className="relative">
+        <img
+          src={tour.photo}
+          alt={tour.meta_desc}
+          className="h-full rounded object-cover object-center"
+        />
+        <Link
+          href={pathToTour}
+          className="absolute top-0 left-0 right-0 bottom-0"
+        />
+      </div>
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex flex-row flex-wrap justify-between gap-x-2">
           <Typography
@@ -42,7 +51,7 @@ export const Tour: FC<ITourProps> = ({ tour }) => {
           </Typography>
         </div>
         <Typography variant="h3" as="h3" width="semibold" className="text-lg">
-          {tour.title}
+          <Link href={pathToTour}>{tour.title}</Link>
         </Typography>
         <Typography
           variant="paragraph"

@@ -1,8 +1,8 @@
 import { Box } from "@/components/Box";
 import { Typography } from "@/components/Typography";
 import { serverApi } from "@/packages/API";
-import { Tour } from "./Tour";
 import { ITour } from "@/entities/travel/Tour.entity";
+import { Tour } from "@/components/share/Tour";
 
 export const PopularTours = async () => {
   const tours = (await serverApi.cities.getCities())?.reduce(
@@ -17,7 +17,7 @@ export const PopularTours = async () => {
           Most popular tours
         </Typography>
         <ul className="flex flex-col list-none gap-3">
-          {tours ? (
+          {tours && tours.length ? (
             tours.map((tour) => <Tour key={tour.id} tour={tour} />)
           ) : (
             <Typography variant="paragraph">Tours not found</Typography>

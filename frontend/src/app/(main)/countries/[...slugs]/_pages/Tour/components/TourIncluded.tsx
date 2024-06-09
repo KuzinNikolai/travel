@@ -18,19 +18,15 @@ export const TourIncluded: FC<ITourIncludedProps> = ({ tour }) => {
 
         <ul className="flex flex-col gap-1">
           {tour.included.map((include) => (
-            <li className="flex gap-1">
+            <li key={`include-${include.id}`} className="flex gap-1">
               <Icon name="Check" className="stroke-success" />
-              <Typography variant="span" key={`include-${include.id}`}>
-                {include.name}
-              </Typography>
+              <Typography variant="span">{include.name}</Typography>
             </li>
           ))}
           {tour.notincluded.map((notInclude) => (
-            <li className="flex gap-1">
+            <li key={`notInclude-${notInclude.id}`} className="flex gap-1">
               <Icon name="X" className="stroke-danger" />
-              <Typography variant="span" key={`notInclude-${notInclude.id}`}>
-                {notInclude.name}
-              </Typography>
+              <Typography variant="span">{notInclude.name}</Typography>
             </li>
           ))}
         </ul>

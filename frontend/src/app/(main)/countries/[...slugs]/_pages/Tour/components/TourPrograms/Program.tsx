@@ -23,7 +23,7 @@ export const Program: FC<IProgramProps> = ({ program, currency }) => {
         {program.title}
       </Typography>
       <ul className="flex flex-col">
-        <li className="flex gap-1">
+        <li key="price-adult" className="flex gap-1">
           <Typography variant="span">
             Взрослый:{" "}
             <Typography variant="span">
@@ -31,7 +31,7 @@ export const Program: FC<IProgramProps> = ({ program, currency }) => {
             </Typography>
           </Typography>
         </li>
-        <li className="flex gap-1">
+        <li key="price-child" className="flex gap-1">
           <Typography variant="span">
             Ребенок:{" "}
             <Typography variant="span">
