@@ -1,5 +1,5 @@
 import { Header } from "@/app/(main)/_components/Header";
-import { Box } from "@/components/Box";
+import { Box } from "@/components/layout/Box";
 import { Advantages } from "./_components/Advantages";
 import { PopularCities } from "./_components/PopularCities";
 import { PopularTours } from "./_components/PopularTours";

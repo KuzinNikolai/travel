@@ -1,4 +1,4 @@
-import { Box } from "@/components/Box";
+import { Box } from "@/components/layout/Box";
 import { JsonLD } from "@/components/GenerateJsonLD";
 import { Tour } from "@/components/share/Tour";
 import { IDetailCity } from "@/entities/travel/City.entity";
@@ -13,7 +13,7 @@ interface IToursProps {
 export const Tours: FC<IToursProps> = async ({ cityDetail }) => {
   return (
     <Box className="flex flex-col gap-3">
-      <JsonLD schema={generateToursJsonLd(cityDetail)} />
+      {/* <JsonLD schema={generateToursJsonLd(cityDetail)} /> */}
       <Box
         className="w-full h-full flex flex-col bg-background-400"
         as="section"

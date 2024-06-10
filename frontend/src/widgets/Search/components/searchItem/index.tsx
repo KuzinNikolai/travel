@@ -12,7 +12,7 @@ export const SearchItem: FC<ISearchItem> = ({ link, title }) => {
         className="flex items-center gap-2 hover:text-accent hover:[&_svg]:stroke-accent"
       >
         <Icon name="SignpostBig" />
-        <Typography variant="paragraph" as="p">
+        <Typography variant="content2" as="p">
           {title}
         </Typography>
       </Link>

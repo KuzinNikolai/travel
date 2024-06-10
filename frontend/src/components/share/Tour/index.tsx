@@ -11,7 +11,7 @@ interface ITourProps {
 }
 
 export const Tour: FC<ITourProps> = ({ tour }) => {
-  const pathToTour = `countries/${tour.country_slug}/${tour.city_slug}/${tour.slug}`;
+  const pathToTour = `/countries/${tour.country_slug}/${tour.city_slug}/${tour.slug}`;
 
   return (
     <li
@@ -28,6 +28,7 @@ export const Tour: FC<ITourProps> = ({ tour }) => {
         />
         <Link
           href={pathToTour}
+          aria-label={`Ссылка на тур ${tour.title}`}
           className="absolute top-0 left-0 right-0 bottom-0"
         />
       </div>
@@ -35,37 +36,38 @@ export const Tour: FC<ITourProps> = ({ tour }) => {
         <div className="flex flex-row flex-wrap justify-between gap-x-2">
           <Typography
             variant="span"
-            as="h3"
             width="medium"
             transform="uppercase"
             className="text-primary-400"
           >
-            Индивидуальная
+            {tour.type.toUpperCase()}
           </Typography>
           <Typography
-            variant="paragraph"
+            variant="span"
             width="normal"
-            className="text-primary-400 leading-5"
+            className="text-primary-400"
           >
             5,5 часа
           </Typography>
         </div>
-        <Typography variant="h3" as="h3" width="semibold" className="text-lg">
-          <Link href={pathToTour}>{tour.title}</Link>
-        </Typography>
+        <Link href={pathToTour}>
+          <Typography variant="h5" as="h3" width="semibold">
+            {tour.title}
+          </Typography>
+        </Link>
         <Typography
-          variant="paragraph"
+          variant="content1"
           width="light"
-          className="flex-1 text-primary-400 leading-5"
+          className="flex-1 text-primary-400 line-clamp-4"
         >
           {tour.meta_desc}
         </Typography>
         <div className="flex flex-row justify-between">
           <Rating rating={tour.average_rating} />
           <Typography
-            variant="paragraph"
+            variant="span"
             width="light"
-            className="text-primary-400 leading-5"
+            className="text-primary-400 "
           >
             ${tour.min_price || 0}
           </Typography>

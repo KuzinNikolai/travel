@@ -1,17 +1,22 @@
+import { clamp } from "@/packages/utils/pxTo";
+
 type Classes = Record<string, string>;
 
+const textClamp = (clamp: string) => `text-[${clamp}]`;
+
 export const variants = {
-  h1: ["h1", "text-2xl leading-5"],
-  h2: ["h2", "text-2xl leading-5"],
-  h3: ["h3", "text-1xl leading-5"],
-  h4: ["h4", "text-xl leading-5"],
-  h5: ["h5", "text-lg leading-5"],
-  paragraph: ["p", "text-base leading-5"],
-  span: ["span", "text-base leading-5"],
-  label: ["label", "text-base/8 leading-5"],
-  small: ["span", "text-sm leading-5"],
-  button: [undefined, "text-base leading-5"],
-  link: [undefined, "text-base leading-5 underline"],
+  h1: ["h1", "text-h1"],
+  h2: ["h2", "text-h2"],
+  h3: ["h3", "text-h3"],
+  h4: ["h4", "text-h4"],
+  h5: ["h5", "text-h5"],
+  content1: ["p", "text-content1"],
+  content2: ["p", "text-content2"],
+  span: ["span", "text-span"],
+  small: ["small", "text-small"],
+
+  link: ["span", "text-link"],
+  button: ["button", "text-button"],
 } satisfies Record<
   string,
   [tag: keyof HTMLElementTagNameMap | undefined, classes: string]

@@ -1,4 +1,4 @@
-import { Box } from "@/components/Box";
+import { Box } from "@/components/layout/Box";
 import { Button } from "@/components/Button";
 import { Typography } from "@/components/Typography";
 import { IDetailTour } from "@/entities/travel/Tour.entity";

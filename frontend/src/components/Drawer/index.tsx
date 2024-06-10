@@ -2,15 +2,11 @@
 
 import { FC, PropsWithChildren, ReactElement } from "react";
 import {
-  DrawerHeader,
-  DrawerTitle,
   Drawer as UIDrawer,
   DrawerContent as UIDrawerContent,
-  DrawerTrigger as UIDrawerTrigger,
+  DrawerTrigger as UIDrawerTrigger
 } from "../@ui/drawer";
-import { Button } from "../Button";
 import { Typography } from "../Typography";
-import { Box } from "../Box";
 
 interface IDrawerProps extends PropsWithChildren {
   title: string;

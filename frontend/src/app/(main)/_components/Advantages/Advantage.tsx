@@ -1,4 +1,4 @@
-import { Box } from "@/components/Box";
+import { Box } from "@/components/layout/Box";
 import { Typography } from "@/components/Typography";
 import { IAdvantage } from "@/entities/advantage.entity";
 import { FC } from "react";
@@ -21,15 +21,15 @@ export const Advantage: FC<IAdvantageProps> = ({ advantage }) => {
           variant="h3"
           as="h3"
           width="semibold"
-          className="content-center text-lg hyphens-manual leading-6 "
+          className="content-center text-lg hyphens-manual"
         >
           {advantage.title}
         </Typography>
       </div>
       <Typography
-        variant="paragraph"
+        variant="content1"
         width="light"
-        className="text-primary-400 leading-5"
+        className="text-primary-400"
       >
         {advantage.description}
       </Typography>

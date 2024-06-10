@@ -12,7 +12,7 @@ export const Header: FC<IHeaderProps> = ({ title: title }) => {
     <UiHeader
       leftColumn={<ButtonBack />}
       centerColumn={
-        <Typography variant="paragraph" width="bold" as="h1">
+        <Typography variant="content1" width="bold" as="h1">
           {title}
         </Typography>
       }

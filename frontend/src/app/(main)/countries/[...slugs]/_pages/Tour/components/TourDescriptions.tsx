@@ -1,8 +1,7 @@
-import { Box } from "@/components/Box";
 import { Button } from "@/components/Button";
 import { Drawer } from "@/components/Drawer";
 import { Typography } from "@/components/Typography";
-import { IDetailTour } from "@/entities/travel/Tour.entity";
+import { Section } from "@/components/layout/Section";
 import { FC } from "react";
 
 interface ITourDescriptionProps {
@@ -11,31 +10,28 @@ interface ITourDescriptionProps {
 
 export const TourDescription: FC<ITourDescriptionProps> = ({ description }) => {
   return (
-    <Box className="bg-background-400" as="section">
-      <div className="container py-3 flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <Typography variant="h2" width="medium">
-            Описание
-          </Typography>
-          {description.length > 130 && (
-            <Drawer
-              title="Описание"
-              trigger={
-                <Button className="text-red-500 hover:text-red-600 ">
-                  <Typography variant="button" as="div" width="medium">
-                    Читать далее
-                  </Typography>
-                </Button>
-              }
-            >
-              {description}
-            </Drawer>
-          )}
-        </div>
-        <Typography variant="paragraph">
-          {description.length > 130 ? `${description.slice(0, 130)}...` : description}
-        </Typography>
-      </div>
-    </Box>
+    <Section
+      title="Описание"
+      header={
+        description.length > 13 ? (
+          <Drawer
+            title="Описание"
+            trigger={
+              <Button className="text-red-500 hover:text-red-600 ">
+                <Typography variant="button" as="div" width="medium">
+                  Читать далее
+                </Typography>
+              </Button>
+            }
+          >
+            <Typography variant="content2">{description}</Typography>
+          </Drawer>
+        ) : null
+      }
+    >
+      <Typography variant="content2" className="line-clamp-3 text-primary-400">
+        {description}
+      </Typography>
+    </Section>
   );
 };
