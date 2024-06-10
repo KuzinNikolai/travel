@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/v1/', include('country.urls')),
     path('api/v1/cities', include('city.urls')),
     path('api/v1/', include('city.urls')),
+    path('api/v1/', include('contacts.urls')),
     path('api/v1/en/', include('city.urls')),
     path('', include('tour.urls')), 
 

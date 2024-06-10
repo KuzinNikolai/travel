@@ -63,6 +63,10 @@ class Tour(models.Model):
             return reverse('tour-detail', kwargs={'slug': str(self.slug)})
         return '/'
     
+    class Meta:
+        verbose_name = 'Экскурсия'
+        verbose_name_plural = 'Экскурсии'
+    
 
 def get_upload_path(instance, filename):
     city_id = instance.tour.city.id if instance.tour.city else 'no_city_id'
@@ -125,12 +129,20 @@ class Included(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        verbose_name = 'Включено в тур'
+        verbose_name_plural = 'Включено в тур'
+    
 
 class Take(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+     
+    class Meta:
+        verbose_name = 'Взять с собой'
+        verbose_name_plural = 'Взять с собой'
     
 
 class TagTour(models.Model):
@@ -160,6 +172,10 @@ class LangTour(models.Model):
     
     def get_absolute_url(self):
         return reverse('name', kwargs={'lang_slug': self.slug})
+    
+    class Meta:
+        verbose_name = 'Язык ьура'
+        verbose_name_plural = 'Языки туров'
     
 
 class Photo(models.Model):

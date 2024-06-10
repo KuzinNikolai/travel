@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'country.apps.CountryConfig',
     'city.apps.CityConfig',
     'users.apps.UsersConfig',
+    'contacts.apps.ContactsConfig',
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',

@@ -1,8 +1,8 @@
 
 from django.contrib import admin
 from django import forms
-
 from .models import *
+from contacts.models import *
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'slug')
@@ -16,6 +16,12 @@ class CountryAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     search_fields = ('name',)
     prepopulated_fields = {'slug': ('name',)}
+
+
+class SupportAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('id', 'name')
+    search_fields = ('name',)
 
 
 class CityAdmin(admin.ModelAdmin):
@@ -58,4 +64,5 @@ admin.site.register(City, CityAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(TagTour, TagTourAdmin)
 admin.site.register(FAQ, FAQAdmin)
+admin.site.register(Support, SupportAdmin)
 #admin.site.register(Programm)
