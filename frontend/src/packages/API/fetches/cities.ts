@@ -1,4 +1,7 @@
-import { detailCitySchema, cityItemSchema } from "@/packages/schemes/travel/city.schema";
+import {
+  detailCitySchema,
+  cityItemSchema,
+} from "@/packages/schemes/travel/city.schema";
 import { fetchApi } from "../serverApi";
 import { z } from "zod";
 
@@ -8,5 +11,5 @@ export const getCities = async () =>
 export const getCity = async (citySlug: string) =>
   (await getCities())?.filter((item) => item.slug === citySlug)?.[0];
 
-export const getCityDetail = async (citySlug: string) =>
+export const getDetailCity = async (citySlug: string) =>
   await fetchApi(`/city/${citySlug}`, "GET", { schema: detailCitySchema });

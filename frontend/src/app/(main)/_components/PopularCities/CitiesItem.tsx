@@ -1,6 +1,7 @@
 import { Typography } from "@/components/Typography";
 import { ICityItem } from "@/entities/travel/City.entity";
 import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 
 interface ICityProps {
@@ -8,6 +9,8 @@ interface ICityProps {
 }
 
 export const CityItem: FC<ICityProps> = ({ city: city }) => {
+  var cityUrl = `/${city.slug}`;
+
   return (
     <li className="relative w-full h-[140px] rounded-lg overflow-hidden bg-background-400">
       <div className="absolute left-0 top-0 w-full h-full">
@@ -37,6 +40,7 @@ export const CityItem: FC<ICityProps> = ({ city: city }) => {
           экскурсий: {city.tour_count || 0}
         </Typography>
       </div>
+      <Link href={cityUrl} className="absolute top-0 right-0 left-0 bottom-0" aria-label={`Ссылка на страницу ${city.name} города`} />
     </li>
   );
 };

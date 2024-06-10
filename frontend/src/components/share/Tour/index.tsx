@@ -11,7 +11,7 @@ interface ITourProps {
 }
 
 export const Tour: FC<ITourProps> = ({ tour }) => {
-  const pathToTour = `/countries/${tour.country_slug}/${tour.city_slug}/${tour.slug}`;
+  var pathToTour = `/${tour.city_slug}/${tour.slug}`;
 
   return (
     <li
