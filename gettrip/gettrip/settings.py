@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'country.apps.CountryConfig',
     'city.apps.CityConfig',
     'users.apps.UsersConfig',
+    'contacts.apps.ContactsConfig',
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
+    'django.contrib.sitemaps',
     'djoser',
 ]
 
@@ -232,7 +234,12 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': ('http://127.0.0.1:8000/api/v1/auth/users/reset_password/{uid}/{token}'),
+    'SERIALIZERS': {
+        'user': 'users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
+        'user_create': 'users.serializers.CustomUserCreateSerializer',
+    }
 }
+
 
 AUTH_USER_MODEL = 'users.User'

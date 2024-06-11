@@ -1,21 +1,15 @@
+# serializers.py
+from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer, UserSerializer as BaseUserSerializer
 from rest_framework import serializers
-from djoser.serializers import UserCreateSerializer, UserSerializer
-from django.contrib.auth import get_user_model
-from .models import *
+from .models import User
 
-User = get_user_model()
 
-class CustomUserCreateSerializer(UserCreateSerializer):
-    photo = serializers.ImageField(required=False)
-
-    class Meta(UserCreateSerializer.Meta):
+class CustomUserCreateSerializer(BaseUserCreateSerializer):
+    class Meta(BaseUserCreateSerializer.Meta):
         model = User
-        fields = ('id', 'email', 'username', 'password', 'first_name', 'last_name', 'photo')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password', 'age', 'photo',)
 
-
-class CustomUserSerializer(UserSerializer):
-    photo = serializers.ImageField()
-
-    class Meta(UserSerializer.Meta):
+class CustomUserSerializer(BaseUserSerializer):
+    class Meta(BaseUserSerializer.Meta):
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'photo')
+        fields = ('id', 'email', 'first_name', 'last_name', 'age', 'photo')
