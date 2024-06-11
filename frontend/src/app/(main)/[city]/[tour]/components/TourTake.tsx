@@ -14,7 +14,7 @@ export const TourTake: FC<ITourTakeProps> = ({ tour }) => {
       <ul className="flex flex-col gap-1">
         {tour.take.map((take) => (
           <li key={take.id} className="flex items-center gap-1">
-            <Icon name="SquarePlus" className="stroke-gray-500" />
+            <Icon name="SquarePlus" className="w-6 h-6 stroke-1 stroke-gray-500" />
             <Typography variant="span" key={take.id}>
               {take.name}
             </Typography>

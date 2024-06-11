@@ -4,14 +4,18 @@ import { ISearchItem } from "@/entities/search.entity";
 import Link from "next/link";
 import { FC } from "react";
 
-export const SearchItem: FC<ISearchItem> = ({ link, title }) => {
+export const SearchItem: FC<ISearchItem> = ({ citySlug, tourSlug, title }) => {
   return (
     <li>
       <Link
-        href={link}
+        href={tourSlug ? `/${citySlug}/${tourSlug}` : `/${citySlug}`}
+        onClick={() => {
+          document.body.style.overflow = "auto";
+          document.body.style.pointerEvents = "auto";
+        }}
         className="flex items-center gap-2 hover:text-accent hover:[&_svg]:stroke-accent"
       >
-        <Icon name="SignpostBig" />
+        <Icon name={tourSlug ? "LocateFixed" : "Map"} />
         <Typography variant="content2" as="p">
           {title}
         </Typography>

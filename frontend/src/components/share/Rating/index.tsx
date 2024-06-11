@@ -1,6 +1,6 @@
 import { FC } from "react";
 import clsx from "clsx";
-import { Icon } from "../Icon";
+import { Icon } from "../../Icon";
 
 interface IRatingProps {
   rating: number;

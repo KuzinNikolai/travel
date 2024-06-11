@@ -9,21 +9,21 @@ export const AdvantageList = [
     title: "Отмена тура",
     description: "Бесплатная отмена экскурсии за 48 часов",
     iconLabel: "Иконка часов",
-    icon: <Icon name="Clock9" />,
+    icon: <Icon name="Clock9" className="w-6 h-6 stroke-1" />,
   },
   {
     id: 2,
     title: "Отзывы",
     description: "Отзывы от реальных людей которые побывали на экскурсиях",
     iconLabel: "Иконка отзывов",
-    icon: <Icon name="Star" />,
+    icon: <Icon name="Star" className="w-6 h-6 stroke-1" />,
   },
   {
     id: 3,
     title: "Предоплата",
     description: "Мы не берем полную оплату за наш сервис, а лишь предоплату",
     iconLabel: "Иконка бронирования",
-    icon: <Icon name="HandCoins" />,
+    icon: <Icon name="HandCoins" className="w-6 h-6 stroke-1" />,
   },
 ] satisfies IAdvantage[];
 

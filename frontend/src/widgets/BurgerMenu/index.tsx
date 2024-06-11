@@ -12,7 +12,7 @@ export const BurgerMenu = () => {
       <SheetTrigger>
         <BurgerIcon />
       </SheetTrigger>
-      <SheetContent side="left" className="w-[60%]">
+      <SheetContent side="right" className="w-[70%]">
         <BurgerSheet />
       </SheetContent>
     </Sheet>

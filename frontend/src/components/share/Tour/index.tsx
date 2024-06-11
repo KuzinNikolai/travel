@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { FC } from "react";
 import style from "./Tour.module.css";
 import { Typography } from "@/components/Typography";
-import { Rating } from "@/components/Rating";
+import { Rating } from "@/components/share/Rating";
 import Link from "next/link";
 
 interface ITourProps {

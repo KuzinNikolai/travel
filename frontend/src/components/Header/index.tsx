@@ -1,10 +1,11 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
+import { Container } from "../layout/Container";
 
 interface IHeaderProps {
-  leftColumn?: React.ReactNode;
-  centerColumn?: React.ReactNode;
-  rightColumn?: React.ReactNode;
+  leftColumn?: ReactNode | ReactNode[];
+  centerColumn?: ReactNode | ReactNode[];
+  rightColumn?: ReactNode | ReactNode[];
   backgroundColor?: string;
 }
 
@@ -17,28 +18,28 @@ export const Header: FC<IHeaderProps> = ({
   return (
     <header
       className={clsx(
-        "relative",
         "z-10 sticky top-0 left-0 right-0",
         props.backgroundColor || "bg-white/70",
         "backdrop-blur-3xl"
       )}
     >
-      <div
-        className={clsx("container py-2", "flex justify-between items-center")}
-      >
-        {leftColumn}
+      <Container className={clsx("py-2", "flex justify-between items-center gap-2")}>
+        {leftColumn && (
+          <div className={clsx("flex-1", "flex items-center justify-start gap-2")}>
+            {leftColumn}
+          </div>
+        )}
         {centerColumn && (
-          <div
-            className={clsx(
-              "absolute left-1/2 -translate-x-1/2",
-              "flex-1 flex items-center justify-center"
-            )}
-          >
+          <div className={clsx("flex-1", "flex items-center justify-center gap-2")}>
             {centerColumn}
           </div>
         )}
-        {rightColumn}
-      </div>
+        {rightColumn && (
+          <div className={clsx("flex-1", "flex items-center justify-end gap-2")}>
+            {rightColumn}
+          </div>
+        )}
+      </Container>
     </header>
   );
 };

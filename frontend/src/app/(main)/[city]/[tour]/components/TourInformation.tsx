@@ -13,25 +13,25 @@ export const TourInformation: FC<ITourInformation> = ({ tour }) => {
     <Section title="О экскурсии">
       <ul className="flex flex-col gap-2">
         <li className="flex items-center gap-1">
-          <Icon name="Clock" />
+          <Icon name="Clock" className="w-6 h-6 stroke-1" />
           <Typography variant="span">
             {tour.duration}
           </Typography>
         </li>
         <li className="flex items-center gap-1">
-          <Icon name="User" />
+          <Icon name="User" className="w-6 h-6 stroke-1" />
           <Typography variant="span">
             {tour.type}
           </Typography>
         </li>
         <li className="flex items-center gap-1">
-          <Icon name="TrainFront" />
+          <Icon name="TrainFront" className="w-6 h-6 stroke-1" />
           <Typography variant="span">
             {tour.cat}
           </Typography>
         </li>
         <li className="flex items-center gap-1">
-          <Icon name="Baby" />
+          <Icon name="Baby" className="w-6 h-6 stroke-1" />
           {tour.what_age_child_free && tour.child_price ? (
             <Typography variant="span" className="text-success">
               С детьми можно. (Дети до {tour.what_age_child_free} лет бесплатно)
@@ -44,7 +44,7 @@ export const TourInformation: FC<ITourInformation> = ({ tour }) => {
         </li>
 
         <li className="flex items-center gap-1">
-          <Icon name="Baby" />
+          <Icon name="Baby" className="w-6 h-6 stroke-1" />
           {tour.pregnant_possible ? (
             <Typography variant="span" className="text-success">
               Беременным можно

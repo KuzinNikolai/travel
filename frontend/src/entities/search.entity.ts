@@ -1,8 +1,10 @@
 export interface ISearchGroup {
+  id: string;
   items: ISearchItem[];
 }
 
 export interface ISearchItem {
   title: string;
-  link: string;
+  citySlug: string;
+  tourSlug?: string;
 }

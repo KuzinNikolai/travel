@@ -1,5 +1,5 @@
 import { Box } from "@/components/layout/Box";
-import { Rating } from "@/components/Rating";
+import { Rating } from "@/components/share/Rating";
 import { Typography } from "@/components/Typography";
 import { IDetailTour } from "@/entities/travel/Tour.entity";
 import Image from "next/image";

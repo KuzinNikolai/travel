@@ -2,6 +2,7 @@
 
 import { Dialog, DialogTrigger, DialogClose } from "@/components/@ui/dialog";
 import { Portal } from "@/components/Portal";
+import { Container } from "@/components/layout/Container";
 import { DialogContent } from "@radix-ui/react-dialog";
 import clsx from "clsx";
 import { FC, PropsWithChildren, useEffect } from "react";
@@ -38,12 +39,12 @@ export const FullScreenModal: FC<IFullScreenModalProps> &
       open={expand}
       onOpenChange={(expand) => (openChange(expand), onOpenChange?.(expand))}
     >
-      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <Portal>
         <DialogContent
           className={clsx("fixed top-0 left-0 w-full h-full z-50", className)}
         >
-          {children}
+          <Container>{children}</Container>
         </DialogContent>
       </Portal>
     </Dialog>
