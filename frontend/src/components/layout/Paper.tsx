@@ -22,7 +22,7 @@ export const Paper: FC<IPaperProps> = ({
     {
       ...props,
       className: clsx(variants[variant], className),
-      children
     },
+    children
   );
 };
