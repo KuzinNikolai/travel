@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, forwardRef } from "react";
 import { Icon, IconsName } from "../Icon";
 
 interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -13,29 +13,27 @@ interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   hoverColor?: string;
 }
 
-export const Button: FC<IButtonProps> = ({
-  variant,
-  size,
-  leftIcon,
-  rightIcon,
-  color,
-  hoverColor,
-  ...props
-}) => {
-  return (
-    <button
-      {...props}
-      className={clsx(
-        "py-2 px-3 flex items-center",
-        props.className,
-        color && `text-[${color}] [&>svg]:stroke-[${color}]`,
-        hoverColor &&
-          `hover:text-[${hoverColor}] hover:[&>svg]:stroke-[${hoverColor}]`
-      )}
-    >
-      {leftIcon && <Icon name={leftIcon} />}
-      {props?.children}
-      {rightIcon && <Icon name={rightIcon} />}
-    </button>
-  );
-};
+export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
+  (
+    { variant, size, leftIcon, rightIcon, color, hoverColor, ...props },
+    ref
+  ) => {
+    return (
+      <button
+        {...props}
+        ref={ref}
+        className={clsx(
+          "py-2 px-3 flex items-center",
+          props.className,
+          color && `text-[${color}] [&>svg]:stroke-[${color}]`,
+          hoverColor &&
+            `hover:text-[${hoverColor}] hover:[&>svg]:stroke-[${hoverColor}]`
+        )}
+      >
+        {leftIcon && <Icon name={leftIcon} />}
+        {props?.children}
+        {rightIcon && <Icon name={rightIcon} />}
+      </button>
+    );
+  }
+);
