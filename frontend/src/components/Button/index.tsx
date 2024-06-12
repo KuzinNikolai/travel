@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { FC, HTMLAttributes, forwardRef } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { Icon, IconsName } from "../Icon";
 
 interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -37,3 +37,5 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(
     );
   }
 );
+
+Button.displayName = "Button"

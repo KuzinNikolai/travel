@@ -22,3 +22,5 @@ export const BackHeader = forwardRef<HTMLElement, IBackHeaderProps>(
     );
   }
 );
+
+BackHeader.displayName = "Header with back button";

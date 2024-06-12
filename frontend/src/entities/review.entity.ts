@@ -6,5 +6,6 @@ export interface IReview {
   user: number;
   tour: number;
   text: string;
+  rating: number;
   created_date: DateTime;
 }

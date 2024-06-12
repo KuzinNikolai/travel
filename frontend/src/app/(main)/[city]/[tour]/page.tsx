@@ -4,13 +4,13 @@ import { HistoryBack } from "@/packages/utils/HistoryBack";
 import { IPagesProps } from "@/packages/utilsTypes/pageProps";
 import { Metadata } from "next";
 import { FC } from "react";
-import { PreviewTour } from "./components/PreviewTour";
-import { TourDescription } from "./components/TourDescriptions";
-import { TourIncluded } from "./components/TourIncluded";
-import { TourInformation } from "./components/TourInformation";
-import { ToutPrograms } from "./components/TourPrograms";
-import { TourTake } from "./components/TourTake";
-import { TourUsagePolicy } from "./components/TourUsagePolicy";
+import { PreviewTour } from "./_components/PreviewTour";
+import { TourDescription } from "./_components/TourDescriptions";
+import { TourIncluded } from "./_components/TourIncluded";
+import { TourInformation } from "./_components/TourInformation";
+import { ToutPrograms } from "./_components/TourPrograms";
+import { TourTake } from "./_components/TourTake";
+import { TourUsagePolicy } from "./_components/TourUsagePolicy";
 
 const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
   var tour = await getDetailTour(params.tour);

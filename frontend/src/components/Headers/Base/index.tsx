@@ -43,3 +43,5 @@ export const Header = forwardRef<HTMLElement, IHeaderProps>(
     );
   }
 );
+
+Header.displayName = "Header Base"
