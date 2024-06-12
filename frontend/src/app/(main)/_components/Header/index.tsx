@@ -3,7 +3,7 @@
 import { Icon } from "@/components/Icon";
 import { BurgerMenu } from "@/widgets/BurgerMenu";
 import { SearchMenu } from "@/widgets/Search";
-import { Header as UiHeader } from "@components/Header";
+import { Header as UiHeader } from "@components/Headers/Base";
 
 export const Header = () => {
   return (

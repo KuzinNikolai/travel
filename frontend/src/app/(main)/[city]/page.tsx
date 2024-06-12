@@ -1,11 +1,10 @@
+import { BackHeader } from "@/components/Headers/BackHeader";
 import { Box } from "@/components/layout/Box";
 import { Tour } from "@/components/share/Tour";
 import { getDetailCity } from "@/packages/API/fetches/cities";
-import { HistoryBack } from "@/packages/utils/HistoryBack";
 import { IPagesProps } from "@/packages/utilsTypes/pageProps";
 import { Metadata } from "next";
 import { FC } from "react";
-import { Header } from "./_components/Header";
 
 const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
   var city = await getDetailCity(params.city);
@@ -21,7 +20,7 @@ const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
         className="w-full h-full flex flex-col bg-background-400"
         as="section"
       >
-        <Header title={`Туры в ${city.name}`} />
+        <BackHeader title={`Экскурсии в ${city.name}`} />
         <div className="container flex flex-col gap-4 pb-5">
           -- filter --
           {city?.tours.map((tour) => (
