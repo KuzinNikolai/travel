@@ -10,8 +10,6 @@ export const useSearchParams = <SearchParams extends string = string>() => {
   const pathname = usePathname();
   const searchParams = nextUseSearchParams();
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
   const createQueryString = useCallback(
     (name: SearchParams, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -29,7 +27,7 @@ export const useSearchParams = <SearchParams extends string = string>() => {
 
   const setParam = useCallback(
     (key: SearchParams, value: string) => {
-      router.push(`${pathname}?${createQueryString(key, value)}`);
+      router.push(`/?${createQueryString(key, value)}`, { scroll: false });
     },
     [searchParams]
   );
@@ -42,7 +40,8 @@ export const useSearchParams = <SearchParams extends string = string>() => {
   const deleteParam = useCallback(
     (key: SearchParams, force = false) => {
       router.push(
-        force ? pathname : `${pathname}?${createQueryString(key, "")}`
+        force ? pathname : `${pathname}?${createQueryString(key, "")}`,
+        { scroll: false }
       );
     },
     [searchParams]

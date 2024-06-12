@@ -5,11 +5,12 @@ import { useSearchParams } from "@/packages/hooks/useSearchParams";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { SearchItem } from "../SearchItem";
+import { SearchItemLoading } from "../SearchItemLoading";
 
 export const SearchList = () => {
-  const { getSearchParam, setSearchParam, searchParams } =
-    useSearchParams<"q">();
+  const { getSearchParam, searchParams } = useSearchParams<"q">();
   const [searchGroups, setSearchGroups] = useState<ISearchGroup[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     var get = async () => {
@@ -22,6 +23,7 @@ export const SearchList = () => {
         return;
       }
 
+      setLoading(false);
       setSearchGroups(
         query
           ? await searchGroups.json()
@@ -34,10 +36,22 @@ export const SearchList = () => {
       );
     };
 
+    setLoading(true);
+
     get();
   }, [searchParams]);
 
-  return searchGroups.length > 1 ? (
+  if (loading) {
+    return (
+      <ul className="list-none flex flex-col gap-2">
+        {Array.from({ length: 10 }, (_, index) => (
+          <SearchItemLoading key={index} />
+        ))}
+      </ul>
+    );
+  }
+
+  return searchGroups.length > 0 ? (
     <ul className="list-none flex flex-col gap-2">
       {searchGroups.map((group) => (
         <li key={group.id}>
