@@ -15,6 +15,7 @@ export const PreviewTour: FC<IPreviewTourProps> = ({ tour }) => {
       <Image
         alt={tour.photo_alt}
         src={tour.photo}
+        priority
         width={300}
         height={300}
         className="w-full h-[50vh] object-cover"
