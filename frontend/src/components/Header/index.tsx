@@ -23,22 +23,22 @@ export const Header: FC<IHeaderProps> = ({
         "backdrop-blur-3xl"
       )}
     >
-      <Container className={clsx("py-2", "flex justify-between items-center gap-2")}>
-        {leftColumn && (
-          <div className={clsx("flex-1", "flex items-center justify-start gap-2")}>
-            {leftColumn}
-          </div>
-        )}
-        {centerColumn && (
-          <div className={clsx("flex-1", "flex items-center justify-center gap-2")}>
-            {centerColumn}
-          </div>
-        )}
-        {rightColumn && (
-          <div className={clsx("flex-1", "flex items-center justify-end gap-2")}>
-            {rightColumn}
-          </div>
-        )}
+      <Container
+        className={clsx("py-2", "flex justify-between items-center gap-2")}
+      >
+        <div
+          className={clsx("flex-1", "flex items-center justify-start gap-2")}
+        >
+          {leftColumn}
+        </div>
+        <div
+          className={clsx("flex-1", "flex items-center justify-center gap-2")}
+        >
+          {centerColumn}
+        </div>
+        <div className={clsx("flex-1", "flex items-center justify-end gap-2")}>
+          {rightColumn}
+        </div>
       </Container>
     </header>
   );
