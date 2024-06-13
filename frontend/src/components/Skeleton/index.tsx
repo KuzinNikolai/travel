@@ -16,7 +16,7 @@ export const CustomSkeleton: FC<ICustomSkeletonProps> = ({
         `bg-gradient-to-r`,
         isBackgroundBlack
           ? "from-white/90 to-red-80"
-          : "from-cyan-300/90 to-cyan-300/80",
+          : "from-white/40 to-white/50",
         `duration-[2s] animate-pulse`,
         className
       )}
