@@ -9,8 +9,7 @@ import { SearchItemLoading } from "../SearchItemLoading";
 
 export const SearchList = () => {
   const { getSearchParam, searchParams } = useSearchParams<"q">();
-  const [searchGroups, setSearchGroups] = useState<ISearchGroup[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [searchGroups, setSearchGroups] = useState<ISearchGroup[] | null>(null);
 
   useEffect(() => {
     var get = async () => {
@@ -23,7 +22,6 @@ export const SearchList = () => {
         return;
       }
 
-      setLoading(false);
       setSearchGroups(
         query
           ? await searchGroups.json()
@@ -36,12 +34,11 @@ export const SearchList = () => {
       );
     };
 
-    setLoading(true);
-
+    setSearchGroups(null);
     get();
   }, [searchParams]);
 
-  if (loading) {
+  if (searchGroups == null) {
     return (
       <ul className="list-none flex flex-col gap-2">
         {Array.from({ length: 10 }, (_, index) => (
@@ -54,13 +51,15 @@ export const SearchList = () => {
   return searchGroups.length > 0 ? (
     <ul className="list-none flex flex-col gap-2">
       {searchGroups.map((group) => (
-        <li key={group.id}>
-          <ul
-            className={clsx(
-              "flex flex-col gap-2",
-              "[&:not(:last-child)]:after:border-black/20 [&:not(:last-child)]:after:border-t-[1px] [&:not(:last-child)]:after:content-['']"
-            )}
-          >
+        <li
+          key={group.id}
+          className={
+            getSearchParam("q")
+              ? "[&:not(:last-child)]:after:mt-2 [&:not(:last-child)]:after:block [&]:after:bg-black/20 [&]:after:h-[1px] [&]:after:w-full [&:not(:last-child)]:after:content-['']"
+              : ""
+          }
+        >
+          <ul className={"flex flex-col gap-2"}>
             {group.items.map((item) => (
               <SearchItem key={item.title} {...item} />
             ))}

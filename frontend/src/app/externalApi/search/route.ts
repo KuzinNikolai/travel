@@ -5,26 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get("q")?.toLowerCase();
-
   const resBody = [] as ISearchGroup[];
 
   const [cities, tours] = await Promise.all([getCities(), await getTours()]);
-
-  const searchedTours = tours
-    ?.filter((tour) => tour.title.toLowerCase().includes(query || ""))
-    .map<ISearchItem>((tour) => ({
-      title: tour.title,
-      tourSlug: tour.slug,
-      citySlug: tour.city_slug,
-    }));
-
-  const searchedCities = cities
-    ?.filter((city) => city.name.toLowerCase().includes(query || ""))
-    .map<ISearchItem>((city) => ({
-      title: city.name,
-      citySlug: city.slug,
-    }));
-
   const searchGroups = new Map<string, ISearchGroup>();
 
   const setSearchItem = (searchItem: ISearchItem) => {
@@ -35,11 +18,22 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    searchGroups.get(searchItem.citySlug)?.items.push(searchItem);
+    searchGroups.get(searchItem.citySlug)!.items.push(searchItem);
   };
 
-  searchedTours?.forEach(setSearchItem);
-  searchedCities?.forEach(setSearchItem);
+  cities?.forEach((city) => {
+    if (!city.title.toLowerCase().includes(query || "")) return;
+    setSearchItem({ title: city.title, citySlug: city.slug });
+  });
+  tours?.forEach((tour) => {
+    console.log(tour.title, query)
+    if (!tour.title.toLowerCase().includes(query || "")) return;
+    setSearchItem({
+      title: tour.title,
+      citySlug: tour.city_slug,
+      tourSlug: tour.slug,
+    });
+  });
 
   resBody.push(
     ...Array.from(searchGroups.entries()).map(([_, group]) => {

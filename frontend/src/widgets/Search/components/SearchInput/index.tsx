@@ -3,22 +3,29 @@
 import { Input } from "@/components/@ui/input";
 import { createDebounce } from "@/packages/debounce";
 import { useSearchParams } from "@/packages/hooks/useSearchParams";
+import { useState } from "react";
 
 const debounce = createDebounce(
-  (query: string, setParam: (key: "q", value: string) => void) =>
-    setParam("q", query),
-  200
+  (query: string, setParam: (key: "q", value: string) => void) => {
+    setParam("q", query);
+  },
+  600
 );
 
 export const SearchInput = () => {
-  const { setSearchParam } = useSearchParams<"q">();
+  const { getSearchParam, setSearchParam } = useSearchParams<"q">();
+  const [query, setQuery] = useState(getSearchParam("q") || "");
 
   return (
     <Input
       type="text"
       name="Search"
       placeholder="Поиск"
-      onInput={(e) => debounce(e.currentTarget.value, setSearchParam)}
+      value={query}
+      onInput={(e) => {
+        setQuery(e.currentTarget.value);
+        debounce(e.currentTarget.value, setSearchParam);
+      }}
     />
   );
 };
