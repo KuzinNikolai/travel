@@ -56,7 +56,11 @@ class TourAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)} 
 
 class FAQAdmin(admin.ModelAdmin):
-    list_display = ('question', 'answer')       
+    list_display = ('question', 'answer') 
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('tour', 'trip_date')       
 
 admin.site.register(Tour, TourAdmin)
 admin.site.register(Country, CountryAdmin)
@@ -65,4 +69,5 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(TagTour, TagTourAdmin)
 admin.site.register(FAQ, FAQAdmin)
 admin.site.register(Support, SupportAdmin)
+admin.site.register(Order, OrderAdmin)
 #admin.site.register(Programm)

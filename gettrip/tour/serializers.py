@@ -119,7 +119,7 @@ class TourCreateSerializer(serializers.ModelSerializer):
     programs = serializers.SlugRelatedField(slug_field='tour', queryset=Programm.objects.all(), many=True)
     class Meta:
         model = Tour
-        fields = ('country', 'city', 'title', 'slug', 'description', 'included', 'not_included', 'take_with_you', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs')     
+        fields = ('country', 'city', 'title', 'slug', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs')     
 
     def create(self, validated_data):
         tags_data = validated_data.pop('tags', [])
@@ -233,11 +233,23 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'tour_title', 'user', 'tour', 'email', 'phone', 'program', 'hotel', 
-                  'room_number', 'pickup_time', 'quantity_adults', 'quantity_children', 'quantity_infant', 'trip_date', 'transfer']
+        fields = ['id', 'tour_title', 'full_name', 'user', 'tour', 'email', 'phone', 'program', 'hotel', 
+                  'room_number', 'pickup_time', 'quantity_adults', 'quantity_children', 'quantity_infant', 'trip_date', 'transfer', 'text']
+        extra_kwargs = {
+            'email': {'required': True},
+            'phone': {'required': True},
+            'full_name': {'required': True}
+        }
 
     def get_tour_title(self, obj):
         return obj.tour.title 
+    
+    def validate(self, data):
+        if not data.get('email'):
+            raise serializers.ValidationError({"email": "Поле email обязательно для заполнения."})
+        if not data.get('phone'):
+            raise serializers.ValidationError({"phone": "Поле phone обязательно для заполнения."})
+        return data
 
 
 class HelpSerializer(serializers.ModelSerializer):

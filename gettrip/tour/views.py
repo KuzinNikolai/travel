@@ -21,6 +21,9 @@ class TourListView(generics.ListAPIView):
     serializer_class = TourListSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = TourFilter  
+
+    def get_queryset(self):
+        return Tour.published.all()
     
     
 # Добавление тура   
@@ -36,6 +39,9 @@ class TourDetailView(generics.RetrieveAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourDetailSerializer
     lookup_field = 'slug'
+
+    def get_queryset(self):
+        return Tour.published.all()
 
 
 # Подробная информация о туре и возможность редактировать
@@ -86,7 +92,8 @@ class OrderCreateAPIView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) 
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        
     
     
 # VIEWS HELP ------------------------------
