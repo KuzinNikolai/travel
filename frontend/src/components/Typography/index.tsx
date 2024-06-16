@@ -1,9 +1,9 @@
-import { FC, HTMLAttributes, PropsWithChildren, createElement } from "react";
-import { align, style, transform, variants, weight } from "./typography";
 import clsx from "clsx";
+import { HTMLAttributes, PropsWithChildren, createElement } from "react";
+import { align, style, transform, variants, weight } from "./typography";
 
-interface ITypographyProps
-  extends PropsWithChildren<HTMLAttributes<HTMLElement>> {
+interface ITypographyProps<Element>
+  extends PropsWithChildren<HTMLAttributes<HTMLElement & Element>> {
   variant: keyof typeof variants;
   width?: keyof typeof weight;
   textStyle?: keyof typeof style;
@@ -13,7 +13,11 @@ interface ITypographyProps
   as?: keyof HTMLElementTagNameMap;
 }
 
-export const Typography: FC<ITypographyProps> = ({ as, variant, ...props }) => {
+export const Typography = <Tag,>({
+  as,
+  variant,
+  ...props
+}: ITypographyProps<Tag>) => {
   return createElement(
     as || variants[variant][0] || "p",
     {
@@ -32,4 +36,4 @@ export const Typography: FC<ITypographyProps> = ({ as, variant, ...props }) => {
   );
 };
 
-export type TypographyVariants = keyof typeof variants
+export type TypographyVariants = keyof typeof variants;

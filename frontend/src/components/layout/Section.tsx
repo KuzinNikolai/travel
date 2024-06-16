@@ -3,6 +3,7 @@ import { FC, HTMLAttributes, ReactElement } from "react";
 import { Typography, TypographyVariants } from "@components/Typography";
 import { Paper } from "./Paper";
 import { Container } from "./Container";
+import { cn } from "@/packages/tw-utils";
 
 interface IBoxProps extends HTMLAttributes<HTMLElement> {
   title: string;
@@ -21,9 +22,14 @@ export const Section: FC<IBoxProps> = ({
   ...props
 }) => {
   return (
-    <Paper variant="main" as="section" {...props} className="py-3">
+    <Paper
+      variant="main"
+      as="section"
+      {...props}
+      className={cn("py-3", className)}
+    >
       <Container
-        className={clsx("flex flex-col", !hiddenTitle || header ? "gap-4" : "")}
+        className={cn("flex flex-col", !hiddenTitle || header ? "gap-4" : "")}
       >
         <div className="flex items-center justify-between">
           <Typography

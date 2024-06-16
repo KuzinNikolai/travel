@@ -1,4 +1,5 @@
 import { siteConfig } from "@/configs/siteConfig";
+import { Toaster } from "@/widgets/Toaster";
 import "@assets/globals.css";
 import { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -22,6 +23,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
     <html lang="en">
       <body className={font.className}>
         <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   );
