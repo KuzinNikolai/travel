@@ -1,16 +1,19 @@
-import { ITour } from "@/entities/travel/Tour.entity";
-import clsx from "clsx";
-import { FC } from "react";
-import style from "./Tour.module.css";
 import { Typography } from "@/components/Typography";
 import { Rating } from "@/components/share/Rating";
+import { ITour } from "@/entities/travel/Tour.entity";
+import clsx from "clsx";
 import Link from "next/link";
+import { FC } from "react";
+import style from "./Tour.module.css";
+import { TourSkeleton } from "./Tour.skeleton";
 
 interface ITourProps {
   tour: ITour;
 }
 
-export const Tour: FC<ITourProps> = ({ tour }) => {
+export const Tour: FC<ITourProps> & { Skeleton: typeof TourSkeleton } = ({
+  tour,
+}) => {
   var pathToTour = `/${tour.city_slug}/${tour.slug}`;
 
   return (
@@ -76,3 +79,5 @@ export const Tour: FC<ITourProps> = ({ tour }) => {
     </li>
   );
 };
+
+Tour.Skeleton = TourSkeleton;

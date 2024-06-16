@@ -1,12 +1,15 @@
-import { FC } from "react";
 import clsx from "clsx";
+import { FC } from "react";
 import { Icon } from "../../Icon";
+import { RatingSkeleton } from "./RatingSkeleton";
 
 interface IRatingProps {
   rating: number;
 }
 
-export const Rating: FC<IRatingProps> = ({ rating }) => {
+export const Rating: FC<IRatingProps> & { Skeleton: typeof RatingSkeleton } = ({
+  rating,
+}) => {
   return (
     <div className="flex items-center gap-1">
       <label className="sr-only">{rating}</label>
@@ -25,3 +28,5 @@ export const Rating: FC<IRatingProps> = ({ rating }) => {
     </div>
   );
 };
+
+Rating.Skeleton = RatingSkeleton;

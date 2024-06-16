@@ -22,7 +22,7 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
       <body className={font.className}>
-        <main>{children}</main>
+        <main className="min-h-dvh flex flex-col">{children}</main>
         <Toaster />
       </body>
     </html>

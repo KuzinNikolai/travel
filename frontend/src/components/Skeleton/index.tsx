@@ -15,9 +15,9 @@ export const CustomSkeleton: FC<ICustomSkeletonProps> = ({
       className={clsx(
         `bg-gradient-to-r`,
         isBackgroundBlack
-          ? "from-white/90 to-red-80"
-          : "from-white/40 to-white/50",
-        `duration-[2s] animate-pulse`,
+          ? "from-gray-400 to-gray-300"
+          : "from-gray-400/20 to-gray-400/20",
+        `duration-[2s] animate-pulse rounded`,
         className
       )}
     />

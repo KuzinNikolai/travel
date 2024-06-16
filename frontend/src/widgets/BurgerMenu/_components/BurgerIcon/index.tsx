@@ -1,7 +1,7 @@
 import { FC } from "react";
-import styles from './BurgerIcon.module.css'
+import styles from './BurgerIcon.module.css';
 
-import clsx from "clsx";
+import { cn } from "@/packages/tw-utils";
 
 interface IBurgerIconProps {
   isActive?: boolean
@@ -9,7 +9,7 @@ interface IBurgerIconProps {
 
 export const BurgerIcon: FC<IBurgerIconProps> = ({ isActive = false }) => {
   return (
-    <div className={clsx(styles.burger, isActive && styles["burger--active"])}>
+    <div className={cn(styles.burger, isActive && styles["burger--active"])}>
       <span className={styles.burger__line}></span>
       <span className={styles.burger__line}></span>
       <span className={styles.burger__line}></span>
