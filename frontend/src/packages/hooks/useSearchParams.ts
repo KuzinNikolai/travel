@@ -1,8 +1,4 @@
-import {
-  useSearchParams as nextUseSearchParams,
-  usePathname,
-  useRouter,
-} from "next/navigation";
+import { useSearchParams as nextUseSearchParams, usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 
 export const useSearchParams = <SearchParams extends string = string>() => {
@@ -17,34 +13,25 @@ export const useSearchParams = <SearchParams extends string = string>() => {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
-  const getParam = useCallback(
-    (key: SearchParams) => searchParams.get(key),
-    [searchParams]
-  );
+  const getParam = useCallback((key: SearchParams) => searchParams.get(key), [searchParams]);
 
   const setParam = useCallback(
     (key: SearchParams, value: string) => {
       router.push(`/?${createQueryString(key, value)}`, { scroll: false });
     },
-    [searchParams]
+    [searchParams],
   );
 
-  const hasParam = useCallback(
-    (key: SearchParams) => searchParams.has(key),
-    [searchParams]
-  );
+  const hasParam = useCallback((key: SearchParams) => searchParams.has(key), [searchParams]);
 
   const deleteParam = useCallback(
     (key: SearchParams, force = false) => {
-      router.push(
-        force ? pathname : `${pathname}?${createQueryString(key, "")}`,
-        { scroll: false }
-      );
+      router.push(force ? pathname : `${pathname}?${createQueryString(key, "")}`, { scroll: false });
     },
-    [searchParams]
+    [searchParams],
   );
 
   const clearParams = useCallback(() => router.push(pathname), []);
