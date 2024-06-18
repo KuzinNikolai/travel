@@ -9,7 +9,10 @@ interface INavigationItemProps {
 
 export const NavigationItem: FC<INavigationItemProps> = ({ navigation }) => {
   return (
-    <Link href={navigation.href} className="grid grid-cols-[24px_1fr] items-center gap-2 border-b-[1px] pb-2 border-b-primary-400">
+    <Link
+      href={navigation.href}
+      className="grid grid-cols-[24px_1fr] items-center gap-2 border-b-[1px] border-b-primary-400 pb-2"
+    >
       {navigation.icon}
       <div className="flex flex-col gap-1">
         <Typography variant="span" as="p" width="semibold" className="truncate">

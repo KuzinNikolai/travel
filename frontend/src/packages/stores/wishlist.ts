@@ -8,7 +8,7 @@ interface IWishValues {
 }
 
 interface IWishMethods {
-  isFavoriteTour(tourId: WishItem): void;
+  isFavoriteTour(tourId: WishItem): boolean;
   addTour(tourId: WishItem): void;
   removeTour(tourId: WishItem): void;
 }

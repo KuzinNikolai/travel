@@ -34,7 +34,6 @@ export const fetchApi = async <T = unknown>(
     const parsedData = options?.schema?.safeParse(json);
 
     if (parsedData?.error) {
-      // console.error(parsedData.error)
       consola.warn(`URL: ${url}`, "Data:", JSON.stringify(json, undefined, 2));
       consola.error(
         parsedData.error.name,

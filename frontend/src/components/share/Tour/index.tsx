@@ -27,7 +27,7 @@ export const Tour: FC<ITourProps> & { Skeleton: typeof TourSkeleton } = ({
         <img
           src={tour.photo}
           alt={tour.meta_desc}
-          className="h-full rounded object-cover object-center"
+          className="h-full w-full max-h-[clamp(164px,8vw,260px)] rounded object-cover object-center"
         />
         <Link
           href={pathToTour}

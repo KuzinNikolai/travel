@@ -26,7 +26,6 @@ export async function GET(req: NextRequest) {
     setSearchItem({ title: city.title, citySlug: city.slug });
   });
   tours?.forEach((tour) => {
-    console.log(tour.title, query)
     if (!tour.title.toLowerCase().includes(query || "")) return;
     setSearchItem({
       title: tour.title,

@@ -4,6 +4,7 @@ import { HistoryBack } from "@/packages/utils/HistoryBack";
 import { IPagesProps } from "@/packages/utilsTypes/pageProps";
 import { Metadata } from "next";
 import { FC } from "react";
+import { Header } from "./_components/Header";
 import { PreviewTour } from "./_components/PreviewTour";
 import { TourDescription } from "./_components/TourDescriptions";
 import { TourIncluded } from "./_components/TourIncluded";
@@ -20,23 +21,24 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
   }
 
   return (
-    <Box className="flex flex-col gap-4" as="section">
-      <PreviewTour tour={tour} />
-      <TourDescription description={tour.description} />
-      <TourInformation tour={tour} />
-      <ToutPrograms tour={tour} />
-      <TourIncluded tour={tour} />
-      <TourTake tour={tour} />
-      <TourUsagePolicy usagePolicy={tour.usage_policy} />
-    </Box>
+    <>
+      <Header tourId={tour.id} />
+      <Box className="flex flex-col gap-4" as="section">
+        <PreviewTour tour={tour} />
+        <TourDescription description={tour.description} />
+        <TourInformation tour={tour} />
+        <ToutPrograms tour={tour} />
+        <TourIncluded tour={tour} />
+        <TourTake tour={tour} />
+        <TourUsagePolicy usagePolicy={tour.usage_policy} />
+      </Box>
+    </>
   );
 };
 
 export default Tour;
 
-export async function generateMetadata({
-  params,
-}: IPagesProps): Promise<Metadata> {
+export async function generateMetadata({ params }: IPagesProps): Promise<Metadata> {
   if (!params.slug) {
     return {};
   }
