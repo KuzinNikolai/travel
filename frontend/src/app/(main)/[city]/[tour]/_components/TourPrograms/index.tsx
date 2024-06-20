@@ -1,5 +1,5 @@
 import { Section } from "@/components/layout/Section";
-import { IDetailTour } from "@/entities/travel/Tour.entity";
+import { IDetailTour } from "@/packages/schemes/travel/tour.schema";
 import { FC } from "react";
 import { Program } from "./Program";
 

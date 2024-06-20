@@ -2,7 +2,7 @@
 
 import { Typography } from "@/components/Typography";
 import { Tour } from "@/components/share/Tour";
-import { ITour } from "@/entities/travel/Tour.entity";
+import { ITour } from "@/packages/schemes/travel/tour.schema";
 import { useStore } from "@/packages/hooks/useStore";
 import { useWishlistStore } from "@/packages/stores/wishlist";
 import emptyCart from "@assets/img/empty-cart.png";

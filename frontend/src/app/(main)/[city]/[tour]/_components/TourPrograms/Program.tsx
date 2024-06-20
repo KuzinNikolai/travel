@@ -1,7 +1,7 @@
 import { Box } from "@/components/layout/Box";
 import { Button } from "@/components/Button";
 import { Typography } from "@/components/Typography";
-import { IProgram } from "@/entities/travel/program.entity";
+import { IProgram } from "@/packages/schemes/travel/program.schema";
 import clsx from "clsx";
 import { FC } from "react";
 
@@ -12,13 +12,7 @@ interface IProgramProps {
 
 export const Program: FC<IProgramProps> = ({ program, currency }) => {
   return (
-    <Box
-      className={clsx(
-        "flex flex-col gap-3 p-3 py-4",
-        "bg-background border-l-2 border-l-gray-500/60"
-      )}
-      as="li"
-    >
+    <Box className={clsx("flex flex-col gap-3 p-3 py-4", "border-l-2 border-l-gray-500/60 bg-background")} as="li">
       <Typography variant="h3" as="h3" className="text-xl" width="medium">
         {program.title}
       </Typography>
@@ -43,18 +37,18 @@ export const Program: FC<IProgramProps> = ({ program, currency }) => {
       <div className="flex gap-1">
         <Button
           className={clsx(
-            "flex-1 text-center w-full justify-center rounded",
-            "bg-accent text-white hover:text-accent hover:bg-transparent",
-            "text-xl"
+            "w-full flex-1 justify-center rounded text-center",
+            "bg-accent text-white hover:bg-transparent hover:text-accent",
+            "text-xl",
           )}
         >
           order
         </Button>
         <Button
           className={clsx(
-            "flex-1 text-center w-full justify-center rounded",
-            "text-accent hover:text-accent border-accent border hover:text-white hover:bg-accent",
-            "text-xl"
+            "w-full flex-1 justify-center rounded text-center",
+            "border border-accent text-accent hover:bg-accent hover:text-accent hover:text-white",
+            "text-xl",
           )}
         >
           Подробнее

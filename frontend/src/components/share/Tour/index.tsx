@@ -1,6 +1,6 @@
 import { Typography } from "@/components/Typography";
 import { Rating } from "@/components/share/Rating";
-import { ITour } from "@/entities/travel/Tour.entity";
+import { ITour } from "@/packages/schemes/travel/tour.schema";
 import clsx from "clsx";
 import Link from "next/link";
 import { FC } from "react";

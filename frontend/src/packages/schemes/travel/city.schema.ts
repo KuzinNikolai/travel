@@ -1,4 +1,3 @@
-import { ICity, IDetailCity, ICityItem } from "@entities/travel/City.entity";
 import { z } from "zod";
 import { tourSchema } from "./tour.schema";
 
@@ -10,7 +9,9 @@ export const citySchema = z.object({
   // meta_desc: z.string(),
   description: z.string(),
   photo: z.string(),
-}) satisfies z.ZodType<ICity>;
+});
+
+export type ICity = z.infer<typeof citySchema>;
 
 export const cityItemSchema = z.object({
   ...citySchema.shape,
@@ -18,11 +19,15 @@ export const cityItemSchema = z.object({
   photo_alt: z.string(),
   tour_count: z.number(),
   popular_tours: z.array(tourSchema),
-}) satisfies z.ZodType<ICityItem>;
+});
+
+export type ICityItem = z.infer<typeof cityItemSchema>;
 
 export const detailCitySchema = z.object({
   ...citySchema.shape,
 
   tour_count: z.number(),
   tours: z.array(tourSchema),
-}) satisfies z.ZodType<IDetailCity>;
+});
+
+export type IDetailCity = z.infer<typeof detailCitySchema>;

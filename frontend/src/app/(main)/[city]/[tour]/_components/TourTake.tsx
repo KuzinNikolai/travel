@@ -1,7 +1,7 @@
 import { Icon } from "@/components/Icon";
 import { Typography } from "@/components/Typography";
 import { Section } from "@/components/layout/Section";
-import { IDetailTour } from "@/entities/travel/Tour.entity";
+import { IDetailTour } from "@/packages/schemes/travel/tour.schema";
 import { FC } from "react";
 
 interface ITourTakeProps {

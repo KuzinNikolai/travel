@@ -1,4 +1,3 @@
-import { IReview } from "@/entities/review.entity";
 import { z } from "zod";
 import { dateTimeSchema } from "./dateTimeSchema";
 
@@ -10,4 +9,6 @@ export const reviewSchema = z.object({
   tour: z.number(),
   text: z.string(),
   created_date: dateTimeSchema,
-}) satisfies z.ZodType<IReview>;
+});
+
+export type IReview = z.infer<typeof reviewSchema>;

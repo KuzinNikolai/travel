@@ -1,7 +1,7 @@
 import { Box } from "@/components/layout/Box";
 import { Typography } from "@/components/Typography";
 import { serverApi } from "@/packages/API";
-import { ITour } from "@/entities/travel/Tour.entity";
+import { ITour } from "@/packages/schemes/travel/tour.schema";
 import { Tour } from "@/components/share/Tour";
 import { Section } from "@/components/layout/Section";
 

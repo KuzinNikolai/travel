@@ -1,4 +1,3 @@
-import { IDetailTour, ITour } from "@/entities/travel/Tour.entity";
 import { z } from "zod";
 import { questionSchema } from "../question.schema";
 import { reviewSchema } from "../review";
@@ -27,7 +26,9 @@ export const tourSchema = z.object({
   photo_alt: z.string(),
   average_rating: z.number(),
   currency_prefix: z.string(),
-}) satisfies z.ZodType<ITour>;
+});
+
+export type ITour = z.infer<typeof tourSchema>;
 
 export const detailTourSchema = z.object({
   ...tourSchema.shape,
@@ -57,4 +58,6 @@ export const detailTourSchema = z.object({
 
   time_create: z.string(),
   time_update: z.string().nullable(),
-}) satisfies z.ZodType<IDetailTour>;
+});
+
+export type IDetailTour = z.infer<typeof detailTourSchema>;

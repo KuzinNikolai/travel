@@ -1,4 +1,4 @@
-import { IDetailCity } from "@/entities/travel/City.entity";
+import { IDetailCity } from "@/packages/schemes/travel/city.schema";
 import { API_DOMAIN } from "@/packages/API/constants";
 import { ItemList, WithContext } from "schema-dts";
 

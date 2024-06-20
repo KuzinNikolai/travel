@@ -1,7 +1,7 @@
 import { Box } from "@/components/layout/Box";
 import { Rating } from "@/components/share/Rating";
 import { Typography } from "@/components/Typography";
-import { IDetailTour } from "@/entities/travel/Tour.entity";
+import { IDetailTour } from "@/packages/schemes/travel/tour.schema";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -11,14 +11,14 @@ interface IPreviewTourProps {
 
 export const PreviewTour: FC<IPreviewTourProps> = ({ tour }) => {
   return (
-    <Box className="flex flex-col gap-5 pb-4 bg-background-400" as="section">
+    <Box className="flex flex-col gap-5 bg-background-400 pb-4" as="section">
       <Image
         alt={tour.photo_alt}
         src={tour.photo}
         priority
         width={300}
         height={300}
-        className="w-full h-[50vh] object-cover"
+        className="h-[50vh] w-full object-cover"
       />
       <div className="container flex flex-col gap-5">
         <Typography variant="h2" width="semibold" as="h1">

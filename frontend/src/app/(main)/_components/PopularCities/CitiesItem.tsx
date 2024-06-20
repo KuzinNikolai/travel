@@ -1,5 +1,5 @@
 import { Typography } from "@/components/Typography";
-import { ICityItem } from "@/entities/travel/City.entity";
+import { ICityItem } from "@/packages/schemes/travel/city.schema";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
