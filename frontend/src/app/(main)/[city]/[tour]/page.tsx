@@ -1,8 +1,8 @@
 import { Box } from "@/components/layout/Box";
 import { getDetailTour } from "@/packages/API/fetches/tours";
-import { HistoryBack } from "@/packages/utils/HistoryBack";
 import { IPagesProps } from "@/packages/utilsTypes/pageProps";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { FC } from "react";
 import { Header } from "./_components/Header";
 import { PreviewTour } from "./_components/PreviewTour";
@@ -17,7 +17,7 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
   var tour = await getDetailTour(params.tour);
 
   if (!tour) {
-    return <HistoryBack />;
+    return notFound();
   }
 
   return (

@@ -2,16 +2,16 @@ import { BackHeader } from "@/components/Headers/BackHeader";
 import { Box } from "@/components/layout/Box";
 import { Tour } from "@/components/share/Tour";
 import { getDetailCity } from "@/packages/API/fetches/cities";
-import { HistoryBack } from "@/packages/utils/HistoryBack";
 import { IPagesProps } from "@/packages/utilsTypes/pageProps";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { FC } from "react";
 
 const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
   const city = await getDetailCity(params.city);
   
   if (!city) {
-    return <HistoryBack />;
+    return notFound();
   }
 
   return (
