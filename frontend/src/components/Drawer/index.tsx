@@ -30,7 +30,7 @@ export const Drawer: FC<IDrawerProps> = ({
               {title}
             </Typography>
           </div>
-          <div className="max-h-[80vh] overflow-y-auto ">{children}</div>
+          <div className="max-h-[80vh] max-w-full overflow-x-hidden overflow-y-auto">{children}</div>
         </div>
       </UIDrawerContent>
     </UIDrawer>

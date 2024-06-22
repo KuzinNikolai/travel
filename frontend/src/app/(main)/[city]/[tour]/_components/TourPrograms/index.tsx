@@ -14,6 +14,7 @@ export const ToutPrograms: FC<ITourProgramsProps> = ({ tour }) => {
         {tour.programs.map((program) => (
           <Program
             key={program.id + program.title}
+            tourSlug={tour.slug}
             currency={tour.currency_prefix}
             program={program}
           />
