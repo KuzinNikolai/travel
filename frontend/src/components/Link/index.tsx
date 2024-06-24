@@ -2,9 +2,9 @@
 
 import clsx from "clsx";
 import NextLink from "next/link";
-import { FC, HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 
-interface IButtonProps extends HTMLAttributes<HTMLAnchorElement> {
+interface ILinkProps extends HTMLAttributes<HTMLAnchorElement> {
   href: string;
   variant?: "primary" | "secondary";
   size?: "normal" | "small";
@@ -12,22 +12,16 @@ interface IButtonProps extends HTMLAttributes<HTMLAnchorElement> {
   rightIcon?: JSX.Element;
 }
 
-export const Link: FC<IButtonProps> = ({
-  variant,
-  size,
-  leftIcon,
-  rightIcon,
-  children,
-  ...props
-}) => {
-  return (
-    <NextLink
-      {...props}
-      className={clsx("py-2 px-3 flex items-center", props.className)}
-    >
-      {leftIcon}
-      {children}
-      {rightIcon}
-    </NextLink>
-  );
-};
+export const Link = forwardRef<HTMLAnchorElement, ILinkProps>(
+  ({ variant, size, leftIcon, rightIcon, children, ...props }, ref) => {
+    return (
+      <NextLink {...props} ref={ref} className={clsx("flex items-center px-3 py-2", props.className)}>
+        {leftIcon}
+        {children}
+        {rightIcon}
+      </NextLink>
+    );
+  },
+);
+
+Link.displayName = "Link";

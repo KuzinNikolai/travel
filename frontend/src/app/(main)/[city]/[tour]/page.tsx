@@ -1,4 +1,3 @@
-import { Box } from "@/components/layout/Box";
 import { getDetailTour } from "@/packages/API/fetches/tours";
 import { IPagesProps } from "@/packages/utilsTypes/nextFilesProps";
 import { Metadata } from "next";
@@ -12,6 +11,7 @@ import { TourInformation } from "./_components/TourInformation";
 import { ToutPrograms } from "./_components/TourPrograms";
 import { TourTake } from "./_components/TourTake";
 import { TourUsagePolicy } from "./_components/TourUsagePolicy";
+import { Section } from "@/components/layout/Section";
 
 const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
   var tour = await getDetailTour(params.tour);
@@ -23,7 +23,7 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
   return (
     <>
       <Header tourId={tour.id} />
-      <Box className="flex flex-col gap-4" as="section">
+      <Section title="Tour" hiddenTitle>
         <PreviewTour tour={tour} />
         <TourDescription description={tour.description} />
         <TourInformation tour={tour} />
@@ -31,7 +31,7 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
         <TourIncluded tour={tour} />
         <TourTake tour={tour} />
         <TourUsagePolicy usagePolicy={tour.usage_policy} />
-      </Box>
+      </Section>
     </>
   );
 };

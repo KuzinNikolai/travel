@@ -1,4 +1,3 @@
-import { Box } from "@/components/layout/Box";
 import { Typography } from "@/components/Typography";
 import { serverApi } from "@/packages/API";
 import { ITour } from "@/packages/schemes/travel/tour.schema";
@@ -8,12 +7,12 @@ import { Section } from "@/components/layout/Section";
 export const PopularTours = async () => {
   const tours = (await serverApi.cities.getCities())?.reduce(
     (acc, city) => (acc.push(...city.popular_tours), acc),
-    [] as ITour[]
+    [] as ITour[],
   );
 
   return (
     <Section title="Популярные туры">
-      <ul className="flex flex-col list-none gap-3">
+      <ul className="flex list-none flex-col gap-3">
         {tours && tours.length ? (
           tours.map((tour) => <Tour key={tour.id} tour={tour} />)
         ) : (

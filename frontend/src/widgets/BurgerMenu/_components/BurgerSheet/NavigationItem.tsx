@@ -15,10 +15,10 @@ export const NavigationItem: FC<INavigationItemProps> = ({ navigation }) => {
     >
       {navigation.icon}
       <div className="flex flex-col gap-1">
-        <Typography variant="span" as="p" width="semibold" className="truncate">
+        <Typography variant="span" as="p" textWidth="semibold" className="truncate">
           {navigation.name}
         </Typography>
-        <Typography variant="span" as="p" width="light" className="truncate">
+        <Typography variant="span" as="p" textWidth="light" className="truncate">
           {navigation.description}
         </Typography>
       </div>

@@ -1,11 +1,7 @@
 "use client";
 
 import { FC, PropsWithChildren, ReactElement } from "react";
-import {
-  Drawer as UIDrawer,
-  DrawerContent as UIDrawerContent,
-  DrawerTrigger as UIDrawerTrigger
-} from "../@ui/drawer";
+import { Drawer as UIDrawer, DrawerContent as UIDrawerContent, DrawerTrigger as UIDrawerTrigger } from "../@ui/drawer";
 import { Typography } from "../Typography";
 
 interface IDrawerProps extends PropsWithChildren {
@@ -14,23 +10,18 @@ interface IDrawerProps extends PropsWithChildren {
   trigger?: ReactElement;
 }
 
-export const Drawer: FC<IDrawerProps> = ({
-  title,
-  expand,
-  trigger,
-  children,
-}) => {
+export const Drawer: FC<IDrawerProps> = ({ title, expand, trigger, children }) => {
   return (
     <UIDrawer open={expand}>
       {trigger && <UIDrawerTrigger asChild>{trigger}</UIDrawerTrigger>}
       <UIDrawerContent className="container">
         <div className="pb-4">
           <div className="py-2 pt-4">
-            <Typography variant="h2" width="medium" className="w-full">
+            <Typography variant="h2" textWidth="medium" className="w-full">
               {title}
             </Typography>
           </div>
-          <div className="max-h-[80vh] max-w-full overflow-x-hidden overflow-y-auto">{children}</div>
+          <div className="max-h-[80vh] max-w-full overflow-y-auto overflow-x-hidden">{children}</div>
         </div>
       </UIDrawerContent>
     </UIDrawer>

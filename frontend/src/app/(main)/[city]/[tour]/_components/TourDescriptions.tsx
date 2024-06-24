@@ -18,7 +18,7 @@ export const TourDescription: FC<ITourDescriptionProps> = ({ description }) => {
             title="Описание"
             trigger={
               <Button className="text-red-500 hover:text-red-600 ">
-                <Typography variant="button" as="div" width="medium">
+                <Typography variant="button" as="div" textWidth="medium">
                   Читать далее
                 </Typography>
               </Button>

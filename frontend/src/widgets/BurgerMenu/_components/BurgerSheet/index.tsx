@@ -9,15 +9,12 @@ export const BurgerSheet = () => {
     <div className="flex flex-col gap-10">
       <div className="grid grid-cols-[40px_1fr] items-center gap-2">
         <Avatar>
-          <AvatarImage
-            src="https://i.pravatar.cc/300"
-            className="w-10 h-10 rounded-full object-cover object-center"
-          />
+          <AvatarImage src="https://i.pravatar.cc/300" className="h-10 w-10 rounded-full object-cover object-center" />
           <AvatarFallback>
-            <Skeleton className="w-10 h-10 rounded-full" />
+            <Skeleton className="h-10 w-10 rounded-full" />
           </AvatarFallback>
         </Avatar>
-        <Typography variant="span" as="p" width="light" className="truncate">
+        <Typography variant="span" as="p" textWidth="light" className="truncate">
           123123123123123123123112312312312312312312123
         </Typography>
       </div>

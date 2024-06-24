@@ -21,8 +21,8 @@ export const TourUsagePolicy: FC<ITourUsagePolicy> = ({ usagePolicy }) => {
                 <Typography
                   variant="button"
                   as="span"
-                  width="medium"
-                  align="right"
+                  textWidth="medium"
+                  textAlign="right"
                 >
                   Читать далее
                 </Typography>

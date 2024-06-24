@@ -1,39 +1,37 @@
+import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
-import { HTMLAttributes, PropsWithChildren, createElement } from "react";
-import { align, style, transform, variants, weight } from "./typography";
+import { HTMLAttributes, PropsWithChildren, createElement, forwardRef } from "react";
+import { TypographyVariantsProps, tags, typographyVariants } from "./typography";
 
-interface ITypographyProps<Element>
-  extends PropsWithChildren<HTMLAttributes<HTMLElement & Element>> {
-  variant: keyof typeof variants;
-  width?: keyof typeof weight;
-  textStyle?: keyof typeof style;
-  align?: keyof typeof align;
-  transform?: keyof typeof transform;
-  bold?: boolean;
+interface ITypographyProps extends PropsWithChildren<HTMLAttributes<HTMLElement> & TypographyVariantsProps> {
   as?: keyof HTMLElementTagNameMap;
+  asChild?: boolean;
 }
 
-export const Typography = <Tag,>({
-  as,
-  variant,
-  ...props
-}: ITypographyProps<Tag>) => {
-  return createElement(
-    as || variants[variant][0] || "p",
-    {
-      ...props,
-      className: clsx(
-        variants[variant][1],
-        props.textStyle && style[props.textStyle],
-        props.align && align[props.align],
-        props.transform && transform[props.transform],
-        props.bold && "font-bold",
-        props.width && weight[props.width],
-        props.className
-      ),
-    },
-    props.children
-  );
-};
+export const Typography = forwardRef<HTMLElement, ITypographyProps>(
+  ({ as, asChild, variant, textWidth, textStyle, textTransform, textAlign, className, children, ...props }, ref) => {
+    if (asChild) {
+      return (
+        <Slot
+          className={clsx(typographyVariants({ variant, textWidth, textStyle, textTransform, textAlign, className }))}
+          {...props}
+          ref={ref}
+        />
+      );
+    }
 
-export type TypographyVariants = keyof typeof variants;
+    return createElement(
+      as || tags[variant || "content1"],
+      {
+        ...props,
+        className: clsx(typographyVariants({ variant, textWidth, textStyle, textTransform, textAlign, className })),
+        ref,
+      },
+      children,
+    );
+  },
+);
+
+Typography.displayName = "Typography";
+
+export type TypographyVariants = Exclude<TypographyVariantsProps["variant"], null | undefined>;

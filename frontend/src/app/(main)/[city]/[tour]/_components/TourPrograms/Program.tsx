@@ -3,7 +3,6 @@
 import { Button } from "@/components/Button";
 import { Drawer } from "@/components/Drawer";
 import { Typography } from "@/components/Typography";
-import { Box } from "@/components/layout/Box";
 import { IProgram } from "@/packages/schemes/travel/program.schema";
 import { IDetailTour } from "@/packages/schemes/travel/tour.schema";
 import { useOrderStore } from "@/packages/stores/order";
@@ -29,8 +28,8 @@ export const Program: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
   };
 
   return (
-    <Box className={clsx("flex flex-col gap-3 p-3 py-4", "border-l-2 border-l-gray-500/60 bg-background")} as="li">
-      <Typography variant="h3" as="h3" className="text-xl" width="medium">
+    <li className={clsx("flex flex-col gap-3 p-3 py-4", "border-l-2 border-l-gray-500/60 bg-background")}>
+      <Typography variant="h3" as="h3" className="text-xl" textWidth="medium">
         {program.title}
       </Typography>
       <ul className="flex flex-col">
@@ -99,6 +98,6 @@ export const Program: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
           </Button>
         </Drawer>
       </div>
-    </Box>
+    </li>
   );
 };

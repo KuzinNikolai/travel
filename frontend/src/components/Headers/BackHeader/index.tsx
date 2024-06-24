@@ -8,19 +8,18 @@ interface IBackHeaderProps {
   onBack?: () => void;
 }
 
-export const BackHeader = forwardRef<HTMLElement, IBackHeaderProps>(
-  ({ title, onBack }) => {
-    return (
-      <Header
-        leftColumn={<ButtonBack onClick={onBack} />}
-        centerColumn={
-          <Typography variant="content1" width="bold" align="center" as="h1">
-            {title}
-          </Typography>
-        }
-      />
-    );
-  }
-);
+export const BackHeader = forwardRef<HTMLElement, IBackHeaderProps>(({ title, onBack }, ref) => {
+  return (
+    <Header
+      ref={ref}
+      leftColumn={<ButtonBack onClick={onBack} />}
+      centerColumn={
+        <Typography variant="content1" textWidth="bold" textAlign="center" as="h1">
+          {title}
+        </Typography>
+      }
+    />
+  );
+});
 
 BackHeader.displayName = "Header with back button";

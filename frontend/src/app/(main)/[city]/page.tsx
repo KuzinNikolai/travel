@@ -1,5 +1,4 @@
 import { BackHeader } from "@/components/Headers/BackHeader";
-import { Box } from "@/components/layout/Box";
 import { Tour } from "@/components/share/Tour";
 import { getDetailCity } from "@/packages/API/fetches/cities";
 import { IPagesProps } from "@/packages/utilsTypes/nextFilesProps";
@@ -15,17 +14,17 @@ const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
   }
 
   return (
-    <Box className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3">
       {/* <JsonLD schema={generateToursJsonLd(cityDetail)} /> */}
-      <Box className="flex h-full w-full flex-col bg-background-400" as="section">
+      <section className="flex h-full w-full flex-col bg-background-400">
         <BackHeader title={`Экскурсии в ${city.name}`} />
         <div className="container flex flex-col gap-4 pb-5">
           -- filter --
           {city?.tours.map((tour) => <Tour key={tour.id + tour.slug} tour={tour} />)}
         </div>
-      </Box>
-      <Box className="h-[10px] w-full bg-background-400"></Box>
-    </Box>
+      </section>
+      <div className="h-[10px] w-full bg-background-400"></div>
+    </div>
   );
 };
 

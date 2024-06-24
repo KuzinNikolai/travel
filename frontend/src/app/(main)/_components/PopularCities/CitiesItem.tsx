@@ -16,10 +16,10 @@ export const CityItem: FC<ICityProps> = ({ city: city }) => {
         {/* <div className="absolute left-0 top-0 w-full h-full bg-primary opacity-20"></div> */}
       </div>
       <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-[4px] p-3">
-        <Typography variant="content2" transform="uppercase" width="semibold" className="text-primary-100">
+        <Typography variant="content2" textTransform="uppercase" textWidth="semibold" className="text-primary-100">
           {city.name}
         </Typography>
-        <Typography variant="content2" transform="uppercase" className="text-primary-100">
+        <Typography variant="content2" textTransform="uppercase" className="text-primary-100">
           экскурсий: {city.tour_count || 0}
         </Typography>
       </div>
