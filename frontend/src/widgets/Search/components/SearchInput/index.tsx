@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/@ui/input";
-import { createDebounce } from "@/packages/debounce";
+import { createDebounce } from "@/packages/utils/debounce";
 import { useSearchParams } from "@/packages/hooks/useSearchParams";
 import { useState } from "react";
 

@@ -1,6 +1,6 @@
 import { Box } from "@/components/layout/Box";
 import { getDetailTour } from "@/packages/API/fetches/tours";
-import { IPagesProps } from "@/packages/utilsTypes/pageProps";
+import { IPagesProps } from "@/packages/utilsTypes/nextFilesProps";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FC } from "react";

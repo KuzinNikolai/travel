@@ -5,11 +5,7 @@ import { Suspense } from "react";
 import { getTours } from "@/packages/API/fetches/tours";
 
 const WishList = async () => {
-  const tours = await getTours();
-
-  if (!tours) {
-    return;
-  }
+  const tours = await getTours() || [];
 
   return (
     <>

@@ -2,7 +2,7 @@ import { BackHeader } from "@/components/Headers/BackHeader";
 import { Box } from "@/components/layout/Box";
 import { Tour } from "@/components/share/Tour";
 import { getDetailCity } from "@/packages/API/fetches/cities";
-import { IPagesProps } from "@/packages/utilsTypes/pageProps";
+import { IPagesProps } from "@/packages/utilsTypes/nextFilesProps";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FC } from "react";
