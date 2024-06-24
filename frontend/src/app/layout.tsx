@@ -1,4 +1,5 @@
 import { siteConfig } from "@/configs/siteConfig";
+import { cn } from "@/packages/tw-utils";
 import { Toaster } from "@/widgets/Toaster";
 import "@assets/globals.css";
 import { Metadata } from "next";
@@ -21,8 +22,8 @@ const font = Inter({ axes: ["slnt"], subsets: ["cyrillic"] });
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={font.className}>
-        <main className="min-h-dvh flex flex-col">{children}</main>
+      <body className={cn(font.className, "flex min-h-dvh flex-col")}>
+        {children}
         <Toaster />
       </body>
     </html>

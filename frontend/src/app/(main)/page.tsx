@@ -7,12 +7,12 @@ const MainPage = async () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col gap-3">
+      <main className="flex flex-col gap-3">
         <PopularCities />
         <Advantages />
         <PopularTours />
         <div className="h-[10px] bg-background-400" />
-      </div>
+      </main>
     </>
   );
 };
