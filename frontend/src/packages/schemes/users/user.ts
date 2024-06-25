@@ -6,4 +6,5 @@ export const userSchema = z.object({
   surname: z.string(),
   patronymic: z.string(),
   avatar: z.string(),
-}) satisfies z.ZodType<IUserData>;
+});
+export type UserData = z.infer<typeof userSchema>

@@ -1,30 +1,33 @@
-import { IUserData, IUserValues } from "@/entities/user.entity";
-import { createStore } from "zustand";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-interface IUserMethods {
-  verify(): boolean;
-
-  setUser(user: IUserData): void;
-  clear(): void;
+interface IValues {
+  t: string | null;
 }
 
-type UserStore = IUserValues & IUserMethods;
+interface IMethods {
+  getToken(): string | null;
+  setToken(token: string | null): void;
+}
 
-export const useUserStore = createStore<UserStore>((set, get) => ({
-  isVerify: false,
-  user: null,
+type IStorage = IValues & IMethods;
 
-  setUser(user) {
-    set({ user });
-  },
-  clear() {
-    set({ user: null, isVerify: false });
-  },
-  verify() {
-    if (!get().user) {
-      return false;
-    }
-    set({ isVerify: true });
-    return true;
-  },
-}));
+export const useUserStore = create(
+  persist<IStorage>(
+    (set, get) => ({
+      t: null,
+
+      getToken() {
+        const token = get().t;
+        return token && atob(token);
+      },
+      setToken(token) {
+        set({ t: token && btoa(token) });
+      },
+    }),
+    {
+      name: "us", // user-storage
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+);
