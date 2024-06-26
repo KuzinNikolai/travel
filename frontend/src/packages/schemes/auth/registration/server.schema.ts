@@ -8,7 +8,7 @@ export const registrationRequestSchema = z.object({
 
   first_name: z.string().min(1),
   last_name: z.string().min(1),
-  age: z.number().min(18).max(90),
+  age: z.number().min(16).max(90),
 });
 export type RegistrationRequest = z.infer<typeof registrationRequestSchema>;
 
@@ -22,4 +22,4 @@ export const registrationErrorResponseSCheme = z.object({
   username: z.string().array().nullable().optional(),
   email: z.string().array().nullable().optional(),
 });
-export type RegistrationResponseError = z.infer<typeof registrationErrorResponseSCheme>;
+export type RegistrationErrorResponse = z.infer<typeof registrationErrorResponseSCheme>;

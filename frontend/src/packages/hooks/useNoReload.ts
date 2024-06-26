@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /**
+ * @description
  * A hook that prevents the page from reloading when the `listen` parameter is set to `true`.
- *
- * @param listen - listen or not
  */
-export const useNoReload = (listen: boolean = false, customMessage?: string) => {
+export const useNoReload = () => {
+  const [listen, setListen] = useState(false);
+
   useEffect(() => {
     if (!listen) return;
 
@@ -19,4 +20,10 @@ export const useNoReload = (listen: boolean = false, customMessage?: string) => 
     window.addEventListener("beforeunload", onBeforeReload);
     return () => window.removeEventListener("beforeunload", onBeforeReload);
   }, [listen]);
+
+  const setListenState = useCallback((listen: boolean) => {
+    setListen(listen);
+  }, []);
+
+  return setListenState;
 };

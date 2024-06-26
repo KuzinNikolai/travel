@@ -1,7 +1,6 @@
 export interface IUserData {
   name: string;
   surname: string;
-  patronymic: string;
 
   avatar: string;
 }

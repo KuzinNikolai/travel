@@ -18,8 +18,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    logger.debug(reqData);
+
     const verificationResponse = await serverVerify({ email_verification_code: reqData.code });
     const json = await verificationResponse.json();
+
+    logger.debug(json);
 
     const { success, data, error } = verificationServerResponseSchema.safeParse(json);
 

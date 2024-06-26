@@ -10,7 +10,7 @@ const maxStep = (step: number, max: number) => Math.min(step, max);
 export const useMultistepForm = ({ initialStep = 0, maxSteps = Infinity }: IUseStepsArgs) => {
   const [currentStep, setCurrentStep] = useState(initialStep);
 
-  const goToStep = useCallback((step: number) => maxStep(step, maxSteps), []);
+  const goToStep = useCallback((step: number) => setCurrentStep(step), []);
   const nextStep = useCallback(() => setCurrentStep((val) => maxStep(++val, maxSteps)), [maxSteps]);
   const backStep = useCallback(() => setCurrentStep((val) => Math.max(--val, 0)), []);
 

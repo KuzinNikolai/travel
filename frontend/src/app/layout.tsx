@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const font = Inter({ axes: ["slnt"], subsets: ["cyrillic"] });
 
-const MainLayout: FC<PropsWithChildren> = ({ children }) => {
+const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="en">
       <body className={cn(font.className, "flex min-h-dvh flex-col")}>
@@ -30,4 +30,4 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default MainLayout;
+export default RootLayout;
