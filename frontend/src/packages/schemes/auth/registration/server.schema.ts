@@ -3,7 +3,6 @@ import { passwordScheme } from "../../password.schema";
 
 export const registrationRequestSchema = z.object({
   email: z.string().email(),
-  username: z.string().min(1),
   password: passwordScheme,
 
   first_name: z.string().min(1),
@@ -19,7 +18,6 @@ export type RegistrationSuccessResponse = z.infer<typeof registrationSuccessResp
 
 export const registrationErrorResponseSCheme = z.object({
   // FIX: nullable or optional
-  username: z.string().array().nullable().optional(),
   email: z.string().array().nullable().optional(),
 });
 export type RegistrationErrorResponse = z.infer<typeof registrationErrorResponseSCheme>;

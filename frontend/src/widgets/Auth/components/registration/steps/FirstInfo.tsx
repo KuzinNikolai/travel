@@ -6,20 +6,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FirstInfo as IFirstInfo, firstInfoSchema } from "../schema";
-import { useFirstInfoStore } from "../store/firstInformation";
+import { useRegistrationFormStore } from "../store/registrationForm";
 import { Button } from "@/components/Buttons/Button";
 
 interface IFirstInfoProps {
   next: () => void;
+  goToStep: (step: number) => void;
 }
 
-export const FirstInfo: FC<IFirstInfoProps> = ({ next }) => {
-  const { setFormData } = useFirstInfoStore();
+export const FirstInfo: FC<IFirstInfoProps> = ({ next, goToStep }) => {
+  const { setFormData, setStep, currentStep } = useRegistrationFormStore();
 
   const form = useForm<IFirstInfo & { confirm_password: string }>({
     defaultValues: {
       email: "",
-      username: "",
       password: "",
     },
     resolver: zodResolver(firstInfoSchema),
@@ -27,8 +27,15 @@ export const FirstInfo: FC<IFirstInfoProps> = ({ next }) => {
 
   const onSubmit = form.handleSubmit(async (data: IFirstInfo) => {
     setFormData(data);
+    setStep(1);
     next();
   });
+
+  useEffect(() => {
+    if (currentStep !== 0) {
+      goToStep(currentStep);
+    }
+  }, []);
 
   useEffect(() => {
     form.setFocus("email");
@@ -50,18 +57,6 @@ export const FirstInfo: FC<IFirstInfoProps> = ({ next }) => {
           )}
         />
         <FormField
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>* Логин</FormLabel>
-              <FormControl>
-                <Input type="text" {...field} required />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -73,7 +68,12 @@ export const FirstInfo: FC<IFirstInfoProps> = ({ next }) => {
             </FormItem>
           )}
         />
-        <Button variant="secondary" type="submit" disabled={!form.formState.isValid || form.formState.isSubmitting} className="w-full">
+        <Button
+          variant="secondary"
+          type="submit"
+          disabled={!form.formState.isValid || form.formState.isSubmitting}
+          className="w-full"
+        >
           перейти к следующему шагу
         </Button>
       </form>

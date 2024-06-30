@@ -1,9 +1,9 @@
 "use client";
 
 import { useMultistepForm } from "@/packages/hooks/useMultistepForm";
-import { AdditionalInfo } from "./components/AdditionalInfo";
-import { FirstInfo } from "./components/FirstInfo";
-import { VerifyCode } from "./components/VerifyCode";
+import { AdditionalInfo } from "./steps/AdditionalInfo";
+import { FirstInfo } from "./steps/FirstInfo";
+import { VerifyCode } from "./steps/VerifyCode";
 import { useNoReload } from "@/packages/hooks/useNoReload";
 import { useEffect } from "react";
 
@@ -17,7 +17,7 @@ export const RegistrationForm = () => {
   }, []);
 
   const steps = {
-    0: <FirstInfo next={nextStep} />,
+    0: <FirstInfo next={nextStep} goToStep={goToStep} />,
     1: <AdditionalInfo next={nextStep} back={backStep} />,
     2: <VerifyCode goToStep={goToStep} />,
   };

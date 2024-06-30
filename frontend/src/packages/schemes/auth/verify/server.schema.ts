@@ -1,7 +1,6 @@
 import { z } from "zod";
-import zu from "zod_utilz";
 
-export const verificationCode = z.string().min(6).max(6);
+export const verificationCode = z.string().regex(/^\d{6}$/g);
 
 export const verificationServerRequestSchema = z.object({
   email_verification_code: verificationCode,

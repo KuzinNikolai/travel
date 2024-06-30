@@ -38,8 +38,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ token: data.auth_token }, { status: SuccessStatusCodes.ACCEPTED });
   } catch (e) {
-    logger.error(e);
-
+    logger.error("Login Error", e);
     return NextResponse.json({ code: "SERVER_ERROR" }, { status: BadStatusCodes.INTERNAL_SERVER_ERROR });
   }
 }

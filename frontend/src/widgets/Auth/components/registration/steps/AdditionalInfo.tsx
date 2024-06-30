@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { AdditionalInformation, additionalInformationSchema } from "../schema";
-import { useFirstInfoStore } from "../store/firstInformation";
+import { useRegistrationFormStore } from "../store/registrationForm";
 import { Button } from "@/components/Buttons/Button";
 
 interface IAdditionalInfoProps {
@@ -15,7 +15,7 @@ interface IAdditionalInfoProps {
 }
 
 export const AdditionalInfo: FC<IAdditionalInfoProps> = ({ next, back }) => {
-  const { getFormData } = useFirstInfoStore();
+  const { getFormData, setStep } = useRegistrationFormStore();
 
   const form = useForm<AdditionalInformation>({
     defaultValues: {
@@ -32,6 +32,7 @@ export const AdditionalInfo: FC<IAdditionalInfoProps> = ({ next, back }) => {
     const register = await clientRegistration(Object.assign({}, firstInfo, data));
 
     if (register.ok) {
+      setStep(2);
       next();
       toast({
         title: "Успешно",

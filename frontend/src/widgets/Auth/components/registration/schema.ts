@@ -3,7 +3,6 @@ import { z } from "zod";
 
 export const firstInfoSchema = registrationRequestSchema.pick({
   email: true,
-  username: true,
   password: true,
 });
 

@@ -1,13 +1,12 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/@ui/form";
 import { Input } from "@/components/@ui/input";
 import { Button } from "@/components/Buttons/Button";
+import { useLogin } from "@/packages/hooks/auth/login";
 import { LoginRequest, loginRequestScheme } from "@/packages/schemes/auth/login/client.schema";
-import { logger } from "@/packages/utils/logger";
+import { useModalsStore } from "@/packages/stores/modals";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useLogin } from "./utils";
-import { useModalsStore } from "@/packages/stores/modals";
 
 export const LoginForm = () => {
   const { setModal } = useModalsStore();
@@ -20,8 +19,6 @@ export const LoginForm = () => {
     },
     resolver: zodResolver(loginRequestScheme),
   });
-
-  logger.debug(form.formState.isValid, form.formState.isSubmitting);
 
   const onSubmit = form.handleSubmit(async (data: LoginRequest) => {
     await login(data);

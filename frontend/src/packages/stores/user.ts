@@ -1,20 +1,5 @@
-import { IUserData } from "@/entities/user.entity";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { logger } from "../utils/logger";
-
-interface IUserStore {
-  user: IUserData | null;
-  setUser: (user: IUserData | null) => void;
-}
-
-export const useUserStore = create<IUserStore>((set) => ({
-  user: null,
-
-  setUser(user) {
-    set({ user });
-  },
-}));
 
 interface IPersistValues {
   t: string | null;
@@ -37,7 +22,6 @@ export const useUserPersistStore = create(
         return token && atob(token);
       },
       setToken(token) {
-        logger.debug("set token", token);
         set({ t: token && btoa(token) });
       },
     }),

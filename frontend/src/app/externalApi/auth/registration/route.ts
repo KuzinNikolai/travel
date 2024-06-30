@@ -28,19 +28,20 @@ export async function POST(req: NextRequest) {
     } = registrationSuccessResponseSchema.or(registrationErrorResponseSCheme).safeParse(registerText);
 
     if (!parseSuccess) {
-      logger.error(error);
+      logger.warn("Invalid Response Error", error);
       return NextResponse.json(
         { code: "INVALID_RESPONSE_BODY", error },
         { status: BadStatusCodes.INTERNAL_SERVER_ERROR },
       );
     }
 
-    if (Array.isArray(data.username) || Array.isArray(data.email)) {
+    if (Array.isArray(data.email)) {
       return NextResponse.json({ success: false, code: "USER_ALREADY_EXISTS" }, { status: BadStatusCodes.FORBIDDEN });
     }
 
     return NextResponse.json({ success: true }, { status: SuccessStatusCodes.CREATED });
   } catch (e) {
+    logger.error("Registration Critical Error", e);
     return NextResponse.json({ code: "SERVER_ERROR" }, { status: BadStatusCodes.INTERNAL_SERVER_ERROR });
   }
 }

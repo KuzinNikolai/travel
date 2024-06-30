@@ -7,19 +7,23 @@ import { FirstInfo, firstInfoSchema } from "../schema";
 
 interface IValues {
   formData: string | null;
+  currentStep: number;
 }
 
 interface IMethods {
   getFormData(): FirstInfo | null;
   setFormData(data: FirstInfo | null): void;
+
+  setStep(step: number): void;
 }
 
 type IStorage = IValues & IMethods;
 
-export const useFirstInfoStore = create(
+export const useRegistrationFormStore = create(
   persist<IStorage>(
     (set, get) => ({
       formData: null,
+      currentStep: 0,
 
       getFormData() {
         try {
@@ -28,7 +32,6 @@ export const useFirstInfoStore = create(
           const res = firstInfoSchema.safeParse(data).data;
 
           if (!res) {
-            set({ formData: null });
             return null;
           }
 
@@ -41,6 +44,10 @@ export const useFirstInfoStore = create(
       setFormData(data) {
         const str = SafeJson.stringify(data);
         set({ formData: str ? btoa(str) : null });
+      },
+
+      setStep(step) {
+        set({ currentStep: step });
       },
     }),
     {
