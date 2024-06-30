@@ -10,8 +10,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    logger.info(body);
-
     const { success: reqSuccess, data: reqData, error: reqError } = loginRequestScheme.safeParse(body);
 
     if (!reqSuccess) {
