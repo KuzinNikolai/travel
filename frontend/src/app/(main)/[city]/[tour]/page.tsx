@@ -23,11 +23,11 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
 	return (
 		<>
 			<Header tourId={tour.id} />
+			<PreviewTour tour={tour} />
 			<Section
 				title='Tour'
 				hiddenTitle
 			>
-				<PreviewTour tour={tour} />
 				<TourDescription description={tour.description} />
 				<TourInformation tour={tour} />
 				<ToutPrograms tour={tour} />

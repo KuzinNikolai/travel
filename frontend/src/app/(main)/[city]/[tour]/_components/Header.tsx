@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container"
 import { useScrollable } from "@/packages/hooks/useScrollable"
 import { useWishlistStore } from "@/packages/stores/wishlist"
 import { cn } from "@/packages/tw-utils"
-import { type FC, useEffect, useState } from "react"
+import { useEffect, useState, type FC } from "react"
 
 interface IHeader {
 	tourId: number
@@ -34,7 +34,7 @@ export const Header: FC<IHeader> = ({ tourId }) => {
 	return (
 		<div
 			className={cn(
-				"fixed top-0 right-0 left-0 py-2 transition-all duration-500",
+				"fixed top-0 right-0 left-0 z-20 py-2 transition-all duration-500",
 				scrollable ? "bg-gray-200/60 backdrop-blur-2xl" : "bg-white/0 backdrop-blur-0",
 			)}
 		>
