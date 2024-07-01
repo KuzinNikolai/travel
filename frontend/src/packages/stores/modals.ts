@@ -1,19 +1,19 @@
-import { create } from "zustand";
+import { create } from "zustand"
 
-type ModalName = "auth";
+type ModalName = "auth"
 
-type ModalState = Record<ModalName, boolean>;
+type ModalState = Record<ModalName, boolean>
 
 interface Setters {
-  setModal: (name: ModalName, status: boolean) => void;
+	setModal: (name: ModalName, status: boolean) => void
 }
 
-type Storage = ModalState & Setters;
+type Storage = ModalState & Setters
 
 export const useModalsStore = create<Storage>((set) => ({
-  auth: false,
+	auth: false,
 
-  setModal(name, status) {
-    set({ [name]: status });
-  },
-}));
+	setModal(name, status) {
+		set({ [name]: status })
+	},
+}))

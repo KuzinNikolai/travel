@@ -1,3 +1,3 @@
-import { createRedirectBack } from "@/packages/utils/redirectBack";
+import { createRedirectBack } from "@/packages/utils/redirectBack"
 
-export const redirectBack = createRedirectBack("countries");
+export const redirectBack = createRedirectBack("countries")

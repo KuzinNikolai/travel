@@ -1,22 +1,22 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const userSchema = z.object({
-  id: z.number(),
-  email: z.string().email(),
-  first_name: z.string(),
-  last_name: z.string(),
-  phone: z.string().nullable(),
-  age: z.number().nullable(),
+	id: z.number(),
+	email: z.string().email(),
+	first_name: z.string(),
+	last_name: z.string(),
+	phone: z.string().nullable(),
+	age: z.number().nullable(),
 
-  country: z.number().nullable(),
-  city: z.number().nullable(),
+	country: z.number().nullable(),
+	city: z.number().nullable(),
 
-  photo: z.string().nullable(),
+	photo: z.string().nullable(),
 
-  is_staff: z.boolean(),
-});
-export type UserData = z.infer<typeof userSchema>;
+	is_staff: z.boolean(),
+})
+export type UserData = z.infer<typeof userSchema>
 
 export const errorUserSchema = z.object({
-  detail: z.string(),
+	detail: z.string(),
 })

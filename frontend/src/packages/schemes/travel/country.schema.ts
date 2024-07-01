@@ -1,19 +1,19 @@
-import { z } from "zod";
-import { citySchema } from "./city.schema";
+import { z } from "zod"
+import { citySchema } from "./city.schema"
 
 export const countrySchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  title: z.string(),
-  description: z.string(),
-  cities: z.array(citySchema),
+	id: z.number(),
+	name: z.string(),
+	slug: z.string(),
+	title: z.string(),
+	description: z.string(),
+	cities: z.array(citySchema),
 })
 
-export type ICountry = z.infer<typeof countrySchema>;
+export type ICountry = z.infer<typeof countrySchema>
 
 export const detailCountrySchema = z.object({
-  ...countrySchema.shape,
+	...countrySchema.shape,
 })
 
-export type IDetailCity = z.infer<typeof detailCountrySchema>;
+export type IDetailCity = z.infer<typeof detailCountrySchema>

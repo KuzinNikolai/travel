@@ -1,1 +1,1 @@
-export const API_DOMAIN = process.env.API_PATH;
+export const API_DOMAIN = process.env.API_PATH

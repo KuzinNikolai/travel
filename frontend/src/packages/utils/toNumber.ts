@@ -1,3 +1,3 @@
 export function toNumber(val: string): number {
-  return parseInt(val) || NaN;
+	return Number.parseInt(val) || Number.NaN
 }

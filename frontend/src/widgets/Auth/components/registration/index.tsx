@@ -1,26 +1,36 @@
-"use client";
+"use client"
 
-import { useMultistepForm } from "@/packages/hooks/useMultistepForm";
-import { AdditionalInfo } from "./steps/AdditionalInfo";
-import { FirstInfo } from "./steps/FirstInfo";
-import { VerifyCode } from "./steps/VerifyCode";
-import { useNoReload } from "@/packages/hooks/useNoReload";
-import { useEffect } from "react";
+import { useMultistepForm } from "@/packages/hooks/useMultistepForm"
+import { useNoReload } from "@/packages/hooks/useNoReload"
+import { useEffect } from "react"
+import { AdditionalInfo } from "./steps/AdditionalInfo"
+import { FirstInfo } from "./steps/FirstInfo"
+import { VerifyCode } from "./steps/VerifyCode"
 
 export const RegistrationForm = () => {
-  const { currentStep, backStep, nextStep, goToStep } = useMultistepForm({ maxSteps: 2 });
+	const { currentStep, backStep, nextStep, goToStep } = useMultistepForm({ maxSteps: 2 })
 
-  const listenReload = useNoReload();
+	const listenReload = useNoReload()
 
-  useEffect(() => {
-    listenReload(true);
-  }, []);
+	useEffect(() => {
+		listenReload(true)
+	}, [])
 
-  const steps = {
-    0: <FirstInfo next={nextStep} goToStep={goToStep} />,
-    1: <AdditionalInfo next={nextStep} back={backStep} />,
-    2: <VerifyCode goToStep={goToStep} />,
-  };
+	const steps = {
+		0: (
+			<FirstInfo
+				next={nextStep}
+				goToStep={goToStep}
+			/>
+		),
+		1: (
+			<AdditionalInfo
+				next={nextStep}
+				back={backStep}
+			/>
+		),
+		2: <VerifyCode goToStep={goToStep} />,
+	}
 
-  return <>{steps[currentStep as keyof typeof steps]}</>;
-};
+	return <>{steps[currentStep as keyof typeof steps]}</>
+}

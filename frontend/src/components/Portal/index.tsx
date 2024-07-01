@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { PropsWithChildren, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { type PropsWithChildren, useEffect, useState, type FC } from "react"
+import { createPortal } from "react-dom"
 
-export const Portal = ({ children }: PropsWithChildren<{}>) => {
-  const [_body, setBody] = useState<HTMLElement | null>(null)
-  
-  useEffect(() => {
-    setBody(document.body)
-  }, [])
+export const Portal: FC<PropsWithChildren> = ({ children }) => {
+	const [_body, setBody] = useState<HTMLElement | null>(null)
 
-  return _body && createPortal(children, _body, "portal-root");
+	useEffect(() => {
+		setBody(document.body)
+	}, [])
+
+	return _body && createPortal(children, _body, "portal-root")
 }

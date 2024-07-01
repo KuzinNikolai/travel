@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
 
 const Countries = async () => {
-  redirect("/")
+	redirect("/")
 }
 
 export default Countries
