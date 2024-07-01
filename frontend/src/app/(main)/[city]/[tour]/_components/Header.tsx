@@ -23,7 +23,7 @@ export const Header: FC<IHeader> = ({ tourId }) => {
 	}, [])
 
 	const onBack = () => window.history.back()
-	const onWishList = () => {
+	const onToggleInWishList = () => {
 		if (wishlist.isFavoriteTour(tourId)) {
 			wishlist.removeTour(tourId)
 		} else {
@@ -49,10 +49,8 @@ export const Header: FC<IHeader> = ({ tourId }) => {
 					<IconButton
 						icon='Heart'
 						description='Добавить экскурсию в список желаемого'
-						iconProps={{
-							className: wishlist.tours.includes(tourId) ? "stroke-accent fill-accent" : "",
-						}}
-						onClick={onWishList}
+						iconProps={{ className: wishlist.tours.includes(tourId) ? "stroke-accent fill-accent" : "" }}
+						onClick={onToggleInWishList}
 					/>
 					<ShareButton
 						shareData={{ url: locationHref }}

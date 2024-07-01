@@ -235,6 +235,7 @@ const CarouselLengthViewer = React.forwardRef<HTMLDivElement, React.HTMLAttribut
 		)
 	},
 )
+CarouselLengthViewer.displayName = "CarouselLengthViewer"
 
 const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
 	({ className, variant = "outline", size = "icon", ...props }, ref) => {

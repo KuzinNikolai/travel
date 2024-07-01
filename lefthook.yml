@@ -5,6 +5,9 @@
 #
 pre-push:
   commands:
+    lint:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: cd frontend && pnpx next lint
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
       run: pnpx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
@@ -12,6 +15,9 @@ pre-push:
 pre-commit:
   parallel: true
   commands:
+    lint:
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      run: cd frontend && pnpx next lint
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
       run: pnpx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --fix {staged_files} && git update-index --again

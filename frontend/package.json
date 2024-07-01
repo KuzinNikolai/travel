@@ -7,7 +7,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"next:lint": "next lint",
 		"biome:lint": "biome ci",
 		"biome:format": "biome check --fix --unsafe --diagnostic-level=warn",
 		"typecheck": "tsc --noEmit"

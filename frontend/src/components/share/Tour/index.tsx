@@ -2,11 +2,12 @@ import { Typography } from "@/components/Typography"
 import { Rating } from "@/components/share/Rating"
 import type { ITour } from "@/packages/schemes/travel/tour.schema"
 import clsx from "clsx"
+import Image from "next/image"
 import Link from "next/link"
 import type { FC } from "react"
 import style from "./Tour.module.css"
 import { TourSkeleton } from "./Tour.skeleton"
-import Image from "next/image"
+import { TourWishListButton } from "./TourWishListButton"
 
 interface ITourProps {
 	tour: ITour
@@ -30,6 +31,7 @@ export const Tour: FC<ITourProps> & { Skeleton: typeof TourSkeleton } = ({ tour 
 					aria-label={`Ссылка на тур ${tour.title}`}
 					className='absolute top-0 right-0 bottom-0 left-0'
 				/>
+				<TourWishListButton tourId={tour.id} />
 			</div>
 			<div className='flex flex-1 flex-col gap-3'>
 				<div className='flex flex-row flex-wrap justify-between gap-x-2'>
@@ -46,7 +48,7 @@ export const Tour: FC<ITourProps> & { Skeleton: typeof TourSkeleton } = ({ tour 
 						textWidth='normal'
 						className='text-primary-400'
 					>
-						5,5 часа
+						{tour.duration}
 					</Typography>
 				</div>
 				<Link href={pathToTour}>
