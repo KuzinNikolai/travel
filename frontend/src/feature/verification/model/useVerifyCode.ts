@@ -1,3 +1,5 @@
+"use client"
+
 import { verificationRequestSchema, type VerificationRequest } from "@api/auth/verify/_schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useToast } from "@share/ui/Popups"

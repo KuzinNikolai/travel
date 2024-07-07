@@ -1,3 +1,5 @@
+"use client"
+
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { useVerifyCode } from "../model/useVerifyCode"
 import { InputOTP, InputOTPSlot } from "@share/ui/Inputs"
