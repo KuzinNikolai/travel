@@ -1,4 +1,4 @@
-import { Typography } from "@share/ui"
+import { Typography } from "@share/ui/Text"
 import type { IAdvantage } from "@entity/advantage.entity"
 import type { FC } from "react"
 

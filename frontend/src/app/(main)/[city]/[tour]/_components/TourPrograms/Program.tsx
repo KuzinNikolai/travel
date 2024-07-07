@@ -1,8 +1,10 @@
 "use client"
 
-import { useOrderStore } from "@feature/order"
 import type { DetailTour, Program } from "@entity/tour"
-import { Button, Drawer, Typography } from "@share/ui"
+import { useOrderStore } from "@feature/order"
+import { Button } from "@share/ui/Buttons"
+import { Drawer } from "@share/ui/Modals"
+import { Typography } from "@share/ui/Text"
 import clsx from "clsx"
 import { usePathname, useRouter } from "next/navigation"
 import type { FC } from "react"

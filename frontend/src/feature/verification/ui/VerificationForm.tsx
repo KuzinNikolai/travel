@@ -1,16 +1,7 @@
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	InputOTP,
-	InputOTPSlot,
-	Typography,
-} from "@share/ui"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { useVerifyCode } from "../model/useVerifyCode"
+import { InputOTP, InputOTPSlot } from "@share/ui/Inputs"
+import { Typography } from "@share/ui/Text"
 
 export const VerificationForm = () => {
 	const { form, formRef, onSubmit, onChangeCode } = useVerifyCode()
@@ -63,7 +54,7 @@ export const VerificationForm = () => {
 							</FormControl>
 							<FormMessage />
 							<Typography variant='span'>
-								Проверьте почту на код подтверждения. Если его нет, посмотрите в папке "спам".{" "}
+								Проверьте почту на код подтверждения. Если его нет, посмотрите в папке &quot;спам&quot;.
 							</Typography>
 						</FormItem>
 					)}

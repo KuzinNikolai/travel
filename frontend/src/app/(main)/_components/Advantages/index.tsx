@@ -1,5 +1,6 @@
 import type { IAdvantage } from "@entity/advantage.entity"
-import { Icon, Section } from "@share/ui"
+import { Icon } from "@share/ui/Icon"
+import { Section } from "@share/ui/Layout"
 import { Advantage } from "./Advantage"
 
 export const AdvantageList = [

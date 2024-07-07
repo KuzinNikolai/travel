@@ -1,8 +1,10 @@
 import type { DetailTour } from "@entity/tour"
-import { Icon, Section, Typography } from "@share/ui"
+import { Icon } from "@share/ui/Icon"
+import { Section } from "@share/ui/Layout"
+import { Typography } from "@share/ui/Text"
 import type { FC } from "react"
 
-type TourIncludedProps = Pick<DetailTour, 'included' | 'notincluded'>
+type TourIncludedProps = Pick<DetailTour, "included" | "notincluded">
 
 export const TourIncluded: FC<TourIncludedProps> = ({ included, notincluded }) => {
 	return (

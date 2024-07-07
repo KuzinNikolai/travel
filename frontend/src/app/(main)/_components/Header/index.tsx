@@ -1,9 +1,9 @@
 "use client"
 
-import { Icon } from "@share/ui"
+import { Icon } from "@share/ui/Icon"
 import { BurgerMenu } from "@widget/BurgerMenu"
 import { SearchMenu } from "@widget/Search"
-import { Header as UiHeader } from "@share/ui"
+import { Header as UiHeader } from "@share/ui/Header"
 
 export const Header = () => {
 	return (

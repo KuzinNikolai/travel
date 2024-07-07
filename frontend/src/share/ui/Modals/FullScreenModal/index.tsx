@@ -2,8 +2,10 @@
 
 import { DialogContent } from "@radix-ui/react-dialog"
 import { cn } from "@share/lib"
-import { Container, Dialog, DialogClose, DialogTrigger, Portal } from "@share/ui"
 import type { FC, PropsWithChildren } from "react"
+import { Dialog, DialogClose, DialogTrigger } from "../Dialog"
+import { Portal } from "@share/ui/Portal"
+import { Container } from "@share/ui/Layout"
 
 interface IFullScreenModalSubComponents {
 	CloseTrigger: typeof DialogClose

@@ -1,4 +1,4 @@
-import { Typography } from "@share/ui"
+import { Typography } from "@share/ui/Text"
 import type { INavigation } from "@entity/navigation.entity"
 import Link from "next/link"
 import type { FC } from "react"

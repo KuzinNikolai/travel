@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import { searchGroupSchema } from "../consts/search.schema"
 
 export const getSearch = async (query: string | null) => {
-	const response = await clientAxios.get(query ? `/externalApi/search?q=${query}` : "/externalApi/search")
+	const response = await clientAxios.get(query ? `/search?q=${query}` : "/search")
 	const successResponse = searchGroupSchema.array().safeParse(response.data)
 
 	if (successResponse.success) {

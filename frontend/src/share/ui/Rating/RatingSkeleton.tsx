@@ -1,4 +1,4 @@
-import { Skeleton } from "@share/ui"
+import { Skeleton } from "@share/ui/Skeleton"
 
 export const RatingSkeleton = () => {
 	return (

@@ -1,7 +1,8 @@
 import { useSearch } from "@feature/search/model/useSearch"
-import { Icon, Typography } from "@share/ui"
 import { SearchGroup } from "../SearchGroup"
 import { SearchItem } from "../SearchItem"
+import { Icon } from "@share/ui/Icon"
+import { Typography } from "@share/ui/Text"
 
 export const SearchList = () => {
 	const { data, search } = useSearch()

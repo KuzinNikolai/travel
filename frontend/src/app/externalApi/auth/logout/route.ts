@@ -31,7 +31,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<LogoutRespons
 			const logoutText = await res.text()
 
 			if (logoutText.length > 0) {
-				const { success, data, error } = await z.object({ detail: z.string() }).safeParseAsync(SafeJson.parse(logoutText))
+				const { success, data, error } = await z
+					.object({ detail: z.string() })
+					.safeParseAsync(SafeJson.parse(logoutText))
 
 				if (!success) {
 					logger.fail(error)

@@ -1,12 +1,10 @@
 import { verificationRequestSchema, type VerificationRequest } from "@api/auth/verify/_schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useToast } from "@share/ui"
+import { useToast } from "@share/ui/Popups"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "react-query"
-import type { z } from "zod"
 import { clientVerification } from "../api/client"
-import type { verificationResponseSchema } from "../consts/schema"
 
 export function useVerifyCode() {
 	const { toast } = useToast()

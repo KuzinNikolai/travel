@@ -4,24 +4,15 @@ import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMask } from "@react-input/mask"
 import { mergeRefs } from "@share/lib"
-import {
-	Button,
-	DatePicker,
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	Input,
-	Section,
-	Textarea,
-	useToast,
-} from "@share/ui"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 import { paymentFormSchema } from "./formSchema"
+import { useToast } from "@share/ui/Popups"
+import { Section } from "@share/ui/Layout"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
+import { Input, DatePicker, Textarea } from "@share/ui/Inputs"
+import { Button } from "@share/ui/Buttons"
 
 const Payment = () => {
 	const { toast } = useToast()
@@ -172,7 +163,7 @@ const Payment = () => {
 													{field.value ? format(field.value, "PPP") : "Укажите дату"}
 												</Button>
 											}
-											disable={(date) => date.getTime() <= Date.now()}
+											disable={(date: Date) => date.getTime() <= Date.now()}
 										/>
 									</FormControl>
 									<FormMessage />

@@ -1,4 +1,5 @@
-import { Calendar, Popover, PopoverContent, PopoverTrigger, type CalendarProps } from "@share/ui"
+import { Calendar, type CalendarProps } from "@share/ui/Calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@share/ui/Popover"
 import type { FC, ReactElement } from "react"
 import type { SelectMultipleEventHandler, SelectRangeEventHandler, SelectSingleEventHandler } from "react-day-picker"
 

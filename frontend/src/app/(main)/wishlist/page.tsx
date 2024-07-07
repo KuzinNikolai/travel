@@ -1,5 +1,5 @@
 import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
-import { Section } from "@share/ui"
+import { Section } from "@share/ui/Layout"
 import { Suspense } from "react"
 import { List } from "./List"
 import { getTours } from "@entity/tour"

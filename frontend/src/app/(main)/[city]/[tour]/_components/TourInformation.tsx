@@ -1,8 +1,13 @@
 import type { DetailTour } from "@entity/tour"
-import { Icon, Section, Typography } from "@share/ui"
+import { Icon } from "@share/ui/Icon"
+import { Section } from "@share/ui/Layout"
+import { Typography } from "@share/ui/Text"
 import type { FC } from "react"
 
-type TourInformation = Pick<DetailTour, "duration" | "type" | "cat" | "pregnant_possible" | "child_price" | "what_age_child_free">
+type TourInformation = Pick<
+	DetailTour,
+	"duration" | "type" | "cat" | "pregnant_possible" | "child_price" | "what_age_child_free"
+>
 
 export const TourInformation: FC<TourInformation> = ({ ...tour }) => {
 	return (

@@ -1,7 +1,8 @@
-import type { Tour } from "@entity/tour"
 import { getCities } from "@entity/city"
+import type { Tour } from "@entity/tour"
 import { TourPreview } from "@entity/tour"
-import { Section, Typography } from "@share/ui"
+import { Section } from "@share/ui/Layout"
+import { Typography } from "@share/ui/Text"
 
 export const PopularTours = async () => {
 	const tours = (await getCities())?.reduce((acc, city) => (acc.push(...city.popular_tours), acc), [] as Tour[])

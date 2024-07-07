@@ -1,7 +1,7 @@
 "use client"
 
 import { useUserTokenStore } from "@entity/user"
-import { useToast } from "@share/ui"
+import { useToast } from "@share/ui/Popups"
 import { useEffect } from "react"
 import { useMutation, useQueryClient } from "react-query"
 import type { z } from "zod"

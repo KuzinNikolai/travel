@@ -5,7 +5,7 @@ import type { Tour } from "@entity/tour"
 import { TourPreview } from "@entity/tour"
 import { useWishlistStore } from "@feature/wishlist"
 import { useStore } from "@share/lib"
-import { Typography } from "@share/ui"
+import { Typography } from "@share/ui/Text"
 import Image from "next/image"
 import type { FC } from "react"
 

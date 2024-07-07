@@ -1,4 +1,4 @@
-import { Sheet, SheetContent, SheetTrigger } from "@share/ui"
+import { Sheet, SheetContent, SheetTrigger } from "@share/ui/Modals"
 import { BurgerIcon } from "./components/BurgerIcon"
 import { BurgerSheet } from "./components/BurgerSheet"
 

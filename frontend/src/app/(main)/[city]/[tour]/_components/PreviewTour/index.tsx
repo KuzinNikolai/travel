@@ -1,9 +1,14 @@
 import type { DetailTour } from "@entity/tour"
-import { Container, Rating, Typography } from "@share/ui"
+import { Container } from "@share/ui/Layout"
+import { Typography } from "@share/ui/Text"
+import { Rating } from "@share/ui/Rating"
 import type { FC } from "react"
 import { PreviewTourImages } from "./PreviewTourImages"
 
-type PreviewTourProps = Pick<DetailTour, "photos" | "photo_alt" | "title" | "meta_desc" | "currency_prefix" | "min_price" | "average_rating"> 
+type PreviewTourProps = Pick<
+	DetailTour,
+	"photos" | "photo_alt" | "title" | "meta_desc" | "currency_prefix" | "min_price" | "average_rating"
+>
 
 export const PreviewTour: FC<PreviewTourProps> = (props) => {
 	return (

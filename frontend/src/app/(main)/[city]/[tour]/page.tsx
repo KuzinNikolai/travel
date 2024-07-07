@@ -1,6 +1,6 @@
 import { getDetailTour } from "@entity/tour"
 import type { IPagesProps } from "@share/lib"
-import { Section } from "@share/ui"
+import { Section } from "@share/ui/Layout"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import type { FC } from "react"
@@ -30,8 +30,15 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
 			>
 				<TourDescription description={tour.description} />
 				<TourInformation {...tour} />
-				<ToutPrograms programs={tour.programs} currency_prefix={tour.currency_prefix} slug={tour.slug}  />
-				<TourIncluded included={tour.included} notincluded={tour.notincluded} />
+				<ToutPrograms
+					programs={tour.programs}
+					currency_prefix={tour.currency_prefix}
+					slug={tour.slug}
+				/>
+				<TourIncluded
+					included={tour.included}
+					notincluded={tour.notincluded}
+				/>
 				<TourTake take={tour.take} />
 				<TourUsagePolicy usagePolicy={tour.usage_policy} />
 			</Section>
