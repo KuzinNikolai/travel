@@ -1,22 +1,19 @@
 "use client"
 
-import { Button } from "@/components/Button"
-import { Drawer } from "@/components/Drawer"
-import { Typography } from "@/components/Typography"
-import type { IProgram } from "@/packages/schemes/travel/program.schema"
-import type { IDetailTour } from "@/packages/schemes/travel/tour.schema"
-import { useOrderStore } from "@/packages/stores/order"
+import { useOrderStore } from "@feature/order"
+import type { DetailTour, Program } from "@entity/tour"
+import { Button, Drawer, Typography } from "@share/ui"
 import clsx from "clsx"
 import { usePathname, useRouter } from "next/navigation"
 import type { FC } from "react"
 
 interface IProgramProps {
-	tourSlug: IDetailTour["slug"]
-	program: IProgram
+	tourSlug: DetailTour["slug"]
+	program: Program
 	currency: string
 }
 
-export const Program: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
+export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
 	const pathname = usePathname()
 	const router = useRouter()
 	const { setProgram, setTour } = useOrderStore()

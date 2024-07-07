@@ -1,6 +1,6 @@
-import { Section } from "@/components/layout/Section"
-import { getDetailTour } from "@/packages/API/fetches/tours"
-import type { IPagesProps } from "@/packages/utilsTypes/nextFilesProps"
+import { getDetailTour } from "@entity/tour"
+import type { IPagesProps } from "@share/lib"
+import { Section } from "@share/ui"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import type { FC } from "react"
@@ -23,16 +23,16 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
 	return (
 		<>
 			<Header tourId={tour.id} />
-			<PreviewTour tour={tour} />
+			<PreviewTour {...tour} />
 			<Section
 				title='Tour'
 				hiddenTitle
 			>
 				<TourDescription description={tour.description} />
-				<TourInformation tour={tour} />
-				<ToutPrograms tour={tour} />
-				<TourIncluded tour={tour} />
-				<TourTake tour={tour} />
+				<TourInformation {...tour} />
+				<ToutPrograms programs={tour.programs} currency_prefix={tour.currency_prefix} slug={tour.slug}  />
+				<TourIncluded included={tour.included} notincluded={tour.notincluded} />
+				<TourTake take={tour.take} />
 				<TourUsagePolicy usagePolicy={tour.usage_policy} />
 			</Section>
 		</>

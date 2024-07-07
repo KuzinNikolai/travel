@@ -1,5 +1,5 @@
-import { Typography } from "@/components/Typography"
-import type { IAdvantage } from "@/entities/advantage.entity"
+import { Typography } from "@share/ui"
+import type { IAdvantage } from "@entity/advantage.entity"
 import type { FC } from "react"
 
 export interface IAdvantageProps {

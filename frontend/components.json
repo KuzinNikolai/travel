@@ -11,8 +11,8 @@
 		"prefix": ""
 	},
 	"aliases": {
-		"components": "@/components",
-		"ui": "@/components/@ui",
-		"utils": "@packages/tw-utils"
+		"components": "@share/ui",
+		"ui": "@share/ui",
+		"utils": "@share/lib/tailwind"
 	}
 }

@@ -1,20 +1,16 @@
-import { Typography } from "@/components/Typography"
-import { Container } from "@/components/layout/Container"
-import { Rating } from "@/components/share/Rating"
-import type { IDetailTour } from "@/packages/schemes/travel/tour.schema"
+import type { DetailTour } from "@entity/tour"
+import { Container, Rating, Typography } from "@share/ui"
 import type { FC } from "react"
 import { PreviewTourImages } from "./PreviewTourImages"
 
-interface IPreviewTourProps {
-	tour: IDetailTour
-}
+type PreviewTourProps = Pick<DetailTour, "photos" | "photo_alt" | "title" | "meta_desc" | "currency_prefix" | "min_price" | "average_rating"> 
 
-export const PreviewTour: FC<IPreviewTourProps> = ({ tour }) => {
+export const PreviewTour: FC<PreviewTourProps> = (props) => {
 	return (
 		<section className='flex flex-col gap-5 bg-background-400 pb-4'>
 			<PreviewTourImages
-				photos={tour.photos}
-				alt={tour.photo_alt}
+				photos={props.photos}
+				alt={props.photo_alt}
 			/>
 			<Container>
 				<div className='container flex flex-col gap-5'>
@@ -23,7 +19,7 @@ export const PreviewTour: FC<IPreviewTourProps> = ({ tour }) => {
 						textWidth='semibold'
 						as='h1'
 					>
-						{tour.title}
+						{props.title}
 					</Typography>
 
 					<div className='flex flex-col gap-2'>
@@ -31,15 +27,15 @@ export const PreviewTour: FC<IPreviewTourProps> = ({ tour }) => {
 							variant='content2'
 							className='text-primary-400'
 						>
-							{tour.meta_desc}
+							{props.meta_desc}
 						</Typography>
-						<Rating rating={tour.average_rating} />
+						<Rating rating={props.average_rating} />
 						<Typography
 							variant='h4'
 							textWidth='medium'
 							as='p'
 						>
-							{tour.currency_prefix} {tour.min_price}
+							{props.currency_prefix} {props.min_price}
 						</Typography>
 						<Typography
 							variant='span'

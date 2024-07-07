@@ -1,7 +1,8 @@
-import { siteConfig } from "@/configs/siteConfig"
-import { cn } from "@/packages/tw-utils"
-import { Toaster } from "@/widgets/Toaster"
 import "@assets/globals.css"
+import { ReactQueryClientProvider } from "@share/api"
+import { siteConfig } from "@share/config"
+import { cn } from "@share/lib"
+import { Toaster } from "@share/ui"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import type { FC, PropsWithChildren } from "react"
@@ -23,7 +24,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<html lang='en'>
 			<body className={cn(font.className, "flex min-h-dvh flex-col")}>
-				{children}
+				<ReactQueryClientProvider>{children}</ReactQueryClientProvider>
 				<Toaster />
 			</body>
 		</html>

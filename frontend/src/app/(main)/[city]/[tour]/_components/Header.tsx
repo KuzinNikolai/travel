@@ -1,11 +1,8 @@
 "use client"
 
-import { ShareButton } from "@/components/Buttons/ButtonShare"
-import { IconButton } from "@/components/Buttons/IconButton"
-import { Container } from "@/components/layout/Container"
-import { useScrollable } from "@/packages/hooks/useScrollable"
-import { useWishlistStore } from "@/packages/stores/wishlist"
-import { cn } from "@/packages/tw-utils"
+import { useWishlistStore } from "@feature/wishlist"
+import { cn, useScrollable } from "@share/lib"
+import { Container, IconButton, ShareButton } from "@share/ui"
 import { useEffect, useState, type FC } from "react"
 
 interface IHeader {

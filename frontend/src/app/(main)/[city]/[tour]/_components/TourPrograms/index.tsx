@@ -1,21 +1,20 @@
-import { Section } from "@/components/layout/Section"
-import type { IDetailTour } from "@/packages/schemes/travel/tour.schema"
+import type { DetailTour, detailTourSchema } from "@entity/tour"
+import { Section } from "@share/ui"
 import type { FC } from "react"
-import { Program } from "./Program"
+import type { z } from "zod"
+import { TourProgram } from "./Program"
 
-interface ITourProgramsProps {
-	tour: IDetailTour
-}
+type TourProgramsProps = Pick<DetailTour, "programs" | "currency_prefix" | "slug">
 
-export const ToutPrograms: FC<ITourProgramsProps> = ({ tour }) => {
+export const ToutPrograms: FC<TourProgramsProps> = ({ programs, currency_prefix, slug }) => {
 	return (
 		<Section title='Программы и цены'>
 			<ul className='flex flex-col gap-1'>
-				{tour.programs.map((program) => (
-					<Program
+				{programs.map((program) => (
+					<TourProgram
 						key={program.id + program.title}
-						tourSlug={tour.slug}
-						currency={tour.currency_prefix}
+						tourSlug={slug}
+						currency={currency_prefix}
 						program={program}
 					/>
 				))}

@@ -1,14 +1,10 @@
-import { Icon } from "@/components/Icon"
-import { Typography } from "@/components/Typography"
-import { Section } from "@/components/layout/Section"
-import type { IDetailTour } from "@/packages/schemes/travel/tour.schema"
+import type { DetailTour } from "@entity/tour"
+import { Icon, Section, Typography } from "@share/ui"
 import type { FC } from "react"
 
-interface ITourInformation {
-	tour: IDetailTour
-}
+type TourInformation = Pick<DetailTour, "duration" | "type" | "cat" | "pregnant_possible" | "child_price" | "what_age_child_free">
 
-export const TourInformation: FC<ITourInformation> = ({ tour }) => {
+export const TourInformation: FC<TourInformation> = ({ ...tour }) => {
 	return (
 		<Section title='О экскурсии'>
 			<ul className='flex flex-col gap-2'>
