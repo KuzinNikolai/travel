@@ -1,7 +1,6 @@
 "use client"
 
-import { Carousel, CarouselContent, CarouselItem, CarouselLengthViewer } from "@/components/@ui/carousel"
-import { Typography } from "@/components/Typography"
+import { Carousel, CarouselContent, CarouselItem, CarouselLengthViewer, Typography } from "@share/ui"
 import Image from "next/image"
 import type { FC } from "react"
 

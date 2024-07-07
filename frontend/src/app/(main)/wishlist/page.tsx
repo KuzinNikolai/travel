@@ -1,15 +1,15 @@
-import { BackHeader } from "@/components/Headers/BackHeader"
-import { Section } from "@/components/layout/Section"
-import { getTours } from "@/packages/API/fetches/tours"
+import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
+import { Section } from "@share/ui"
 import { Suspense } from "react"
 import { List } from "./List"
+import { getTours } from "@entity/tour"
 
 const WishList = async () => {
-	const tours = (await getTours()) || []
+	const tours = await getTours()
 
 	return (
 		<>
-			<BackHeader />
+			<HeaderWithBack />
 			<Section
 				title='wishlist'
 				hiddenTitle

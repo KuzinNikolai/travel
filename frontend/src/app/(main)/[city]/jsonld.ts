@@ -1,8 +1,8 @@
-import { API_DOMAIN } from "@/packages/API/constants"
-import type { IDetailCity } from "@/packages/schemes/travel/city.schema"
+import { API_DOMAIN } from "@share/api"
+import type { DetailCity } from "@entity/city"
 import type { ItemList, WithContext } from "schema-dts"
 
-export const generateToursJsonLd = (city: IDetailCity): WithContext<ItemList> => ({
+export const generateToursJsonLd = (city: DetailCity): WithContext<ItemList> => ({
 	"@context": "https://schema.org",
 	"@type": "ItemList",
 	description: `Все туры в ${city.tours[0].city}`,

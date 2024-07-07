@@ -1,21 +1,17 @@
-import { Typography } from "@/components/Typography"
-import { Section } from "@/components/layout/Section"
-import { Tour } from "@/components/share/Tour"
-import { serverApi } from "@/packages/API"
-import type { ITour } from "@/packages/schemes/travel/tour.schema"
+import type { Tour } from "@entity/tour"
+import { getCities } from "@entity/city"
+import { TourPreview } from "@entity/tour"
+import { Section, Typography } from "@share/ui"
 
 export const PopularTours = async () => {
-	const tours = (await serverApi.cities.getCities())?.reduce(
-		(acc, city) => (acc.push(...city.popular_tours), acc),
-		[] as ITour[],
-	)
+	const tours = (await getCities())?.reduce((acc, city) => (acc.push(...city.popular_tours), acc), [] as Tour[])
 
 	return (
 		<Section title='Популярные туры'>
 			<ul className='flex list-none flex-col gap-3'>
 				{tours?.length ? (
 					tours.map((tour) => (
-						<Tour
+						<TourPreview
 							key={tour.id}
 							tour={tour}
 						/>

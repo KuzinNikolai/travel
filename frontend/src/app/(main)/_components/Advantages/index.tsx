@@ -1,6 +1,5 @@
-import { Icon } from "@/components/Icon"
-import { Section } from "@/components/layout/Section"
-import type { IAdvantage } from "@/entities/advantage.entity"
+import type { IAdvantage } from "@entity/advantage.entity"
+import { Icon, Section } from "@share/ui"
 import { Advantage } from "./Advantage"
 
 export const AdvantageList = [

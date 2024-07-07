@@ -1,18 +1,14 @@
-import { Icon } from "@/components/Icon"
-import { Typography } from "@/components/Typography"
-import { Section } from "@/components/layout/Section"
-import type { IDetailTour } from "@/packages/schemes/travel/tour.schema"
+import type { DetailTour } from "@entity/tour"
+import { Icon, Section, Typography } from "@share/ui"
 import type { FC } from "react"
 
-interface ITourIncludedProps {
-	tour: IDetailTour
-}
+type TourIncludedProps = Pick<DetailTour, 'included' | 'notincluded'>
 
-export const TourIncluded: FC<ITourIncludedProps> = ({ tour }) => {
+export const TourIncluded: FC<TourIncludedProps> = ({ included, notincluded }) => {
 	return (
 		<Section title='Что включено'>
 			<ul className='flex flex-col gap-1'>
-				{tour.included.map((include) => (
+				{included.map((include) => (
 					<li
 						key={`include-${include.id}`}
 						className='flex gap-1'
@@ -24,7 +20,7 @@ export const TourIncluded: FC<ITourIncludedProps> = ({ tour }) => {
 						<Typography variant='span'>{include.name}</Typography>
 					</li>
 				))}
-				{tour.notincluded.map((notInclude) => (
+				{notincluded.map((notInclude) => (
 					<li
 						key={`notInclude-${notInclude.id}`}
 						className='flex gap-1'

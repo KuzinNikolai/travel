@@ -1,14 +1,10 @@
-import { Button } from "@/components/Button"
-import { Drawer } from "@/components/Drawer"
-import { Typography } from "@/components/Typography"
-import { Section } from "@/components/layout/Section"
+import type { DetailTour } from "@entity/tour"
+import { Button, Drawer, Section, Typography } from "@share/ui"
 import type { FC } from "react"
 
-interface ITourDescriptionProps {
-	description: string
-}
+type TourDescriptionProps = Pick<DetailTour, "description">
 
-export const TourDescription: FC<ITourDescriptionProps> = ({ description }) => {
+export const TourDescription: FC<TourDescriptionProps> = ({ description }) => {
 	return (
 		<Section
 			title='Описание'

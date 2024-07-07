@@ -1,50 +1,50 @@
-import { serverVerify } from "@/packages/API/fetches/auth/server"
-import { verificationRequestSchema } from "@/packages/schemes/auth/verify/client.schema"
-import { verificationServerResponseSchema } from "@/packages/schemes/auth/verify/server.schema"
-import { BadStatusCodes, SuccessStatusCodes } from "@/packages/utils/api-utils"
-import { logger } from "@/packages/utils/logger"
-import { type NextRequest, NextResponse } from "next/server"
+import { API_DOMAIN, StatusCodes } from "@share/api"
+import { SafeJson, logger } from "@share/lib"
+import { NextResponse, type NextRequest } from "next/server"
+import {
+	verificationRequestSchema,
+	verificationServerResponseErrorSchema,
+	verificationServerResponseSchema,
+	type VerificationResponse,
+	type VerificationServerRequest,
+} from "./_schema"
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse<VerificationResponse>> {
 	try {
 		const body = await req.json()
 
 		const { success: reqSuccess, data: reqData, error: reqError } = verificationRequestSchema.safeParse(body)
 
 		if (!reqSuccess) {
-			return NextResponse.json(
-				{ code: "INVALID_BODY", error: reqError, success: false },
-				{ status: BadStatusCodes.BAD_REQUEST },
-			)
+			return NextResponse.json({ code: "INVALID_BODY", error: reqError }, { status: StatusCodes.BAD_REQUEST })
 		}
 
-		logger.debug(reqData)
+		const response = await fetch(`${API_DOMAIN}/api/v1/verify-email/`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: SafeJson.stringify({ email_verification_code: reqData.code } satisfies VerificationServerRequest),
+		})
 
-		const verificationResponse = await serverVerify({ email_verification_code: reqData.code })
-		const json = await verificationResponse.json()
+		const verifyResponseJson = await response.json()
 
-		logger.debug(json)
-
-		const { success, data, error } = verificationServerResponseSchema.safeParse(json)
+		const { success, data, error } = verificationServerResponseSchema
+			.or(verificationServerResponseErrorSchema)
+			.safeParse(verifyResponseJson)
 
 		if (!success) {
-			logger.error(error)
-			return NextResponse.json(
-				{ code: "INVALID_RESPONSE_BODY", error, success: false },
-				{ status: BadStatusCodes.INTERNAL_SERVER_ERROR },
-			)
+			return NextResponse.json({ code: "INVALID_RESPONSE_BODY", error }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
 		}
 
 		if ("error" in data) {
 			return NextResponse.json(
-				{ code: "FORBIDDEN", error: data.error, success: false },
-				{ status: BadStatusCodes.FORBIDDEN },
+				{ code: "INVALID_CODE", error: data.error },
+				{ status: StatusCodes.INTERNAL_SERVER_ERROR },
 			)
 		}
 
-		return NextResponse.json({ success: true }, { status: SuccessStatusCodes.OK })
+		return NextResponse.json({ success: true }, { status: StatusCodes.OK })
 	} catch (e) {
 		logger.error(e)
-		return NextResponse.json({ code: "SERVER_ERROR", success: false }, { status: BadStatusCodes.INTERNAL_SERVER_ERROR })
+		return NextResponse.json({ code: "SERVER_ERROR", success: false }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
 	}
 }

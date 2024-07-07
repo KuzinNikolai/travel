@@ -19,11 +19,19 @@
 			}
 		],
 		"paths": {
-			"@/*": ["./src/*"],
-			"@config/*": ["./src/configs/*"],
-			"@entities/*": ["./src/entities/*"],
-			"@components/*": ["./src/components/*"],
-			"@packages/*": ["./src/packages/*"],
+			// TODO: remove old paths
+			// OLD
+			// "@/*": ["./src/*"],
+			// "@config/*": ["./src/configs/*"],
+			// "@components/*": ["./src/components/*"],
+			// "@packages/*": ["./src/packages/*"],
+
+			// NEW
+			"@api/*": ["./src/app/externalApi/*"],
+			"@widget/*": ["./src/widget/*"],
+			"@feature/*": ["./src/feature/*"],
+			"@entity/*": ["./src/entity/*"],
+			"@share/*": ["./src/share/*"],
 			"@assets/*": ["./src/assets/*"]
 		}
 	},

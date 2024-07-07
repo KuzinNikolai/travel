@@ -1,17 +1,23 @@
 "use client"
 
-import { DatePicker } from "@/components/@ui/DatePicker"
-import { Input } from "@/components/@ui/input"
-import { Textarea } from "@/components/@ui/textarea"
-import { Button } from "@/components/Button"
-import { BackHeader } from "@/components/Headers/BackHeader"
-import { Section } from "@/components/layout/Section"
-import { mergeRefs } from "@/packages/utils/mergeRefs"
-import { toNumber } from "@/packages/utils/toNumber"
-import { useToast } from "@/widgets/Toaster"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@components/@ui/form"
+import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMask } from "@react-input/mask"
+import { mergeRefs } from "@share/lib"
+import {
+	Button,
+	DatePicker,
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+	Input,
+	Section,
+	Textarea,
+	useToast,
+} from "@share/ui"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -51,7 +57,7 @@ const Payment = () => {
 
 	return (
 		<>
-			<BackHeader />
+			<HeaderWithBack />
 			<Section
 				title='Заказ экскурсии'
 				className='h-full'
@@ -109,7 +115,7 @@ const Payment = () => {
 										<Input
 											type='number'
 											{...field}
-											onChange={(e) => form.setValue("numberOfAdults", toNumber(e.target.value) || 0)}
+											onChange={(e) => form.setValue("numberOfAdults", Number.parseInt(e.target.value) || 0)}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -125,7 +131,7 @@ const Payment = () => {
 										<Input
 											type='number'
 											{...field}
-											onChange={(e) => form.setValue("numberOfChildren", toNumber(e.target.value) || 0)}
+											onChange={(e) => form.setValue("numberOfChildren", Number.parseInt(e.target.value) || 0)}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -141,7 +147,7 @@ const Payment = () => {
 										<Input
 											type='number'
 											{...field}
-											onChange={(e) => form.setValue("numberOfYoungerChildren", toNumber(e.target.value) || 0)}
+											onChange={(e) => form.setValue("numberOfYoungerChildren", Number.parseInt(e.target.value) || 0)}
 										/>
 									</FormControl>
 									<FormMessage />

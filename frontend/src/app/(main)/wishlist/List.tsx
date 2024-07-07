@@ -1,16 +1,16 @@
 "use client"
 
-import { Typography } from "@/components/Typography"
-import { Tour } from "@/components/share/Tour"
-import { useStore } from "@/packages/hooks/useStore"
-import type { ITour } from "@/packages/schemes/travel/tour.schema"
-import { useWishlistStore } from "@/packages/stores/wishlist"
 import emptyCart from "@assets/img/empty-cart.png"
+import type { Tour } from "@entity/tour"
+import { TourPreview } from "@entity/tour"
+import { useWishlistStore } from "@feature/wishlist"
+import { useStore } from "@share/lib"
+import { Typography } from "@share/ui"
 import Image from "next/image"
 import type { FC } from "react"
 
 interface IListProps {
-	tours: ITour[]
+	tours: Tour[]
 }
 
 export const List: FC<IListProps> = ({ tours }) => {
@@ -22,7 +22,7 @@ export const List: FC<IListProps> = ({ tours }) => {
 		return (
 			<div className='flex flex-col gap-4'>
 				{Array.from({ length: 5 }, (_, i) => (
-					<Tour.Skeleton key={i} />
+					<TourPreview.Skeleton key={i} />
 				))}
 			</div>
 		)
@@ -30,7 +30,7 @@ export const List: FC<IListProps> = ({ tours }) => {
 
 	return wishlistTours.length ? (
 		filteredTours.map((tour) => (
-			<Tour
+			<TourPreview
 				key={tour.id}
 				tour={tour}
 			/>

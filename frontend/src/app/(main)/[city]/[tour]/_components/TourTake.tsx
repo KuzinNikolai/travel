@@ -1,18 +1,14 @@
-import { Icon } from "@/components/Icon"
-import { Typography } from "@/components/Typography"
-import { Section } from "@/components/layout/Section"
-import type { IDetailTour } from "@/packages/schemes/travel/tour.schema"
+import type { DetailTour } from "@entity/tour"
+import { Icon, Section, Typography } from "@share/ui"
 import type { FC } from "react"
 
-interface ITourTakeProps {
-	tour: IDetailTour
-}
+type TourTakeProps = Pick<DetailTour, "take">
 
-export const TourTake: FC<ITourTakeProps> = ({ tour }) => {
+export const TourTake: FC<TourTakeProps> = ({ take }) => {
 	return (
 		<Section title='Взять с собой'>
 			<ul className='flex flex-col gap-1'>
-				{tour.take.map((take) => (
+				{take.map((take) => (
 					<li
 						key={take.id}
 						className='flex items-center gap-1'

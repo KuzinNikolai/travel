@@ -1,4 +1,4 @@
-import { API_DOMAIN } from "@/packages/API/constants"
+import { API_DOMAIN } from "@share/api"
 import type { MetadataRoute } from "next"
 
 export const dynamic = "force-dynamic"

@@ -1,44 +1,46 @@
-import { serverLogin } from "@/packages/API/fetches/auth/server"
-import { invalidLoginErrorSchema } from "@/packages/schemes/auth/login/server.schema"
-import { BadStatusCodes, SuccessStatusCodes } from "@/packages/utils/api-utils"
-import { logger } from "@/packages/utils/logger"
-import { loginRequestScheme, loginResponseScheme } from "@packages/schemes/auth/login/client.schema"
-import { type NextRequest, NextResponse } from "next/server"
-import zu from "zod_utilz"
+import { API_DOMAIN, StatusCodes } from "@share/api"
+import { SafeJson, logger } from "@share/lib"
+import { NextResponse, type NextRequest } from "next/server"
+import {
+	invalidServerLoginErrorSchema,
+	loginRequestSchema,
+	loginServerResponseSchema,
+	type LoginResponse,
+} from "./_schema"
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse<LoginResponse>> {
 	try {
 		const body = await req.json()
 
-		const { success: reqSuccess, data: reqData, error: reqError } = loginRequestScheme.safeParse(body)
+		const { success: reqSuccess, data: reqData, error: reqError } = loginRequestSchema.safeParse(body)
 
 		if (!reqSuccess) {
-			return NextResponse.json({ code: "INVALID_BODY", error: reqError }, { status: BadStatusCodes.BAD_REQUEST })
+			return NextResponse.json({ code: "INVALID_BODY", error: reqError }, { status: StatusCodes.BAD_REQUEST })
 		}
 
-		const loginResponse = await serverLogin(reqData)
+		const loginResponse = await fetch(`${API_DOMAIN}/api/v1/auth/token/login`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: SafeJson.stringify(reqData),
+		})
 
-		const loginText = await loginResponse.text()
+		const loginJson = await loginResponse.json()
 
-		const { success, data, error } = zu
-			.stringToJSON()
-			.pipe(loginResponseScheme.or(invalidLoginErrorSchema))
-			.safeParse(loginText)
+		const { success, data, error } = await loginServerResponseSchema
+			.or(invalidServerLoginErrorSchema)
+			.safeParseAsync(loginJson)
 
 		if (!success) {
-			return NextResponse.json(
-				{ code: "INVALID_RESPONSE_BODY", error },
-				{ status: BadStatusCodes.INTERNAL_SERVER_ERROR },
-			)
+			return NextResponse.json({ code: "INVALID_RESPONSE_BODY", error }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
 		}
 
 		if ("non_field_errors" in data) {
-			return NextResponse.json({ code: "INVALID_CREDENTIALS" }, { status: BadStatusCodes.BAD_REQUEST })
+			return NextResponse.json({ code: "INVALID_CREDENTIALS" }, { status: StatusCodes.BAD_REQUEST })
 		}
 
-		return NextResponse.json({ token: data.auth_token }, { status: SuccessStatusCodes.ACCEPTED })
+		return NextResponse.json({ token: data.auth_token }, { status: StatusCodes.ACCEPTED })
 	} catch (e) {
 		logger.error("Login Error", e)
-		return NextResponse.json({ code: "SERVER_ERROR" }, { status: BadStatusCodes.INTERNAL_SERVER_ERROR })
+		return NextResponse.json({ code: "SERVER_ERROR" }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
 	}
 }
