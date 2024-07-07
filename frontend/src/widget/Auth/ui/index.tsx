@@ -1,8 +1,7 @@
 "use client"
 
-import { LoginForm } from "@feature/login"
-// import { RegistrationForm } from "@feature/?_registration"
-import { Dialog, DialogContent, DialogFooter, DialogHeader, Typography } from "@share/ui"
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@share/ui/Modals"
+import { Typography } from "@share/ui/Text"
 import { useCallback, useState } from "react"
 import { useAuthStore } from "../model/store"
 

@@ -1,6 +1,8 @@
 import { cn } from "@share/lib"
-import { Container, Paper, Typography, type TypographyVariants } from "@share/ui"
+import { Typography, type TypographyVariants } from "@share/ui/Text"
 import type { FC, HTMLAttributes, ReactElement } from "react"
+import { Container } from "../Container"
+import { Paper } from "../Paper"
 
 interface IBoxProps extends HTMLAttributes<HTMLElement> {
 	title: string

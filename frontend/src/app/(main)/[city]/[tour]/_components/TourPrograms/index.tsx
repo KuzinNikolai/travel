@@ -1,7 +1,6 @@
-import type { DetailTour, detailTourSchema } from "@entity/tour"
-import { Section } from "@share/ui"
+import type { DetailTour } from "@entity/tour"
+import { Section } from "@share/ui/Layout"
 import type { FC } from "react"
-import type { z } from "zod"
 import { TourProgram } from "./Program"
 
 type TourProgramsProps = Pick<DetailTour, "programs" | "currency_prefix" | "slug">

@@ -1,4 +1,7 @@
-import { Button, Drawer, Section, Typography } from "@share/ui"
+import { Button } from "@share/ui/Buttons"
+import { Section } from "@share/ui/Layout"
+import { Drawer } from "@share/ui/Modals"
+import { Typography } from "@share/ui/Text"
 import type { FC } from "react"
 
 interface ITourUsagePolicy {

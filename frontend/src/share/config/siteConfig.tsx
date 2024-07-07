@@ -1,5 +1,5 @@
 import type { INavigation } from "@entity/navigation.entity"
-import { Icon } from "@share/ui"
+import { Icon } from "@share/ui/Icon"
 import type { Metadata } from "next"
 
 interface SiteConfig extends Metadata {

@@ -1,8 +1,10 @@
-import { Icon, Skeleton, Typography } from "@share/ui"
 import Link from "next/link"
 import type { FC } from "react"
 import type { z } from "zod"
 import type { searchItemSchema } from "../../consts/search.schema"
+import { Icon } from "@share/ui/Icon"
+import { Typography } from "@share/ui/Text"
+import { Skeleton } from "@share/ui/Skeleton"
 
 interface SearchElements {
 	Skeleton: typeof SearchItemLoading

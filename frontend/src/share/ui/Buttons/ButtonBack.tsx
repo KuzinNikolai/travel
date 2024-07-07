@@ -1,7 +1,7 @@
 "use client"
 
 import { useHistory } from "@share/lib"
-import { IconButton } from "@share/ui"
+import { IconButton } from "@share/ui/Buttons"
 import { useId, type FC, type HTMLAttributes } from "react"
 
 export const ButtonBack: FC<HTMLAttributes<HTMLButtonElement>> = (props) => {

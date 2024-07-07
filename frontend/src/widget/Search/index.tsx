@@ -1,7 +1,9 @@
 "use client"
 
 import { SearchInput, SearchList } from "@feature/search"
-import { FullScreenModal, Icon, Typography } from "@share/ui"
+import { Icon } from "@share/ui/Icon"
+import { FullScreenModal } from "@share/ui/Modals"
+import { Typography } from "@share/ui/Text"
 import { Suspense } from "react"
 
 const SearchTrigger = (

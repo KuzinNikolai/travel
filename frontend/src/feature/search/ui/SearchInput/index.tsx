@@ -1,7 +1,7 @@
 "use client"
 
 import { createDebounce, useSearchParams } from "@share/lib"
-import { Input } from "@share/ui"
+import { Input } from "@share/ui/Inputs"
 import { useState } from "react"
 
 const debounce = createDebounce((query: string, setParam: (key: "q", value: string) => void) => {

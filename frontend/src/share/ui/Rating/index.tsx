@@ -1,6 +1,6 @@
-import { Icon } from "@share/ui"
 import clsx from "clsx"
 import type { FC } from "react"
+import { Icon } from "../Icon"
 import { RatingSkeleton } from "./RatingSkeleton"
 
 interface IRatingProps {

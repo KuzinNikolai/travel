@@ -1,4 +1,4 @@
-import { Container } from "@share/ui"
+import { Container } from "@share/ui/Layout"
 import clsx from "clsx"
 import { type ReactNode, forwardRef } from "react"
 

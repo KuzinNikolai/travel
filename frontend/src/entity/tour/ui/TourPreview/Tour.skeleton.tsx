@@ -1,5 +1,6 @@
 import { cn } from "@share/lib"
-import { Rating, Skeleton } from "@share/ui"
+import { Rating } from "@share/ui/Rating"
+import { Skeleton } from "@share/ui/Skeleton"
 import style from "./Tour.module.css"
 
 export const TourSkeleton = () => (

@@ -1,4 +1,6 @@
-import { ButtonBack, Header, Typography } from "@share/ui"
+import { ButtonBack } from "@share/ui/Buttons"
+import { Header } from "@share/ui/Header"
+import { Typography } from "@share/ui/Text"
 import { forwardRef } from "react"
 
 interface IBackHeaderProps {

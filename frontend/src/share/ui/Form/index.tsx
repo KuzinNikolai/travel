@@ -13,7 +13,7 @@ import {
 } from "react-hook-form"
 
 import { cn } from "@share/lib"
-import { Label, Typography } from "@share/ui"
+import { Label, Typography } from "../Text"
 
 const Form = FormProvider
 

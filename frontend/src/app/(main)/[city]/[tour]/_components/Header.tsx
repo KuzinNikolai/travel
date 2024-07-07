@@ -2,7 +2,8 @@
 
 import { useWishlistStore } from "@feature/wishlist"
 import { cn, useScrollable } from "@share/lib"
-import { Container, IconButton, ShareButton } from "@share/ui"
+import { IconButton, ShareButton } from "@share/ui/Buttons"
+import { Container } from "@share/ui/Layout"
 import { useEffect, useState, type FC } from "react"
 
 interface IHeader {

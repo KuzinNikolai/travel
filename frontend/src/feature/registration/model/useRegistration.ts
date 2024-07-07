@@ -1,5 +1,6 @@
-import { useToast } from "@share/ui"
-import { useEffect } from "react"
+"use client"
+
+import { useToast } from "@share/ui/Popups"
 import { useMutation, useQueryClient } from "react-query"
 import { clientRegistration } from "../api/client"
 import type { AdditionalInformation } from "../consts/schemes"

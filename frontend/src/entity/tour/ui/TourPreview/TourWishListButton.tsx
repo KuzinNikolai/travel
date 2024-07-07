@@ -2,7 +2,7 @@
 
 import { useWishlistStore } from "@feature/wishlist"
 import { cn } from "@share/lib"
-import { IconButton } from "@share/ui"
+import { IconButton } from "@share/ui/Buttons"
 import type { FC } from "react"
 
 interface ITourWishListButtonProps {

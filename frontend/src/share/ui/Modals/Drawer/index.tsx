@@ -1,7 +1,8 @@
 "use client"
 
-import { DrawerContent, DrawerRoot, DrawerTrigger, Typography } from "@share/ui"
 import type { FC, PropsWithChildren, ReactElement } from "react"
+import { DrawerContent, DrawerRoot, DrawerTrigger } from "../DrawerBase"
+import { Typography } from "@share/ui/Text"
 
 interface IDrawerProps extends PropsWithChildren {
 	title: string
