@@ -45,6 +45,10 @@ export function useGetUser() {
 			return userStore.user
 		}
 
+		if (query.isIdle) {
+			return "UNAUTHORIZED"
+		}
+
 		if (!query.isFetched || !query.data) {
 			return
 		}
