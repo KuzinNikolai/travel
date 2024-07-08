@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #f5f4f6;
+    --background-400: #fffdff;
+
+    
+    --primary: #0a080a;
+    --primary-400: #87868a;
+    --primary-100: #fbfafe;
+
+    --secondary: #0081ff;
+
+    --accent: #dc4d47;
+    --success: #24851f;
+    --danger: #d52631;
+    --star: #f2bc5f;
+    --border: #f9f7fc;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-primary;
+  }
+}
