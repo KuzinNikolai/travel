@@ -2,7 +2,6 @@
 
 import { UserPreview, useGetUser } from "@entity/user"
 import { useLogout } from "@feature/logout"
-import { logger } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
 import { Popover, PopoverContent, PopoverTrigger } from "@share/ui/Popover"
 import { Typography } from "@share/ui/Text"
@@ -13,7 +12,7 @@ export const UserInfo = () => {
 	const { logout } = useLogout()
 	const { data, query } = useGetUser()
 
-	if (query.isFetched && !query.data || data === "UNAUTHORIZED") {
+	if (query.isIdle || query.isFetched && (!query.data || data === "UNAUTHORIZED")) {
 		return (
 			<Button
 				variant='ghost'
