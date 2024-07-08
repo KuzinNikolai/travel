@@ -1,48 +1,47 @@
 import { API_DOMAIN, StatusCodes } from "@share/api"
-import { tokenSchema } from "@share/constants/schemes"
+import { checkAuthorization } from "@share/api/lib/checkAuthorization"
 import { logger } from "@share/lib"
 import { NextResponse, type NextRequest } from "next/server"
-// import { userServerResponseSchema, type UserResponse } from "./_schema"
+import { userServerResponseSchema, type UserResponse } from "./_schema"
 
-// export async function GET(req: NextRequest): Promise<NextResponse<UserResponse>> {
-// try {
-// 	const authorizeToken = req.headers.get("Authorization")
+export async function GET(req: NextRequest): Promise<NextResponse<UserResponse>> {
+	try {
+		const tokenResp = await checkAuthorization(req)
 
-// 	if (!authorizeToken) {
-// 		return NextResponse.json({ code: "UNAUTHORIZED" }, { status: StatusCodes.FORBIDDEN })
-// 	}
+		if (typeof tokenResp !== "string") {
+			return NextResponse.json(
+				{
+					code: "INVALID_TOKEN",
+				},
+				{ status: StatusCodes.FORBIDDEN },
+			)
+		}
 
-// 	const { success: isTokenValid, data: token } = tokenSchema.safeParse(authorizeToken.split(" ")[1])
+		const res = await fetch(`${API_DOMAIN}/api/v1/auth/user/me`, {
+			method: "GET",
+			headers: { Authorization: `Token ${tokenResp}` },
+			next: { revalidate: 10 },
+		})
 
-// 	if (!isTokenValid) {
-// 		return NextResponse.json({ code: "INVALID_TOKEN" }, { status: StatusCodes.FORBIDDEN })
-// 	}
+		const userJson = await res.json()
 
-// 	const res = await fetch(`${API_DOMAIN}/api/v1/auth/user/me`, {
-// 		method: "GET",
-// 		headers: { Authorization: `Token ${token}` },
-// 		next: { revalidate: 10 },
-// 	})
+		const { success, data, error } = userServerResponseSchema.safeParse(userJson)
 
-// 	const userJson = await res.json()
+		if (!success) {
+			logger.error("Invalid response", error)
+			return NextResponse.json({ code: "INTERNAL_SERVER_ERROR" }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
+		}
 
-// 	const { success, data, error } = userServerResponseSchema.safeParse(userJson)
+		if ("detail" in data) {
+			return NextResponse.json({
+				code: "UNAUTHORIZED",
+				message: data.detail,
+			})
+		}
 
-// 	if (!success) {
-// 		logger.error("Invalid response", error)
-// 		return NextResponse.json({ code: "INTERNAL_SERVER_ERROR" }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
-// 	}
-
-// 	if ("detail" in data) {
-// 		return NextResponse.json({
-// 			code: "UNAUTHORIZED",
-// 			message: data.detail,
-// 		})
-// 	}
-
-// 	return NextResponse.json(data, { status: StatusCodes.OK })
-// } catch (error) {
-// 	logger.error("Get User Critical Error:", error)
-// 	return NextResponse.json({ code: "INTERNAL_SERVER_ERROR" }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
-// }
-// }
+		return NextResponse.json(data, { status: StatusCodes.OK })
+	} catch (error) {
+		logger.error("Get User Critical Error:", error)
+		return NextResponse.json({ code: "INTERNAL_SERVER_ERROR" }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
+	}
+}

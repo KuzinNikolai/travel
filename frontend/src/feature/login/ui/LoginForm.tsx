@@ -14,11 +14,17 @@ interface LoginFormProps {
 export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 	const { loginAsync, isLoading } = useLogin()
 
-	const form = useForm<LoginRequest>({ resolver: zodResolver(loginRequestSchema) })
+	const form = useForm<LoginRequest>({
+		defaultValues: { email: "", password: "" },
+		resolver: zodResolver(loginRequestSchema),
+	})
 
 	const onSubmit = form.handleSubmit(async (data: LoginRequest) => {
-		loginAsync(data)
-		onFinish()
+		const res = await loginAsync(data)
+
+		if (!("code" in res)) {
+			onFinish()
+		}
 	})
 
 	useEffect(() => {

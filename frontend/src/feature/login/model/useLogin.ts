@@ -1,12 +1,15 @@
 "use client"
 
+import type { LoginResponse } from "@api/auth/login/_schema"
 import { useUserTokenStore } from "@entity/user"
 import { useToast } from "@share/ui/Popups"
-import { useEffect } from "react"
+import type { AxiosError } from "axios"
 import { useMutation, useQueryClient } from "react-query"
 import type { z } from "zod"
 import { clientLogin } from "../api/client"
 import type { loginRequestScheme } from "../consts/schemas"
+import { logger } from "@share/lib"
+import { __DEV__ } from "@share/constants/mode"
 
 export function useLogin() {
 	const queryClient = useQueryClient()
@@ -14,19 +17,33 @@ export function useLogin() {
 	const { setToken } = useUserTokenStore()
 	const { toast } = useToast()
 
-	const loginMutation = useMutation((data: z.infer<typeof loginRequestScheme>) => clientLogin(data))
+	const loginMutation = useMutation((data: z.infer<typeof loginRequestScheme>) => clientLogin(data), {
+		onSuccess: (data) => {
+			if ("code" in data) {
+				return
+			}
 
-	useEffect(() => {
-		if (!loginMutation.isSuccess) {
+			if (__DEV__) {
+				logger.info("useLogin onSuccess")
+				toast({ description: data.token })
+			}
+
+			setToken(data.token)
 			toast({
-				title: "Ошибка",
-				description: "Произошла ошибка на сервере при попытке входа. Попробуйте ещё раз позже",
+				title: "Успех",
+				description: "Вы успешно вошли в систему",
 			})
-			return
-		}
+			queryClient.invalidateQueries(["user"])
+		},
+		onError: (err: AxiosError<LoginResponse>) => {
+			const data = err.response?.data
 
-		if ("code" in loginMutation.data) {
-			switch (loginMutation.data.code) {
+			if (!data || !("code" in data)) {
+				toast({ title: "Ошибка", description: "Неизвестная ошибка при попытке входа" })
+				return
+			}
+
+			switch (data.code) {
 				case "INVALID_RESPONSE_BODY": {
 					toast({
 						title: "Ошибка",
@@ -44,15 +61,8 @@ export function useLogin() {
 				default:
 					toast({ title: "Ошибка", description: "Неизвестная ошибка при попытке входа" })
 			}
-		} else {
-			setToken(loginMutation.data.token)
-			toast({
-				title: "Успех",
-				description: "Вы успешно вошли в систему",
-			})
-			queryClient.invalidateQueries(["login"])
-		}
-	}, [loginMutation.data, loginMutation.isSuccess, setToken, toast])
+		},
+	})
 
 	return {
 		isLoading: loginMutation.isLoading,

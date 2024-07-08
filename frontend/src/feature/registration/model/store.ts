@@ -10,11 +10,17 @@ interface IValues {
 	currentStep: number
 }
 
+export enum RegistrationSteps {
+	FirstInfo = 0,
+	AdditionalInfo = 1,
+	VerifyCode = 2,
+}
+
 interface IMethods {
 	getFormData(): FirstInformation | null
 	setFormData(data: FirstInformation | null): void
 
-	setStep(step: number): void
+	setStep(step: RegistrationSteps): void
 }
 
 type IStorage = IValues & IMethods

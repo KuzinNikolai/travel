@@ -6,9 +6,10 @@ export const firstInfoSchema = registrationRequestSchema.pick({
 	password: true,
 })
 
-export const additionalInformationSchema = registrationRequestSchema.omit(
-	Object.keys(firstInfoSchema.keyof().Enum).reduce((obj, key) => Object.assign(obj, { [key]: true }), {}),
-)
+export const additionalInformationSchema = registrationRequestSchema.omit({
+	email: true,
+	password: true,
+})
 
 export type FirstInformation = z.infer<typeof firstInfoSchema>
 export type AdditionalInformation = z.infer<typeof additionalInformationSchema>

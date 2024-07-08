@@ -4,9 +4,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useVerifyCode } from "../model/useVerifyCode"
 import { InputOTP, InputOTPSlot } from "@share/ui/Inputs"
 import { Typography } from "@share/ui/Text"
+import type { FC } from "react"
 
-export const VerificationForm = () => {
-	const { form, formRef, onSubmit, onChangeCode } = useVerifyCode()
+interface VerificationFormProps {
+	onSuccess: () => void
+}
+
+export const VerificationForm: FC<VerificationFormProps> = ({ onSuccess }) => {
+	const { form, formRef, onSubmit, onChangeCode } = useVerifyCode({ onSuccess })
 
 	return (
 		<Form {...form}>

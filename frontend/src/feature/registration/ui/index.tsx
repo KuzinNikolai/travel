@@ -11,7 +11,7 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
-	const { currentStep, backStep, nextStep, goToStep } = useMultistepForm({ maxSteps: 2 })
+	const { currentStep, goToStep } = useMultistepForm({ maxSteps: 2 })
 
 	const listenReload = useNoReload()
 
@@ -20,18 +20,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
 	}, [])
 
 	const steps = {
-		0: (
-			<FirstInfo
-				next={nextStep}
-				goToStep={goToStep}
-			/>
-		),
-		1: (
-			<AdditionalInfo
-				next={nextStep}
-				back={backStep}
-			/>
-		),
+		0: <FirstInfo goToStep={goToStep} />,
+		1: <AdditionalInfo goToStep={goToStep} />,
 		2: (
 			<VerifyCode
 				goToStep={goToStep}

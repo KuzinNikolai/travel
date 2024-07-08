@@ -17,7 +17,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<RegistrationR
 			return NextResponse.json({ code: "INVALID_BODY" }, { status: StatusCodes.BAD_REQUEST })
 		}
 
-		const res = await fetch(`${API_DOMAIN}/api/v1/registration/`, {
+		const res = await fetch(`${API_DOMAIN}/api/v1/register/`, {
 			method: "POST",
 			body: SafeJson.stringify(reqData),
 			headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<RegistrationR
 
 		return NextResponse.json({ success: true }, { status: StatusCodes.CREATED })
 	} catch (e) {
-		logger.error("Registration Critical Error", e)
+		logger.fatal("Registration Critical Error", e)
 		return NextResponse.json({ code: "SERVER_ERROR" }, { status: StatusCodes.INTERNAL_SERVER_ERROR })
 	}
 }

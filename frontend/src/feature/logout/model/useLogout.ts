@@ -1,34 +1,57 @@
 import { useUserTokenStore } from "@entity/user"
-import { useMutation } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { clientLogout } from "../api/client"
+import { toast, useToast } from "@share/ui/Popups"
+import type { AxiosError } from "axios"
+import type { LogoutResponse } from "@api/auth/logout/_schema"
 
 export function useLogout() {
+	const queryClient = useQueryClient()
 	const { setToken } = useUserTokenStore()
-	const logout = useMutation({
-		async mutationFn() {
-			const response = clientLogout()
+	const { toast } = useToast()
 
-			const responseValue = await response
-
-			if ("code" in responseValue) {
-				switch (responseValue.code) {
-					case "SERVER_ERROR":
-						break
-					case "FORBIDDEN":
-						break
-					default:
-						break
-				}
-			} else {
-				setToken(null)
+	const logout = useMutation(() => clientLogout(), {
+		onSuccess: (data) => {
+			if ("code" in data) {
+				return
 			}
 
-			return response
+			queryClient.invalidateQueries(["user"])
+			setToken(null)
 		},
-		onSuccess: () => {
-			window.location.href = "/"
+		onError: (error: AxiosError<LogoutResponse>) => {
+			const data = error.response?.data
+
+			if (!data || !("code" in data)) {
+				toast({
+					title: "Ошибка",
+					description: "Произошла ошибка при попытке выхода. Попробуйте ещё раз позже",
+				})
+				return
+			}
+
+			switch (data.code) {
+				case "SERVER_ERROR": {
+					toast({
+						title: "Ошибка",
+						description: "Произошла ошибка на сервере при попытке выхода. Попробуйте ещё раз позже",
+					})
+					break
+				}
+				case "INVALID_TOKEN": {
+					toast({
+						title: "Ошибка",
+						description: "Неверный код",
+					})
+					break
+				}
+				default:
+					break
+			}
 		},
 	})
 
-	return { logout: logout.mutateAsync }
+	return {
+		logout: logout.mutateAsync,
+	}
 }

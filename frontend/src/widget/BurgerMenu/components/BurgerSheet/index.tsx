@@ -5,7 +5,7 @@ import { UserInfo } from "./components/UserInfo"
 export const BurgerSheet = () => {
 	return (
 		<div className='mt-4 flex flex-col gap-6'>
-			{/* <UserInfo /> */}
+			<UserInfo />
 			<nav>
 				<ul className='flex flex-col gap-3 overflow-y-auto'>
 					{siteConfig.navigation.map((item, index) => (

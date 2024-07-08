@@ -1,26 +1,36 @@
 "use client"
 
-import { verificationRequestSchema, type VerificationRequest } from "@api/auth/verify/_schema"
+import {
+	verificationRequestSchema,
+	type VerificationRequest,
+	type VerificationResponse,
+} from "@api/auth/verify/_schema"
+import { useLogin } from "@feature/login"
+import { useRegistrationFormStore } from "@feature/registration/model/store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useToast } from "@share/ui/Popups"
+import type { AxiosError } from "axios"
 import { useRef } from "react"
 import { useForm } from "react-hook-form"
-import { useMutation, useQueryClient } from "react-query"
+import { useMutation } from "react-query"
 import { clientVerification } from "../api/client"
+import { logger } from "@share/lib"
 
-export function useVerifyCode() {
+interface UseVerifyCodeArgs {
+	onSuccess: () => void
+}
+
+export function useVerifyCode({ onSuccess }: UseVerifyCodeArgs) {
 	const { toast } = useToast()
-	const queryClient = useQueryClient()
+	const { loginAsync } = useLogin()
+	const { getFormData, setFormData } = useRegistrationFormStore()
 
 	const formRef = useRef<HTMLFormElement>(null)
 	const form = useForm<VerificationRequest>({ resolver: zodResolver(verificationRequestSchema) })
 
-	const { mutate, ...mutation } = useMutation({
-		mutationFn(code: string) {
-			return clientVerification({ code: code })
-		},
-		onSuccess: (data) => {
-			if (!data) {
+	const { mutateAsync } = useMutation((code: string) => clientVerification({ code: code }), {
+		onSuccess: async (data) => {
+			if (!data || "code" in data) {
 				toast({
 					title: "Ошибка",
 					description: "При проверке кода произошла ошибка",
@@ -28,37 +38,60 @@ export function useVerifyCode() {
 				return
 			}
 
-			if ("code" in data) {
-				switch (data.code) {
-					case "FORBIDDEN": {
-						form.setError("code", {
-							type: "invalid",
-							message: "Неверный код",
-						})
-						break
-					}
-					case "SERVER_ERROR": {
-						toast({
-							title: "Ошибка",
-							description: "На сервере при проверке кода произошла ошибка",
-						})
-						break
-					}
-					default:
-						toast({
-							title: "Ошибка",
-							description: "При проверке кода произошла ошибка",
-						})
-				}
+			toast({
+				title: "Успех",
+				description: "Вы успешно подтвердили почту",
+			})
+			
+			const loginData = getFormData()
 
-				form.reset({ code: "" })
-			} else {
+			onSuccess()
+
+			const loginResponse = loginData ? await loginAsync(loginData).finally(() => setFormData(null)) : undefined
+
+			if (loginResponse && "token" in loginResponse) {
+				toast({
+					title: "Успех",
+					description: "Вы успешно вошли в систему",
+				})
 			}
+		},
+		onError: (err: AxiosError<VerificationResponse>) => {
+			const data = err.response?.data
+
+			if (!data || !("code" in data)) {
+				toast({ title: "Ошибка", description: "Неизвестная ошибка при проверке кода" })
+				return
+			}
+
+			switch (data.code) {
+				case "INVALID_CODE": {
+					form.setError("code", {
+						type: "invalid",
+						message: "Неверный код",
+					})
+					break
+				}
+				case "SERVER_ERROR": {
+					toast({
+						title: "Ошибка",
+						description: "На сервере при проверке кода произошла ошибка",
+					})
+					break
+				}
+				default:
+					toast({
+						title: "Ошибка",
+						description: "При проверке кода произошла ошибка",
+					})
+			}
+
+			form.reset({ code: "" })
 		},
 	})
 
 	const onSubmit = form.handleSubmit(async ({ code }) => {
-		mutate(code)
+		mutateAsync(code)
 	})
 
 	const onChangeCode = (value: string) => {

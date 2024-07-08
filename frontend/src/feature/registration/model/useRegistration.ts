@@ -1,60 +1,68 @@
 "use client"
 
+import type { RegistrationErrorCodes, RegistrationRequest, RegistrationResponse } from "@api/auth/registration/_schema"
 import { useToast } from "@share/ui/Popups"
-import { useMutation, useQueryClient } from "react-query"
+import type { AxiosError } from "axios"
+import { useMutation } from "react-query"
 import { clientRegistration } from "../api/client"
-import type { AdditionalInformation } from "../consts/schemes"
 
-interface UseRegistrationFormArgs {
-	onNextStep: () => void
-	onBack: () => void
+interface UseRegistrationArgs {
+	onSuccess: () => void
+	onError: (code: RegistrationErrorCodes) => void
 }
 
-export function useRegistrationForm({ onNextStep, onBack }: UseRegistrationFormArgs) {
-	const queryClient = useQueryClient()
+export function useRegistration({ onSuccess, onError }: UseRegistrationArgs) {
 	const { toast } = useToast()
 
-	const registrationMutation = useMutation((data: AdditionalInformation) => clientRegistration(data), {
+	const registrationMutation = useMutation((data: RegistrationRequest) => clientRegistration(data), {
 		onSuccess: (data) => {
-			if ("code" in data) {
-				switch (data.code) {
-					case "INVALID_BODY": {
-						toast({
-							title: "Ошибка",
-							description: "Некорректные данные",
-						})
-						break
-					}
-					case "USER_ALREADY_EXISTS": {
-						toast({
-							title: "Ошибка",
-							description: "Пользователь с почтой уже существует",
-						})
-						onBack()
-						break
-					}
-					default:
-						toast({ title: "Ошибка", description: "Неизвестная ошибка при регистрации" })
+			if (!data) {
+				return
+			}
+
+			toast({
+				title: "Успешно",
+				description: "Вы успешно зарегистрировались. Осталось только подтвердить почту",
+			})
+
+			onSuccess()
+		},
+		onError: (err) => {
+			const data = (err as AxiosError<RegistrationResponse>).response?.data
+
+			if (!data || !("code" in data)) {
+				toast({ title: "Ошибка", description: "Неизвестная ошибка при регистрации" })
+				return
+			}
+
+			switch (data.code) {
+				case "INVALID_BODY": {
+					toast({
+						title: "Ошибка",
+						description: "Некорректные данные",
+					})
+					onError("INVALID_BODY")
+					break
 				}
-			} else {
-				onNextStep()
-				queryClient.invalidateQueries(["user"])
-				toast({
-					title: "Успешно",
-					description: "Вы успешно зарегистрировались. Осталось только подтвердить почту",
-				})
+				case "USER_ALREADY_EXISTS": {
+					toast({
+						title: "Ошибка",
+						description:
+							"Пользователь с такой почтой уже зарегистрирован. Попробуйте другой адрес или воспользуйтесь функцией восстановления пароля",
+					})
+					onError("USER_ALREADY_EXISTS")
+					break
+				}
+				default:
+					toast({ title: "Ошибка", description: "Произошла ошибка при регистрации, позже попробуйте ещё раз" })
+					onError("SERVER_ERROR")
 			}
 		},
 	})
 
-	const onSubmit = (data: AdditionalInformation) => {
-		registrationMutation.mutate(data)
-	}
-
 	return {
 		isRegistered: () => registrationMutation,
-		onSubmit,
 		registration: registrationMutation.mutate,
-		...registrationMutation,
+		registrationMutation: registrationMutation,
 	}
 }
