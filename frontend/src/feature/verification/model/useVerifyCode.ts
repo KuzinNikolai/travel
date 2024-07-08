@@ -42,7 +42,7 @@ export function useVerifyCode({ onSuccess }: UseVerifyCodeArgs) {
 				title: "Успех",
 				description: "Вы успешно подтвердили почту",
 			})
-			
+
 			const loginData = getFormData()
 
 			onSuccess()

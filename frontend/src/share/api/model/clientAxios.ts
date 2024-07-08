@@ -17,7 +17,6 @@ const clientAxiosWithToken = Axios.create({
 	},
 })
 
-
 clientAxiosWithToken.interceptors.request.use((config) => {
 	const token = getToken()
 
