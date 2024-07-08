@@ -1,70 +1,50 @@
 "use client"
 
-import { useGetUser, useUserTokenStore } from "@entity/user"
-import { useAuthStore } from "@widget/Auth"
+import { UserPreview, useGetUser } from "@entity/user"
 import { useLogout } from "@feature/logout"
+import { logger } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
-import { Skeleton } from "@share/ui/Skeleton"
 import { Popover, PopoverContent, PopoverTrigger } from "@share/ui/Popover"
 import { Typography } from "@share/ui/Text"
-import { Avatar, AvatarFallback, AvatarImage } from "@share/ui/Avatar"
-import { useEffect } from "react"
-import { logger } from "@share/lib"
+import { useAuthStore } from "@widget/Auth"
 
 export const UserInfo = () => {
 	const { setExpand } = useAuthStore()
-	const { getToken } = useUserTokenStore()
-	// useGetUser()
-	// const { logout } = useLogout()
+	const { logout } = useLogout()
+	const { data, query } = useGetUser()
 
-	useEffect(() => {
-		setExpand(true)
-	}, [])
+	if (query.isFetched && !query.data || data === "UNAUTHORIZED") {
+		return (
+			<Button
+				variant='ghost'
+				className='w-full items-center justify-center'
+				onClick={() => setExpand(true)}
+			>
+				Авторизоваться
+			</Button>
+		)
+	}
 
-	// if (!getToken()) {
-	// 	return (
-	// 		<Button
-	// 			variant='ghost'
-	// 			className='w-full items-center justify-center'
-	// 			onClick={() => setModal("auth", true)}
-	// 		>
-	// 			Авторизоваться
-	// 		</Button>
-	// 	)
-	// }
+	if (!data && query.isLoading) {
+		return <UserPreview.Skeleton />
+	}
 
-	// if (loading) {
-	// 	return (
-	// 		<div className='grid grid-cols-[40px_1fr] items-center gap-2'>
-	// 			<Skeleton className='h-10 w-10 rounded-full' />
-	// 			<Skeleton className='h-10 w-20 rounded-full' />
-	// 		</div>
-	// 	)
-	// }
-
-	// return user && !("code" in user) ? (
-	// 	<Popover>
-	// 		<PopoverTrigger asChild>
-	// 			<button
-	// 				type='button'
-	// 				className='grid grid-cols-[40px_1fr] items-center gap-2'
-	// 			>
-	// 			</button>
-	// 		</PopoverTrigger>
-	// 		<PopoverContent>
-	// 			<Button
-	// 				className='w-full'
-	// 				variant='destructive'
-	// 				onClick={() => {
-	// 					logout()
-	// 				}}
-	// 			>
-	// 				Выйти
-	// 			</Button>
-	// 		</PopoverContent>
-	// 	</Popover>
-	// ) : (
-	return (
+	return data && typeof data !== "string" ? (
+		<Popover>
+			<PopoverTrigger>
+				<UserPreview />
+			</PopoverTrigger>
+			<PopoverContent>
+				<Button
+					className='w-full'
+					variant='destructive'
+					onClick={() => logout()}
+				>
+					Выйти
+				</Button>
+			</PopoverContent>
+		</Popover>
+	) : (
 		<Typography
 			variant='span'
 			as='p'

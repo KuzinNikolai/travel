@@ -1,5 +1,5 @@
 import { serverFetchApi } from "@share/api"
-import { tokeWithPrefixSchema } from "@share/constants/schemes"
+import { tokenWithPrefixSchema } from "@share/constants/schemes"
 
 export async function checkAuthorization(req: Request) {
 	const authorizeToken = req.headers.get("Authorization")
@@ -8,7 +8,7 @@ export async function checkAuthorization(req: Request) {
 		return
 	}
 
-	const { success: isTokenValid, data: token } = tokeWithPrefixSchema.safeParse(authorizeToken)
+	const { success: isTokenValid, data: token } = tokenWithPrefixSchema.safeParse(authorizeToken)
 
 	const user = await serverFetchApi("/auth/user/me", "GET", {
 		headers: {

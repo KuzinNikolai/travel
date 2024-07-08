@@ -1,7 +1,6 @@
 "use client"
 
-import { useUserTokenStore } from "@entity/user"
-import { logger } from "@share/lib"
+import { getToken } from "@entity/user"
 import Axios from "axios"
 
 const clientAxios = Axios.create({
@@ -18,10 +17,9 @@ const clientAxiosWithToken = Axios.create({
 	},
 })
 
-clientAxiosWithToken.interceptors.request.use((config) => {
-	const token = useUserTokenStore().getToken()
 
-	logger.debug("token", token)
+clientAxiosWithToken.interceptors.request.use((config) => {
+	const token = getToken()
 
 	if (!token) {
 		return config

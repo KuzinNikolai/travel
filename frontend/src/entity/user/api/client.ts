@@ -1,12 +1,11 @@
 "use client"
 
 import { userResponseSchema } from "@api/user/_schema"
-import { clientAxios } from "@share/api/model/clientAxios"
-import { logger } from "@share/lib"
+import { clientAxiosWithToken } from "@share/api/model/clientAxios"
 
 export async function getUser() {
 	try {
-		const res = await clientAxios.get("/user")
+		const res = await clientAxiosWithToken.get("/user")
 
 		const { success, data } = userResponseSchema.safeParse(res.data)
 
@@ -16,7 +15,6 @@ export async function getUser() {
 
 		return data
 	} catch (e) {
-		logger.error("Failed get user", e)
 		return null
 	}
 }
