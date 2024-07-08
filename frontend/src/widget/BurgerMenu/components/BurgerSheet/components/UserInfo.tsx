@@ -12,7 +12,7 @@ export const UserInfo = () => {
 	const { logout } = useLogout()
 	const { data, query } = useGetUser()
 
-	if (query.isIdle || query.isFetched && (!query.data || data === "UNAUTHORIZED")) {
+	if (query.isIdle || (query.isFetched && (!query.data || data === "UNAUTHORIZED"))) {
 		return (
 			<Button
 				variant='ghost'
