@@ -1,12 +1,13 @@
-import { useUserTokenStore } from "@entity/user"
+import type { LogoutResponse } from "@api/auth/logout/_schema"
+import { useUserStore, useUserTokenStore } from "@entity/user"
+import { useToast } from "@share/ui/Popups"
+import type { AxiosError } from "axios"
 import { useMutation, useQueryClient } from "react-query"
 import { clientLogout } from "../api/client"
-import { toast, useToast } from "@share/ui/Popups"
-import type { AxiosError } from "axios"
-import type { LogoutResponse } from "@api/auth/logout/_schema"
 
 export function useLogout() {
 	const queryClient = useQueryClient()
+	const userStore = useUserStore()
 	const { setToken } = useUserTokenStore()
 	const { toast } = useToast()
 
@@ -17,6 +18,8 @@ export function useLogout() {
 			}
 
 			queryClient.invalidateQueries(["user"])
+			userStore.setUser(null)
+
 			setToken(null)
 		},
 		onError: (error: AxiosError<LogoutResponse>) => {

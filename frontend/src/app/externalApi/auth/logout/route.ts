@@ -1,5 +1,5 @@
 import { API_DOMAIN, StatusCodes } from "@share/api"
-import { tokeWithPrefixSchema } from "@share/constants/schemes"
+import { tokenWithPrefixSchema } from "@share/constants/schemes"
 import { SafeJson, logger } from "@share/lib"
 import { NextResponse, type NextRequest } from "next/server"
 import { z } from "zod"
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<LogoutRespons
 			return NextResponse.json({ code: "UNAUTHORIZED" }, { status: StatusCodes.FORBIDDEN })
 		}
 
-		const { success, data: parsedToken } = tokeWithPrefixSchema.safeParse(token)
+		const { success, data: parsedToken } = tokenWithPrefixSchema.safeParse(token)
 
 		if (!success) {
 			return NextResponse.json({ code: "INVALID_TOKEN" }, { status: StatusCodes.FORBIDDEN })
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<LogoutRespons
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Token ${parsedToken.trim()}`,
+				Authorization: parsedToken,
 			},
 		})
 

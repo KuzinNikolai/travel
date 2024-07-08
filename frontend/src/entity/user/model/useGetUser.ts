@@ -1,46 +1,60 @@
 "use client"
 
+import type { UserResponse } from "@api/user/_schema"
+import type { AxiosError } from "axios"
+import { useMemo } from "react"
 import { useQuery } from "react-query"
-import { useUserTokenStore } from "./userTokenStore"
 import { getUser } from "../api/client"
-import { logger } from "@share/lib"
-import { useEffect } from "react"
+import { useUserTokenStore } from "./userTokenStore"
+import { useUserStore } from "./userUserStore"
 
 export function useGetUser() {
+	const userStore = useUserStore()
 	const { getToken } = useUserTokenStore()
 
 	const query = useQuery("user", getUser, {
-		// enabled: getToken() !== null,
+		enabled: getToken() !== null,
 		refetchOnWindowFocus: true,
 		keepPreviousData: true,
+
+		onSuccess: (data) => {
+			if (!data || "code" in data) {
+				return
+			}
+
+			userStore.setUser(data)
+		},
+		onError: (err: AxiosError<UserResponse>) => {
+			if (!err.response?.data || !("code" in err.response.data)) {
+				return
+			}
+
+			switch (err.response.data.code) {
+				case "UNAUTHORIZED": {
+					userStore.setUser(null)
+					break
+				}
+				default:
+					break
+			}
+		},
 	})
 
-	// logger.debug("useGetUser", query)
+	const data = useMemo(() => {
+		if (userStore.user) {
+			return userStore.user
+		}
 
-	// useEffect(() => {
-	// 	if (!query.data) {
-	// 		return
-	// 	}
+		if (!query.isFetched || !query.data) {
+			return
+		}
 
-	// 	if ("code" in query.data) {
-	// 		switch (query.data.code) {
-	// 			case "INTERNAL_SERVER_ERROR": {
-	// 				logger.error("Internal server error", query.data)
-	// 				break
-	// 			}
-	// 			case "INVALID_TOKEN": {
-	// 				logger.error("Invalid token", query.data)
-	// 				break
-	// 			}
-	// 			case "UNAUTHORIZED": {
-	// 				logger.error("Unauthorized", query.data)
-	// 				break
-	// 			}
-	// 			default:
-	// 				assertExhaustive(query.data.code)
-	// 		}
-	// 	}
-	// }, [getToken()])
+		if ("code" in query.data) {
+			return query.data.code
+		}
 
-	// return query
+		return query.data
+	}, [query.data])
+
+	return { data, query }
 }

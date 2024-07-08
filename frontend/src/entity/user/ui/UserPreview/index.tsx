@@ -4,16 +4,21 @@ import { useGetUser } from "@entity/user/model/useGetUser"
 import { Avatar, AvatarFallback, AvatarImage } from "@share/ui/Avatar"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
+import type { FC } from "react"
 
-export const UserPreview = () => {
+interface UserPreviewComponents {
+	Skeleton: typeof UserPreviewSkeleton
+}
+
+export const UserPreview: UserPreviewComponents & FC = () => {
 	const { data: user } = useGetUser()
 
-	if (!user || "code" in user) {
+	if (!user || typeof user === "string") {
 		return null
 	}
 
 	return (
-		<div className="grid grid-cols-[40px_1fr] items-center gap-2">
+		<div className='grid grid-cols-[40px_1fr] items-center gap-2'>
 			{user.photo ? (
 				<Avatar>
 					<AvatarImage
@@ -41,3 +46,14 @@ export const UserPreview = () => {
 		</div>
 	)
 }
+
+const UserPreviewSkeleton = () => (
+	<div className='grid grid-cols-[40px_1fr] items-center gap-2'>
+		<Skeleton className='h-10 w-10 rounded-full' />
+		<div className='flex gap-1'>
+			<Skeleton className='h-6 w-16 rounded-full' />
+			<Skeleton className='h-6 w-20 rounded-full' />
+		</div>
+	</div>
+)
+UserPreview.Skeleton = UserPreviewSkeleton
