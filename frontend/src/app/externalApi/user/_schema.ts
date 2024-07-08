@@ -1,18 +1,31 @@
-import { userSchema } from "@entity/user"
 import { clientErrorResponseSchema, serverErrorResponseSchema } from "@share/api"
 import { logger } from "@share/lib"
 import { z } from "zod"
 
-// logger.log("TEST:",userSchema)
-
 // Client
 
-// const codes = z.enum(["UNAUTHORIZED", "INVALID_TOKEN", "INTERNAL_SERVER_ERROR"])
+const codes = z.enum(["UNAUTHORIZED", "INVALID_TOKEN", "INTERNAL_SERVER_ERROR"])
 
-// export const userResponseSchema = userSchema.or(clientErrorResponseSchema(codes))
+const userSchema = z.object({
+	id: z.number(),
+	email: z.string().email(),
+	first_name: z.string(),
+	last_name: z.string(),
+	phone: z.string().nullable(),
+	age: z.number().nullable(),
 
-// export type UserResponse = z.infer<typeof userResponseSchema>
+	country: z.number().nullable(),
+	city: z.number().nullable(),
+
+	photo: z.string().nullable(),
+
+	is_staff: z.boolean(),
+})
+
+export const userResponseSchema = userSchema.or(clientErrorResponseSchema(codes))
+
+export type UserResponse = z.infer<typeof userResponseSchema>
 
 // API
 
-// export const userServerResponseSchema = userSchema.or(serverErrorResponseSchema)
+export const userServerResponseSchema = userSchema.or(serverErrorResponseSchema)

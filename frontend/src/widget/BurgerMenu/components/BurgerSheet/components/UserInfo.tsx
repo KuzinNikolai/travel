@@ -1,18 +1,26 @@
 "use client"
 
 import { useGetUser, useUserTokenStore } from "@entity/user"
-import { useAuthStore } from "@widget/Auth/model/store"
+import { useAuthStore } from "@widget/Auth"
 import { useLogout } from "@feature/logout"
 import { Button } from "@share/ui/Buttons"
 import { Skeleton } from "@share/ui/Skeleton"
-import { Popover } from "@share/ui/Popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@share/ui/Popover"
 import { Typography } from "@share/ui/Text"
+import { Avatar, AvatarFallback, AvatarImage } from "@share/ui/Avatar"
+import { useEffect } from "react"
+import { logger } from "@share/lib"
 
 export const UserInfo = () => {
-	// const { setModal } = useAuthStore()
-	// const { getToken } = useUserTokenStore()
-	// const { data: user, isLoading: loading } = useGetUser()
+	const { setExpand } = useAuthStore()
+	const { getToken } = useUserTokenStore()
+	// useGetUser()
 	// const { logout } = useLogout()
+
+	useEffect(() => {
+		setExpand(true)
+	}, [])
+
 	// if (!getToken()) {
 	// 	return (
 	// 		<Button
@@ -24,6 +32,7 @@ export const UserInfo = () => {
 	// 		</Button>
 	// 	)
 	// }
+
 	// if (loading) {
 	// 	return (
 	// 		<div className='grid grid-cols-[40px_1fr] items-center gap-2'>
@@ -32,37 +41,14 @@ export const UserInfo = () => {
 	// 		</div>
 	// 	)
 	// }
+
 	// return user && !("code" in user) ? (
 	// 	<Popover>
-	// <PopoverTrigger asChild>
+	// 		<PopoverTrigger asChild>
 	// 			<button
 	// 				type='button'
 	// 				className='grid grid-cols-[40px_1fr] items-center gap-2'
 	// 			>
-	// 				{user.photo ? (
-	// 					<Avatar>
-	// 						<AvatarImage
-	// 							src={user.photo}
-	// 							className='h-10 w-10 rounded-full object-cover object-center'
-	// 						/>
-	// 						<AvatarFallback>
-	// 							<Skeleton className='h-10 w-10 rounded-full' />
-	// 						</AvatarFallback>
-	// 					</Avatar>
-	// 				) : (
-	// 					<div className='flex h-10 w-10 flex-col items-center justify-center rounded-full bg-gray-300/60'>
-	// 						{user.first_name[0].toLocaleUpperCase()}
-	// 						{user.last_name[0].toLocaleUpperCase()}
-	// 					</div>
-	// 				)}
-	// 				<Typography
-	// 					variant='span'
-	// 					as='p'
-	// 					textWidth='light'
-	// 					className='truncate text-left'
-	// 				>
-	// 					{user.first_name} {user.last_name}
-	// 				</Typography>
 	// 			</button>
 	// 		</PopoverTrigger>
 	// 		<PopoverContent>
@@ -78,13 +64,14 @@ export const UserInfo = () => {
 	// 		</PopoverContent>
 	// 	</Popover>
 	// ) : (
-	// 	<Typography
-	// 		variant='span'
-	// 		as='p'
-	// 		textWidth='light'
-	// 		className='text-danger'
-	// 	>
-	// 		Не удалось получить информацию о пользователе
-	// 	</Typography>
-	// )
+	return (
+		<Typography
+			variant='span'
+			as='p'
+			textWidth='light'
+			className='text-danger'
+		>
+			Не удалось получить информацию о пользователе
+		</Typography>
+	)
 }

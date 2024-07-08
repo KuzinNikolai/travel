@@ -17,11 +17,7 @@ const codes = z.enum([
 	"INTERNAL_SERVER_ERROR",
 ])
 
-export const loginResponseSchema = z
-	.object({
-		token: tokenSchema,
-	})
-	.or(clientErrorResponseSchema(codes))
+export const loginResponseSchema = z.object({ token: tokenSchema }).or(clientErrorResponseSchema(codes))
 
 export type LoginRequest = z.infer<typeof loginRequestSchema>
 export type LoginResponse = z.infer<typeof loginResponseSchema>

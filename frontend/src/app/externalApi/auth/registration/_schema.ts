@@ -15,7 +15,7 @@ export const registrationRequestSchema = userSchema
 		password: passwordScheme,
 	})
 
-const codes = z.enum([
+export const registrationResponseErrorCodes = z.enum([
 	"INVALID_BODY",
 	"SERVER_ERROR",
 	"USER_ALREADY_EXISTS",
@@ -27,8 +27,9 @@ export const registrationResponseSchema = z
 	.object({
 		success: z.literal(true),
 	})
-	.or(clientErrorResponseSchema(codes))
+	.or(clientErrorResponseSchema(registrationResponseErrorCodes))
 
+export type RegistrationErrorCodes = z.infer<typeof registrationResponseErrorCodes>
 export type RegistrationRequest = z.infer<typeof registrationRequestSchema>
 export type RegistrationResponse = z.infer<typeof registrationResponseSchema>
 

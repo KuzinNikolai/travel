@@ -3,7 +3,7 @@ import { clientAxios } from "@share/api"
 import { logger } from "@share/lib"
 
 const clientLogin = async (body: LoginRequest) => {
-	const { data } = await clientAxios.post("/auth/login", { body })
+	const { data } = await clientAxios.post("/auth/login", body)
 
 	const parsed = loginResponseSchema.safeParse(data)
 

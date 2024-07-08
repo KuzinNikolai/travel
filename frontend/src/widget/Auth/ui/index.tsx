@@ -3,24 +3,27 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
 import { useCallback, useState } from "react"
-import { useAuthStore } from "../model/store"
+import { useAuthStore } from "../model/useAuthStore"
+import { LoginForm } from "@feature/login"
+import { RegistrationForm } from "@feature/registration"
 
 export const Auth = () => {
-	const { auth, setModal } = useAuthStore()
+	const { auth, setExpand } = useAuthStore()
 	const [tab, setTab] = useState<"login" | "registration">("login")
 
-	const onClose = useCallback(() => setModal("auth", false), [setModal])
+	const onOpenChange = (open: boolean) => !open && setExpand(false)
+	const onClose = useCallback(() => setExpand(false), [])
 
 	return (
 		<Dialog
 			open={auth}
-			onOpenChange={(open) => !open && setModal("auth", false)}
+			onOpenChange={onOpenChange}
 		>
 			<DialogContent>
 				<DialogHeader>
 					<Typography variant='h1'>{tab === "login" ? "Вход" : "Регистрация"}</Typography>
 				</DialogHeader>
-				{/* {tab === "login" ? <LoginForm onFinish={onClose} /> : <RegistrationForm onFinish={onClose} />} */}
+				{tab === "login" ? <LoginForm onFinish={onClose} /> : <RegistrationForm onFinish={onClose} />}
 				<DialogFooter className='items-center justify-start gap-1 sm:justify-start'>
 					{tab === "login" ? (
 						<>

@@ -1,12 +1,11 @@
-import { verificationCodeSchema } from "@feature/verification"
 import { clientErrorResponseSchema } from "@share/api"
 import { z } from "zod"
 
+export const verificationCodeSchema = z.string().length(6).regex(/^\d+$/g)
+
 // Client
 
-export const verificationRequestSchema = z.object({
-	code: verificationCodeSchema,
-})
+export const verificationRequestSchema = z.object({ code: verificationCodeSchema })
 
 const codes = z.enum(["INVALID_BODY", "SERVER_ERROR", "INVALID_CODE", "INVALID_RESPONSE_BODY"])
 
