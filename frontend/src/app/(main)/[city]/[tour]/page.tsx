@@ -30,11 +30,7 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
 			>
 				<TourDescription description={tour.description} />
 				<TourInformation {...tour} />
-				<ToutPrograms
-					programs={tour.programs}
-					currency_prefix={tour.currency_prefix}
-					slug={tour.slug}
-				/>
+				<ToutPrograms tour={tour} />
 				<TourIncluded
 					included={tour.included}
 					notincluded={tour.notincluded}

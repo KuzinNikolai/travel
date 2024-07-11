@@ -7,7 +7,6 @@ import { PopularTours } from "./_components/PopularTours"
 const MainPage = async () => {
 	return (
 		<>
-			<Auth />
 			<Header />
 			<main className='flex flex-col gap-3'>
 				<PopularCities />

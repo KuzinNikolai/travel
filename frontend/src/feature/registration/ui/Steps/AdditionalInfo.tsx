@@ -1,8 +1,9 @@
+"use client"
+
 import { additionalInformationSchema, type AdditionalInformation } from "@feature/registration/consts/schemes"
 import { RegistrationSteps, useRegistrationFormStore } from "@feature/registration/model/store"
 import { useRegistration } from "@feature/registration/model/useRegistration"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { logger } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Input } from "@share/ui/Inputs"

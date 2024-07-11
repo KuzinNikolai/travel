@@ -4,6 +4,7 @@ import { useWishlistStore } from "@feature/wishlist"
 import { cn, useScrollable } from "@share/lib"
 import { IconButton, ShareButton } from "@share/ui/Buttons"
 import { Container } from "@share/ui/Layout"
+import { useRouter } from "next/navigation"
 import { useEffect, useState, type FC } from "react"
 
 interface IHeader {
@@ -12,7 +13,7 @@ interface IHeader {
 
 export const Header: FC<IHeader> = ({ tourId }) => {
 	const wishlist = useWishlistStore()
-
+	const router = useRouter()
 	const [locationHref, setLocationHref] = useState("")
 	const scrollable = useScrollable(10)
 
@@ -20,7 +21,8 @@ export const Header: FC<IHeader> = ({ tourId }) => {
 		setLocationHref(window.location.href)
 	}, [])
 
-	const onBack = () => window.history.back()
+	const onBack = () => router.push(".", { scroll: false })
+
 	const onToggleInWishList = () => {
 		if (wishlist.isFavoriteTour(tourId)) {
 			wishlist.removeTour(tourId)

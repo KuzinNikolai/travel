@@ -1,7 +1,9 @@
-import { serverFetchApi } from "@share/api"
+import { userSchema, type User } from "@entity/user"
+import { serverFetchApiWithToken } from "@share/api"
 import { tokenWithPrefixSchema } from "@share/constants/schemes"
+import { logger } from "@share/lib";
 
-export async function checkAuthorization(req: Request) {
+export async function checkAuthorization(req: Request): Promise<{ user: User; token: string } | undefined> {
 	const authorizeToken = req.headers.get("Authorization")
 
 	if (!authorizeToken) {
@@ -10,15 +12,25 @@ export async function checkAuthorization(req: Request) {
 
 	const { success: isTokenValid, data: token } = tokenWithPrefixSchema.safeParse(authorizeToken)
 
-	const user = await serverFetchApi("/auth/user/me", "GET", {
-		headers: {
-			Authorization: `Token ${token}`,
-		},
+	if (!isTokenValid) {
+		return
+	}
+
+	const user = await serverFetchApiWithToken("auth/users/me", "GET", token, {
+		schema: userSchema,
+		next: { revalidate: 10 },
 	})
 
 	if (!user.ok) {
 		return
 	}
 
-	return isTokenValid ? token : undefined
+	if (!user.schemaParsed) {
+		return
+	}
+
+	return {
+		user: user.data,
+		token,
+	}
 }

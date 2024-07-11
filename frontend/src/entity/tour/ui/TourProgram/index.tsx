@@ -1,33 +1,41 @@
 "use client"
 
 import type { DetailTour, Program } from "@entity/tour"
-import { useOrderStore } from "@feature/order"
+import { useUserTokenStore } from "@entity/user"
+import { useOrderStore } from "@feature/createOrder"
+import { cn } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
 import { Drawer } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
-import clsx from "clsx"
+import { useAuthStore } from "@widget/Auth"
 import { usePathname, useRouter } from "next/navigation"
-import type { FC } from "react"
+import { useEffect, useState, type FC } from "react"
 
-interface IProgramProps {
-	tourSlug: DetailTour["slug"]
+interface ProgramProps {
+	tour: DetailTour
 	program: Program
 	currency: string
 }
 
-export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
+export const TourProgram: FC<ProgramProps> = ({ program, tour, currency }) => {
 	const pathname = usePathname()
 	const router = useRouter()
-	const { setProgram, setTour } = useOrderStore()
+	const { setProgramTour } = useOrderStore()
+	const { getToken } = useUserTokenStore()
+	const authModal = useAuthStore()
+	const [isAuthorized, setAuthorized] = useState(false)
+
+	useEffect(() => {
+		setAuthorized(!!getToken())
+	}, [getToken])
 
 	const onMoveOrder = () => {
-		setTour(tourSlug)
-		setProgram(program.id)
-		router.push(`${pathname}/payment`)
+		setProgramTour({ tour, program })
+		router.push(`${pathname}/order`)
 	}
 
 	return (
-		<li className={clsx("flex flex-col gap-3 p-3 py-4", "border-l-2 border-l-gray-500/60 bg-background")}>
+		<div className='flex flex-col gap-3 border-l-2 border-l-gray-500/60 bg-background p-3 py-4'>
 			<Typography
 				variant='h3'
 				as='h3'
@@ -60,26 +68,29 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 					</Typography>
 				</li>
 			</ul>
-			<div className='flex gap-1'>
-				<Button
-					className={clsx(
-						"w-full flex-1 justify-center rounded text-center",
-						"bg-accent text-white hover:bg-transparent hover:text-accent",
-						"text-xl",
-					)}
-					onClick={onMoveOrder}
-				>
-					Заказать
-				</Button>
+			<div className='flex flex-wrap gap-1'>
+				{isAuthorized ? (
+					<Button
+						variant='default'
+						onClick={onMoveOrder}
+					>
+						Заказать
+					</Button>
+				) : (
+					<Button
+						variant='secondary'
+						className='w-full'
+						onClick={() => authModal.setExpand(true)}
+					>
+						Авторизуйтесь чтобы заказать
+					</Button>
+				)}
 				<Drawer
 					title={program.title}
 					trigger={
 						<Button
-							className={clsx(
-								"w-full flex-1 justify-center rounded text-center",
-								"border border-accent text-accent hover:bg-accent hover:text-accent hover:text-white",
-								"text-xl",
-							)}
+							variant='secondary'
+							className={cn(!isAuthorized && "w-full")}
 						>
 							Подробнее
 						</Button>
@@ -129,6 +140,6 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 					</Button>
 				</Drawer>
 			</div>
-		</li>
+		</div>
 	)
 }

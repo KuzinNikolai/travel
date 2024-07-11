@@ -171,6 +171,6 @@ export const serverFetchApiWithToken = async <Success>(
 		...options,
 		headers: {
 			...options?.headers,
-			Authorization: `Token ${token}`,
+			Authorization: token,
 		},
 	})

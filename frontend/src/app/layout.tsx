@@ -3,6 +3,7 @@ import { ReactQueryClientProvider } from "@share/api"
 import { siteConfig } from "@share/config"
 import { cn } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
+import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import type { FC, PropsWithChildren } from "react"
@@ -24,7 +25,10 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<html lang='en'>
 			<body className={cn(font.className, "flex min-h-dvh flex-col")}>
-				<ReactQueryClientProvider>{children}</ReactQueryClientProvider>
+				<ReactQueryClientProvider>
+					{children}
+					<Auth />
+				</ReactQueryClientProvider>
 				<Toaster />
 			</body>
 		</html>

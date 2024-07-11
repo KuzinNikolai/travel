@@ -6,15 +6,15 @@ import { userServerResponseSchema, type UserResponse } from "./_schema"
 
 export async function GET(req: NextRequest): Promise<NextResponse<UserResponse>> {
 	try {
-		const token = await checkAuthorization(req)
+		const auth = await checkAuthorization(req)
 
-		if (typeof token !== "string") {
+		if (!auth) {
 			return NextResponse.json({ code: "INVALID_TOKEN" }, { status: StatusCodes.FORBIDDEN })
 		}
 
 		const res = await fetch(`${API_DOMAIN}/api/v1/auth/users/me`, {
 			method: "GET",
-			headers: { Authorization: token },
+			headers: { Authorization: auth.token },
 			next: { revalidate: 10 },
 		})
 
