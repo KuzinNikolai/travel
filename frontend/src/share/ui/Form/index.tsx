@@ -146,14 +146,15 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 		}
 
 		return (
-			<p
+			<Typography
+			{...props}
 				ref={ref}
+				variant='content2'
 				id={formMessageId}
-				className={cn("font-medium text-destructive text-sm", className)}
-				{...props}
+				className={cn("text-danger" ,className)}
 			>
 				{body}
-			</p>
+			</Typography>
 		)
 	},
 )

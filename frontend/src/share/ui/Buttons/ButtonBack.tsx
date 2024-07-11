@@ -1,12 +1,17 @@
 "use client"
 
-import { useHistory } from "@share/lib"
 import { IconButton } from "@share/ui/Buttons"
-import { useId, type FC, type HTMLAttributes } from "react"
+import { useRouter } from "next/navigation"
+import { useId, type ButtonHTMLAttributes, type FC, type HTMLAttributes } from "react"
 
 export const ButtonBack: FC<HTMLAttributes<HTMLButtonElement>> = (props) => {
-	const { back } = useHistory()
+	const router = useRouter()
 	const id = useId()
+
+	const onBack: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (e) => {
+		props.onClick?.(e)
+		router.push(".", { scroll: false })
+	}
 
 	return (
 		<>
@@ -17,10 +22,11 @@ export const ButtonBack: FC<HTMLAttributes<HTMLButtonElement>> = (props) => {
 				Назад
 			</label>
 			<IconButton
+				{...props}
 				id={id}
 				icon='ChevronLeft'
 				className='-translate-x-3 text-secondary transition delay-100 hover:text-cyan-500'
-				onClick={props.onClick || back}
+				onClick={onBack}
 			/>
 		</>
 	)
