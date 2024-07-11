@@ -36,3 +36,4 @@ export const InputPhone = forwardRef<HTMLInputElement, PhoneInputProps>(
 		)
 	},
 )
+InputPhone.displayName = "InputPhone"
