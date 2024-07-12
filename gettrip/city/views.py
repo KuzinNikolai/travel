@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Prefetch
 from filter import *
 
 from .models import *
@@ -18,6 +19,9 @@ class CityListView(generics.ListAPIView):
 
     def get_serializer_context(self):
         return {'request': self.request}
+        
+    def get_queryset(self):
+        return City.objects.filter(is_published=Status.PUBLISHED)    
     
 
 class CityDetailView(generics.RetrieveAPIView):
@@ -26,6 +30,14 @@ class CityDetailView(generics.RetrieveAPIView):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CityFilter
     lookup_field = 'slug'
+    
+    def get_queryset(self):
+        return City.objects.all().prefetch_related(
+            Prefetch(
+                'tours',
+                queryset=Tour.published.all()
+            )
+        )
 
 
 # Представление для английской версии города

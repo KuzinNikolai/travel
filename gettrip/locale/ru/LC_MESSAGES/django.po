@@ -105,22 +105,22 @@ msgstr "Введите только цифры, разделенные запя�
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:347
 #, python-format
 msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
+msgstr "Убедитесь, что это значение равно %(limit_value)s (оно равно %(show_value)s)."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:382
 #, python-format
 msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Убедитесь, что это значение меньше или равно %(limit_value)s."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:391
 #, python-format
 msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Убедитесь, что это значение больше или равно %(limit_value)s."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:400
 #, python-format
 msgid "Ensure this value is a multiple of step size %(limit_value)s."
-msgstr ""
+msgstr "Убедитесь, что это значение кратно шагу %(limit_value)s."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:407
 #, python-format
@@ -128,6 +128,8 @@ msgid ""
 "Ensure this value is a multiple of step size %(limit_value)s, starting from "
 "%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
 msgstr ""
+"Убедитесь, что это значение кратно шагу %(limit_value)s, начиная с "
+"%(offset)s, например %(offset)s, %(valid_value1)s, %(valid_value2)s и так далее."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:439
 #, python-format
@@ -138,7 +140,11 @@ msgid_plural ""
 "Ensure this value has at least %(limit_value)d characters (it has "
 "%(show_value)d)."
 msgstr[0] ""
+"Убедитесь, что это значение содержит не менее %(limit_value)d символа (оно содержит "
+"%(show_value)d)."
 msgstr[1] ""
+"Убедитесь, что это значение содержит не менее %(limit_value)d символов (оно содержит "
+"%(show_value)d)."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:457
 #, python-format
@@ -149,27 +155,35 @@ msgid_plural ""
 "Ensure this value has at most %(limit_value)d characters (it has "
 "%(show_value)d)."
 msgstr[0] ""
+"Убедитесь, что это значение содержит не более %(limit_value)d символа (оно содержит "
+"%(show_value)d)."
 msgstr[1] ""
+"Убедитесь, что это значение содержит не более %(limit_value)d символов (оно содержит "
+"%(show_value)d)."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:480
 #: virtual/lib/python3.11/site-packages/django/forms/fields.py:355
 #: virtual/lib/python3.11/site-packages/django/forms/fields.py:394
 msgid "Enter a number."
-msgstr ""
+msgstr "Введите число."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:482
 #, python-format
 msgid "Ensure that there are no more than %(max)s digit in total."
 msgid_plural "Ensure that there are no more than %(max)s digits in total."
 msgstr[0] ""
+"Убедитесь, что всего не более %(max)s цифры."
 msgstr[1] ""
+"Убедитесь, что всего не более %(max)s цифр."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:487
 #, python-format
 msgid "Ensure that there are no more than %(max)s decimal place."
 msgid_plural "Ensure that there are no more than %(max)s decimal places."
 msgstr[0] ""
+"Убедитесь, что не более %(max)s десятичного знака."
 msgstr[1] ""
+"Убедитесь, что не более %(max)s десятичных знаков."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:492
 #, python-format
@@ -178,7 +192,9 @@ msgid ""
 msgid_plural ""
 "Ensure that there are no more than %(max)s digits before the decimal point."
 msgstr[0] ""
+"Убедитесь, что до десятичной точки не более %(max)s цифры."
 msgstr[1] ""
+"Убедитесь, что до десятичной точки не более %(max)s цифр."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:563
 #, python-format
@@ -186,43 +202,45 @@ msgid ""
 "File extension “%(extension)s” is not allowed. Allowed extensions are: "
 "%(allowed_extensions)s."
 msgstr ""
+"Расширение файла «%(extension)s» не допускается. Допустимые расширения: "
+"%(allowed_extensions)s."
 
 #: virtual/lib/python3.11/site-packages/django/core/validators.py:624
 msgid "Null characters are not allowed."
-msgstr ""
+msgstr "Недопустимые нулевые символы."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/base.py:1473
 #: virtual/lib/python3.11/site-packages/django/forms/models.py:906
 msgid "and"
-msgstr ""
+msgstr "и"
 
 #: virtual/lib/python3.11/site-packages/django/db/models/base.py:1475
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "%(model_name)s с этим %(field_labels)s уже существует."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/constraints.py:20
 #, python-format
 msgid "Constraint “%(name)s” is violated."
-msgstr ""
+msgstr "Ограничение «%(name)s» нарушено."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:133
 #, python-format
 msgid "Value %(value)r is not a valid choice."
-msgstr ""
+msgstr "Значение %(value)r не является допустимым выбором."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:134
 msgid "This field cannot be null."
-msgstr ""
+msgstr "Это поле не может быть пустым."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:135
 msgid "This field cannot be blank."
-msgstr ""
+msgstr "Это поле не может быть пустым."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:136
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
+msgstr "%(model_name)s с этим %(field_label)s уже существует."
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or
 #. 'month'. Eg: "Title must be unique for pub_date year"
@@ -231,25 +249,26 @@ msgstr ""
 msgid ""
 "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 msgstr ""
+"%(field_label)s должно быть уникальным для %(date_field_label)s %(lookup_type)s."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:179
 #, python-format
 msgid "Field of type: %(field_type)s"
-msgstr ""
+msgstr "Поле типа: %(field_type)s"
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1155
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr ""
+msgstr "Значение «%(value)s» должно быть либо True, либо False."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1156
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
+msgstr "Значение «%(value)s» должно быть либо True, либо False, либо None."
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1158
 msgid "Boolean (Either True or False)"
-msgstr ""
+msgstr "Булев (либо True, либо False)"
 
 #: virtual/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1208
 #, python-format

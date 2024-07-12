@@ -8,7 +8,7 @@ from .serializers import *
 
 
 class CountryListView(generics.ListAPIView):
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().prefetch_related('cities')
     serializer_class = CountryListSerializer
     
 

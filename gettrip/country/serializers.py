@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from .models import *
-from city.serializers import *
+from city.serializers import CityListForCountrySerializer, CityListSerializer
 
 class CountryListSerializer(serializers.ModelSerializer):
-
+    cities = CityListForCountrySerializer(read_only=True, many=True)
     tour_count = serializers.SerializerMethodField()
     
     class Meta:
         model = Country
-        fields = ('id', 'name', 'slug', 'title', 'description', 'photo', 'tour_count')
+        fields = ('id', 'name', 'slug', 'title', 'description', 'photo', 'tour_count', 'cities')
 
     # Метод для получения количества туров в каждой стране
     def get_tour_count(self, obj):
@@ -23,3 +23,10 @@ class CountryDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ('id', 'name', 'slug', 'title', 'description', 'cities')
+        
+        
+# class CountryListForCitySerializer(serializers.ModelSerializer):
+# 	class Meta:
+# 		model = Country
+# 		fields = ('id', 'name', 'slug', 'title')
+	

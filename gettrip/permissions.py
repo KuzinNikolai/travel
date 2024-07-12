@@ -45,3 +45,9 @@ class IsLoggedUserOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         # Проверяем, является ли текущий пользователь аутентифицированным
         return request.user and request.user.is_authenticated    
+    
+
+class IsAuthenticatedUserOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Проверяем, является ли текущий пользователь аутентифицированным
+        return request.user and request.user.is_authenticated

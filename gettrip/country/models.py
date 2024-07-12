@@ -18,4 +18,8 @@ class Country(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('country:country', kwargs={'country_slug': self.slug})    
+        return reverse('country:country', kwargs={'country_slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Страну'
+        verbose_name_plural = 'Страны'    
