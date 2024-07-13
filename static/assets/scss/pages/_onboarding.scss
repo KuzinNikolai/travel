@@ -1,0 +1,67 @@
+/*========================
+  4.10 Onboarding CSS start
+==========================*/
+
+.design-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    [class="dark"] & {
+        filter: invert(1);
+    }
+    [dir="rtl"] & {
+        left: -19px;
+        right: unset;
+        transform: rotate(270deg);
+    }
+}
+
+.topbar-section {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    .skip-cls {
+        margin-left: auto;
+        font-size: 16px;
+        color: $title-color;
+        [dir="rtl"] & {
+            margin-left: unset;
+            margin-right: auto;
+        }
+    }
+    img {
+        width: 115px;
+    }
+}
+
+.boarding-content {
+    text-align: center;
+    h2 {
+        margin-bottom: 3px;
+    }
+    p {
+        font-size: 14px;
+        color: $content-color;
+    }
+}
+
+.onboarding-slider {
+    .slick-slide {
+        > div {
+            transform: scale(0.94);
+            .boarding-content {
+                display: none;
+                text-transform: capitalize;
+            }
+        }
+        &.slick-current {
+            > div {
+                transform: scale(1);
+                .boarding-content {
+                    display: block;
+                }
+            }
+        }
+    }
+}

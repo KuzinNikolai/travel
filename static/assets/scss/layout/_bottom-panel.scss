@@ -1,0 +1,64 @@
+/*=====================
+  3.1  Bottom panel CSS start
+==========================*/
+
+.bottom-panel {
+    position: fixed;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    z-index: 1;
+    background-color: $white;
+    padding: 10px;
+    box-shadow: 0px 0px 4px rgba($black, 0.10);
+    ul {
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+        li {
+            text-align: center;
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            a {
+                color: $title-color;
+                i {
+                    font-size: 20px;
+                    &.icbo {
+                        display: none;
+                    }
+                }
+                span {
+                    font-size: 9px;
+                    font-weight: 700;
+                    color: $title-color;
+                    text-transform: uppercase;
+                    margin-top: 4px;
+                    display: block;
+                }
+            }
+            &.active {
+                a {
+                    span {
+                        color: $theme-color;
+                    }
+                    i {
+                        &.icbo  {
+                            display: block;
+                            color: $theme-color;
+                        }
+                        &.icli {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.panel-space {
+    padding-top: 80px;
+}

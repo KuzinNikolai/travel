@@ -1,0 +1,57 @@
+/*=====================
+   2.12 Theme tab CSS start
+==========================*/
+
+.theme-tab {
+    border-bottom: none;
+    display: flex;
+    flex-wrap: unset;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-bottom: 20px;
+    &::-webkit-scrollbar {
+        width: 0;  
+        height: 0;
+        background: transparent;  
+    }
+    .nav-item {
+        + .nav-item {
+            margin-left: 10px;
+            [dir="rtl"] & {
+                margin-left: 0;
+                margin-right: 10px;
+            }
+        }
+    }
+    .nav-link {
+        border: none;
+        padding: 8px 12px;
+        background-color: $grey-light-45;
+        color: $title-color;
+        text-transform: capitalize;
+        border-radius: 3px !important;
+        margin-bottom: 0;
+        white-space: nowrap;
+        font-weight: 700;
+        &.active {
+            background-color: $theme-color;
+            color: $white;
+            [class="dark"] & {
+                color: #ffffff;
+            }
+        }
+    }
+}
+
+.tab-section {
+    overflow: hidden;
+    .tab-pane {
+        &.show {
+            .product-box {
+                animation: zoomIn 300ms ease-in-out;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,141 @@
+/*=========================
+  4.13 Order Tracking CSS start
+==========================*/
+.map-product-section {
+    background-image: url("../images/map.jpg");
+    padding-top: 124px;
+    position: relative;
+    z-index: 1;
+    &:after {
+        content: "";
+        background: linear-gradient(1.82deg, $white 1.55%, rgba($white, 0.20) 98.46%);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+    .product-inline {
+        background-color: $white;
+        box-shadow: 0px 0px 4px rgba($black, 0.1);
+    }
+}
+
+.tracking-title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $grey-light-60;
+    margin-bottom: 10px;
+}
+
+.order-track {
+    padding-top: 20px;
+    display: flex;
+    transition: all 0.3s height 0.3s;
+    transform-origin: top center;
+    flex-direction: column;
+    padding-top: 30px;
+    .order-track-step {
+        display: flex;
+        height: auto;
+        margin-bottom: 20px;
+        .order-track-status {
+            margin-right: 14px;
+            position: relative;
+            [dir="rtl"] & {
+                margin-left: 14px;
+                margin-right: 0;
+            }
+            .order-track-status-dot {
+                display: block;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: $theme-color;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .order-track-status-line {
+                display: block;
+                margin: 0 auto;
+                width: 1px;
+                height: 100%;
+                background: $theme-color;
+            }
+        }
+        .order-track-text-stat {
+            font-size: 14px;
+            font-weight: 700;
+            background-color: $grey-light-60;
+            border-radius: 12px;
+            width: max-content;
+            padding: 2px 12px;
+            margin-bottom: 3px;
+        }
+        .order-track-text-sub {
+            font-size: 12px;
+            font-weight: 400;
+            color: $content-color;
+            padding-left: 10px;
+            [dir="rtl"] & {
+                padding-left: 0;
+                padding-right: 10PX;
+            }
+        }
+        &:last-child {
+            overflow: hidden;
+            height: auto;
+            margin-bottom: 0;
+            .order-track-status {
+                span {
+                    &:last-of-type {
+                        display: none;
+                    }
+                }
+            }
+        }
+        &.in-process {
+            .order-track-status-dot {
+                border: 1px solid $border-color;
+                background-color: $white;
+            }
+            .order-track-status-line {
+                background: $border-color;
+            }
+            .order-track-text {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+.rate-section {
+    margin-top: 10px;
+    ul {
+        display: flex;
+        align-items: center;
+        li {
+            color: $content-color;
+            display: flex;
+            align-items: center;
+            i {
+                margin-right: 4px;
+                [dir="rtl"] & {
+                    margin-right: 0;
+                    margin-left: 4px;
+                }
+            }
+            + li {
+                margin-left: 12px;
+                [dir="rtl"] & {
+                    margin-right: 12px;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+
+

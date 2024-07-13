@@ -1,0 +1,84 @@
+/*=========================
+  4.11 Order history CSS start
+==========================*/
+
+
+.order-listing {
+    > li {
+        display: block;
+        + li {
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid $grey-light-60;
+        }
+    }
+}
+.order-box {
+    position: relative;
+    .order-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 3px;
+        object-fit: cover;
+        margin-right: 14px;
+        [dir="rtl"] & {
+            margin-right: 0;
+            margin-left: 14px;
+        }
+    }
+    .media-body {
+        width: 50%;
+        @media (max-width: 340px) {
+            width: 46%;
+        }
+    }
+    .status-label {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 11px;
+        background-color: $grey-light-60;
+        border-radius: 3px;
+        text-transform: uppercase;
+        padding: 3px 7px;
+        [dir="rtl"] & {
+            left: 0;
+            right: unset;
+        }
+    }
+    .delivery-status {
+        background-image: url(../images/order-map.png);
+        background-size: cover;
+        background-position: center;
+        margin-top: 15px;
+        padding: 15px;
+        position: relative;
+        z-index: 1;
+        border-radius: 3px;
+        > div {
+            z-index: 1;
+            > div {
+                + div {
+                    margin-left: 15px;
+                    [dir="rtl"] & {
+                        margin-right: 15px;
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(270.08deg, rgba($white, 0.33) 0.07%, #f5f5f5 81.25%);
+            z-index: -1;
+            [class="dark"] & {
+                background: linear-gradient(270.08deg, rgba($white, 0.33) 0.07%, #2b2b2b 81.25%);
+            }
+        }
+    }
+}

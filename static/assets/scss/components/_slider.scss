@@ -1,0 +1,49 @@
+/*=====================
+   2.10 Slider CSS start
+==========================*/
+.slick-default {
+    .slick-slide {
+        > div {
+            margin: 0 8px;
+        }
+    }
+    .slick-list {
+        margin: 0 -8px;
+    }
+}
+
+.theme-dots {
+    .slick-dots {
+        position: relative;
+        bottom: 5px;
+        li {
+            height: auto;
+            width: auto;
+            button  {
+                height: 6px;
+                width: 6px;
+                border-radius: 5px;
+                background: $grey-light;
+                padding: 0;
+                transition: all 0.5s ease;
+                [class="dark"] & {
+                    background: #6e6e6e;
+                }
+                &:before {
+                    display: none;
+                }
+            }
+            &.slick-active {
+                button {
+                    width: 30px;
+                    transition: all 0.5s ease;
+                }
+            }
+        }
+    }
+    &.slick-dotted {
+        &.slick-slider {
+            margin-bottom: 0;
+        }
+    }
+}

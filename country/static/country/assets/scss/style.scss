@@ -1,0 +1,109 @@
+/*-----------------------------------------------------------------------------------
+
+    Template Name:Multikart APP
+    Template URI: themes.pixelstrap.com/multikart-app
+    Description: This is PWA Html Template
+    Author: Pixelstrap
+    Author URL: https://themeforest.net/user/pixelstrap
+
+----------------------------------------------------------------------------------- */
+
+////* Base Files  *////
+/* 1.1 Reset CSS  */
+/* 1.2 Typography CSS */
+
+////* Components Files  *////
+/* 2.1 Accordion CSS  */
+/* 2.2 Alert CSS  */
+/* 2.3 Animation CSS */
+/* 2.4 Button CSS  */
+/* 2.5 FAQ CSS  */
+/* 2.6 form CSS  */
+/* 2.7 Loader CSS */
+/* 2.8 Offcanvas CSS */
+/* 2.9 Ratio CSS */
+/* 2.10 Slider CSS */
+/* 2.11 Switch CSS */
+/* 2.12 Theme tab CSS */
+/* 2.13 Timer CSS */
+
+////* Layout Files  *////
+/* 3.1 Bottom panel CSS */
+/* 3.2 Header css */
+/* 3.3 Productbox CSS */
+
+////* Pages Files  *////
+/* 4.1 About Page CSS */
+/* 4.2 Apply coupons Page CSS */
+/* 4.3 Authentication CSS */
+/* 4.4 Cart Page CSS */
+/* 4.5 Category page CSS*/
+/* 4.6 delivery Page CSS */
+/* 4.7 Elements Page CSS */
+/* 4.8 Home page CSS */
+/* 4.9 Notification CSS */
+/* 4.10 Onboarding CSS */
+/* 4.11 Order history CSS */
+/* 4.12 Order Success CSS */
+/* 4.13 Order Tracking CSS */
+/* 4.14 Payment Page CSS */
+/* 4.15 Profile Page CSS */
+/* 4.16 Saved Cards Page CSS */
+/* 4.17 Search Page CSS */
+/* 4.18 Settings Page CSS */
+/* 4.19 Shop Page CSS */
+
+////* Themes Files  *////
+/* 5.1 RTL CSS */
+
+// utils scss files
+@import "utils/variables";
+
+// base scss files
+@import "base/reset";
+@import "base/typography";
+
+// components scss files
+@import "components/accordion";
+@import "components/alert";
+@import "components/animation";
+@import "components/button";
+@import "components/faq";
+@import "components/form";
+@import "components/loader";
+@import "components/offcanvas";
+@import "components/ratio";
+@import "components/slider";
+@import "components/switch";
+@import "components/tab";
+@import "components/timer";
+
+// layout scss files
+@import "layout/bottom-panel";
+@import "layout/header";
+@import "layout/product-box";
+
+// pages
+@import "pages/about";
+@import "pages/apply-coupon";
+@import "pages/authentication";
+@import "pages/cart";
+@import "pages/category";
+@import "pages/delivery";
+@import "pages/element";
+@import "pages/home";
+@import "pages/notification";
+@import "pages/onboarding";
+@import "pages/order-history";
+@import "pages/order-success";
+@import "pages/order-tracking";
+@import "pages/payment";
+@import "pages/product";
+@import "pages/profile";
+@import "pages/saved-cards";
+@import "pages/search";
+@import "pages/settings";
+@import "pages/shop";
+
+// themes scss files
+@import "themes/rtl";

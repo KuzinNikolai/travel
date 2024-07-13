@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="px-15 top-space pt-0">
+        <div class="help-img">
+        {% if country_image %}
+            <img src="{{ country_image }}" class="img-fluid rounded-1 w-100" alt="{{ country.name }}">
+        {% endif %}
+        </div>
+        <div class="faq-section section-t-space section-b-space">
+            <h1 class="mb-2">{{ country.title }}</h1>
+            <p>{{ country.description|striptags }}</p>
+        </div>
+ </section>
+
+ <section class="pt-0 tab-section">
+    <div class="title-section mb-4 px-15">
+        <h2>Чем заняться в {{ country.name }}</h2>
+    </div>
+    <div class="tab-section">
+        <ul class="nav nav-tabs theme-tab pl-15">
+          {% for category in categories %}
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#trending" type="button">{{ category }}</button>
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
+</section>
+
+ <!-- City section start -->
+ {% if city_tours %}
+ {% for city, tours in city_tours.items %}
+ <section class="pt-0 product-slider-section overflow-hidden">
+      <div class="category-part px-15">
+        <h2 class="fw-bold mt-cls">{{city.name}}</h2>
+        <a href="{{city.get_absolute_url}}" class="see-all-link">Все экскурсии</a>
+      </div>
+    {% if tours %}
+    <div class="product-slider slick-default pl-15">
+        {% for tour in tours %}
+      <div>
+        <div class="product-box ratio_square">
+          <div class="img-part">
+            <a href="{{ tour.get_absolute_url }}"><img src="{{ tour.photo.url }}" alt="{{title}}" class="img-fluid bg-img"></a>
+            <div class="wishlist-btn">
+              <i class="iconly-Heart icli"></i>
+              <i class="iconly-Heart icbo"></i>
+              <div class="effect-group">
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+              </div>
+            </div>
+          </div>
+          <div class="product-content">
+            <ul class="ratings">
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo empty"></i></li>
+            </ul>
+            <a href="{{ tour.get_absolute_url }}">
+              <h4>{{ tour.title }}</h4>
+            </a>
+            <div class="price">
+              <h4>฿ {{ tour.price }}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+  {% endfor %}
+  {% endif %}
+  <div class="divider"></div>
+  <!-- City section end -->
+
+  <!-- deals section start -->
+  <section class="deals-section px-15 pt-0">
+    <div class="title-part">
+      <h2>Последние добавленные туры</h2>
+      <!-- <a href="shop.html">See All</a> -->
+    </div>
+    {% if latest_tours %}
+    <div class="product-section">
+      <div class="row gy-3">
+        {% for tour in latest_tours %}
+        <div class="col-12">
+          <div class="product-inline">
+            <a href="{{tour.get_absolute_url}}">
+              {% if tour.photo %}
+                <img src="{{tour.photo.url}}" class="img-fluid" alt="{{ tour.title }}">
+              {% endif %}
+            </a>
+            <div class="product-inline-content">
+              <div>
+                <ul class="ratings rmt">
+                    <li><i class="iconly-Star icbo"></i></li>
+                    <li><i class="iconly-Star icbo"></i></li>
+                    <li><i class="iconly-Star icbo"></i></li>
+                    <li><i class="iconly-Star icbo"></i></li>
+                    <li><i class="iconly-Star icbo empty"></i></li>
+                </ul>
+                <a href="{{tour.get_absolute_url}}">
+                  <h4>{{ tour.title }}</h4>
+                </a>
+                <h5>{{ tour.cat.name }}</h5>
+                <div class="price">
+                  <h4>฿ {{ tour.price }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="wishlist-btn">
+              <i class="iconly-Heart icli"></i>
+              <i class="iconly-Heart icbo"></i>
+              <div class="effect-group">
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+  <div class="divider"></div>
+  <!-- deals section end -->
+
+  <!-- brands section start -->
+  <section class="brand-section pl-15">
+    <h2 class="title">Biggest Deals on Top Brands</h2>
+    <div class="brand-slider slick-default">
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="assets/images/brand-logos/1.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="assets/images/brand-logos/2.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="assets/images/brand-logos/3.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="assets/images/brand-logos/4.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="assets/images/brand-logos/5.png" class="img-fluid" alt="">
+        </a>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- brands section end -->
+
+
+  <!-- kids corner section start -->
+  <section class="pt-0 product-slider-section overflow-hidden">
+    <div class="title-section px-15">
+      <h2>The Kids Corner</h2>
+      <h3>Clothing for your Li’l One’s </h3>
+    </div>
+    <div class="product-slider slick-default pl-15">
+      <div>
+        <div class="product-box ratio_square">
+          <div class="img-part">
+            <a href="product.html"><img src="assets/images/products/9.jpg" alt="" class="img-fluid bg-img"></a>
+            <div class="wishlist-btn">
+              <i class="iconly-Heart icli"></i>
+              <i class="iconly-Heart icbo"></i>
+              <div class="effect-group">
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+              </div>
+            </div>
+          </div>
+          <div class="product-content">
+            <ul class="ratings">
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo empty"></i></li>
+            </ul>
+            <a href="product.html">
+              <h4>Blue Denim Jacket</h4>
+            </a>
+            <div class="price">
+              <h4>$32.00 <del>$35.00</del><span>20%</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="product-box ratio_square">
+          <div class="img-part">
+            <a href="product.html"><img src="assets/images/products/10.jpg" alt="" class="img-fluid bg-img"></a>
+            <div class="wishlist-btn">
+              <i class="iconly-Heart icli"></i>
+              <i class="iconly-Heart icbo"></i>
+              <div class="effect-group">
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+              </div>
+            </div>
+          </div>
+          <div class="product-content">
+            <ul class="ratings">
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo empty"></i></li>
+            </ul>
+            <a href="product.html">
+              <h4>Blue Denim Jacket</h4>
+            </a>
+            <div class="price">
+              <h4>$32.00 <del>$35.00</del><span>20%</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="product-box ratio_square">
+          <div class="img-part">
+            <a href="product.html"><img src="assets/images/products/8.jpg" alt="" class="img-fluid bg-img"></a>
+            <div class="wishlist-btn">
+              <i class="iconly-Heart icli"></i>
+              <i class="iconly-Heart icbo"></i>
+              <div class="effect-group">
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+                <span class="effect"></span>
+              </div>
+            </div>
+          </div>
+          <div class="product-content">
+            <ul class="ratings">
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo"></i></li>
+              <li><i class="iconly-Star icbo empty"></i></li>
+            </ul>
+            <a href="product.html">
+              <h4>Blue Denim Jacket</h4>
+            </a>
+            <div class="price">
+              <h4>$32.00 <del>$35.00</del><span>20%</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- kids corner section end -->
+
+
+  <!-- offer corner start -->
+  <section class="offer-corner-section px-15">
+    <h2 class="title">Offer Corner</h2>
+    <div class="row g-3">
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">Under $50.00</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">Flat $20 OFF</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">buy 1 get 1</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">upto 50% off</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- offer corner end -->
+
+
+  <!-- panel space start -->
+  <section class="panel-space"></section>
+  <!-- panel space end -->
+  {% endblock %}

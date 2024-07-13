@@ -1,0 +1,458 @@
+[
+    {
+        "name": "Iberostar Bellevue",
+        "address": "Bečići, Budva 85310, Montenegro",
+        "phone_number": "033 425 100",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Eurostars Queen of Montenegro",
+        "address": "Narodnog Fronta, Bečići 85310, Montenegro",
+        "phone_number": "033 685 000",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Splendid Conference & Spa Resort",
+        "address": "Bečići bb, Budva 85310, Montenegro",
+        "phone_number": "033 773 777",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Avala Resort & Villas",
+        "address": "7RHP+C3G, Mediteranska, Budva, Montenegro",
+        "phone_number": "033 441 000",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Tara",
+        "address": "Bečići BB, Boreti, Montenegro",
+        "phone_number": "033 404 196",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Montenegro Beach Resort",
+        "address": "Bečići BB, Bečići 85316, Montenegro",
+        "phone_number": "033 773 777",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Aleksandar",
+        "address": "1 Veljka Vlahovića, Budva, Montenegro",
+        "phone_number": "033 402 456",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Mediteran",
+        "address": "Bečići, Montenegro",
+        "phone_number": "033 689 000",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Mogren",
+        "address": "Slovenska Obala, Budva, Montenegro",
+        "phone_number": "033 402 456",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Fineso",
+        "address": "11 3. Jula, Budva, Montenegro",
+        "phone_number": "033 454 120",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Sanja former Olivia",
+        "address": "16 Velji Vinogradi, Budva 85310, Montenegro",
+        "phone_number": "069 551 769",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Admiral 4 star hotel",
+        "address": "7RQX+89C, Jadranski put, Budva, Montenegro",
+        "phone_number": "033 459 263",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Bip",
+        "address": "2 Veljka Vlahovića, Budva 85310, Montenegro",
+        "phone_number": "069 222 072",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Garni Hotel MB",
+        "address": "XIII ulica br 11, Budva 85310, Montenegro",
+        "phone_number": "068 212 023",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Vila Lux",
+        "address": "E65, Budva, Montenegro",
+        "phone_number": "069 240 727",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Magnolija",
+        "address": "Bečići 85310, Montenegro",
+        "phone_number": "068 011 266",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Oaza",
+        "address": "27 Slovenska Obala, Budva 85310, Montenegro",
+        "phone_number": "069 024 756",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Alexandar Montenegro Luxury Suites & Spa",
+        "address": "Gospoština 62, 85310, Budva, Montenegro",
+        "phone_number": "033 452 360",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Grbalj",
+        "address": "bb Trg Sunca, Budva 85310, Montenegro",
+        "phone_number": "033 452 300",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Šajo",
+        "address": "bb Jadranski put, Budva 85310, Montenegro",
+        "phone_number": "033 460 243",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Spa Resort Becici",
+        "address": "107 Ive Lole Ribara, Bečići 85316, Montenegro",
+        "phone_number": "069 225 907",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Garni Hotel Mena",
+        "address": "7RRW+5RV, Budva 85310, Montenegro",
+        "phone_number": "033 459 310",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Azzuro Apartments Budva",
+        "address": "Mainski put, Budva, Montenegro",
+        "phone_number": "069 356 580",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Garni Hotel Koral",
+        "address": "bb 4. Proleterske, Budva 85310, Montenegro",
+        "phone_number": "033 402 070",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Aparthotel Shine",
+        "address": "Bečići b.b, Bečići 85316, Montenegro",
+        "phone_number": "067 206 803",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Max Prestige",
+        "address": "bb Žrtava Fašizma, Budva, Montenegro",
+        "phone_number": "033 458 330",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Anita",
+        "address": "7VM8+4H6, Bečići, Montenegro",
+        "phone_number": "033 471 777",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Ponta Nova",
+        "address": "Rafailovici, 7VHJ+7V8, Budva 85315, Montenegro",
+        "phone_number": "033 471 045",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Astoria",
+        "address": "4 Njegoševa, Budva 85310, Montenegro",
+        "phone_number": "033 451 110",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Slovenska Plaža",
+        "address": "HG Budvanska rivijera, 85310 1, Trg Slobode, Budva, Montenegro",
+        "phone_number": "033 402 456",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Villa Perla Di Mare",
+        "address": "br 62 Mainski put, Budva 85310, Montenegro",
+        "phone_number": "068 414 014",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Budva",
+        "address": "Slovenska Obala, Budva 85310, Montenegro",
+        "phone_number": "033 422 000",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Sun Hostel",
+        "address": "68, Ferona, Budva, Montenegro",
+        "phone_number": "064 1121040",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Blue Star",
+        "address": "11 Mainski put, Budva, Montenegro",
+        "phone_number": "033 773 777",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Maestral Resort & Casino",
+        "address": "Pržno, Sveti Stefan Budva, Pržno 85315, Montenegro",
+        "phone_number": "033 410 100",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "SH",
+        "address": "Ul, 25 Vuka Karadžića, Budva 85310, Montenegro",
+        "phone_number": "067604",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Guest House Vila Bak",
+        "address": "7 Petrovačka, Budva 85310, Montenegro",
+        "phone_number": "068 068 123",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Studio Apartments 6 Palmi",
+        "address": "1 Topliški Put, Budva 85310, Montenegro",
+        "phone_number": "068 766 825",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Guest House Mrvaljević",
+        "address": "53 Topliški Put, Budva 85310, Montenegro",
+        "phone_number": "069 705 281",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Aqua Breeze Apartments",
+        "address": "6 Praška, Budva, Montenegro",
+        "phone_number": "067 734 549",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Vojinovic Apartments",
+        "address": "10 Ulica V, Budva, Montenegro",
+        "phone_number": "068 642 026",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartments Danigo",
+        "address": "VIII Street, Building number 16, Budva 85310, Montenegro",
+        "phone_number": "069 333 122",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Villa Tortuga",
+        "address": "Prijevor bb, 7RP7+R8Q, Budva 85310, Montenegro",
+        "phone_number": "067 424 844",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Guesthouse Villa Antonioli",
+        "address": "Njegoseva 3, entrance from St Vrzdak 4, Budva 85310, Montenegro",
+        "phone_number": "068 579 429",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Le Marc Guesthouse",
+        "address": "XVI ulica br14, Budva 85310, Montenegro",
+        "phone_number": "067 582 274",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartments Dali",
+        "address": "29 Novembra, 37 Budva Budva County, Budva 85310, Montenegro",
+        "phone_number": "068 238 148",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Aurora Old Town Apartments",
+        "address": "4 Vranjak, Budva 85310, Montenegro",
+        "phone_number": "067 444 464",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartments Raičević",
+        "address": "bb Solidarnosti, Budva 85310, Montenegro",
+        "phone_number": "068 033 826",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "ApartmentsJovanaa",
+        "address": "7RRV+4C4, Budva, Montenegro",
+        "phone_number": "068 335 727",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartmani Željko Vujović",
+        "address": "20 Topliški Put, Budva, Montenegro",
+        "phone_number": "067 301 365",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartman Bećir",
+        "address": "ul, 7 Solidarnosti, Budva 85310, Montenegro",
+        "phone_number": "069 477 321",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Lilian Apartments",
+        "address": "Ulica, 4 Solidarnosti, Budva 85310, Montenegro",
+        "phone_number": "069 633 977",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Villa Spas",
+        "address": "Komoševa b.b., Brdo Spas, 7RHJ+CG4, Budva 85310, Montenegro",
+        "phone_number": "069 831 956",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Premier",
+        "address": "4 Ulica Alekse Šantića, Budva 85310, Montenegro",
+        "phone_number": "068 500 015",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartments Ant",
+        "address": "14 Sremskog Fronta, Budva 85310, Montenegro",
+        "phone_number": "069 129 123",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Apartmani Jovan",
+        "address": "XIII ulica broj 11 Budva, Budva 85310, Montenegro",
+        "phone_number": "068 212 023",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    },
+    {
+        "name": "Hotel Aqua Doria",
+        "address": "Babilonija 112, Budva 85310, Montenegro",
+        "phone_number": "068 454 001",
+        "country_id": "2",
+        "city_id": "2",
+        "region_id": "6"
+    }
+]

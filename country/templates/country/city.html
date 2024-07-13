@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Tag start -->
+<section class="category-section top-space pt-2">
+    <ul class="category-slide">
+      {% if t.tag != selected_tag %}
+      <li> 
+        <a href="{% url 'country:home' %}" class="category-box">
+          <img src="/media/photos/tag/inactive/all.jpg" class="img-fluid" alt="{{ title }}">
+          <h4>Все</h4>
+        </a>  
+      </li>
+      {% else %}
+      <li>
+        <a href="{% url 'country:home' %}" class="category-box">
+            <img src="/media/photos/tag/active/all-active.png" class="img-fluid" alt="{{title}}">
+          <h4>Все</h4>
+        </a>
+      </li>
+      {% endif %}
+      {% for t in tags %}
+    <li>
+        {% if t.tag != selected_tag %}
+            <a href="{{ t.get_absolute_url }}" class="category-box">
+                {% if t.inactive_image %}
+                    <img src="{{ t.inactive_image.url }}" class="img-fluid" alt="{{ t.tag }}">
+                {% endif %}
+                <h4>{{ t.tag }}</h4>
+            </a>
+        {% else %}
+            <div class="category-box active">
+                {% if t.active_image %}
+                    <img src="{{ t.active_image.url }}" class="img-fluid" alt="{{ t.tag }}">
+                {% endif %}
+                <h4>{{ t.tag }}</h4>
+            </div>
+        {% endif %}
+    </li>
+{% endfor %}
+    </ul>
+</section>
+<div class="divider t-12 b-20"></div>
+<!-- Tag end -->
+<div class="title-section px-15 mb-4">
+  <h1 style="display: inline-block;">{{ title }}</h1>
+  <a data-bs-toggle="offcanvas" data-bs-target="#selectCategory"
+    href="javascript:void(0)"><i class="iconly-Filter icli" style="float: right; background-color: #ff4c3b; color: white; border-radius: 3px; width: 30px; height: 30px; align-items: center; justify-content: center; -webkit-box-pack: center; display: flex;"></i>
+  </a>
+</div>
+ <!-- home slider start -->
+ <section class="pt-0 home-section ratio_55">
+  <div class="home-slider slick-default theme-dots">
+    {% for t in tours %}
+    {% if t.promotions %}
+    <div>
+      <div class="slider-box">
+        <img src="{{ t.photo.url }}" class="img-fluid bg-img" alt="{{title}}">
+        <div class="slider-content">
+          <div>
+            <h1 style="color: aliceblue;">{{t.title}}</h1>
+            <h1>Flat 50% OFF</h1>
+            <h6 style="color: aliceblue; width: 80%;">{{t.meta_desc}}</h6>
+            <a href="{{ t.get_absolute_url }}" class="btn btn-solid">ПОДРОБНЕЕ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+<!-- home slider end -->
+<section class="pt-0 tab-section">
+    <div class="tab-content px-15">
+      <div class="tab-pane fade show active" id="{{t.tag}}">
+        <div class="row gy-3 gx-3">
+          {% for t in tours %}
+          <div class="col-md-4 col-6">
+            <div class="product-box ratio_square">
+              {% if t.photo %}
+              <div class="img-part">
+                <a href="{{ t.get_absolute_url }}"><img src="{{ t.photo.url }}" alt="{{t.title}}" class="img-fluid bg-img"></a>
+                <div class="wishlist-btn">
+                  <i class="iconly-Heart icli"></i>
+                  <i class="iconly-Heart icbo"></i>
+                  <div class="effect-group">
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="product-content">
+                <ul class="ratings">
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo empty"></i></li>
+                </ul>
+                <a href="{{ t.get_absolute_url }}">
+                  <h4>{{ t.title }}</h4>
+                </a>
+                <div class="price">
+                  <h4>฿ {{ t.price }} <!-- <del>$35.00</del><span>20%</span> --> </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>  
+    </div>
+</section>
+
+  <div class="divider"></div>
+
+<!-- tab section start -->
+<section class="pt-0 tab-section">
+  <div class="title-section px-15">
+    <h2>Find your Style</h2>
+    <h3>Super Summer Sale</h3>
+  </div>
+  <div class="tab-section">
+    <ul class="nav nav-tabs theme-tab pl-15">
+      <li class="nav-item">
+          {% if not cat_selected %}
+              <a class="nav-link active" href="{% url 'country:home' %}">Все</a>
+          {% else %}
+              <span class="nav-link active">Все</span>
+          {% endif %}
+      </li>
+      {% for c in categories %}
+          <li class="nav-item">
+              {% if cat_selected and cat_selected == c.id %}
+                  <span class="nav-link active">{{ c.name }}</span>
+              {% else %}
+                  <a class="nav-link" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+              {% endif %}
+          </li>
+      {% endfor %}
+    </ul>
+    <div class="tab-content px-15">
+      <div class="tab-pane fade show active" id="{{t.tag}}">
+        <div class="row gy-3 gx-3">
+          {% for t in tours %}
+          <div class="col-md-4 col-6">
+            <div class="product-box ratio_square">
+              {% if t.photo %}
+              <div class="img-part">
+                <a href="{{ t.get_absolute_url }}"><img src="{{ t.photo.url }}" alt="{{t.title}}" class="img-fluid bg-img"></a>
+                <div class="wishlist-btn">
+                  <i class="iconly-Heart icli"></i>
+                  <i class="iconly-Heart icbo"></i>
+                  <div class="effect-group">
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                    <span class="effect"></span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              <div class="product-content">
+                <ul class="ratings">
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo"></i></li>
+                  <li><i class="iconly-Star icbo empty"></i></li>
+                </ul>
+                <a href="{{ t.get_absolute_url }}">
+                  <h4>{{ t.title }}</h4>
+                </a>
+                <div class="price">
+                  <h4>฿ {{ t.price }} <!-- <del>$35.00</del><span>20%</span> --> </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>  
+    </div>
+  </div>
+</section>
+<!-- tab section end -->
+
+  <!-- timer banner start -->
+  <section class="banner-timer">
+    <div class="banner-bg">
+      <div class="banner-content">
+        <div>
+          <h6>Denim Wear</h6>
+          <h2>Sales Starts In</h2>
+          <div class="counters">
+            <div class="counter d-none">
+              <span id="days">NA</span>
+              <p>Days</p>
+            </div>
+            <div class="counter">
+              <span id="hours">NA</span>
+              <p>Hours</p>
+            </div>
+            <div class="counter">
+              <span id="minutes">NA</span>
+              <p>Minutes</p>
+            </div>
+            <div class="counter">
+              <span id="seconds">NA</span>
+              <p>Seconds</p>
+            </div>
+          </div>
+          <a href="shop.html">explore now</a>
+        </div>
+      </div>
+      <div class="banner-img">
+        <img src="/static/tour/assets/images/banner-image.png" class="img-fluid" alt="">
+      </div>
+    </div>
+  </section>
+  <!-- timer banner end -->
+
+  <!-- brands section start -->
+  <section class="brand-section pl-15">
+    <h2 class="title">Biggest Deals on Top Brands</h2>
+    <div class="brand-slider slick-default">
+      {% for c in categories %}
+      <div>
+        <a class="brand-box" href="shop.html"></a>
+      </div>
+      {% endfor %}
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="/static/tour/assets/images/brand-logos/2.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="/static/tour/assets/images/brand-logos/3.png" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="/static/tour/assets/images/brand-logos/4.png"class="img-fluid" alt="">
+        </a>
+      </div>
+      <div>
+        <a class="brand-box" href="shop.html">
+          <img src="/static/tour/assets/images/brand-logos/5.png" class="img-fluid" alt="">
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- brands section end -->
+
+  <!-- Category section start -->
+  {% for category in categories %}
+        {% if category.tours.exists %}
+              {% if category.sorted_tours.count >= 4 %}
+              <div class="divider"></div>
+                  <section class="pt-0 product-slider-section overflow-hidden">
+                      <div class="category-part px-15">
+                        <h2>{{category.name}}</h2><br/>
+                        <a href="{{category.get_absolute_url}}" class="see-all-link">Все туры</a>
+                      </div>
+                    <div class="product-slider slick-default pl-15">
+                      {% for tour in category.sorted_tours %}
+                      <div>
+                        <div class="product-box ratio_square">
+                          <div class="img-part">
+                            <a href="{{tour.get_absolute_url}}"><img src="{{tour.photo.url}}" alt="{{tour.title}}" class="img-fluid bg-img"></a>
+                            <div class="wishlist-btn">
+                              <i class="iconly-Heart icli"></i>
+                              <i class="iconly-Heart icbo"></i>
+                              <div class="effect-group">
+                                <span class="effect"></span>
+                                <span class="effect"></span>
+                                <span class="effect"></span>
+                                <span class="effect"></span>
+                                <span class="effect"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="product-content">
+                            <ul class="ratings">
+                              <li><i class="iconly-Star icbo"></i></li>
+                              <li><i class="iconly-Star icbo"></i></li>
+                              <li><i class="iconly-Star icbo"></i></li>
+                              <li><i class="iconly-Star icbo"></i></li>
+                              <li><i class="iconly-Star icbo empty"></i></li>
+                            </ul>
+                            <a href="{{tour.get_absolute_url}}">
+                              <h4>{{tour.title}}</h4>
+                            </a>
+                            <div class="price">
+                              {% if tour.price %}
+                              <h4>฿ {{ tour.price }}</h4>
+                              {% else %}
+                                <p class="text-red">Цену уточняйте при заказе</p>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      </div>
+                    </div>
+                  </section>
+              {% else %}
+                <section class="deals-section px-15 pt-0">
+                  <div class="title-part">
+                    <h2>{{category.name}}</h2>
+                    <a href="{{category.get_absolute_url}}" class="see-all-link">Все туры</a>
+                  </div>
+                  <div class="product-section">
+                    <div class="row gy-3">
+                      {% for tour in category.sorted_tours %}
+                      <div class="col-12">
+                        <div class="product-inline">
+                          <a href="{{tour.get_absolute_url}}">
+                            <img src="{{tour.photo.url}}" class="img-fluid" alt="{{tour.title}}">
+                          </a>
+                          <div class="product-inline-content">
+                            <div>
+                              <ul class="ratings rmt">
+                                <li><i class="iconly-Star icbo"></i></li>
+                                <li><i class="iconly-Star icbo"></i></li>
+                                <li><i class="iconly-Star icbo"></i></li>
+                                <li><i class="iconly-Star icbo"></i></li>
+                                <li><i class="iconly-Star icbo empty"></i></li>
+                              </ul>
+                              <a href="{{tour.get_absolute_url}}">
+                                <h4>{{tour.title}}</h4>
+                              </a>
+                              <h5>{{category.name}}</h5>
+                              <div class="price">
+                                <h4>฿ {{ tour.price }}</h4>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="wishlist-btn">
+                            <i class="iconly-Heart icli"></i>
+                            <i class="iconly-Heart icbo"></i>
+                            <div class="effect-group">
+                              <span class="effect"></span>
+                              <span class="effect"></span>
+                              <span class="effect"></span>
+                              <span class="effect"></span>
+                              <span class="effect"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </section>
+              {% endif %}
+        {% endif %}
+  {% endfor %}
+  <div class="divider"></div>
+  <!-- Category section end -->
+
+  <!-- offer corner start -->
+  <section class="offer-corner-section px-15">
+    <h2 class="title">Offer Corner</h2>
+    <div class="row g-3">
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">Under $50.00</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">Flat $20 OFF</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">buy 1 get 1</a>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="offer-box">
+          <a href="shop.html">upto 50% off</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- offer corner end -->
+ <!-- select category start -->
+ <div class="offcanvas offcanvas-bottom h-auto qty-canvas" id="selectCategory">
+  <div class="filter-content">
+    <div class="title-section px-15 mt-4 mb-4">
+      <h4>Категории</h4>
+    </div>
+      <div class="size-detail mb-2 mt-2">
+          <ul class="row filter-row g-3">
+            {% for c in categories %}
+                <li class="col-6">
+                  <div class="filter-col">{{c.name}}</div>
+                </li>
+            {% endfor %}
+          </ul>
+      </div>
+  </div>
+</div>
+<!-- select category end -->
+{% endblock %}
