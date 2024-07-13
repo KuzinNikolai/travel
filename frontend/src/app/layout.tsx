@@ -23,6 +23,12 @@ const font = Inter({ axes: ["slnt"], subsets: ["cyrillic"] })
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<html lang='en'>
+			<head>
+				<meta
+					name='viewport'
+					content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
+				/>
+			</head>
 			<body className={cn(font.className, "flex min-h-dvh flex-col")}>
 				<ReactQueryClientProvider>{children}</ReactQueryClientProvider>
 				<Toaster />
