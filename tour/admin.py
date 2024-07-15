@@ -2,6 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.http import HttpRequest
 from django.http.response import HttpResponse
+from parler.admin import TranslatableAdmin
 
 from .models import *
 from contacts.models import *
@@ -46,27 +47,18 @@ class ProgrammInline(admin.StackedInline):
     extra = 1
 
 
-class TourAdmin(admin.ModelAdmin):
-    change_form_template = "change_form.html"
+class TourAdmin(TranslatableAdmin):
     inlines = [ProgrammInline, PhotoInline]  # Объедините оба включения в одном списке
 
     list_display = ("id", "title", "time_create", "author", "photo", "is_published")
-    list_display_links = ("id", "title")
+    list_display_links = ("id", "title", "author")
     search_fields = ("title",)
-    prepopulated_fields = {"slug": ("title",)}
 
-    def change_view(self, request, object_id, form_url="", extra_context=None):
-        from django.utils.safestring import mark_safe
-
-        extra_context = extra_context or {}
-        data = {"languages": []}
-        data["title"] = "Languages"
-        languages = LangTour.objects.all()
-        for lang in languages:
-            data["languages"].append({"id": lang.id, "name": lang.name})
-        extra_context["data"] = data
-        print(extra_context)
-        return super().change_view(request, object_id, form_url, extra_context=extra_context)
+    # prepopulated_fields = {"slug": ("title",)}
+    def get_prepopulated_fields(self, request, obj=None):
+        # can't use `prepopulated_fields = ..` because it breaks the admin validation
+        # for translated fields. This is the official django-parler workaround.
+        return {"slug": ("title",)}
 
 
 class FAQAdmin(admin.ModelAdmin):

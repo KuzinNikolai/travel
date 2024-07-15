@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from city.models import City
 from country.models import Country
+from parler.models import TranslatableModel, TranslatedFields
+from parler.managers import TranslatableQuerySet
 
 
 class PublishedManager(models.Manager):
@@ -17,41 +19,70 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(is_published=Tour.Status.PUBLISHED)
 
 
-class Tour(models.Model):
+class Tour(TranslatableModel):
     class Status(models.IntegerChoices):
         DRAFT = 0, "Черновик"
         PUBLISHED = 1, "Опубликовано"
 
+    class CustomQuerySet(TranslatableQuerySet):
+        # Your custom queryset methods
+        pass
+
+    # country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    # city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
+    # title = models.CharField(max_length=255, db_index=True)
+    # duration = models.CharField(blank=True, max_length=50)
+    # meta_desc = models.TextField(blank=True, db_index=True)
+    # meta_keywords = models.CharField(max_length=255, blank=True, null=True)
+    # slug = models.SlugField(max_length=255, unique=True, db_index=True)
+    # description = models.TextField(blank=True, db_index=True)
+    # included = models.ManyToManyField("Included", blank=True, verbose_name="Включено в тур")
+    # notincluded = models.ManyToManyField("NotIncluded", blank=True, verbose_name="Не включено в тур")
+    # take = models.ManyToManyField("Take", blank=True, verbose_name="Что взять с собой")
+    # adult_price = models.IntegerField(
+    #     blank=True,
+    #     null=True,
+    # )
+    # child_price = models.IntegerField(
+    #     blank=True,
+    #     null=True,
+    # )
+    # children_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение с детьми?")
+    # what_age_child_free = models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?")
+    # pregnant_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение беременным?")
+    # photo = models.ImageField(blank=True, null=True, upload_to="photos/%Y/%m/%d/")
+    # usage_policy = models.TextField(
+    #     blank=True,
+    #     default="""
+    # После подтверждения вашего бронирования, вам на указанную почту или месенжер придет письмо с ваучером. В нем будут указаны все данные: наши реквизиты, так же все ваши данные указанные при бронировании. Оператор подтвердит ваше время заблаговременно. Пожалуйста, выходите в лобби отеля (место пикапа) за 10 минут до назначенного времени!
+    # В день когда вас будут забирать с вашего места проживания на экскурсию, вы можете предъявить водителю распечатанный или мобильный ваучер показав его прямо на телефоне. Ваучер действителен только в указанные дату и время тура.
+    # Трансфер осуществляется в обе стороны с вашего отеля! С дальних районов взимается дополнительная плата за частный трансфер который и оплачивается непосредственно оператору.""",
+    # )
+    # time_create = models.DateTimeField(auto_now_add=True)
+    # time_update = models.DateTimeField(auto_now=True)
+    # is_published = models.IntegerField(choices=Status.choices, default=Status.DRAFT)
+    # cat = models.ForeignKey("Category", on_delete=models.PROTECT, db_index=True, related_name="tours")
+    # type = models.ForeignKey("Type", on_delete=models.PROTECT, verbose_name="Тип поездки")
+    # transfer = models.ManyToManyField("Transfer", blank=True, verbose_name="Какой трансфер предусмотрен?")
+    # tags = models.ManyToManyField("TagTour", blank=True, related_name="tags", verbose_name="Теги")
+    # lang = models.ManyToManyField("LangTour", blank=True, related_name="lang")
+    # faqs = models.ManyToManyField("FAQ", blank=True, related_name="faqs")
+    # group_size = models.IntegerField(
+    #     blank=True,
+    #     null=True,
+    # )
+    # average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    # promotions = models.BooleanField(default=False, null=True)
+    # author = models.ForeignKey(
+    #     get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None
+    # )
+
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
-    title = models.CharField(max_length=255, db_index=True)
-    duration = models.CharField(blank=True, max_length=50)
-    meta_desc = models.TextField(blank=True, db_index=True)
-    meta_keywords = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    description = models.TextField(blank=True, db_index=True)
     included = models.ManyToManyField("Included", blank=True, verbose_name="Включено в тур")
     notincluded = models.ManyToManyField("NotIncluded", blank=True, verbose_name="Не включено в тур")
     take = models.ManyToManyField("Take", blank=True, verbose_name="Что взять с собой")
-    adult_price = models.IntegerField(
-        blank=True,
-        null=True,
-    )
-    child_price = models.IntegerField(
-        blank=True,
-        null=True,
-    )
-    children_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение с детьми?")
-    what_age_child_free = models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?")
-    pregnant_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение беременным?")
     photo = models.ImageField(blank=True, null=True, upload_to="photos/%Y/%m/%d/")
-    usage_policy = models.TextField(
-        blank=True,
-        default="""
-    После подтверждения вашего бронирования, вам на указанную почту или месенжер придет письмо с ваучером. В нем будут указаны все данные: наши реквизиты, так же все ваши данные указанные при бронировании. Оператор подтвердит ваше время заблаговременно. Пожалуйста, выходите в лобби отеля (место пикапа) за 10 минут до назначенного времени!
-    В день когда вас будут забирать с вашего места проживания на экскурсию, вы можете предъявить водителю распечатанный или мобильный ваучер показав его прямо на телефоне. Ваучер действителен только в указанные дату и время тура. 
-    Трансфер осуществляется в обе стороны с вашего отеля! С дальних районов взимается дополнительная плата за частный трансфер который и оплачивается непосредственно оператору.""",
-    )
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.IntegerField(choices=Status.choices, default=Status.DRAFT)
@@ -61,17 +92,47 @@ class Tour(models.Model):
     tags = models.ManyToManyField("TagTour", blank=True, related_name="tags", verbose_name="Теги")
     lang = models.ManyToManyField("LangTour", blank=True, related_name="lang")
     faqs = models.ManyToManyField("FAQ", blank=True, related_name="faqs")
-    group_size = models.IntegerField(
-        blank=True,
-        null=True,
+    group_size = (
+        models.IntegerField(
+            blank=True,
+            null=True,
+        ),
     )
-    average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
-    promotions = models.BooleanField(default=False, null=True)
-    author = models.ForeignKey(
-        get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None
+    author = (
+        models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None),
     )
+    translations = TranslatedFields(
+        title=models.CharField(max_length=255, db_index=True),
+        duration=models.CharField(blank=True, max_length=50),
+        meta_desc=models.TextField(blank=True, db_index=True),
+        meta_keywords=models.CharField(max_length=255, blank=True, null=True),
+        slug=models.SlugField(max_length=255, unique=True, db_index=True),
+        description=models.TextField(blank=True, db_index=True),
+        adult_price=models.IntegerField(
+            blank=True,
+            null=True,
+        ),
+        child_price=models.IntegerField(
+            blank=True,
+            null=True,
+        ),
+        children_possible=models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение с детьми?"),
+        what_age_child_free=models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?"),
+        pregnant_possible=models.BooleanField(
+            default=False, null=True, verbose_name="Возможно ли посещение беременным?"
+        ),
+        usage_policy=models.TextField(
+            blank=True,
+            default="""
+        После подтверждения вашего бронирования, вам на указанную почту или месенжер придет письмо с ваучером. В нем будут указаны все данные: наши реквизиты, так же все ваши данные указанные при бронировании. Оператор подтвердит ваше время заблаговременно. Пожалуйста, выходите в лобби отеля (место пикапа) за 10 минут до назначенного времени!
+        В день когда вас будут забирать с вашего места проживания на экскурсию, вы можете предъявить водителю распечатанный или мобильный ваучер показав его прямо на телефоне. Ваучер действителен только в указанные дату и время тура.
+        Трансфер осуществляется в обе стороны с вашего отеля! С дальних районов взимается дополнительная плата за частный трансфер который и оплачивается непосредственно оператору.""",
+        ),
+        average_rating=models.DecimalField(max_digits=3, decimal_places=2, default=0.00),
+        promotions=models.BooleanField(default=False, null=True),
+    )
+    objects = CustomQuerySet.as_manager()
 
-    objects = models.Manager()
     published = PublishedManager()
 
     def __str__(self):

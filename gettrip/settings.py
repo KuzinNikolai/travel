@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django.contrib.sitemaps",
     "djoser",
-    "modeltranslation",  #################
+    "parler",
 ]
 
 MIDDLEWARE = [
@@ -117,6 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = "en"
+
+from django.utils.translation import gettext_lazy as _
+
 
 LANGUAGES = (
     ("ru", "Russian"),
@@ -282,3 +285,23 @@ DJOSER = {
 
 
 AUTH_USER_MODEL = "users.User"
+
+PARLER_DEFAULT_LANGUAGE_CODE = "en"
+
+PARLER_LANGUAGES = {
+    None: (
+        {
+            "code": "ru",
+        },  # Russian
+        {
+            "code": "en",
+        },  # English
+        {
+            "code": "es",
+        },  # Spanish
+    ),
+    "default": {
+        "fallbacks": ["en"],
+        "hide_untranslated": False,
+    },
+}
