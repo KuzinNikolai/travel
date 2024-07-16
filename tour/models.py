@@ -28,60 +28,24 @@ class Tour(TranslatableModel):
         # Your custom queryset methods
         pass
 
-    # country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    # city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
-    # title = models.CharField(max_length=255, db_index=True)
-    # duration = models.CharField(blank=True, max_length=50)
-    # meta_desc = models.TextField(blank=True, db_index=True)
-    # meta_keywords = models.CharField(max_length=255, blank=True, null=True)
-    # slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    # description = models.TextField(blank=True, db_index=True)
-    # included = models.ManyToManyField("Included", blank=True, verbose_name="Включено в тур")
-    # notincluded = models.ManyToManyField("NotIncluded", blank=True, verbose_name="Не включено в тур")
-    # take = models.ManyToManyField("Take", blank=True, verbose_name="Что взять с собой")
-    # adult_price = models.IntegerField(
-    #     blank=True,
-    #     null=True,
-    # )
-    # child_price = models.IntegerField(
-    #     blank=True,
-    #     null=True,
-    # )
-    # children_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение с детьми?")
-    # what_age_child_free = models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?")
-    # pregnant_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение беременным?")
-    # photo = models.ImageField(blank=True, null=True, upload_to="photos/%Y/%m/%d/")
-    # usage_policy = models.TextField(
-    #     blank=True,
-    #     default="""
-    # После подтверждения вашего бронирования, вам на указанную почту или месенжер придет письмо с ваучером. В нем будут указаны все данные: наши реквизиты, так же все ваши данные указанные при бронировании. Оператор подтвердит ваше время заблаговременно. Пожалуйста, выходите в лобби отеля (место пикапа) за 10 минут до назначенного времени!
-    # В день когда вас будут забирать с вашего места проживания на экскурсию, вы можете предъявить водителю распечатанный или мобильный ваучер показав его прямо на телефоне. Ваучер действителен только в указанные дату и время тура.
-    # Трансфер осуществляется в обе стороны с вашего отеля! С дальних районов взимается дополнительная плата за частный трансфер который и оплачивается непосредственно оператору.""",
-    # )
-    # time_create = models.DateTimeField(auto_now_add=True)
-    # time_update = models.DateTimeField(auto_now=True)
-    # is_published = models.IntegerField(choices=Status.choices, default=Status.DRAFT)
-    # cat = models.ForeignKey("Category", on_delete=models.PROTECT, db_index=True, related_name="tours")
-    # type = models.ForeignKey("Type", on_delete=models.PROTECT, verbose_name="Тип поездки")
-    # transfer = models.ManyToManyField("Transfer", blank=True, verbose_name="Какой трансфер предусмотрен?")
-    # tags = models.ManyToManyField("TagTour", blank=True, related_name="tags", verbose_name="Теги")
-    # lang = models.ManyToManyField("LangTour", blank=True, related_name="lang")
-    # faqs = models.ManyToManyField("FAQ", blank=True, related_name="faqs")
-    # group_size = models.IntegerField(
-    #     blank=True,
-    #     null=True,
-    # )
-    # average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
-    # promotions = models.BooleanField(default=False, null=True)
-    # author = models.ForeignKey(
-    #     get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None
-    # )
-
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="tours")
     included = models.ManyToManyField("Included", blank=True, verbose_name="Включено в тур")
     notincluded = models.ManyToManyField("NotIncluded", blank=True, verbose_name="Не включено в тур")
-    take = models.ManyToManyField("Take", blank=True, verbose_name="Что взять с собой")
+    take = models.ManyToManyField("Take", blank=True, related_name='tours', verbose_name="Что взять с собой")
+    adult_price=models.IntegerField(
+        blank=True,
+        null=True,
+    ),
+    child_price=models.IntegerField(
+        blank=True,
+        null=True,
+    ),
+    children_possible=models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение с детьми?"),
+    what_age_child_free=models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?"),
+    pregnant_possible=models.BooleanField(
+        default=False, null=True, verbose_name="Возможно ли посещение беременным?"
+    ),
     photo = models.ImageField(blank=True, null=True, upload_to="photos/%Y/%m/%d/")
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
@@ -98,6 +62,8 @@ class Tour(TranslatableModel):
             null=True,
         ),
     )
+    average_rating=models.DecimalField(max_digits=3, decimal_places=2, default=0.00),
+    promotions=models.BooleanField(default=False, null=True),
     author = (
         models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None),
     )
@@ -108,19 +74,6 @@ class Tour(TranslatableModel):
         meta_keywords=models.CharField(max_length=255, blank=True, null=True),
         slug=models.SlugField(max_length=255, unique=True, db_index=True),
         description=models.TextField(blank=True, db_index=True),
-        adult_price=models.IntegerField(
-            blank=True,
-            null=True,
-        ),
-        child_price=models.IntegerField(
-            blank=True,
-            null=True,
-        ),
-        children_possible=models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение с детьми?"),
-        what_age_child_free=models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?"),
-        pregnant_possible=models.BooleanField(
-            default=False, null=True, verbose_name="Возможно ли посещение беременным?"
-        ),
         usage_policy=models.TextField(
             blank=True,
             default="""
@@ -128,8 +81,6 @@ class Tour(TranslatableModel):
         В день когда вас будут забирать с вашего места проживания на экскурсию, вы можете предъявить водителю распечатанный или мобильный ваучер показав его прямо на телефоне. Ваучер действителен только в указанные дату и время тура.
         Трансфер осуществляется в обе стороны с вашего отеля! С дальних районов взимается дополнительная плата за частный трансфер который и оплачивается непосредственно оператору.""",
         ),
-        average_rating=models.DecimalField(max_digits=3, decimal_places=2, default=0.00),
-        promotions=models.BooleanField(default=False, null=True),
     )
     objects = CustomQuerySet.as_manager()
 
@@ -155,12 +106,14 @@ def get_upload_path(instance, filename):
     return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
-    description = models.TextField(blank=True, db_index=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+class Category(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100, db_index=True),
+        description = models.TextField(blank=True, db_index=True),
+        background_color = models.CharField(max_length=50, blank=True, null=True),
+    )
+    slug = models.SlugField(max_length=255, unique=True, db_index=True),
     photo = models.ImageField(blank=True, null=True, upload_to="photos/category/")
-    background_color = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -173,8 +126,11 @@ class Category(models.Model):
         verbose_name_plural = "Категории"
 
 
-class Type(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
+class Type(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100, db_index=True),
+    )
+    
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
     def __str__(self):
@@ -185,26 +141,32 @@ class Type(models.Model):
         verbose_name_plural = "Тип экскурсий"
 
 
-class Programm(models.Model):
+class Programm(TranslatableModel):
+    translations = TranslatedFields(
+        title = models.CharField(max_length=255, db_index=True),
+        duration = models.CharField(blank=True, max_length=50),
+        description = models.TextField(blank=True, db_index=True)
+    )
+    
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, db_index=True, related_name="programs")
     type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, related_name="type")
     group_size = models.IntegerField(
         blank=True,
         null=True,
     )
-    title = models.CharField(max_length=255, db_index=True)
-    duration = models.CharField(blank=True, max_length=50)
-    description = models.TextField(blank=True, db_index=True)
     adult_price = models.IntegerField(blank=True, null=True)
     child_price = models.IntegerField(blank=True, null=True)
     individual_price = models.IntegerField(blank=True, null=True)
+    
 
     def __str__(self):
         return self.title
 
 
-class Transfer(models.Model):
-    name = models.CharField(max_length=100)
+class Transfer(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100)
+    )
 
     def __str__(self):
         return self.name
@@ -214,8 +176,10 @@ class Transfer(models.Model):
         verbose_name_plural = "Трансферы"
 
 
-class NotIncluded(models.Model):
-    name = models.CharField(max_length=100)
+class NotIncluded(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100)
+    )
 
     def __str__(self):
         return self.name
@@ -225,8 +189,10 @@ class NotIncluded(models.Model):
         verbose_name_plural = "Не включено в тур"
 
 
-class Included(models.Model):
-    name = models.CharField(max_length=100)
+class Included(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100)
+    )
 
     def __str__(self):
         return self.name
@@ -236,9 +202,10 @@ class Included(models.Model):
         verbose_name_plural = "Включено в тур"
 
 
-class Take(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Взять с собой")
-
+class Take(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100, verbose_name="Взять с собой"),       
+    )
     def __str__(self):
         return self.name
 
@@ -247,8 +214,11 @@ class Take(models.Model):
         verbose_name_plural = "Взять с собой"
 
 
-class TagTour(models.Model):
-    tag = models.CharField(max_length=100, db_index=True, verbose_name="Тег")
+class TagTour(TranslatableModel):
+    translations = TranslatedFields(
+        tag = models.CharField(max_length=100, db_index=True, verbose_name="Тег"),
+    )
+    
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     active_image = models.ImageField(
         upload_to="photos/tag/active/", blank=True, null=True, verbose_name="Изображение для активного тега"
@@ -272,8 +242,11 @@ class TagTour(models.Model):
         verbose_name_plural = "Теги"
 
 
-class LangTour(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
+class LangTour(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=100, db_index=True),
+    )
+
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
     photo = models.ImageField(blank=True, null=True, upload_to="photos/language/")
 
@@ -313,8 +286,11 @@ class Wishlist(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="wishlist")
 
 
-class Area(models.Model):
-    name = models.CharField(max_length=255)
+class Area(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(max_length=255)
+    )
+    
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
 
@@ -326,13 +302,16 @@ class Area(models.Model):
         verbose_name_plural = "Районы"
 
 
-class Hotel(models.Model):
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+class Hotel(TranslatableModel):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, blank=True, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, blank=True, null=True)
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    address = models.TextField()
     phone_number = models.CharField(max_length=50)
+    
+    translations = TranslatedFields(
+        name = models.CharField(max_length=255),
+        address = models.TextField()
+    )
 
     def __str__(self):
         return self.name
@@ -342,17 +321,12 @@ class Hotel(models.Model):
         verbose_name_plural = "Отели"
 
 
-class Order(models.Model):
+class Order(TranslatableModel):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=50, blank=False, null=False)
     email = models.EmailField(max_length=254, blank=False, null=False)
     phone = models.CharField(max_length=30, blank=False, null=False)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, default=None)
     program = models.ForeignKey(Programm, on_delete=models.CASCADE, related_name="orders")
-    hotel = models.CharField(max_length=150, blank=True, null=True)
-    room_number = models.CharField(max_length=30, blank=True, null=True)
-    pickup_time = models.CharField(max_length=20, blank=True, null=True)
-    text = models.TextField(default=None, max_length=200, blank=True, null=True)
     transfer = models.IntegerField(default=0)
     deposit = models.IntegerField(default=0)
     discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
@@ -364,6 +338,14 @@ class Order(models.Model):
     created_at = models.DateTimeField(default=now)
     updated_at = models.DateTimeField(auto_now=True)
     order_number = models.CharField(max_length=255, unique=True, blank=True, null=True)
+
+    translations = TranslatedFields(
+        full_name = models.CharField(max_length=50, blank=False, null=False),
+        hotel = models.CharField(max_length=150, blank=True, null=True),
+        room_number = models.CharField(max_length=30, blank=True, null=True),
+        pickup_time = models.CharField(max_length=20, blank=True, null=True),
+        text = models.TextField(default=None, max_length=200, blank=True, null=True),
+    )
 
     def save(self, *args, **kwargs):
         if not self.order_number:
@@ -404,10 +386,9 @@ class Order(models.Model):
         verbose_name_plural = "Заказы"
 
 
-class Reviews(models.Model):
+class Reviews(TranslatableModel):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="reviews")
-    text = models.TextField()
     rating = models.IntegerField(
         choices=[
             (1, "Очень плохо"),
@@ -418,6 +399,10 @@ class Reviews(models.Model):
         ]
     )
     created_date = models.DateTimeField(default=now)
+
+    translations = TranslatedFields(
+        text = models.TextField()
+    )
 
     def __str__(self):
         return f"{self.user.first_name} - {self.created_date}"
