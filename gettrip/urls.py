@@ -1,4 +1,4 @@
-
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
@@ -12,7 +12,6 @@ from users.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('tour.urls')),
     path('api/v1/', include('country.urls')),
     path('api/v1/', include('contacts.urls')),
     path('api/v1/cities', include('city.urls')),
@@ -40,6 +39,13 @@ urlpatterns = [
     re_path('api/v1/auth/', include('djoser.urls.authtoken')),
     path('api/v1/', include('users.urls')),
 ]
+
+translatable_urlpatterns = i18n_patterns(
+    path('api/v1/', include('tour.urls')),
+)
+
+urlpatterns += translatable_urlpatterns
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)         
