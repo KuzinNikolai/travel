@@ -67,7 +67,7 @@ class Tour(TranslatableModel):
     group_size = models.IntegerField(blank=True, null=True)
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     promotions = models.BooleanField(default=False, null=True)
-    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None),
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None)
     objects = CustomQuerySet.as_manager()
 
     published = PublishedManager()
@@ -98,7 +98,7 @@ class Category(TranslatableModel):
         description = models.TextField(blank=True, db_index=True),
         background_color = models.CharField(max_length=50, blank=True, null=True),
     )
-    slug = models.SlugField(max_length=255, unique=True, db_index=True),
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
     photo = models.ImageField(blank=True, null=True, upload_to="photos/category/")
 
     def __str__(self):
