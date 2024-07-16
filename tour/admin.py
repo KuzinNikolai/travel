@@ -63,7 +63,7 @@ class TourAdmin(TranslatableAdmin):
     #     return {"slug": ("title",)}
 
 
-class FAQAdmin(admin.ModelAdmin):
+class FAQAdmin(TranslatableAdmin):
     list_display = ("question", "answer")
 
 
