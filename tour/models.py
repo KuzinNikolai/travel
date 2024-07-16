@@ -135,7 +135,7 @@ class Tour(TranslatableModel):
 
     published = PublishedManager()
 
-    def __str__(self):
+    def __str__(self):  # type: ignore
         return self.title
 
     def get_absolute_url(self):
