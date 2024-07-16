@@ -2,86 +2,88 @@ from django.contrib import admin
 from django import forms
 from django.http import HttpRequest
 from django.http.response import HttpResponse
-from parler.admin import TranslatableAdmin
+from parler.admin import TranslatableAdmin, TranslatableInlineModelAdmin
 
 from .models import *
 from contacts.models import *
 from users.models import *
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    prepopulated_fields = {"slug": ("name",)}
+    
+    # def get_prepopulated_fields(self, request, obj=None):
+    # # can't use `prepopulated_fields = ..` because it breaks the admin validation
+    # # for translated fields. This is the official django-parler workaround.
+    #     return {"slug": ("title",)}
 
-
-class CountryAdmin(admin.ModelAdmin):
+class CountryAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    prepopulated_fields = {"slug": ("name",)}
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {"slug": ("title",)}
 
-
-class CityAdmin(admin.ModelAdmin):
+class CityAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug", "is_published")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    prepopulated_fields = {"slug": ("name",)}
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {"slug": ("title",)}
 
-
-class TagTourAdmin(admin.ModelAdmin):
+class TagTourAdmin(TranslatableAdmin):
     list_display = ("id", "tag", "slug")
     list_display_links = ("id", "tag")
     search_fields = ("tag",)
-    prepopulated_fields = {"slug": ("tag",)}
 
+    def get_prepopulated_fields(self, request, obj=None):
+        return {"slug": ("title",)}
 
 class PhotoInline(admin.TabularInline):
     model = Photo
     extra = 1
 
 
-class ProgrammInline(admin.StackedInline):
+class ProgrammInline(TranslatableInlineModelAdmin, admin.StackedInline):
     model = Programm
     extra = 1
 
 
 class TourAdmin(TranslatableAdmin):
     inlines = [ProgrammInline, PhotoInline]  # Объедините оба включения в одном списке
-
     list_display = ("id", "title", "time_create", "author", "photo", "is_published")
     list_display_links = ("id", "title", "author")
     search_fields = ("title",)
 
-    # prepopulated_fields = {"slug": ("title",)}
-    def get_prepopulated_fields(self, request, obj=None):
-        # can't use `prepopulated_fields = ..` because it breaks the admin validation
-        # for translated fields. This is the official django-parler workaround.
-        return {"slug": ("title",)}
+    # def get_prepopulated_fields(self, request, obj=None):
+    #     return {"slug": ("title",)}
 
 
 class FAQAdmin(admin.ModelAdmin):
     list_display = ("question", "answer")
 
 
-class LangTourAdmin(admin.ModelAdmin):
+class LangTourAdmin(TranslatableAdmin):
     list_display = ("name", "slug", "photo")
 
 
-class TransferAdmin(admin.ModelAdmin):
+class TransferAdmin(TranslatableAdmin):
     list_display = ("id", "name")
 
 
-class TakeAdmin(admin.ModelAdmin):
+class TakeAdmin(TranslatableAdmin):
     list_display = ("id", "name")
 
 
-class IncludedAdmin(admin.ModelAdmin):
+class IncludedAdmin(TranslatableAdmin):
     list_display = ("id", "name")
 
 
-class NotIncludedAdmin(admin.ModelAdmin):
+class NotIncludedAdmin(TranslatableAdmin):
     list_display = ("id", "name")
 
 
@@ -91,7 +93,7 @@ class SupportAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(TranslatableAdmin):
     list_display = (
         "order_number",
         "tour",
@@ -129,13 +131,15 @@ class StaticPageAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
 
 
-class HotelAdmin(admin.ModelAdmin):
+class HotelAdmin(TranslatableAdmin):
+    # fields = ["name", "area", "address", "phone_number", "country"]
     list_display = ("id", "name", "country", "city", "area")
     list_display_links = ("id", "name")
     search_fields = ("name",)
 
 
-class AreaAdmin(admin.ModelAdmin):
+class AreaAdmin(TranslatableAdmin):
+    fields = ["name"]
     list_display = ("id", "name", "country", "city")
     list_display_links = ("id", "name")
     search_fields = ("name",)
