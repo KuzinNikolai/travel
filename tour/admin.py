@@ -14,10 +14,10 @@ class CategoryAdmin(TranslatableAdmin):
     list_display_links = ("id", "name")
     search_fields = ("name",)
     
-    # def get_prepopulated_fields(self, request, obj=None):
+    def get_prepopulated_fields(self, request, obj=None):
     # # can't use `prepopulated_fields = ..` because it breaks the admin validation
     # # for translated fields. This is the official django-parler workaround.
-    #     return {"slug": ("title",)}
+        return {"slug": ("name",)}
 
 class CountryAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug")
@@ -25,7 +25,7 @@ class CountryAdmin(TranslatableAdmin):
     search_fields = ("name",)
     
     def get_prepopulated_fields(self, request, obj=None):
-        return {"slug": ("title",)}
+        return {"slug": ("name",)}
 
 class CityAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug", "is_published")
@@ -33,7 +33,7 @@ class CityAdmin(TranslatableAdmin):
     search_fields = ("name",)
     
     def get_prepopulated_fields(self, request, obj=None):
-        return {"slug": ("title",)}
+        return {"slug": ("name",)}
 
 class TagTourAdmin(TranslatableAdmin):
     list_display = ("id", "tag", "slug")
@@ -41,7 +41,7 @@ class TagTourAdmin(TranslatableAdmin):
     search_fields = ("tag",)
 
     def get_prepopulated_fields(self, request, obj=None):
-        return {"slug": ("title",)}
+        return {"slug": ("tag",)}
 
 class PhotoInline(admin.TabularInline):
     model = Photo
@@ -59,8 +59,8 @@ class TourAdmin(TranslatableAdmin):
     list_display_links = ("id", "title", "author")
     search_fields = ("title",)
 
-    # def get_prepopulated_fields(self, request, obj=None):
-    #     return {"slug": ("title",)}
+    def get_prepopulated_fields(self, request, obj=None):
+        return {"slug": ("title",)}
 
 
 class FAQAdmin(TranslatableAdmin):
