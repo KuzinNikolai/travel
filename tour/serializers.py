@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import *
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import PermissionDenied
+from parler_rest.serializers import TranslatableModelSerializer
+from parler_rest.fields import TranslatedFieldsField
 
 User = get_user_model()
 
@@ -91,13 +93,16 @@ class FAQSerializer(serializers.ModelSerializer):
         fields = ['id', 'question', 'answer']         
  
 
-class ReviewSerializer(serializers.ModelSerializer):
+class ReviewSerializer(TranslatableModelSerializer):
     user_full_name = serializers.SerializerMethodField() 
     user_photo = serializers.SerializerMethodField()# Добавляем поле для вывода полного имени пользователя
-
+    translations = TranslatedFields(shared_model=Reviews)
     class Meta:
         model = Reviews
-        fields = ['id', 'user_full_name', 'user_photo', 'user', 'tour', 'rating', 'text', 'created_date']  # Указываем новое поле
+        fields = ['id', 'user_full_name', 'user_photo', 'user', 'tour', 'rating', 'text', 'created_date', 'translations']  # Указываем новое поле
+        extra_kwargs = {
+            'translations': {'required': False}
+        }
 
     def get_user_full_name(self, obj):
         return obj.user.get_full_name() 
@@ -185,19 +190,20 @@ class TourListSerializer(serializers.ModelSerializer):
         
 
 class TourCreateSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(slug_field='tag', queryset=TagTour.objects.all(), many=True)
-    cat = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
-    type = serializers.SlugRelatedField(slug_field='name', queryset=Type.objects.all())
-    lang = serializers.SlugRelatedField(slug_field='name', queryset=LangTour.objects.all(), many=True)
-    transfer = serializers.SlugRelatedField(slug_field='name', queryset=Transfer.objects.all(), many=True)
-    faqs = serializers.SlugRelatedField(slug_field='question', queryset=FAQ.objects.all(), many=True)
+    tags = serializers.SlugRelatedField(slug_field='translations__tag', queryset=TagTour.objects.all(), many=True)
+    cat = serializers.SlugRelatedField(slug_field='translations__name', queryset=Category.objects.all())
+    type = serializers.SlugRelatedField(slug_field='translations__name', queryset=Type.objects.all())
+    lang = serializers.SlugRelatedField(slug_field='translations__name', queryset=LangTour.objects.all(), many=True)
+    transfer = serializers.SlugRelatedField(slug_field='translations__name', queryset=Transfer.objects.all(), many=True)
+    faqs = serializers.SlugRelatedField(slug_field='translations__question', queryset=FAQ.objects.all(), many=True)
     programs = ProgramSerializer(many=True, required=False)
     # photos = PhotoSerializer(many=True, required=False)
-    included = serializers.SlugRelatedField(slug_field='name', queryset=Included.objects.all(), many=True)
-    notincluded = serializers.SlugRelatedField(slug_field='name', queryset=NotIncluded.objects.all(), many=True)
-    take = serializers.SlugRelatedField(slug_field='name', queryset=Take.objects.all(), many=True)
+    included = serializers.SlugRelatedField(slug_field='translations__name', queryset=Included.objects.all(), many=True)
+    notincluded = serializers.SlugRelatedField(slug_field='translations__name', queryset=NotIncluded.objects.all(), many=True)
+    take = serializers.SlugRelatedField(slug_field='translations__name', queryset=Take.objects.all(), many=True)
     photo = serializers.ImageField(required=False)
     author = UserSerializer(read_only=True)
+    translations = TranslatedFieldsField(shared_model=Tour)
     
     photos = serializers.ListField(
         child=serializers.ImageField(allow_empty_file=False, use_url=False),
@@ -207,7 +213,7 @@ class TourCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tour
-        fields = ('id','country', 'city', 'title', 'slug', 'duration', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs', 'photos', 'author')
+        fields = ('id','country', 'city', 'title', 'slug', 'duration', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs', 'photos', 'author', 'translations')
         
         
     def create(self, validated_data):
@@ -312,16 +318,16 @@ class TourDetailSerializer(serializers.ModelSerializer):
      
 # Подробная информация о туре и возможность редактиров конец       
 
-class TourUpdateSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(slug_field='tag', queryset=TagTour.objects.all(), many=True)
-    cat = serializers.SlugRelatedField(slug_field='name', queryset=Category.objects.all())
-    type = serializers.SlugRelatedField(slug_field='name', queryset=Type.objects.all())
-    lang = serializers.SlugRelatedField(slug_field='name', queryset=LangTour.objects.all(), many=True)
-    transfer = serializers.SlugRelatedField(slug_field='name', queryset=Transfer.objects.all(), many=True)
-    faqs = serializers.SlugRelatedField(slug_field='question', queryset=FAQ.objects.all(), many=True)
-    included = serializers.SlugRelatedField(slug_field='name', queryset=Included.objects.all(), many=True)
-    notincluded = serializers.SlugRelatedField(slug_field='name', queryset=NotIncluded.objects.all(), many=True)
-    take = serializers.SlugRelatedField(slug_field='name', queryset=Take.objects.all(), many=True)
+class TourUpdateSerializer(TranslatableModelSerializer):
+    tags = serializers.SlugRelatedField(slug_field='translations__tag', queryset=TagTour.objects.all(), many=True)
+    cat = serializers.SlugRelatedField(slug_field='translations__name', queryset=Category.objects.all())
+    type = serializers.SlugRelatedField(slug_field='translations__name', queryset=Type.objects.all())
+    lang = serializers.SlugRelatedField(slug_field='translations__name', queryset=LangTour.objects.all(), many=True)
+    transfer = serializers.SlugRelatedField(slug_field='translations__name', queryset=Transfer.objects.all(), many=True)
+    faqs = serializers.SlugRelatedField(slug_field='translations__question', queryset=FAQ.objects.all(), many=True)
+    included = serializers.SlugRelatedField(slug_field='translations__name', queryset=Included.objects.all(), many=True)
+    notincluded = serializers.SlugRelatedField(slug_field='translations__name', queryset=NotIncluded.objects.all(), many=True)
+    take = serializers.SlugRelatedField(slug_field='translations__name', queryset=Take.objects.all(), many=True)
     programs = ProgramSerializer(many=True, required=False)
     # photos = PhotoSerializer(many=True, required=False)
     photos = serializers.ListField(
@@ -329,10 +335,11 @@ class TourUpdateSerializer(serializers.ModelSerializer):
         write_only=True,
         required=False
     )
+    translations = TranslatedFieldsField(shared_model=Tour)
 
     class Meta:
         model = Tour
-        fields = ('id','country', 'city', 'title', 'slug', 'duration', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs', 'photos', 'author')
+        fields = ('id','country', 'city', 'title', 'slug', 'duration', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs', 'photos', 'author', 'translations')
         # exclude = ('is_published',)
 
     
@@ -427,7 +434,7 @@ class CategoryListSerializer(serializers.ModelSerializer):
         fields = ('name', 'description',)
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(TranslatableModelSerializer):
     tour_title = serializers.SerializerMethodField()
     program_title = serializers.SerializerMethodField()
     country_name = serializers.SerializerMethodField()
@@ -438,16 +445,16 @@ class OrderSerializer(serializers.ModelSerializer):
     manager_phone = serializers.SerializerMethodField()
     manager_email = serializers.SerializerMethodField()
     cash_on_tour = serializers.SerializerMethodField()
-
+    translations = TranslatedFieldsField(shared_model=Order) 
     class Meta:
         model = Order
         fields = ['id', 'order_number', 'country_name', 'city_name', 'tour_title', 'full_name', 'user', 'tour', 'email', 'phone', 'program_title', 'program',
         'hotel', 'room_number', 'pickup_time', 'quantity_adults', 'quantity_children', 'quantity_infant', 'trip_date', 'total_price', 'text',
-        'manager', 'manager_phone', 'manager_email', 'transfer', 'deposit', 'cash_on_tour']
+        'manager', 'manager_phone', 'manager_email', 'transfer', 'deposit', 'cash_on_tour', 'translations']
         extra_kwargs = {
             'email': {'required': True},
             'phone': {'required': True},
-            'full_name': {'required': True},
+            # 'full_name': {'required': True},
             'trip_date': {'required': True}
         }
 

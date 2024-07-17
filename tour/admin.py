@@ -87,7 +87,7 @@ class NotIncludedAdmin(TranslatableAdmin):
     list_display = ("id", "name")
 
 
-class SupportAdmin(admin.ModelAdmin):
+class SupportAdmin(TranslatableAdmin):
     list_display = ("id", "name")
     list_display_links = ("id", "name")
     search_fields = ("name",)

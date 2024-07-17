@@ -181,6 +181,9 @@ class TourUpdateView(generics.RetrieveUpdateAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourUpdateSerializer
     # permission_classes = (IsOwnerOrReadOnly, )
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
 
 
 # Вывод туров только для автора

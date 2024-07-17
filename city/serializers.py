@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import *
 from tour.models import *
 from tour.serializers import *
-from country.serializers import *
+# from country.serializers import *
 
 
 class CityListSerializer(serializers.ModelSerializer):
