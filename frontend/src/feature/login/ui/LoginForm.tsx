@@ -1,10 +1,11 @@
-import { loginRequestSchema, type LoginRequest } from "@api/auth/login/_schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Input } from "@share/ui/Inputs"
 import { useEffect, type FC } from "react"
 import { useForm } from "react-hook-form"
+import type { z } from "zod"
+import { loginRequestSchema } from "../consts/loginActionSchema"
 import { useLogin } from "../model/useLogin"
 
 interface LoginFormProps {
@@ -12,24 +13,27 @@ interface LoginFormProps {
 }
 
 export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
-	const { loginAsync, isLoading } = useLogin()
+	const login = useLogin()
 
-	const form = useForm<LoginRequest>({
-		defaultValues: { email: "", password: "" },
+	const form = useForm<z.infer<typeof loginRequestSchema>>({
+		defaultValues: {
+			email: "",
+			password: "",
+		},
 		resolver: zodResolver(loginRequestSchema),
 	})
 
-	const onSubmit = form.handleSubmit(async (data: LoginRequest) => {
-		const res = await loginAsync(data)
-
-		if (!("code" in res)) {
-			onFinish()
-		}
+	const onSubmit = form.handleSubmit(async (data) => {
+		await login.mutateAsync(data)
 	})
 
 	useEffect(() => {
+		if (login.isSuccess) onFinish()
+	}, [onFinish, login.isSuccess])
+
+	useEffect(() => {
 		form.setFocus("email")
-	}, [])
+	}, [form])
 
 	return (
 		<Form {...form}>
@@ -73,7 +77,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 				<Button
 					variant='secondary'
 					type='submit'
-					disabled={!form.formState.isValid || isLoading}
+					disabled={!form.formState.isValid || login.isPending}
 				>
 					Войти
 				</Button>

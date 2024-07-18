@@ -1,6 +1,6 @@
 import "@assets/globals.css"
-import { ReactQueryClientProvider } from "@share/api"
-import { siteConfig } from "@share/config"
+import { Provider as ReactQueryClientV2Provider } from "@serverActions"
+import { siteConfig } from "@share/config/siteConfig"
 import { cn } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import type { Metadata } from "next"
@@ -30,8 +30,10 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 				/>
 			</head>
 			<body className={cn(font.className, "flex min-h-dvh flex-col")}>
-				<ReactQueryClientProvider>{children}</ReactQueryClientProvider>
-				<Toaster />
+				<ReactQueryClientV2Provider>
+					{children}
+					<Toaster />
+				</ReactQueryClientV2Provider>
 			</body>
 		</html>
 	)

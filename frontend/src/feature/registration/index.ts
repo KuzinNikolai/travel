@@ -1,5 +1,5 @@
-export * from "./api/client"
+export * from "./api/registrationAction"
 
-export * from "./consts/schemes"
+export * from "./consts/stepsData.schema"
 
 export { RegistrationForm } from "./ui"

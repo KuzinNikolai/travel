@@ -1,10 +1,10 @@
 import { Typography } from "@share/ui/Text"
-import type { INavigation } from "@entity/navigation.entity"
+import type { Navigation } from "@entity/navigation.entity"
 import Link from "next/link"
 import type { FC } from "react"
 
 interface INavigationItemProps {
-	navigation: INavigation
+	navigation: Navigation
 }
 
 export const NavigationItem: FC<INavigationItemProps> = ({ navigation }) => {
