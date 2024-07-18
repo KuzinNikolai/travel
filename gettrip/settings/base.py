@@ -26,7 +26,6 @@ SECRET_KEY = "django-insecure-1l*qd0e6oyv@88m06fpx7r5hx)1vq%0$8t-o#bubn=%j^v243o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -136,14 +135,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "/static/"
 # STATIC_DIR = os.path.join(BASE_DIR, "static")
 # STATIC_FILES_DIRS = [STATIC_DIR]
 # STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Adjust this to your actual path
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),  # Adjust this to your actual path
+# ]
 
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -241,16 +241,47 @@ CKEDITOR_5_CONFIGS = {
             ],
         },
         "table": {
-            "contentToolbar": ["tableColumn", "tableRow", "mergeTableCells", "tableProperties", "tableCellProperties"],
-            "tableProperties": {"borderColors": customColorPalette, "backgroundColors": customColorPalette},
-            "tableCellProperties": {"borderColors": customColorPalette, "backgroundColors": customColorPalette},
+            "contentToolbar": [
+                "tableColumn",
+                "tableRow",
+                "mergeTableCells",
+                "tableProperties",
+                "tableCellProperties",
+            ],
+            "tableProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
+            "tableCellProperties": {
+                "borderColors": customColorPalette,
+                "backgroundColors": customColorPalette,
+            },
         },
         "heading": {
             "options": [
-                {"model": "paragraph", "title": "Paragraph", "class": "ck-heading_paragraph"},
-                {"model": "heading1", "view": "h1", "title": "Heading 1", "class": "ck-heading_heading1"},
-                {"model": "heading2", "view": "h2", "title": "Heading 2", "class": "ck-heading_heading2"},
-                {"model": "heading3", "view": "h3", "title": "Heading 3", "class": "ck-heading_heading3"},
+                {
+                    "model": "paragraph",
+                    "title": "Paragraph",
+                    "class": "ck-heading_paragraph",
+                },
+                {
+                    "model": "heading1",
+                    "view": "h1",
+                    "title": "Heading 1",
+                    "class": "ck-heading_heading1",
+                },
+                {
+                    "model": "heading2",
+                    "view": "h2",
+                    "title": "Heading 2",
+                    "class": "ck-heading_heading2",
+                },
+                {
+                    "model": "heading3",
+                    "view": "h3",
+                    "title": "Heading 3",
+                    "class": "ck-heading_heading3",
+                },
             ]
         },
     },
@@ -302,3 +333,6 @@ PARLER_LANGUAGES = {
         "hide_untranslated": False,
     },
 }
+
+SITE_URL = "https://beta.gettrip.co"
+DOMAIN = "beta.gettrip.co"
