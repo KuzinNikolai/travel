@@ -1,0 +1,83 @@
+docs {
+  admin/
+  
+  # static
+  ```
+  POST api/v1/faq/
+  POST api/v1/contacts/
+  POST api/v1/about/ - privacy policy
+  POST api/v1/about/<slug:slug>/ - detail privacy policy
+  ```
+  
+  # auth
+  ```
+  GET api/v1/auth/
+  POST api/v1/auth/token/login
+  POST api/v1/auth/token/logout
+  POST api/v1/register/ [name='register']
+  POST api/v1/verify-email/ [name='verify_email']
+  ```
+  
+  # guide
+  ```
+  POST api/v1/become-guide/ - become guide
+  GET api/v1/profile/<int:pk>/ - guide profile
+  GET api/v1/guide-orders/ - all guide orders
+  ```
+  
+  # countries
+  ```
+  GET api/v1/countries/
+  GET api/v1/country/<slug:slug>/
+  ```
+  
+  # cities
+  ```
+  GET api/v1/cities/ - all cities
+  GET api/v1/city/<slug:slug>/ - tours in city
+  GET api/v1/en/city/<slug:slug>/ - tours in city on english
+  // api/v1/city/<slug:city_slug>/category/<slug:cat_slug>
+  ```
+  
+  # tours
+  ```
+  POST api/v1/tour/create/ - Create tour
+  POST ? PUT api/v1/tour/update/<int:tour_pk>/ - Update information tour
+  GET api/v1/tour/categories/ - [static] tour categories
+  
+  GET api/v1/tours/ - all tours
+  GET api/v1/tours/<slug:slug>/ - Detail information by tour
+  ```
+  
+  ## tours/reviews
+  ```
+  GET api/v1/tours/<int:pk>/reviews/ - get all reviews
+  POST api/v1/tours/add_review/<int:pk> - create review
+  // api/v1/tour/category/tours
+  ```
+  
+  # orders
+  ```
+  GET api/v1/my_orders/ - client orders
+  POST api/v1/orders/ - create order
+  POST api/v1/orders/<int:pk>/edit/ - client edit order
+  ```
+  
+  # offers
+  ```
+  GET api/v1/myoffers/
+  ```
+  
+  # wishlist
+  ```
+  GET api/v1/my_wishlist/ - client wishlist
+  POST api/v1/add_wishlist/<int:pk> - add wishlist
+  POST api/v1/remove_wishlist/<int:pk> - remove wishlist
+  ```
+  
+  # help
+  ```
+  GET api/v1/help/ [name='get-help']
+  GET api/v1/my_help/ [name='my-help']
+  ```
+}

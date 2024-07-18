@@ -1,0 +1,31 @@
+meta {
+  name: _registration
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/externalApi/auth/registration
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "iskra23231@gmail.com",
+    "username": "roman@test",
+    "password": "qwe123@2!",
+      "first_name": "Roman",
+    "last_name": "Esd",
+    "age": 18
+  }
+}
+
+body:multipart-form {
+  email: badi2017ro@gmail.com
+  first_name: Roman
+  last_name: Check
+  password: Qwerty12345
+  age: 18
+  username: ad
+}

@@ -1,0 +1,20 @@
+meta {
+  name: login
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://gettrip.co/api/v1/auth/token/login
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  email: iskra23231@gmail.com
+  password: redis@1
+}
+
+docs {
+  # test
+}
