@@ -102,6 +102,18 @@ tr_models = {
             "photo"
         ]
     },
+    "contacts.support": {
+        "exclude_fields": [
+            "phone",
+            "email",
+            "link_whatsapp",
+            "link_telegram",
+            "link_viber",
+            "link_facebook",
+            "link_instagram",
+            "link_youtube",
+        ]
+    }
 }
 
 
