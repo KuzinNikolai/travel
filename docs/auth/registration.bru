@@ -1,0 +1,31 @@
+meta {
+  name: registration
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://gettrip.co/api/v1/register/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "iskra23231@gmail.com",
+    "username": null,
+    "password": "redis@1",
+    "first_name": "",
+    "last_name":  "",
+    "age": null
+  }
+}
+
+body:multipart-form {
+  email: badi2017ro@gmail.com
+  first_name: Roman
+  last_name: Check
+  password: Qwerty12345
+  age: 18
+  username: ad
+}

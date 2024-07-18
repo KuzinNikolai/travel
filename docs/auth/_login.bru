@@ -1,0 +1,27 @@
+meta {
+  name: _login
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3000/externalApi/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "iskra23231@gmail.com",
+    "password": "redis@1"
+  }
+}
+
+body:multipart-form {
+  email: Mr.nikolaykuzin@mail.ru
+  password: Qwe123321
+}
+
+docs {
+  # test
+}

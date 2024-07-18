@@ -1,0 +1,21 @@
+meta {
+  name: verify
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://gettrip.co/api/v1/verify-email/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email_verification_code": "023231"
+  }
+}
+
+body:multipart-form {
+  code: 082982
+}
