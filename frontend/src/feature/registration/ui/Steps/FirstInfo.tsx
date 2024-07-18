@@ -1,21 +1,22 @@
 "use client"
 
-import { firstInfoSchema, type FirstInformation } from "@feature/registration/consts/schemes"
-import { RegistrationSteps, useRegistrationFormStore } from "@feature/registration/model/store"
+import { firstInfoSchema, type FirstInformation } from "@feature/registration/consts/stepsData.schema"
+import { useFormDataStore } from "@feature/registration/model/formDataStore"
+import { RegistrationSteps, useFormStepsStore } from "@feature/registration/model/formStepStore"
+import { useRegistration } from "@feature/registration/model/useRegistration"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { logger } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Input } from "@share/ui/Inputs"
-import { useEffect, type FC } from "react"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
-interface FirstInfoProps {
-	goToStep: (step: RegistrationSteps) => void
-}
+export const FirstInfo = () => {
+	const { setStep, currentStep } = useFormStepsStore()
+	const { setData } = useFormDataStore()
 
-export const FirstInfo: FC<FirstInfoProps> = ({ goToStep }) => {
-	const { setFormData, setStep, currentStep } = useRegistrationFormStore()
+	const registration = useRegistration()
 
 	const form = useForm<FirstInformation>({
 		defaultValues: { email: "", password: "" },
@@ -23,16 +24,26 @@ export const FirstInfo: FC<FirstInfoProps> = ({ goToStep }) => {
 	})
 
 	const onSubmit = form.handleSubmit(async (data: FirstInformation) => {
-		setFormData(data)
-		setStep(RegistrationSteps.AdditionalInfo)
-		goToStep(RegistrationSteps.AdditionalInfo)
+		registration.mutateAsync({
+			email: data.email,
+			password: data.password,
+			first_name: "",
+			last_name: "",
+			age: null,
+		})
+
+		setData(data)
 	})
 
 	useEffect(() => {
 		if (currentStep !== 0) {
-			goToStep(currentStep)
+			setStep(currentStep)
 		}
-	}, [])
+	}, [setStep, currentStep])
+
+	useEffect(() => {
+		if (registration.isSuccess) setStep(RegistrationSteps.Verify)
+	}, [setStep, registration.isSuccess])
 
 	useEffect(() => {
 		form.setFocus("email")
@@ -47,20 +58,17 @@ export const FirstInfo: FC<FirstInfoProps> = ({ goToStep }) => {
 				<FormField
 					name='email'
 					render={({ field }) => (
-						logger.debug(field),
-						(
-							<FormItem>
-								<FormLabel>* Почта</FormLabel>
-								<FormControl>
-									<Input
-										type='text'
-										{...field}
-										required
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)
+						<FormItem>
+							<FormLabel>* Почта</FormLabel>
+							<FormControl>
+								<Input
+									type='text'
+									{...field}
+									required
+								/>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
 					)}
 				/>
 				<FormField
@@ -83,10 +91,10 @@ export const FirstInfo: FC<FirstInfoProps> = ({ goToStep }) => {
 				<Button
 					variant='secondary'
 					type='submit'
-					disabled={!form.formState.isValid || form.formState.isSubmitting}
+					disabled={!form.formState.isValid || registration.isPending}
 					className='w-full'
 				>
-					перейти к следующему шагу
+					Зарегистрироваться
 				</Button>
 			</form>
 		</Form>

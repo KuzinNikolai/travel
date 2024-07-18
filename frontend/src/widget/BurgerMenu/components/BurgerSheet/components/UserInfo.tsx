@@ -1,22 +1,28 @@
 "use client"
 
-import { UserPreview, useGetUser } from "@entity/user"
+import { UserPreview, useUser, useUserTokenStore } from "@entity/user"
 import { useLogout } from "@feature/logout"
 import { Button } from "@share/ui/Buttons"
 import { Popover, PopoverContent, PopoverTrigger } from "@share/ui/Popover"
 import { Typography } from "@share/ui/Text"
 import { useAuthStore } from "@widget/Auth"
+import { useMemo } from "react"
 
 export const UserInfo = () => {
 	const { setExpand } = useAuthStore()
-	const { logout } = useLogout()
-	const { data, query } = useGetUser()
+	const userToken = useUserTokenStore()
+	const { data, error, isLoading } = useUser()
+	
+	const logout = useLogout()
 
-	if (query.isIdle || (query.isFetched && (!query.data || data === "UNAUTHORIZED"))) {
+	const token = useMemo(() => userToken.getToken(), [userToken])
+
+	if (!token ||error?.code === "INPUT_PARSE_ERROR" || error?.code === "NOT_AUTHORIZED") {
 		return (
 			<Button
 				variant='ghost'
 				className='w-full items-center justify-center'
+				disabled={isLoading}
 				onClick={() => setExpand(true)}
 			>
 				Авторизоваться
@@ -24,11 +30,11 @@ export const UserInfo = () => {
 		)
 	}
 
-	if (!data && query.isLoading) {
+	if (!data && isLoading) {
 		return <UserPreview.Skeleton />
 	}
 
-	return data && typeof data !== "string" ? (
+	return data ? (
 		<Popover>
 			<PopoverTrigger>
 				<UserPreview />
@@ -37,7 +43,7 @@ export const UserInfo = () => {
 				<Button
 					className='w-full'
 					variant='destructive'
-					onClick={() => logout()}
+					onClick={() => logout.mutateAsync(token)}
 				>
 					Выйти
 				</Button>

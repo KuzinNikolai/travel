@@ -1,15 +1,13 @@
 "use client"
 
-import type { LoginResponse } from "@api/auth/login/_schema"
 import { useUserTokenStore } from "@entity/user"
-import { useToast } from "@share/ui/Popups"
-import type { AxiosError } from "axios"
-import { useMutation, useQueryClient } from "react-query"
-import type { z } from "zod"
-import { clientLogin } from "../api/client"
-import type { loginRequestScheme } from "../consts/schemas"
-import { logger } from "@share/lib"
 import { __DEV__ } from "@share/constants/mode"
+import { logger } from "@share/lib"
+import { useServerActionMutation } from "@share/serverActions/model"
+import { useToast } from "@share/ui/Popups"
+import { useQueryClient } from "@tanstack/react-query"
+import { loginAction } from "../api/loginAction"
+import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 
 export function useLogin() {
 	const queryClient = useQueryClient()
@@ -17,60 +15,28 @@ export function useLogin() {
 	const { setToken } = useUserTokenStore()
 	const { toast } = useToast()
 
-	const loginMutation = useMutation((data: z.infer<typeof loginRequestScheme>) => clientLogin(data), {
+	const mutation = useServerActionMutation(loginAction, {
 		onSuccess: (data) => {
-			if ("code" in data) {
-				return
-			}
-
 			if (__DEV__) {
-				logger.info("useLogin onSuccess")
-				toast({ description: data.token })
+				logger.info("Login success")
+				toast({ title: "Успешно вход в систему", description: data.token })
 			}
 
 			setToken(data.token)
-			toast({
-				title: "Успех",
-				description: "Вы успешно вошли в систему",
-			})
-			queryClient.invalidateQueries(["user"])
+			queryClient.invalidateQueries({ queryKey: queryKeyFactory.account() })
 		},
-		onError: (err: AxiosError<LoginResponse>) => {
-			const data = err.response?.data
-
-			if (!data || !("code" in data)) {
-				toast({ title: "Ошибка", description: "Неизвестная ошибка при попытке входа" })
-				return
-			}
-
-			switch (data.code) {
-				case "INVALID_RESPONSE_BODY": {
+		onError(err) {
+			switch (err.code) {
+				case "INTERNAL_SERVER_ERROR": {
 					toast({
 						title: "Ошибка",
 						description: "Произошла ошибка на сервере при попытке входа. Попробуйте ещё раз позже",
 					})
 					break
 				}
-				case "INVALID_CREDENTIALS": {
-					toast({
-						title: "Ошибка",
-						description: "Неверный логин или пароль",
-					})
-					break
-				}
-				default:
-					toast({ title: "Ошибка", description: "Неизвестная ошибка при попытке входа" })
 			}
 		},
 	})
 
-	return {
-		isLoading: loginMutation.isLoading,
-		isSuccess: loginMutation.isSuccess,
-		isError: loginMutation.isError,
-		error: loginMutation.error,
-		isLogined: () => !!useUserTokenStore.getState().getToken(),
-		login: loginMutation.mutate,
-		loginAsync: loginMutation.mutateAsync,
-	}
+	return mutation
 }

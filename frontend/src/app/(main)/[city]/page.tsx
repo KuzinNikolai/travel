@@ -5,6 +5,7 @@ import type { IPagesProps } from "@share/lib"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import type { FC } from "react"
+import { Typography } from "@share/ui/Text"
 
 const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
 	const city = await getDetailCity(params.city)
@@ -20,12 +21,21 @@ const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
 				<HeaderWithBack title={`Экскурсии в ${city.name}`} />
 				<div className='container flex flex-col gap-4 pb-5'>
 					-- filter --
-					{city?.tours.map((tour) => (
-						<TourPreview
-							key={tour.id + tour.slug}
-							tour={tour}
-						/>
-					))}
+					{city.tours.length > 0 ? (
+						city.tours.map((tour) => (
+							<TourPreview
+								key={tour.id + tour.slug}
+								tour={tour}
+							/>
+						))
+					) : (
+						<Typography
+							variant='h3'
+							as='p'
+						>
+							В этом городе еще нет экскурсий
+						</Typography>
+					)}
 				</div>
 			</section>
 			<div className='h-[10px] w-full bg-background-400' />

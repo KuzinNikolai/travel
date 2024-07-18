@@ -1,2 +1,2 @@
-export * from "./api/client"
+export * from "./api/logoutAction"
 export * from "./model/useLogout"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useGetUser } from "@entity/user/model/useGetUser"
+import { useUser } from "@entity/user/model/useUser"
 import { Avatar, AvatarFallback, AvatarImage } from "@share/ui/Avatar"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
@@ -11,9 +11,9 @@ interface UserPreviewComponents {
 }
 
 export const UserPreview: UserPreviewComponents & FC = () => {
-	const { data: user } = useGetUser()
+	const { data: user } = useUser()
 
-	if (!user || typeof user === "string") {
+	if (!user) {
 		return null
 	}
 
@@ -30,18 +30,23 @@ export const UserPreview: UserPreviewComponents & FC = () => {
 					</AvatarFallback>
 				</Avatar>
 			) : (
-				<div className='flex h-10 w-10 flex-col items-center justify-center rounded-full bg-gray-300/60'>
-					{user.first_name[0].toLocaleUpperCase()}
-					{user.last_name[0].toLocaleUpperCase()}
-				</div>
+				<Typography
+					variant='h4'
+					as='p'
+					className='flex h-10 w-10 flex-col items-center justify-center rounded-full bg-gray-300/60'
+				>
+					{user.first_name && user.last_name
+						? user.first_name.charAt(0).toUpperCase() + user.last_name.charAt(0).toUpperCase()
+						: user.username.charAt(0).toUpperCase()}
+				</Typography>
 			)}
 			<Typography
-				variant='span'
+				variant='content1'
 				as='p'
 				textWidth='light'
 				className='truncate text-left'
 			>
-				{user.first_name} {user.last_name}
+				{user.username}
 			</Typography>
 		</div>
 	)

@@ -2,7 +2,9 @@
 	"name": "frontend",
 	"version": "0.1.0",
 	"private": true,
-	"browserslist": ["> 0.1%, last 4 versions, not dead"],
+	"browserslist": [
+		"> 0.1%, last 4 versions, not dead"
+	],
 	"scripts": {
 		"analyze": "ANALYZE=true next build",
 		"dev": "next dev",
@@ -28,6 +30,7 @@
 		"@radix-ui/react-slot": "^1.0.2",
 		"@radix-ui/react-toast": "^1.1.5",
 		"@react-input/mask": "1.2.5",
+		"@tanstack/react-query": "^5.51.3",
 		"axios": "^1.7.2",
 		"axios-cache-interceptor": "1.5.3",
 		"class-variance-authority": "^0.7.0",
@@ -50,6 +53,9 @@
 		"vaul": "^0.9.1",
 		"zod": "3.23.8",
 		"zod_utilz": "0.8.3",
+		"zsa": "^0.5.1",
+		"zsa-react": "^0.2.2",
+		"zsa-react-query": "^0.2.1",
 		"zustand": "4.5.2"
 	},
 	"devDependencies": {

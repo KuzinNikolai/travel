@@ -1,8 +1,8 @@
 "use client"
 
-import { useMultistepForm, useNoReload } from "@share/lib"
-import { useEffect, type FC } from "react"
-import { AdditionalInfo } from "./Steps/AdditionalInfo"
+import { useNoReload } from "@share/lib"
+import { useEffect, type FC, type ReactNode } from "react"
+import { RegistrationSteps, useFormStepsStore } from "../model/formStepStore"
 import { FirstInfo } from "./Steps/FirstInfo"
 import { VerifyCode } from "./Steps/VerifyCode"
 
@@ -11,24 +11,17 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
-	const { currentStep, goToStep } = useMultistepForm({ maxSteps: 2 })
-
+	const { currentStep } = useFormStepsStore()
 	const listenReload = useNoReload()
 
 	useEffect(() => {
 		listenReload(true)
-	}, [])
+	}, [listenReload])
 
 	const steps = {
-		0: <FirstInfo goToStep={goToStep} />,
-		1: <AdditionalInfo goToStep={goToStep} />,
-		2: (
-			<VerifyCode
-				goToStep={goToStep}
-				onFinish={onFinish}
-			/>
-		),
-	}
+		[RegistrationSteps.FirstInfo]: <FirstInfo />,
+		[RegistrationSteps.Verify]: <VerifyCode onFinish={onFinish} />,
+	} satisfies { [key in RegistrationSteps]: ReactNode }
 
 	return steps[currentStep as keyof typeof steps]
 }

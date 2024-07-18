@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchInput, SearchList } from "@feature/search"
+import { SearchInput, SearchList } from "@feature/searchTour"
 import { Icon } from "@share/ui/Icon"
 import { FullScreenModal } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"

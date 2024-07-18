@@ -5,6 +5,11 @@ import { infoItemSchema } from "./infoItem.schema"
 import { programSchema } from "./program.schema"
 import { questionSchema } from "./question.schema"
 
+export enum PublishStatus {
+	draft = 0,
+	published = 1,
+}
+
 export const tourSchema = z.object({
 	id: z.number(),
 	slug: z.string(),
@@ -21,11 +26,13 @@ export const tourSchema = z.object({
 	type: z.string(),
 	cat: z.string(),
 	tags: tagSchema.array(),
-	min_price: z.number(),
+	min_price: z.number().nullable(),
 	photo: z.string(),
+	photos: z.string().array(),
 	photo_alt: z.string(),
 	average_rating: z.number(),
 	currency_prefix: z.string(),
+	is_published: z.nativeEnum(PublishStatus).optional(),
 })
 
 export const detailTourSchema = tourSchema.extend({

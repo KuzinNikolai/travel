@@ -1,28 +1,28 @@
-import { RegistrationSteps, useRegistrationFormStore } from "@feature/registration/model/store"
+import { useFormDataStore } from "@feature/registration/model/formDataStore"
+import { RegistrationSteps, useFormStepsStore } from "@feature/registration/model/formStepStore"
 import { VerificationForm } from "@feature/verification"
-import { logger } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
 import { Typography } from "@share/ui/Text"
-import type { FC } from "react"
+import { type FC, useCallback } from "react"
 
-interface IVerifyCodeProps {
-	goToStep: (step: number) => void
+interface VerifyCodeProps {
 	onFinish: () => void
 }
 
-export const VerifyCode: FC<IVerifyCodeProps> = ({ goToStep, onFinish }) => {
-	const { getFormData, setFormData, setStep } = useRegistrationFormStore()
+export const VerifyCode: FC<VerifyCodeProps> = ({ onFinish }) => {
+	const { setStep } = useFormStepsStore()
+	const { setData, formData } = useFormDataStore()
 
 	const onRevert = () => {
-		goToStep(RegistrationSteps.FirstInfo)
-		setFormData(null)
+		setStep(RegistrationSteps.FirstInfo)
+		setData(null)
 	}
 
-	const onSuccess = () => {
+	const onSuccess = useCallback(() => {
 		setStep(RegistrationSteps.FirstInfo)
+		setData(null)
 		onFinish()
-		setFormData(null)
-	}
+	}, [setStep, setData])
 
 	return (
 		<>
@@ -33,7 +33,7 @@ export const VerifyCode: FC<IVerifyCodeProps> = ({ goToStep, onFinish }) => {
 						variant='span'
 						textWidth='bold'
 					>
-						{getFormData()?.email ?? "неизвестно"}
+						{formData?.email ?? "неизвестно"}
 					</Typography>
 					, если это не правильная почта вы можете вернуться на 1 этап.
 				</Typography>

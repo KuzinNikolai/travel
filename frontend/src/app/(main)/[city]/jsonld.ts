@@ -1,5 +1,5 @@
-import { API_DOMAIN } from "@share/api"
 import type { DetailCity } from "@entity/city"
+import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import type { ItemList, WithContext } from "schema-dts"
 
 export const generateToursJsonLd = (city: DetailCity): WithContext<ItemList> => ({
