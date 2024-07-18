@@ -4,7 +4,7 @@ import sys
 # Get the current working directory
 current_directory = os.getcwd()
 # Get the parent directory
-parent_directory = os.path.dirname(current_directory)
+parent_directory = "/home/c/cj05405/beta_gettrip"
 
 
 activate_this = os.path.expanduser(os.path.join(parent_directory, "venv/bin/activate_this.py"))
