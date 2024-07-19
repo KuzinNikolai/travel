@@ -16,7 +16,7 @@ export const TourDescription: FC<TourDescriptionProps> = ({ description }) => {
 					<Drawer
 						title='Описание'
 						trigger={
-							<Button className='text-red-500 hover:text-red-600 '>
+							<Button variant='secondary'>
 								<Typography
 									variant='button'
 									as='div'

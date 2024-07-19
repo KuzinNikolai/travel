@@ -1,13 +1,13 @@
 import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
 import { getDetailCity } from "@entity/city"
 import { TourPreview } from "@entity/tour/ui/TourPreview"
-import type { IPagesProps } from "@share/lib"
+import { logger, type PagesProps } from "@share/lib"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import type { FC } from "react"
 import { Typography } from "@share/ui/Text"
 
-const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
+const ToursInCity: FC<PagesProps<{ city: string }>> = async ({ params }) => {
 	const city = await getDetailCity(params.city)
 
 	if (!city) {
@@ -45,20 +45,16 @@ const ToursInCity: FC<IPagesProps<{ city: string }>> = async ({ params }) => {
 
 export default ToursInCity
 
-export async function generateMetadata({ params }: IPagesProps): Promise<Metadata> {
-	if (!params.slug) {
-		return {}
-	}
-
-	const city = await getDetailCity(params.slug)
+export async function generateMetadata({ params }: PagesProps): Promise<Metadata> {
+	const city = await getDetailCity(params.city)
 
 	if (!city) {
 		return {}
 	}
 
 	return {
-		title: `Экскурсии в городе ${city.title}`,
+		title: `Экскурсии в городе ${city.name}`,
 		description: city.description || "",
-		keywords: `Экскурсии в ${city.title}, ${city.title}, Город ${city.title}`,
+		keywords: `Экскурсии в ${city.name}, ${city.name}, Город ${city.name}`,
 	}
 }

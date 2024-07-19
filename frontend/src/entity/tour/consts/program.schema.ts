@@ -1,4 +1,4 @@
-import { number, z } from "zod"
+import { z } from "zod"
 
 export enum GroupType {
 	group = 1,
@@ -9,7 +9,7 @@ const pricesSchema = z
 	.object({
 		adult_price: z.number(),
 		child_price: z.number(),
-		individual_price: z.null(),
+		individual_price: z.literal(0).nullable(),
 	})
 	.or(
 		z.object({
