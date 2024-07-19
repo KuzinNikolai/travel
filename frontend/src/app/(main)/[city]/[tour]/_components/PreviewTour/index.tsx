@@ -35,19 +35,21 @@ export const PreviewTour: FC<PreviewTourProps> = (props) => {
 							{props.meta_desc}
 						</Typography>
 						<Rating rating={props.average_rating} />
-						<Typography
-							variant='h4'
-							textWidth='medium'
-							as='p'
-						>
-							{props.currency_prefix} {props.min_price}
-						</Typography>
+						{props.min_price && (
+							<Typography
+								variant='h4'
+								textWidth='medium'
+								as='p'
+							>
+								{props.currency_prefix} {props.min_price}
+							</Typography>
+						)}
 						<Typography
 							variant='span'
 							textWidth='medium'
 							className='text-success'
 						>
-							Смотрите ниже что включено Центру
+							Смотрите ниже что включено в цену
 						</Typography>
 					</div>
 				</div>

@@ -1,10 +1,10 @@
+import { inter } from "@assets/fonts"
 import "@assets/globals.css"
 import { Provider as ReactQueryClientV2Provider } from "@serverActions"
 import { siteConfig } from "@share/config/siteConfig"
 import { cn } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import type { FC, PropsWithChildren } from "react"
 
 export const metadata: Metadata = {
@@ -18,8 +18,6 @@ export const metadata: Metadata = {
 	},
 }
 
-const font = Inter({ axes: ["slnt"], subsets: ["cyrillic"] })
-
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<html lang='en'>
@@ -29,7 +27,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 					content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
 				/>
 			</head>
-			<body className={cn(font.className, "flex min-h-dvh flex-col")}>
+			<body className={cn(inter.className, "flex min-h-dvh flex-col")}>
 				<ReactQueryClientV2Provider>
 					{children}
 					<Toaster />

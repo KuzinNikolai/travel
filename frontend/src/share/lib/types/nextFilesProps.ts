@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-export interface IPagesProps<T extends Record<string, string> = Record<string, string>> {
+export interface PagesProps<T extends Record<string, string> = Record<string, string>> {
 	params: {
 		slugs: string[]
 	} & T

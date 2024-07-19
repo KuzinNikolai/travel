@@ -15,7 +15,7 @@ export const Drawer: FC<IDrawerProps> = ({ title, expand, trigger, children }) =
 		<DrawerRoot open={expand}>
 			{trigger && <DrawerTrigger asChild>{trigger}</DrawerTrigger>}
 			<DrawerContent className='container'>
-				<div className='pb-4'>
+				<div>
 					<div className='py-2 pt-4'>
 						<Typography
 							variant='h2'
@@ -25,7 +25,7 @@ export const Drawer: FC<IDrawerProps> = ({ title, expand, trigger, children }) =
 							{title}
 						</Typography>
 					</div>
-					<div className='max-h-[80vh] max-w-full overflow-y-auto overflow-x-hidden'>{children}</div>
+					<div className='max-h-[80vh] max-w-full overflow-y-auto overflow-x-hidden pb-4'>{children}</div>
 				</div>
 			</DrawerContent>
 		</DrawerRoot>

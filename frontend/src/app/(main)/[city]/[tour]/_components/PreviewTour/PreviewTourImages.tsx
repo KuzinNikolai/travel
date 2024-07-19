@@ -57,6 +57,7 @@ export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], al
 			src={photos[0]}
 			width={300}
 			height={300}
+			className='h-[50vh] w-full object-cover'
 		/>
 	)
 }

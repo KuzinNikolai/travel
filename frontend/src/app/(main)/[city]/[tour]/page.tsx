@@ -1,5 +1,5 @@
 import { getDetailTour } from "@entity/tour"
-import type { IPagesProps } from "@share/lib"
+import type { PagesProps } from "@share/lib"
 import { Section } from "@share/ui/Layout"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -13,7 +13,7 @@ import { ToutPrograms } from "./_components/TourPrograms"
 import { TourTake } from "./_components/TourTake"
 import { TourUsagePolicy } from "./_components/TourUsagePolicy"
 
-const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
+const Tour: FC<PagesProps<{ tour: string }>> = async ({ params }) => {
 	const tour = await getDetailTour(params.tour)
 
 	if (!tour) {
@@ -48,12 +48,8 @@ const Tour: FC<IPagesProps<{ tour: string }>> = async ({ params }) => {
 
 export default Tour
 
-export async function generateMetadata({ params }: IPagesProps): Promise<Metadata> {
-	if (!params.slug) {
-		return {}
-	}
-
-	const tour = await getDetailTour(params.slug)
+export async function generateMetadata({ params }: PagesProps): Promise<Metadata> {
+	const tour = await getDetailTour(params.tour)
 
 	if (!tour) {
 		return {}
