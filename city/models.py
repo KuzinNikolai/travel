@@ -18,6 +18,12 @@ class City(TranslatableModel):
         description = models.TextField(blank=True, db_index=True),
     )
 
+    title_en = models.CharField(max_length=255, blank=True, null=True)
+    meta_desc_en = models.TextField(blank=True, db_index=True)
+    meta_keywords_en = models.CharField(max_length=255, blank=True, null=True)
+    name_en = models.CharField(max_length=50, blank=True, null=True)
+    description_en = models.TextField(blank=True, db_index=True)
+
     country = models.ForeignKey(Country, null=True, on_delete=models.CASCADE, related_name='cities')
     slug = models.SlugField(max_length=100, unique=True, db_index=True)
     photo = models.ImageField(blank=True, null=True, upload_to="photos/city/") 
