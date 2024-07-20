@@ -1,14 +1,15 @@
+import os
 from .base import *
 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cj05405_beta',
-        'USER': 'cj05405_beta',
-        'PASSWORD': 'beta_pass',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
+        'ENGINE': os.environ["DB_ENGINE"],
+        'NAME': os.environ["DB_NAME"],
+        'USER': os.environ["DB_USER"],
+        'PASSWORD': os.environ["DB_PASSWORD"],
+        'HOST': os.environ["DB_HOST"],
+        'PORT': os.environ["DB_PORT"],
     }
 }
 
