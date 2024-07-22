@@ -43,7 +43,10 @@ const Price: FC<PriceProps> = ({ title, currency, price }) => {
 }
 
 export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
-	const { data: user } = useUser()
+	const {
+		query: { data: user },
+	} = useUser()
+
 	const pathname = usePathname()
 	const authModal = useAuthStore()
 	const router = useRouter()

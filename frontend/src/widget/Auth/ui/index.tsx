@@ -1,11 +1,11 @@
 "use client"
 
+import { LoginForm } from "@feature/auth/login"
+import { RegistrationForm } from "@feature/auth/registration"
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
 import { useCallback, useState } from "react"
 import { useAuthStore } from "../model/useAuthStore"
-import { LoginForm } from "@feature/login"
-import { RegistrationForm } from "@feature/registration"
 
 export const Auth = () => {
 	const { auth, setExpand } = useAuthStore()

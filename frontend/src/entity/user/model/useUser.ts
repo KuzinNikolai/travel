@@ -2,7 +2,6 @@
 
 import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 import { useServerActionQuery } from "@share/serverActions/model"
-import { useEffect } from "react"
 import { getUser } from "../api/getUser"
 import { useUserTokenStore } from "./userTokenStore"
 
@@ -14,5 +13,11 @@ export function useUser() {
 		queryKey: queryKeyFactory.account(),
 	})
 
-	return query
+	return {
+		query,
+		isAuthorized:
+			query.data &&
+			query.isFetched &&
+			!(query.error?.code === "NOT_AUTHORIZED" || query.error?.code === "INPUT_PARSE_ERROR"),
+	}
 }

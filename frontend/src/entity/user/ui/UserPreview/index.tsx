@@ -1,17 +1,19 @@
 "use client"
 
 import { useUser } from "@entity/user/model/useUser"
-import { Avatar, AvatarFallback, AvatarImage } from "@share/ui/Avatar"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import type { FC } from "react"
+import { UserAvatar } from "../UserAvatar"
 
 interface UserPreviewComponents {
 	Skeleton: typeof UserPreviewSkeleton
 }
 
 export const UserPreview: UserPreviewComponents & FC = () => {
-	const { data: user } = useUser()
+	const {
+		query: { data: user },
+	} = useUser()
 
 	if (!user) {
 		return null
@@ -19,27 +21,12 @@ export const UserPreview: UserPreviewComponents & FC = () => {
 
 	return (
 		<div className='grid grid-cols-[40px_1fr] items-center gap-2'>
-			{user.photo ? (
-				<Avatar>
-					<AvatarImage
-						src={user.photo}
-						className='h-10 w-10 rounded-full object-cover object-center'
-					/>
-					<AvatarFallback>
-						<Skeleton className='h-10 w-10 rounded-full' />
-					</AvatarFallback>
-				</Avatar>
-			) : (
-				<Typography
-					variant='h4'
-					as='p'
-					className='flex h-10 w-10 flex-col items-center justify-center rounded-full bg-gray-300/60'
-				>
-					{user.first_name && user.last_name
-						? user.first_name.charAt(0).toUpperCase() + user.last_name.charAt(0).toUpperCase()
-						: user.username.charAt(0).toUpperCase()}
-				</Typography>
-			)}
+			<UserAvatar
+				photo={user.photo}
+				username={user.username}
+				firstName={user.first_name}
+				lastName={user.last_name}
+			/>
 			<Typography
 				variant='content1'
 				as='p'

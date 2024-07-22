@@ -1,16 +1,15 @@
 "use client"
 
-import { firstInfoSchema, type FirstInformation } from "@feature/registration/consts/stepsData.schema"
-import { useFormDataStore } from "@feature/registration/model/formDataStore"
-import { RegistrationSteps, useFormStepsStore } from "@feature/registration/model/formStepStore"
-import { useRegistration } from "@feature/registration/model/useRegistration"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { logger } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Input } from "@share/ui/Inputs"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
+import { firstInfoSchema, type FirstInformation } from "../../consts/stepsData.schema"
+import { useFormDataStore } from "../../model/formDataStore"
+import { RegistrationSteps, useFormStepsStore } from "../../model/formStepStore"
+import { useRegistration } from "../../model/useRegistration"
 
 export const FirstInfo = () => {
 	const { setStep, currentStep } = useFormStepsStore()

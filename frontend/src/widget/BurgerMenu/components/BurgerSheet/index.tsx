@@ -6,8 +6,14 @@ import { Icon } from "@share/ui/Icon"
 import { NavigationItem } from "./components/NavigationItem"
 import { UserInfo } from "./components/UserInfo"
 
-const navigation = (isAuthorized = false) =>
-	[
+export const BurgerSheet = () => {
+	const {
+		query: { data: user, isFetched, isSuccess },
+	} = useUser()
+
+	const isAuthorized = !!user && isFetched && isSuccess
+
+	const navigation = [
 		{
 			name: "Мои заказы",
 			href: "/orders",
@@ -34,15 +40,12 @@ const navigation = (isAuthorized = false) =>
 		},
 	] satisfies Navigation[]
 
-export const BurgerSheet = () => {
-	const { data: user } = useUser()
-
 	return (
 		<div className='mt-4 flex flex-col gap-6'>
 			<UserInfo />
 			<nav>
 				<ul className='flex flex-col gap-3 overflow-y-auto'>
-					{navigation(!!user).map(
+					{navigation.map(
 						(item, index) =>
 							item.show && (
 								<NavigationItem
