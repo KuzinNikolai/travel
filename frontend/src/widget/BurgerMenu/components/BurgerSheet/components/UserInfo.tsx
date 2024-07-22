@@ -1,23 +1,20 @@
 "use client"
 
-import { UserPreview, useUser, useUserTokenStore } from "@entity/user"
-import { useLogout } from "@feature/logout"
+import { UserPreview, useUser } from "@entity/user"
 import { Button } from "@share/ui/Buttons"
-import { Popover, PopoverContent, PopoverTrigger } from "@share/ui/Popover"
 import { Typography } from "@share/ui/Text"
 import { useAuthStore } from "@widget/Auth"
-import { useMemo } from "react"
+import Link from "next/link"
 
 export const UserInfo = () => {
 	const { setExpand } = useAuthStore()
-	const userToken = useUserTokenStore()
-	const { data, error, isLoading } = useUser()
-	
-	const logout = useLogout()
 
-	const token = useMemo(() => userToken.getToken(), [userToken])
+	const {
+		query: { data, isLoading },
+		isAuthorized,
+	} = useUser()
 
-	if (!token ||error?.code === "INPUT_PARSE_ERROR" || error?.code === "NOT_AUTHORIZED") {
+	if (!isAuthorized) {
 		return (
 			<Button
 				variant='ghost'
@@ -30,25 +27,14 @@ export const UserInfo = () => {
 		)
 	}
 
-	if (!data && isLoading) {
+	if (isLoading) {
 		return <UserPreview.Skeleton />
 	}
 
 	return data ? (
-		<Popover>
-			<PopoverTrigger>
-				<UserPreview />
-			</PopoverTrigger>
-			<PopoverContent>
-				<Button
-					className='w-full'
-					variant='destructive'
-					onClick={() => logout.mutateAsync(token)}
-				>
-					Выйти
-				</Button>
-			</PopoverContent>
-		</Popover>
+		<Link href='/profile'>
+			<UserPreview />
+		</Link>
 	) : (
 		<Typography
 			variant='span'

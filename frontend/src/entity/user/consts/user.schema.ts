@@ -15,6 +15,7 @@ export const userSchema = z.object({
 
 	photo: z.string().nullable(),
 
+	description: z.string().nullable().optional(),
 	is_staff: z.boolean(),
 })
 

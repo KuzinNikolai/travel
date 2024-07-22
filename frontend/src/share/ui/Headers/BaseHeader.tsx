@@ -9,7 +9,7 @@ interface IHeaderProps {
 	backgroundColor?: string
 }
 
-export const Header = forwardRef<HTMLElement, IHeaderProps>(
+export const BaseHeader = forwardRef<HTMLElement, IHeaderProps>(
 	({ leftColumn, centerColumn, rightColumn, ...props }, ref) => {
 		return (
 			<header
@@ -30,4 +30,4 @@ export const Header = forwardRef<HTMLElement, IHeaderProps>(
 	},
 )
 
-Header.displayName = "Header Base"
+BaseHeader.displayName = "Header Base"

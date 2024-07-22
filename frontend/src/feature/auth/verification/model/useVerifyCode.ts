@@ -1,7 +1,7 @@
 "use client"
 
-import { useLogin } from "@feature/login"
-import { useFormDataStore } from "@feature/registration/model/formDataStore"
+import { useLogin } from "@feature/auth/login"
+// import { useFormDataStore } from "@feature/registration/formDataStore"
 import { useServerActionMutation } from "@share/serverActions/model"
 import { useToast } from "@share/ui/Popups"
 import { verifyAction } from "../api/verifyAction"
@@ -10,7 +10,7 @@ export function useVerifyCode() {
 	const login = useLogin()
 
 	const { toast } = useToast()
-	const { formData } = useFormDataStore()
+	// const { formData } = useFormDataStore()
 
 	const mutation = useServerActionMutation(verifyAction, {
 		onSuccess: async () => {
@@ -19,9 +19,9 @@ export function useVerifyCode() {
 				description: "Вы успешно подтвердили почту",
 			})
 
-			if (formData) {
-				await login.mutateAsync(formData)
-			}
+			// if (formData) {
+			// 	await login.mutateAsync(formData)
+			// }
 		},
 		onError: (err) => {
 			switch (err.code) {

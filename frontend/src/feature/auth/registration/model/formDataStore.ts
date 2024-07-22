@@ -19,3 +19,5 @@ export const useFormDataStore = create<Store>((set) => ({
 		set({ formData: data })
 	},
 }))
+
+export const getRegistrationData = () => useFormDataStore.getState().formData

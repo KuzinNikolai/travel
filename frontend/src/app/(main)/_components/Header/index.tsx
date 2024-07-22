@@ -3,7 +3,7 @@
 import { Icon } from "@share/ui/Icon"
 import { BurgerMenu } from "@widget/BurgerMenu"
 import { SearchMenu } from "@widget/Search"
-import { Header as UiHeader } from "@share/ui/Header"
+import { BaseHeader as UiHeader } from "@share/ui/Headers/BaseHeader"
 
 export const Header = () => {
 	return (

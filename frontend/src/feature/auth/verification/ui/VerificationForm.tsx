@@ -11,13 +11,13 @@ import { useVerifyCode } from "../model/useVerifyCode"
 import { verifyRequestSchema } from "../consts/schema"
 
 interface VerificationFormProps {
-	onSuccess: () => void
+	onFinish: () => void
 }
 
 const verifyCodeRequestSchema = z.object({ code: verifyRequestSchema })
 type VerifyCodeRequestSchema = z.infer<typeof verifyCodeRequestSchema>
 
-export const VerificationForm: FC<VerificationFormProps> = ({ onSuccess }) => {
+export const VerificationForm: FC<VerificationFormProps> = ({ onFinish }) => {
 	const verify = useVerifyCode()
 
 	const formRef = useRef<HTMLFormElement>(null)
@@ -26,8 +26,8 @@ export const VerificationForm: FC<VerificationFormProps> = ({ onSuccess }) => {
 	const onSubmit = form.handleSubmit(async ({ code }) => verify.mutateAsync(code))
 
 	useEffect(() => {
-		if (verify.isSuccess) onSuccess()
-	}, [verify.isSuccess, onSuccess])
+		if (verify.isSuccess) onFinish()
+	}, [verify.isSuccess, onFinish])
 
 	const onChangeCode = (value: string) => {
 		form.setValue("code", value)

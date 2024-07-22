@@ -1,6 +1,6 @@
-import { useFormDataStore } from "@feature/registration/model/formDataStore"
-import { RegistrationSteps, useFormStepsStore } from "@feature/registration/model/formStepStore"
-import { VerificationForm } from "@feature/verification"
+import { useFormDataStore } from "../../model/formDataStore"
+import { RegistrationSteps, useFormStepsStore } from "../../model/formStepStore"
+import { VerificationForm } from "@feature/auth/verification"
 import { Button } from "@share/ui/Buttons"
 import { Typography } from "@share/ui/Text"
 import { type FC, useCallback } from "react"
@@ -18,7 +18,7 @@ export const VerifyCode: FC<VerifyCodeProps> = ({ onFinish }) => {
 		setData(null)
 	}
 
-	const onSuccess = useCallback(() => {
+	const onSuccessFinish = useCallback(() => {
 		setStep(RegistrationSteps.FirstInfo)
 		setData(null)
 		onFinish()
@@ -45,7 +45,7 @@ export const VerifyCode: FC<VerifyCodeProps> = ({ onFinish }) => {
 					Перейти на этап регистрации
 				</Button>
 			</div>
-			<VerificationForm onSuccess={onSuccess} />
+			<VerificationForm onFinish={onSuccessFinish} />
 		</>
 	)
 }

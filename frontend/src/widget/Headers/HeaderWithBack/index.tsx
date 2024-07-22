@@ -1,5 +1,5 @@
 import { ButtonBack } from "@share/ui/Buttons"
-import { Header } from "@share/ui/Header"
+import { BaseHeader } from "@share/ui/Headers/BaseHeader"
 import { Typography } from "@share/ui/Text"
 import { forwardRef } from "react"
 
@@ -10,7 +10,7 @@ interface IBackHeaderProps {
 
 export const HeaderWithBack = forwardRef<HTMLElement, IBackHeaderProps>(({ title, onBack }, ref) => {
 	return (
-		<Header
+		<BaseHeader
 			ref={ref}
 			leftColumn={<ButtonBack onClick={onBack} />}
 			centerColumn={
