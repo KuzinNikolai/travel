@@ -124,12 +124,13 @@ class OrderAdmin(TranslatableAdmin):
     cash_on_tour_display.short_description = "Cash on Tour"
 
 
-class StaticPageAdmin(admin.ModelAdmin):
+class StaticPageAdmin(TranslatableAdmin):
     list_display = ("id", "title", "slug")
     list_display_links = ("id", "title")
     search_fields = ("title",)
-    prepopulated_fields = {"slug": ("title",)}
-
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {"slug": ("title",)}
 
 class HotelAdmin(TranslatableAdmin):
     # fields = ["name", "area", "address", "phone_number", "country"]

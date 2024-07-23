@@ -11,7 +11,6 @@ from users.views import *
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('api/v1/', include('city.urls')),
     path('api/v1/en/', include('city.urls')),
     path('', include('tour.urls')), 
@@ -36,6 +35,9 @@ urlpatterns = [
 ]
 
 translatable_urlpatterns = i18n_patterns(
+    path('admin/', admin.site.urls),
+    
+    path('api/v1/', include('users.translatable_urls')),
     path('api/v1/', include('tour.urls')),
     path('api/v1/', include('country.urls')),
     path('api/v1/', include('contacts.urls')),

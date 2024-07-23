@@ -6,7 +6,7 @@ from django.urls import reverse
 from city.models import City
 from country.models import Country
 from django.utils.crypto import get_random_string
-
+from parler.models import TranslatableModel, TranslatedFields
 
 class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
@@ -42,9 +42,11 @@ class User(AbstractUser):
         
         
         
-class StaticPage(models.Model):
-    title = models.CharField(max_length=255)
-    content = models.TextField()
+class StaticPage(TranslatableModel):
+    translations = TranslatedFields(
+        title = models.CharField(max_length=255),
+        content = models.TextField()
+    )
     image = models.ImageField(blank=True, null=True, upload_to="users/static/%Y/%m/%d/")
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
