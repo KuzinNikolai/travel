@@ -1,13 +1,11 @@
 "use client"
 
 import { useUser } from "@entity/user"
-import { Section } from "@share/ui/Layout"
 import { redirect } from "next/navigation"
-import { Fields } from "./Fields"
+import { UserEditForm } from "./UserEditForm"
 import { ProfileHeader } from "./Header"
-import { UserInfo } from "./UserInfo"
 
-export const ProfilePage = () => {
+export const ProfileEditPage = () => {
 	const {
 		query: { data: user, isLoading },
 		isAuthorized,
@@ -24,14 +22,7 @@ export const ProfilePage = () => {
 	return (
 		<>
 			<ProfileHeader type={user.is_staff ? "guide" : "user"} />
-			<Section
-				title='Профиль'
-				containerClassNames='h-full'
-				hiddenTitle
-			>
-				<UserInfo user={user} />
-				<Fields user={user} />
-			</Section>
+			<UserEditForm user={user} />
 		</>
 	)
 }

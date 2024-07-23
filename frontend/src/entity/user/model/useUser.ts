@@ -9,7 +9,7 @@ export function useUser() {
 	const { getToken } = useUserTokenStore()
 
 	const query = useServerActionQuery(getUser, {
-		input: getToken() || "",
+		input: { token: getToken() || "" },
 		queryKey: queryKeyFactory.account(),
 	})
 
