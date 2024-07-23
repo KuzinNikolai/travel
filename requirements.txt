@@ -23,8 +23,8 @@ social-auth-core==4.5.3
 sqlparse==0.4.4
 urllib3==2.2.1
 django-parler
-django-parler
 python-dotenv==1.0.1
 mysqlclient==2.2.4
 django-parler-rest==2.2
+django-rosetta
 

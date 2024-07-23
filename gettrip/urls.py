@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/v1/help/', HelpCreateAPIView.as_view(), name='get-help'),
     path('api/v1/my_help/', MyHelpListView.as_view(), name='my-help'),
     
+    path('rosetta/', include('rosetta.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('djoser.urls')),
     re_path('api/v1/auth/', include('djoser.urls.authtoken')),
