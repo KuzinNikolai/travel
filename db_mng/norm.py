@@ -36,26 +36,20 @@ tr_models = {
     "tour.category": {"exclude_fields": ["slug", "photo"]},
     "tour.type": {"exclude_fields": ["slug"]},
     "tour.programm": {
-        "exclude_fields":[
+        "exclude_fields": [
             "tour",
             "type",
             "group_size",
             "adult_price",
             "child_price",
-            "individual_price"
+            "individual_price",
         ]
-     },
+    },
     "tour.transfer": {"exclude_fields": []},
     "tour.notincluded": {"exclude_fields": []},
     "tour.included": {"exclude_fields": []},
     "tour.take": {"exclude_fields": []},
-    "tour.tagtour": {
-        "exclude_fields": [
-            "slug",
-            "active_image",
-            "inactive_image"
-        ]
-     },
+    "tour.tagtour": {"exclude_fields": ["slug", "active_image", "inactive_image"]},
     "tour.langtour": {"exclude_fields": ["slug", "photo"]},
     "tour.area": {"exclude_fields": ["country", "city"]},
     "tour.hotel": {"exclude_fields": ["country", "city", "area", "phone_number"]},
@@ -76,30 +70,33 @@ tr_models = {
             "trip_date",
             "created_at",
             "updated_at",
-            "order_number"
+            "order_number",
         ]
     },
-    "tour.reviews": {
-        "exclude_fields": [
-            "user",
-            "tour",
-            "rating",
-            "created_date"
-        ]
-    },
+    "tour.reviews": {"exclude_fields": ["user", "tour", "rating", "created_date"]},
     "city.city": {
         "exclude_fields": [
             "country",
             "slug",
             "photo",
-            "is_published"
+            "is_published" "title_en",
+            "meta_desc_en",
+            "meta_keywords_en",
+            "name_en",
+            "description_en",
         ]
     },
-    "country.country": {
+    "country.country": {"exclude_fields": ["slug", "currency_prefix", "photo"]},
+    "contacts.support": {
         "exclude_fields": [
-            "slug",
-            "currency_prefix",
-            "photo"
+            "phone",
+            "email",
+            "link_whatsapp",
+            "link_telegram",
+            "link_viber",
+            "link_facebook",
+            "link_instagram",
+            "link_youtube",
         ]
     },
 }
@@ -116,17 +113,13 @@ def get_translation_entry(entry: dict):
     model = entry["model"]
     exclude_fields = tr_models[model]["exclude_fields"]
     data = {
-        "model": model + "translation", 
-        "pk": entry["pk"], 
-        "fields": {
-            "master_id": entry["pk"],
-            "language_code": "en"
-        }
+        "model": model + "translation",
+        "pk": entry["pk"],
+        "fields": {"master_id": entry["pk"], "language_code": "ru"},
     }
 
-
     for name, value in entry["fields"].items():
-        if not name in exclude_fields:
+        if not name in exclude_fields and "_en" in name:
             data["fields"][name] = value
     return data
 
@@ -144,9 +137,9 @@ def clear_entry(entry: dict):
 def adapt_data():
     data = read_data()
     adapted_data = []
-    
+
     for entry in data:
-        if tr_models.get(entry['model'], None):
+        if tr_models.get(entry["model"], None):
             tr_entry = get_translation_entry(entry.copy())
             entry = clear_entry(entry)
             adapted_data.append(entry)
@@ -164,6 +157,3 @@ def add_addapted_data():
 
 if __name__ == "__main__":
     add_addapted_data()
-
-
-
