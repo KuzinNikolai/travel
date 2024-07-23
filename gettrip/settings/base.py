@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "djoser",
     "parler",
+    "rosetta"
 ]
 
 MIDDLEWARE = [
