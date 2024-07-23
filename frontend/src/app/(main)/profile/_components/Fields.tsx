@@ -71,7 +71,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 			)}
 			<FieldItemWithEdit
 				title={fullNameExists ? "К вам обращаться" : "Как к вам обращаться?"}
-				value={fullNameExists ? `${user.first_name} ${user.first_name}` : "Фамилия и имя не указаны"}
+				value={fullNameExists ? `${user.first_name} ${user.last_name}` : "Фамилия и имя не указаны"}
 				isEditable={!fullNameExists}
 			/>
 			{!isStaff && (
@@ -107,7 +107,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 			<FieldItem>
 				<Button
 					variant='ghost'
-					onClick={() => logout.mutateAsync(getToken() || "")}
+					onClick={() => logout.mutateAsync({ token: getToken() || "" })}
 					className='w-full justify-start rounded-none py-6 text-danger'
 				>
 					Выйти

@@ -1,6 +1,7 @@
+import { useGetCity } from "@entity/city"
 import { UserAvatar, type User } from "@entity/user"
 import { Typography } from "@share/ui/Text"
-import type { FC } from "react"
+import { useEffect, type FC } from "react"
 
 interface UserInfoItemProps {
 	label: string
@@ -33,6 +34,13 @@ interface UserInfoProps {
 }
 
 export const UserInfo: FC<UserInfoProps> = ({ user }) => {
+	const { query, fetchRun } = useGetCity()
+
+	useEffect(() => {
+		if (!user.city) return
+		fetchRun(user.city)
+	}, [user.city, fetchRun])
+
 	return (
 		<div className='flex w-full flex-col items-center justify-center'>
 			{user.is_staff && (
@@ -41,7 +49,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
 					as='p'
 					className='mb-4'
 				>
-					Гид в {user.city}
+					Гид в {query.isLoading ? "загружается..." : query.data?.name}
 				</Typography>
 			)}
 			<UserAvatar
@@ -50,10 +58,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
 				username={user.username}
 				firstName={user.first_name}
 				lastName={user.last_name}
-				size={{
-					width: 90,
-					height: 90,
-				}}
+				size={{ width: 90, height: 90 }}
 			/>
 			<UserInfoItem
 				label='username'

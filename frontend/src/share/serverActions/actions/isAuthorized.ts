@@ -11,9 +11,9 @@ const userResponseSchema = userSchema
 const detailInvalidToken = /^Недопустимый токен.$/gi
 
 export const isAuthorized = createServerActionProcedure()
-	.input(tokenSchema)
+	.input(z.object({ token: tokenSchema }))
 	.output(outputSchema)
-	.handler(async ({ input: token }) => {
+	.handler(async ({ input: { token } }) => {
 		const resp = await fetch(`${API_DOMAIN}/api/v1/auth/users/me`, {
 			method: "GET",
 			headers: { Authorization: `Token ${token}` },
