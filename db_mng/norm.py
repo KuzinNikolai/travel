@@ -119,7 +119,7 @@ def get_translation_entry(entry: dict):
     }
 
     for name, value in entry["fields"].items():
-        if not name in exclude_fields and "_en" in name:
+        if not name in exclude_fields and not "_en" in name:
             data["fields"][name] = value
     return data
 
