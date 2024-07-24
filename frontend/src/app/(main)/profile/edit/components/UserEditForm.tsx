@@ -11,7 +11,6 @@ import { Typography } from "@share/ui/Text"
 import { useEffect, type FC } from "react"
 import { useForm } from "react-hook-form"
 import { UserInfoItem } from "./UserInfoItem"
-import { logger } from "@share/lib"
 
 interface UserEditFormProps {
 	user: User
@@ -30,8 +29,8 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 
 	const form = useForm<EditUser & { full_name: string }>({
 		defaultValues: {
-			first_name: "",
-			last_name: "",
+			first_name: user.first_name || "",
+			last_name: user.last_name || "",
 			full_name: `${user.first_name || ""} ${user.last_name || ""}`.trim(),
 		},
 		mode: "all",
@@ -147,6 +146,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 					<Button
 						className='mt-10 w-full'
 						type='submit'
+						disabled={!form.formState.isValid || !form.formState.isDirty || isPending}
 					>
 						Сохранить
 					</Button>

@@ -79,8 +79,9 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 					<Button
 						variant='ghost'
 						className='w-full justify-start rounded-none py-6 text-primary-400'
+						asChild
 					>
-						Стать гидом
+						<Link href="/profile/become-guide">Стать гидом</Link>
 					</Button>
 				</FieldItem>
 			)}
