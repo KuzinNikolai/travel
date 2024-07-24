@@ -116,7 +116,7 @@ class TourListView(generics.ListAPIView):
 class TourCreateView(generics.CreateAPIView):
     queryset = Tour.objects.all()
     serializer_class = TourCreateSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsStaffUser]
     
     def perform_create(self, serializer):
         tour = serializer.save()
