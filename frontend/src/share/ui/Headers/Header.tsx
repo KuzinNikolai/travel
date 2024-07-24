@@ -13,7 +13,13 @@ export const Header: FC<HeaderProps> = ({ title, action }) => {
 		<BaseHeader
 			leftColumn={<ButtonBack />}
 			centerColumn={
-				<Typography variant="h4" as="h1">{title}</Typography>
+				<Typography
+					variant='h4'
+					as='h1'
+					textAlign='center'
+				>
+					{title}
+				</Typography>
 			}
 			rightColumn={action}
 		/>

@@ -18,7 +18,7 @@ interface UploadAvatarProps {
 	}
 }
 
-export const UploadImage = forwardRef<HTMLInputElement, UploadAvatarProps>(({ size, isPending, ...props }) => {
+export const UploadImage = forwardRef<HTMLInputElement, UploadAvatarProps>(({ size, isPending, ...props }, ref) => {
 	const _size = size || { width: 40, height: 40 }
 
 	const [imgPath, setImgPath] = useState(typeof props.value === "string" ? props.value : null)
@@ -64,6 +64,7 @@ export const UploadImage = forwardRef<HTMLInputElement, UploadAvatarProps>(({ si
 				id={props.name}
 				type='file'
 				name={props.name}
+				ref={ref}
 				accept='image/png, image/jpeg, image/webp'
 				multiple={false}
 				className='sr-only absolute top-0 right-0 bottom-0 left-0'

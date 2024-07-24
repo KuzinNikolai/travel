@@ -1,3 +1,5 @@
+export * from "./api/updateUser"
+
 export * from "./consts"
 
 export * from "./model/useUser"
