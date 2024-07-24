@@ -189,18 +189,9 @@ class TourListSerializer(serializers.ModelSerializer):
         fields = ('id', 'country', 'country_slug', 'city', 'city_slug', 'title', 'meta_desc', 'description', 'duration', 'type', 'slug', 'cat', 'tags', 'min_price', 'photo','photos', 'photo_alt', 'average_rating', 'currency_prefix', 'is_published')
         
 
-class TourCreateSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(slug_field='translations__tag', queryset=TagTour.objects.all(), many=True)
-    cat = serializers.SlugRelatedField(slug_field='translations__name', queryset=Category.objects.all())
-    type = serializers.SlugRelatedField(slug_field='translations__name', queryset=Type.objects.all())
-    lang = serializers.SlugRelatedField(slug_field='translations__name', queryset=LangTour.objects.all(), many=True)
-    transfer = serializers.SlugRelatedField(slug_field='translations__name', queryset=Transfer.objects.all(), many=True)
-    faqs = serializers.SlugRelatedField(slug_field='translations__question', queryset=FAQ.objects.all(), many=True)
+class TourCreateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     # photos = PhotoSerializer(many=True, required=False)
-    included = serializers.SlugRelatedField(slug_field='translations__name', queryset=Included.objects.all(), many=True)
-    notincluded = serializers.SlugRelatedField(slug_field='translations__name', queryset=NotIncluded.objects.all(), many=True)
-    take = serializers.SlugRelatedField(slug_field='translations__name', queryset=Take.objects.all(), many=True)
     photo = serializers.ImageField(required=False)
     author = UserSerializer(read_only=True)
     translations = TranslatedFieldsField(shared_model=Tour)
@@ -215,49 +206,7 @@ class TourCreateSerializer(serializers.ModelSerializer):
         model = Tour
         fields = ('id','country', 'city', 'title', 'slug', 'duration', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs', 'photos', 'author', 'translations')
         
-        
-    def create(self, validated_data):
-        request = self.context.get('request')
-        if request.user.is_staff != True:
-            raise PermissionDenied("You do not have permission to create this tour.")
-        
-        # photos_data = self.context['request'].FILES.getlist('photos')
-        photos_data = validated_data.pop('photos', [])
-        
-        tags_data = validated_data.pop('tags', [])
-        included_data = validated_data.pop('included', [])
-        notincluded_data = validated_data.pop('notincluded', [])
-        take_data = validated_data.pop('take', [])
-        langs_data = validated_data.pop('lang', [])
-        transfers_data = validated_data.pop('transfer', [])
-        faqs_data = validated_data.pop('faqs', [])
-        programs_data = validated_data.pop('programs', [])
-
-        validated_data['author'] = self.context['request'].user
-        category = validated_data.pop('cat', None)
-        type_data = validated_data.pop('type', None)
-        if not category:
-            raise serializers.ValidationError({"cat": "This field is required."})
-
-        tour = Tour.objects.create(cat=category, type=type_data, **validated_data)
-        tour.tags.set(tags_data)
-        tour.included.set(included_data)
-        tour.notincluded.set(notincluded_data)
-        tour.take.set(take_data)
-        tour.lang.set(langs_data)
-        tour.transfer.set(transfers_data)
-        tour.faqs.set(faqs_data)
-        
-        for program_data in programs_data:
-            Programm.objects.create(tour=tour, **program_data)
-        
-        for photo_data in photos_data:
-            Photo.objects.create(tour=tour, image=photo_data )
-        
-        return tour   
-
 # Добавление туров конец       
-
 
 class TourDetailSerializer(serializers.ModelSerializer):
 
@@ -319,17 +268,7 @@ class TourDetailSerializer(serializers.ModelSerializer):
 # Подробная информация о туре и возможность редактиров конец       
 
 class TourUpdateSerializer(TranslatableModelSerializer):
-    tags = serializers.SlugRelatedField(slug_field='translations__tag', queryset=TagTour.objects.all(), many=True)
-    cat = serializers.SlugRelatedField(slug_field='translations__name', queryset=Category.objects.all())
-    type = serializers.SlugRelatedField(slug_field='translations__name', queryset=Type.objects.all())
-    lang = serializers.SlugRelatedField(slug_field='translations__name', queryset=LangTour.objects.all(), many=True)
-    transfer = serializers.SlugRelatedField(slug_field='translations__name', queryset=Transfer.objects.all(), many=True)
-    faqs = serializers.SlugRelatedField(slug_field='translations__question', queryset=FAQ.objects.all(), many=True)
-    included = serializers.SlugRelatedField(slug_field='translations__name', queryset=Included.objects.all(), many=True)
-    notincluded = serializers.SlugRelatedField(slug_field='translations__name', queryset=NotIncluded.objects.all(), many=True)
-    take = serializers.SlugRelatedField(slug_field='translations__name', queryset=Take.objects.all(), many=True)
     programs = ProgramSerializer(many=True, required=False)
-    # photos = PhotoSerializer(many=True, required=False)
     photos = serializers.ListField(
         child=serializers.ImageField(allow_empty_file=False, use_url=False),
         write_only=True,
@@ -350,80 +289,8 @@ class TourUpdateSerializer(TranslatableModelSerializer):
         if request.user != instance.author :
             if not request.user.is_superuser :
                 raise PermissionDenied("You do not have permission to edit this tour.")
-        
-        tags_data = validated_data.pop('tags', [])
-        included_data = validated_data.pop('included', [])
-        notincluded_data = validated_data.pop('notincluded', [])
-        take_data = validated_data.pop('take', [])
-        langs_data = validated_data.pop('lang', [])
-        transfers_data = validated_data.pop('transfer', [])
-        faqs_data = validated_data.pop('faqs', [])
-        programs_data = validated_data.pop('programs', [])
-        photos_data = validated_data.pop('photos', [])
-        category = validated_data.pop('cat', None)
-        type_data = validated_data.pop('type', None)
 
-        # Update fields of the Tour instance
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        
-        if category:
-            instance.cat = category
-        if type_data:
-            instance.type = type_data
-
-        instance.save()
-
-        # Update ManyToMany fields
-        instance.tags.set(tags_data)
-        instance.included.set(included_data)
-        instance.notincluded.set(notincluded_data)
-        instance.take.set(take_data)
-        instance.lang.set(langs_data)
-        instance.transfer.set(transfers_data)
-        instance.faqs.set(faqs_data)
-
-        # Update nested programs
-        if programs_data:
-            existing_programs = {program.id: program for program in instance.programs.all()}
-            updated_programs = []
-
-            for program_data in programs_data:
-                program_id = program_data.get('id', None)
-                if program_id:
-                    if program_id in existing_programs:
-                        program = existing_programs.pop(program_id)
-                        program.title = program_data.get('title', program.title)
-                        program.duration = program_data.get('duration', program.duration)
-                        program.description = program_data.get('description', program.description)
-                        program.adult_price = program_data.get('adult_price', program.adult_price)
-                        program.child_price = program_data.get('child_price', program.child_price)
-                        program.save()
-                        updated_programs.append(program)
-                else:
-                    new_program = Programm.objects.create(tour=instance, **program_data)
-                    updated_programs.append(new_program)
-
-            for program in existing_programs.values():
-                program.delete()
-
-        
-        if photos_data:
-            existing_photos = {photo.id: photo for photo in instance.photos.all()}
-
-            # Add new photos and update existing ones
-            new_photo_ids = []
-            for photo_file in photos_data:
-                # Create new photo
-                new_photo = Photo.objects.create(tour=instance, image=photo_file)
-                new_photo_ids.append(new_photo.id)
-
-            # Delete old photos that are not in the new photos list
-            for photo in instance.photos.all():
-                if photo.id not in new_photo_ids:
-                    photo.delete()
-
-        return instance
+        return super().update(instance, validated_data)
         
 
 

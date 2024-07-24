@@ -13,8 +13,7 @@ from users.views import *
 urlpatterns = [
     path('api/v1/', include('city.urls')),
     path('api/v1/en/', include('city.urls')),
-    path('', include('tour.urls')), 
-    
+    path('api/v1/', include('tour.urls')),
 
     path('api/v1/orders/', OrderCreateAPIView.as_view(), name='order-create'),
     path('api/v1/orders/<int:pk>/edit/', OrderUpdateView.as_view(), name='order-edit'),
@@ -39,7 +38,7 @@ translatable_urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     
     path('api/v1/', include('users.translatable_urls')),
-    path('api/v1/', include('tour.urls')),
+    path('api/v1/', include('tour.translatable_urls')),
     path('api/v1/', include('country.urls')),
     path('api/v1/', include('contacts.urls')),
     path('api/v1/cities/', include('city.urls')),
