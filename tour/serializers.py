@@ -124,10 +124,9 @@ class ProgramSerializer(serializers.ModelSerializer):
         
         
 class PhotoSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(max_length=None, use_url=True)
 
     class Meta:
-        model = Photo
+        model = TourPhoto
         fields = '__all__'
         
 
@@ -191,13 +190,11 @@ class TourListSerializer(serializers.ModelSerializer):
 
 class TourCreateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
-    # photos = PhotoSerializer(many=True, required=False)
     photo = serializers.ImageField(required=False)
     author = UserSerializer(read_only=True)
     translations = TranslatedFieldsField(shared_model=Tour)
-    
     photos = serializers.ListField(
-        child=serializers.ImageField(allow_empty_file=False, use_url=False),
+        child=serializers.IntegerField(),
         write_only=True,
         required=False
     )
@@ -205,11 +202,35 @@ class TourCreateSerializer(TranslatableModelSerializer):
     class Meta:
         model = Tour
         fields = ('id','country', 'city', 'title', 'slug', 'duration', 'description', 'included', 'notincluded', 'take', 'cat', 'tags', 'type', 'children_possible', 'what_age_child_free', 'pregnant_possible', 'lang', 'transfer', 'photo', 'faqs', 'programs', 'photos', 'author', 'translations')
+    
+    def create(self, validated_data):
+        photos = validated_data.pop("photos", [])
+        included_data = validated_data.pop("included", [])
+        notincluded_data = validated_data.pop("notincluded", [])
+        take_data = validated_data.pop("take", [])
+        transfers_data = validated_data.pop('transfer', [])
+        tags_data = validated_data.pop('tags', [])
+        langs_data = validated_data.pop('lang', [])
+        faqs_data = validated_data.pop('faqs', [])
+        
+        tour = Tour.objects.create(**validated_data)
+        tour.included.set(included_data)
+        tour.notincluded.set(notincluded_data)
+        tour.take.set(take_data)
+        tour.transfer.set(transfers_data)
+        tour.tags.set(tags_data)
+        tour.lang.set(langs_data)
+        tour.faqs.set(faqs_data)
+
+        for photo_id in photos:
+            photo = UploadFile.objects.get(id=photo_id)
+            TourPhoto.objects.create(tour=tour, image=photo)
+
+        return tour
         
 # Добавление туров конец       
 
-class TourDetailSerializer(serializers.ModelSerializer):
-
+class TourDetailSerializer(TranslatableModelSerializer):
     country = serializers.SlugRelatedField(slug_field='name', read_only=True)
     country_slug = serializers.SlugRelatedField(slug_field='slug', source='country', read_only=True)
     
@@ -233,14 +254,10 @@ class TourDetailSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True)
     tour_link = serializers.SerializerMethodField()
     photos = serializers.SerializerMethodField()
+    min_price = serializers.SerializerMethodField()
 
     def get_photos(self, obj):
-        request = self.context.get('request')
-        if request is not None:
-            return [request.build_absolute_uri(photo.image.url) for photo in obj.photos.all()]
-        return [photo.image.url for photo in obj.photos.all()]
-
-    min_price = serializers.SerializerMethodField()
+        return [photo.image.file.url for photo in obj.photos.all()]
 
     def get_min_price(self, tour):
         try:
@@ -270,7 +287,7 @@ class TourDetailSerializer(serializers.ModelSerializer):
 class TourUpdateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     photos = serializers.ListField(
-        child=serializers.ImageField(allow_empty_file=False, use_url=False),
+        child=serializers.IntegerField(),
         write_only=True,
         required=False
     )
@@ -290,6 +307,12 @@ class TourUpdateSerializer(TranslatableModelSerializer):
             if not request.user.is_superuser :
                 raise PermissionDenied("You do not have permission to edit this tour.")
 
+        photos = validated_data.pop("photos", None)
+        if photos is not None:
+            instance.photos.all().delete()
+            for photo_id in photos:
+                photo = UploadFile.objects.get(id=photo_id)
+                TourPhoto.objects.create(tour=instance,image=photo)
         return super().update(instance, validated_data)
         
 

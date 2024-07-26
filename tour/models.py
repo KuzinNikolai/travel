@@ -85,13 +85,6 @@ class Tour(TranslatableModel):
         verbose_name_plural = "Экскурсии"
 
 
-def get_upload_path(instance, filename):
-    city_id = instance.tour.city.id if instance.tour.city else "no_city_id"
-    tour_id = instance.tour.id if instance.tour else "no_tour_id"
-    filename = filename.encode("utf-8").decode("utf-8")
-    return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
-
-
 class Category(TranslatableModel):
     translations = TranslatedFields(
         name = models.CharField(max_length=100, db_index=True),
@@ -245,14 +238,6 @@ class LangTour(TranslatableModel):
     class Meta:
         verbose_name = "язык"
         verbose_name_plural = "Языки"
-
-
-class Photo(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="photos")
-    image = models.ImageField(upload_to=get_upload_path)
-
-    def __str__(self):
-        return self.tour.title
 
 
 class FAQ(TranslatableModel):
@@ -422,3 +407,31 @@ class NeedHelp(models.Model):
 
     def __str__(self):
         return self.full_name
+
+def get_upload_path(instance, filename):
+    # city_id = instance.tour.city.id if instance.tour.city else "no_city_id"
+    # tour_id = instance.tour.id if instance.tour else "no_tour_id"
+    filename = filename.encode("utf-8").decode("utf-8")
+    # return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
+    return os.path.join("uploads", filename)
+
+class TourPhoto(models.Model):
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="photos")
+    image = models.ForeignKey("UploadFile", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tour.title
+
+
+class UploadFile(models.Model):
+    file = models.FileField(upload_to=get_upload_path)
+
+    def __str__(self):
+        return f"{self.file}"
+    
+    class Meta:
+        verbose_name = "UploadFile"
+        verbose_name_plural = "UploadFiles"
+        ordering = ["-id"]
+
+

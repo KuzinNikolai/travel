@@ -43,9 +43,9 @@ class TagTourAdmin(TranslatableAdmin):
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("tag",)}
 
-class PhotoInline(admin.TabularInline):
-    model = Photo
-    extra = 1
+# class PhotoInline(admin.TabularInline):
+#     model = Photo
+#     extra = 1
 
 
 class ProgrammInline(TranslatableInlineModelAdmin, admin.StackedInline):
@@ -54,7 +54,7 @@ class ProgrammInline(TranslatableInlineModelAdmin, admin.StackedInline):
 
 
 class TourAdmin(TranslatableAdmin):
-    inlines = [ProgrammInline, PhotoInline]  # Объедините оба включения в одном списке
+    inlines = [ProgrammInline]  # Объедините оба включения в одном списке
     list_display = ("id", "title", "time_create", "author", "photo", "is_published")
     list_display_links = ("id", "title", "author")
     search_fields = ("title",)
@@ -146,6 +146,18 @@ class AreaAdmin(TranslatableAdmin):
     search_fields = ("name",)
 
 
+class UploadFileAdmin(admin.ModelAdmin):
+    list_display = ("id", "file")
+
+class TourPhotoAdmin(admin.ModelAdmin):
+    list_display = ("id", "tour_id")
+
+class ProgramAdmin(TranslatableAdmin):
+    list_display = ("id", "title") 
+
+admin.site.register(Programm, ProgramAdmin)
+admin.site.register(TourPhoto, TourPhotoAdmin)
+admin.site.register(UploadFile, UploadFileAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(City, CityAdmin)
