@@ -52,16 +52,6 @@ class CityDetailSerializer(serializers.ModelSerializer):
         return city.tours.count()
 
 
-# Сериализатор для английской версии города
-class CityDetailSerializerEn(serializers.ModelSerializer):
-
-    tours = TourListSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = City
-        fields = ('id', 'name_en', 'title_en', 'slug', 'description_en', 'tours', 'photo')        
-
-
 # Вывод category со списком туров в нем   
 class CategoryDetailSerializer(serializers.ModelSerializer):
 

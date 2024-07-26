@@ -11,8 +11,6 @@ from users.views import *
 
 
 urlpatterns = [
-    path('api/v1/', include('city.urls')),
-    path('api/v1/en/', include('city.urls')),
     path('api/v1/', include('tour.urls')),
 
     path('api/v1/orders/', OrderCreateAPIView.as_view(), name='order-create'),
