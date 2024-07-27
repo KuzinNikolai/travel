@@ -68,6 +68,7 @@ class Tour(TranslatableModel):
     average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     promotions = models.BooleanField(default=False, null=True)
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None)
+    photos = models.ManyToManyField("UploadFile")
     objects = CustomQuerySet.as_manager()
 
     published = PublishedManager()
@@ -414,13 +415,6 @@ def get_upload_path(instance, filename):
     filename = filename.encode("utf-8").decode("utf-8")
     # return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
     return os.path.join("uploads", filename)
-
-class TourPhoto(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="photos")
-    image = models.ForeignKey("UploadFile", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.tour.title
 
 
 class UploadFile(models.Model):

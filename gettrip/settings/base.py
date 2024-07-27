@@ -27,7 +27,6 @@ SECRET_KEY = "django-insecure-1l*qd0e6oyv@88m06fpx7r5hx)1vq%0$8t-o#bubn=%j^v243o
 DEBUG = True
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,7 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "djoser",
     "parler",
-    "rosetta"
+    "rosetta",
 ]
 
 MIDDLEWARE = [
@@ -323,10 +322,12 @@ PARLER_LANGUAGES = {
         },  # Spanish
     ),
     "default": {
-        "fallbacks": ["en"],
+        "fallbacks": [],
         "hide_untranslated": False,
     },
 }
 
 SITE_URL = "https://beta.gettrip.co"
 DOMAIN = "beta.gettrip.co"
+
+ADMIN_EMAIL = "nikolai11@gmail.com"

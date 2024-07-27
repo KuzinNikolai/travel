@@ -149,14 +149,11 @@ class AreaAdmin(TranslatableAdmin):
 class UploadFileAdmin(admin.ModelAdmin):
     list_display = ("id", "file")
 
-class TourPhotoAdmin(admin.ModelAdmin):
-    list_display = ("id", "tour_id")
 
 class ProgramAdmin(TranslatableAdmin):
     list_display = ("id", "title") 
 
 admin.site.register(Programm, ProgramAdmin)
-admin.site.register(TourPhoto, TourPhotoAdmin)
 admin.site.register(UploadFile, UploadFileAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(Country, CountryAdmin)
