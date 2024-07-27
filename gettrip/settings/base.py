@@ -322,7 +322,7 @@ PARLER_LANGUAGES = {
         },  # Spanish
     ),
     "default": {
-        "fallbacks": [],
+        "fallbacks": ["en", "ru", "es"],
         "hide_untranslated": False,
     },
 }
