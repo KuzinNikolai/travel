@@ -13,27 +13,30 @@ class CategoryAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    
+
     def get_prepopulated_fields(self, request, obj=None):
-    # # can't use `prepopulated_fields = ..` because it breaks the admin validation
-    # # for translated fields. This is the official django-parler workaround.
+        # # can't use `prepopulated_fields = ..` because it breaks the admin validation
+        # # for translated fields. This is the official django-parler workaround.
         return {"slug": ("name",)}
+
 
 class CountryAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    
+
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("name",)}
+
 
 class CityAdmin(TranslatableAdmin):
     list_display = ("id", "name", "slug", "is_published")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    
+
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("name",)}
+
 
 class TagTourAdmin(TranslatableAdmin):
     list_display = ("id", "tag", "slug")
@@ -43,9 +46,10 @@ class TagTourAdmin(TranslatableAdmin):
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("tag",)}
 
-# class PhotoInline(admin.TabularInline):
-#     model = Photo
-#     extra = 1
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    extra = 1
 
 
 class ProgrammInline(TranslatableInlineModelAdmin, admin.StackedInline):
@@ -54,7 +58,7 @@ class ProgrammInline(TranslatableInlineModelAdmin, admin.StackedInline):
 
 
 class TourAdmin(TranslatableAdmin):
-    inlines = [ProgrammInline]  # Объедините оба включения в одном списке
+    inlines = [ProgrammInline, PhotoInline]  # Объедините оба включения в одном списке
     list_display = ("id", "title", "time_create", "author", "photo", "is_published")
     list_display_links = ("id", "title", "author")
     search_fields = ("title",)
@@ -128,9 +132,10 @@ class StaticPageAdmin(TranslatableAdmin):
     list_display = ("id", "title", "slug")
     list_display_links = ("id", "title")
     search_fields = ("title",)
-    
+
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("title",)}
+
 
 class HotelAdmin(TranslatableAdmin):
     # fields = ["name", "area", "address", "phone_number", "country"]
@@ -146,15 +151,16 @@ class AreaAdmin(TranslatableAdmin):
     search_fields = ("name",)
 
 
-class UploadFileAdmin(admin.ModelAdmin):
-    list_display = ("id", "file")
+class TourPhotoAdmin(admin.ModelAdmin):
+    list_display = ("id", "tour_id")
 
 
 class ProgramAdmin(TranslatableAdmin):
-    list_display = ("id", "title") 
+    list_display = ("id", "title")
+
 
 admin.site.register(Programm, ProgramAdmin)
-admin.site.register(UploadFile, UploadFileAdmin)
+admin.site.register(Photo, TourPhotoAdmin)
 admin.site.register(Tour, TourAdmin)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(City, CityAdmin)

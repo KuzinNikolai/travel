@@ -372,6 +372,7 @@ class TourUpdateSerializer(TranslatableModelSerializer):
             "author",
             "translations",
         )
+        read_only_fields = ("photos",)
         # exclude = ('is_published',)
 
     def update(self, instance, validated_data):
@@ -384,7 +385,10 @@ class TourUpdateSerializer(TranslatableModelSerializer):
         return super().update(instance, validated_data)
 
     def get_photos_urls(self, obj):
-        return obj.photos.all().values_list("file", flat=True)
+        results = []
+        for photo in obj.photos.all():
+            results.append(photo.image.url)
+        return results
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
@@ -553,7 +557,21 @@ class WishlistSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "tour"]
 
 
-class FileSerializer(serializers.ModelSerializer):
+class PhotoSerializer(serializers.ModelSerializer):
+    photo_url = serializers.SerializerMethodField()
+
     class Meta:
-        model = UploadFile
-        fields = ["id", "file"]
+        model = Photo
+        fields = "__all__"
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        tour = validated_data["tour"]
+
+        if tour.author != user:
+            raise PermissionDenied("You don't have permission to add phot to this tour.")
+
+        return super().create(validated_data)
+
+    def get_photo_url(self, obj):
+        return obj.image.url

@@ -481,13 +481,30 @@ class RemoveFromWishlistView(generics.DestroyAPIView):
 # VIEWS ADD TO WISHLIST END ------------------------------
 
 
-class FileApiView(APIView):
-    queryset = UploadFile.objects.all()
-    serializer_class = FileSerializer
-    permission_classes = [IsAuthenticated, IsStaffUser]
+class PhotoApiView(generics.GenericAPIView):
+    permissions = [IsAuthenticated]
+    queyrset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return self.queyrset.filter(tour__author=user)
+
+    def check_photo_permission(self, obj):
+        if obj.tour.author != self.request.user:
+            raise PermissionDenied("You don't have permission!")
 
     def post(self, request):
-        ser = self.serializer_class(data=request.data)
+        data = request.data
+        ser = self.serializer_class(data=data, context={"request": request})
         if ser.is_valid(raise_exception=True):
             ser.save()
-        return Response(ser.data, status=status.HTTP_201_CREATED)
+        return Response(ser.data, status=status.HTTP_200_OK)
+
+    def delete(self, request):
+        pk = self.request.query_params["id"]
+        photo = Photo.objects.get(id=pk)
+        self.check_photo_permission(photo)
+        photo.delete()
+
+        return Response(data={"message": "ok"}, status=status.HTTP_200_OK)
