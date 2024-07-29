@@ -90,8 +90,8 @@ tr_models = {
     },
     "users.staticpage": {
         "exclude_fields": [
-            "title",
-            "content",
+            "image",
+            "slug",
         ]
     },
 }
