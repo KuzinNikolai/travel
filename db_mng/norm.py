@@ -79,11 +79,7 @@ tr_models = {
             "country",
             "slug",
             "photo",
-            "is_published" "title_en",
-            "meta_desc_en",
-            "meta_keywords_en",
-            "name_en",
-            "description_en",
+            "is_published" 
         ]
     },
     "country.country": {"exclude_fields": ["slug", "currency_prefix", "photo"]},
