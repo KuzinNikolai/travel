@@ -74,14 +74,7 @@ tr_models = {
         ]
     },
     "tour.reviews": {"exclude_fields": ["user", "tour", "rating", "created_date"]},
-    "city.city": {
-        "exclude_fields": [
-            "country",
-            "slug",
-            "photo",
-            "is_published" 
-        ]
-    },
+    "city.city": {"exclude_fields": ["country", "slug", "photo", "is_published"]},
     "country.country": {"exclude_fields": ["slug", "currency_prefix", "photo"]},
     "contacts.support": {
         "exclude_fields": [
@@ -93,6 +86,12 @@ tr_models = {
             "link_facebook",
             "link_instagram",
             "link_youtube",
+        ]
+    },
+    "users.staticpage": {
+        "exclude_fields": [
+            "title",
+            "content",
         ]
     },
 }
