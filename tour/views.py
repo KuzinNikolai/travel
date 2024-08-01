@@ -159,6 +159,30 @@ class TourCreateView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+    def get(self, request, *args, **kwargs): 
+        tags = TagTour.objects.values_list('translations__tag', flat=True) 
+        cat = Category.objects.values_list('translations__name', flat=True) 
+        type = Type.objects.values_list('translations__name', flat=True) 
+        langs = LangTour.objects.values_list('translations__name', flat=True) 
+        transfers = Transfer.objects.values_list('translations__name', flat=True) 
+        included = Included.objects.values_list('translations__name', flat=True) 
+        notincluded = NotIncluded.objects.values_list('translations__name', flat=True) 
+        take = Take.objects.values_list('translations__name', flat=True) 
+        faqs = FAQ.objects.values_list('translations__question', flat=True) 
+ 
+        data = { 
+            "tags": list(tags), 
+            "cat": list(cat), 
+            "type": list(type), 
+            "langs": list(langs), 
+            "transfers": list(transfers), 
+            "included": list(included), 
+            "notincluded": list(notincluded), 
+            "take": list(take), 
+            "faqs": list(faqs), 
+            } 
+        return Response(data, status=status.HTTP_200_OK) 
+
 
 # Подробная информация о туре
 class TourDetailView(generics.RetrieveAPIView):
