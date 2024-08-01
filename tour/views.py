@@ -482,7 +482,7 @@ class RemoveFromWishlistView(generics.DestroyAPIView):
 
 
 class PhotoApiView(generics.GenericAPIView):
-    permissions = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queyrset = Photo.objects.all()
     serializer_class = PhotoSerializer
 
@@ -508,3 +508,47 @@ class PhotoApiView(generics.GenericAPIView):
         photo.delete()
 
         return Response(data={"message": "ok"}, status=status.HTTP_200_OK)
+
+
+class OptionsApiView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        serializer = OptionsSerializer({})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProgramApiView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Programm.objects.all()
+    serializer_class = ProgramCreateSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return self.queryset.filter(tour__author=user)
+
+    def check_program_permission(self, obj):
+        if obj.tour.author != self.request.user:
+            raise PermissionDenied("You don't have permission!")
+
+    def post(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data, context={"request": request})
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def delete(self, request):
+        id = self.request.query_params["id"]
+        program = Programm.objects.get(id=id)
+        self.check_program_permission(program)
+        program.delete()
+        return Response(data={"message": "ok"}, status=status.HTTP_200_OK)
+    
+    def get(self, request):
+        tour_id = self.request.query_params.get("tour", "")
+        queryset = self.get_queryset()
+        if tour_id:
+            queryset = queryset.filter(tour=tour_id)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

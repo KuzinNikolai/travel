@@ -570,6 +570,80 @@ class PhotoSerializer(serializers.ModelSerializer):
         tour = validated_data["tour"]
 
         if tour.author != user:
-            raise PermissionDenied("You don't have permission to add phot to this tour.")
+            raise PermissionDenied("You don't have permission to add photo to this tour.")
+
+        return super().create(validated_data)
+
+class OptionsSerializer(serializers.Serializer):
+    tags = serializers.SerializerMethodField()
+    cats = serializers.SerializerMethodField()
+    types = serializers.SerializerMethodField()
+    langs = serializers.SerializerMethodField()
+    transfers = serializers.SerializerMethodField()
+    included = serializers.SerializerMethodField()
+    notincluded = serializers.SerializerMethodField()
+    takes = serializers.SerializerMethodField()
+    faqs = serializers.SerializerMethodField()
+    
+    def get_tags(self, obj):
+        tags = TagTour.objects.all()
+        return [ {"id": tag.id, "tag": tag.tag} for tag in tags] 
+    
+    def get_cats(self, obj):
+        cats = Category.objects.all()
+        return [{"id": cat.id, "name": cat.name} for cat in cats]
+    
+    def get_types(self, obj):
+        types = Type.objects.all()
+        return [{"id": type.id, "name": type.name} for type in types]
+
+    def get_langs(self, obj):
+        langs = LangTour.objects.all()
+        return [{"id": lang.id, "name": lang.name} for lang in langs]
+
+    def get_transfers(self, obj):
+        transfers = Transfer.objects.all()
+        return [{"id": transfer.id, "name": transfer.name} for transfer in transfers]
+    
+    def get_included(self, obj):
+        included = Included.objects.all()
+        return [{"id": inc.id, "name": inc.name} for inc in included] 
+    
+    def get_notincluded(self, obj):
+        not_included = NotIncluded.objects.all()
+        return [{"id": item.id, "name": item.name} for item in not_included]  
+    
+    def get_takes(self, obj):
+        takes = Take.objects.all()
+        return [{"id": take.id, "name": take.name} for take in takes]
+    
+    def get_faqs(self, obj):
+        faqs = FAQ.objects.all()
+        return [{"id": faq.id, "question": faq.question} for faq in faqs]
+    
+class ProgramCreateSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Programm)
+    class Meta:
+        model = Programm
+        fields = [
+            "id",
+            "tour",
+            "title",
+            "type",
+            "group_size",
+            "duration",
+            "description",
+            "adult_price",
+            "child_price",
+            "individual_price",
+            "translations"
+        ]
+    
+    def create(self, validated_data):
+        user = self.context["request"].user
+        tour = validated_data["tour"]
+
+        if tour.author != user:
+            raise PermissionDenied("You don't have permission to add program to this tour.")
 
         return super().create(validated_data)

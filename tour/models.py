@@ -396,11 +396,10 @@ class NeedHelp(models.Model):
 
 
 def get_upload_path(instance, filename):
-    # city_id = instance.tour.city.id if instance.tour.city else "no_city_id"
-    # tour_id = instance.tour.id if instance.tour else "no_tour_id"
+    city_id = instance.tour.city.id if instance.tour.city else "no_city_id"
+    tour_id = instance.tour.id if instance.tour else "no_tour_id"
     filename = filename.encode("utf-8").decode("utf-8")
-    # return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
-    return os.path.join("uploads", filename)
+    return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
 
 
 class Photo(models.Model):
