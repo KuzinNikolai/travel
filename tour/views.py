@@ -514,8 +514,28 @@ class OptionsApiView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
+        serializer_methods = {
+            "tags": "get_tags",
+            "cats": "get_cats",
+            "types": "get_types",
+            "langs": "get_langs",
+            "transfers": "get_transfers",
+            "included": "get_included",
+            "notincluded": "get_notincluded",
+            "takes": "get_takes",
+            "faqs": "get_faqs"
+        }
+        data = {}
         serializer = OptionsSerializer({})
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if not request.query_params:
+            data = serializer.data
+        else:
+            for param in request.query_params:
+                method_name = serializer_methods.get(param, None)
+                if method_name:
+                    data[param] = getattr(serializer, method_name)(None)
+
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class ProgramApiView(generics.GenericAPIView):
