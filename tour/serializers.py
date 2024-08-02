@@ -97,9 +97,7 @@ class FAQSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(TranslatableModelSerializer):
     user_full_name = serializers.SerializerMethodField()
-    user_photo = (
-        serializers.SerializerMethodField()
-    )  # Добавляем поле для вывода полного имени пользователя
+    user_photo = serializers.SerializerMethodField()  # Добавляем поле для вывода полного имени пользователя
     translations = TranslatedFields(shared_model=Reviews)
 
     class Meta:
@@ -159,14 +157,10 @@ class TourListSerializer(serializers.ModelSerializer):
         return tour.country.currency_prefix
 
     country = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    country_slug = serializers.SlugRelatedField(
-        slug_field="slug", source="country", read_only=True
-    )
+    country_slug = serializers.SlugRelatedField(slug_field="slug", source="country", read_only=True)
 
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    city_slug = serializers.SlugRelatedField(
-        slug_field="slug", source="city", read_only=True
-    )
+    city_slug = serializers.SlugRelatedField(slug_field="slug", source="city", read_only=True)
 
     photo_alt = serializers.SerializerMethodField()
     currency_prefix = serializers.SerializerMethodField()
@@ -294,14 +288,10 @@ class TourCreateSerializer(TranslatableModelSerializer):
 
 class TourDetailSerializer(TranslatableModelSerializer):
     country = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    country_slug = serializers.SlugRelatedField(
-        slug_field="slug", source="country", read_only=True
-    )
+    country_slug = serializers.SlugRelatedField(slug_field="slug", source="country", read_only=True)
 
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    city_slug = serializers.SlugRelatedField(
-        slug_field="slug", source="city", read_only=True
-    )
+    city_slug = serializers.SlugRelatedField(slug_field="slug", source="city", read_only=True)
 
     photo_alt = serializers.SerializerMethodField()
 
@@ -309,9 +299,7 @@ class TourDetailSerializer(TranslatableModelSerializer):
     cat = serializers.SlugRelatedField(slug_field="name", read_only=True)
     type = serializers.SlugRelatedField(slug_field="name", read_only=True)
     lang = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
-    transfer = serializers.SlugRelatedField(
-        slug_field="name", read_only=True, many=True
-    )
+    transfer = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
     faqs = FaqSerializer(many=True)
     programs = ProgramSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(default=0.00)
@@ -506,13 +494,9 @@ class OrderSerializer(TranslatableModelSerializer):
 
     def validate(self, data):
         if not data.get("email"):
-            raise serializers.ValidationError(
-                {"email": "Поле email обязательно для заполнения."}
-            )
+            raise serializers.ValidationError({"email": "Поле email обязательно для заполнения."})
         if not data.get("phone"):
-            raise serializers.ValidationError(
-                {"phone": "Поле phone обязательно для заполнения."}
-            )
+            raise serializers.ValidationError({"phone": "Поле phone обязательно для заполнения."})
         return data
 
     def __init__(self, *args, **kwargs):
@@ -524,12 +508,8 @@ class OrderSerializer(TranslatableModelSerializer):
 
 
 class HelpSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(), required=False, allow_null=True
-    )
-    tour = serializers.PrimaryKeyRelatedField(
-        queryset=Tour.objects.all(), required=False, allow_null=True
-    )
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False, allow_null=True)
+    tour = serializers.PrimaryKeyRelatedField(queryset=Tour.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = NeedHelp
@@ -544,19 +524,13 @@ class HelpSerializer(serializers.ModelSerializer):
         full_name = data.get("full_name")
 
         if not email:
-            raise serializers.ValidationError(
-                {"email": "Это поле обязательно для заполнения."}
-            )
+            raise serializers.ValidationError({"email": "Это поле обязательно для заполнения."})
 
         if not phone:
-            raise serializers.ValidationError(
-                {"phone": "Это поле обязательно для заполнения."}
-            )
+            raise serializers.ValidationError({"phone": "Это поле обязательно для заполнения."})
 
         if not full_name:
-            raise serializers.ValidationError(
-                {"full_name": "Поле имя обязательно для заполнения."}
-            )
+            raise serializers.ValidationError({"full_name": "Поле имя обязательно для заполнения."})
 
         return data
 
@@ -600,33 +574,31 @@ class PhotoSerializer(serializers.ModelSerializer):
         tour = validated_data["tour"]
 
         if tour.author != user:
-            raise PermissionDenied(
-                "You don't have permission to add photo to this tour."
-            )
+            raise PermissionDenied("You don't have permission to add photo to this tour.")
 
         return super().create(validated_data)
 
 
 class OptionsSerializer(serializers.Serializer):
     tags = serializers.SerializerMethodField()
-    cats = serializers.SerializerMethodField()
-    types = serializers.SerializerMethodField()
+    cat = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
     langs = serializers.SerializerMethodField()
     transfers = serializers.SerializerMethodField()
     included = serializers.SerializerMethodField()
     notincluded = serializers.SerializerMethodField()
-    takes = serializers.SerializerMethodField()
+    take = serializers.SerializerMethodField()
     faqs = serializers.SerializerMethodField()
 
     def get_tags(self, obj):
         tags = TagTour.objects.all()
         return [{"id": tag.id, "tag": tag.tag} for tag in tags]
 
-    def get_cats(self, obj):
+    def get_cat(self, obj):
         cats = Category.objects.all()
         return [{"id": cat.id, "name": cat.name} for cat in cats]
 
-    def get_types(self, obj):
+    def get_type(self, obj):
         types = Type.objects.all()
         return [{"id": type.id, "name": type.name} for type in types]
 
@@ -646,7 +618,7 @@ class OptionsSerializer(serializers.Serializer):
         not_included = NotIncluded.objects.all()
         return [{"id": item.id, "name": item.name} for item in not_included]
 
-    def get_takes(self, obj):
+    def get_take(self, obj):
         takes = Take.objects.all()
         return [{"id": take.id, "name": take.name} for take in takes]
 
@@ -679,9 +651,6 @@ class ProgramCreateSerializer(TranslatableModelSerializer):
         tour = validated_data["tour"]
 
         if tour.author != user:
-            raise PermissionDenied(
-                "You don't have permission to add program to this tour."
-            )
+            raise PermissionDenied("You don't have permission to add program to this tour.")
 
         return super().create(validated_data)
-

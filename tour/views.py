@@ -159,29 +159,29 @@ class TourCreateView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    def get(self, request, *args, **kwargs): 
-        tags = TagTour.objects.values_list('translations__tag', flat=True) 
-        cat = Category.objects.values_list('translations__name', flat=True) 
-        type = Type.objects.values_list('translations__name', flat=True) 
-        langs = LangTour.objects.values_list('translations__name', flat=True) 
-        transfers = Transfer.objects.values_list('translations__name', flat=True) 
-        included = Included.objects.values_list('translations__name', flat=True) 
-        notincluded = NotIncluded.objects.values_list('translations__name', flat=True) 
-        take = Take.objects.values_list('translations__name', flat=True) 
-        faqs = FAQ.objects.values_list('translations__question', flat=True) 
- 
-        data = { 
-            "tags": list(tags), 
-            "cat": list(cat), 
-            "type": list(type), 
-            "langs": list(langs), 
-            "transfers": list(transfers), 
-            "included": list(included), 
-            "notincluded": list(notincluded), 
-            "take": list(take), 
-            "faqs": list(faqs), 
-            } 
-        return Response(data, status=status.HTTP_200_OK) 
+    def get(self, request, *args, **kwargs):
+        tags = TagTour.objects.values_list("translations__tag", flat=True)
+        cat = Category.objects.values_list("translations__name", flat=True)
+        type = Type.objects.values_list("translations__name", flat=True)
+        langs = LangTour.objects.values_list("translations__name", flat=True)
+        transfers = Transfer.objects.values_list("translations__name", flat=True)
+        included = Included.objects.values_list("translations__name", flat=True)
+        notincluded = NotIncluded.objects.values_list("translations__name", flat=True)
+        take = Take.objects.values_list("translations__name", flat=True)
+        faqs = FAQ.objects.values_list("translations__question", flat=True)
+
+        data = {
+            "tags": list(tags),
+            "cat": list(cat),
+            "type": list(type),
+            "langs": list(langs),
+            "transfers": list(transfers),
+            "included": list(included),
+            "notincluded": list(notincluded),
+            "take": list(take),
+            "faqs": list(faqs),
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 # Подробная информация о туре
@@ -536,28 +536,29 @@ class PhotoApiView(generics.GenericAPIView):
 
 class OptionsApiView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request):
         serializer_methods = {
             "tags": "get_tags",
-            "cats": "get_cats",
-            "types": "get_types",
+            "cat": "get_cat",
+            "type": "get_type",
             "langs": "get_langs",
             "transfers": "get_transfers",
             "included": "get_included",
             "notincluded": "get_notincluded",
-            "takes": "get_takes",
-            "faqs": "get_faqs"
+            "take": "get_take",
+            "faqs": "get_faqs",
         }
         data = {}
         serializer = OptionsSerializer({})
-        if not request.query_params:
+        options = request.query_params.get("options", "")
+        if not options:
             data = serializer.data
         else:
-            for param in request.query_params:
-                method_name = serializer_methods.get(param, None)
+            for option in options.split(","):
+                method_name = serializer_methods.get(option, None)
                 if method_name:
-                    data[param] = getattr(serializer, method_name)(None)
+                    data[option] = getattr(serializer, method_name)(None)
 
         return Response(data, status=status.HTTP_200_OK)
 
@@ -581,14 +582,14 @@ class ProgramApiView(generics.GenericAPIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+
     def delete(self, request):
         id = self.request.query_params["id"]
         program = Programm.objects.get(id=id)
         self.check_program_permission(program)
         program.delete()
         return Response(data={"message": "ok"}, status=status.HTTP_200_OK)
-    
+
     def get(self, request):
         tour_id = self.request.query_params.get("tour", "")
         queryset = self.get_queryset()
