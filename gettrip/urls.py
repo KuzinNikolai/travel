@@ -44,6 +44,7 @@ translatable_urlpatterns = i18n_patterns(
     path('api/v1/my_orders/', MyOrdersListView.as_view(), name='my-orders'),
     
     path('api/v1/tours/<int:pk>/reviews/', TourReviewListAPIView.as_view(), name='tour-reviews'),
+    path("api/v1/my_wishlist/", WishlistListView.as_view(), name="wishlist-list"),
     
 )
 

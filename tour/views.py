@@ -597,3 +597,12 @@ class ProgramApiView(generics.GenericAPIView):
             queryset = queryset.filter(tour=tour_id)
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+        data = request.data
+        id = request.query_params["id"]
+        program = Programm.objects.get(id=id)
+        serializer = self.serializer_class(program, data=data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
