@@ -1,7 +1,5 @@
 import { ProfilePage } from "./_components/ProfilePage"
 
-export const dynamic = "force-static"
-
 const Profile = () => {
 	return <ProfilePage />
 }

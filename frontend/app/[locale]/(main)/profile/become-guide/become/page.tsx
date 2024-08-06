@@ -8,8 +8,6 @@ export const metadata = {
 	title: "Become guide",
 }
 
-export const dynamic = "force-static"
-
 const BecomePage = () => {
 	return (
 		<>
