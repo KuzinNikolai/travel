@@ -1,8 +1,13 @@
-import analyser from "@next/bundle-analyzer"
+// @ts-check
+
+import analyser from "@next/bundle-analyzer";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withBundleAnalyzer = analyser({
 	enabled: process.env.ANALYZE === "true",
-})
+});
+
+const withNextIntl = createNextIntlPlugin("./src/app/i18n/utils.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,8 +15,8 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: "https",
-				hostname: "i.pravatar.cc",
-				pathname: "**",
+				hostname: "beta.gettrip.co",
+				pathname: "/media/**",
 			},
 			{
 				protocol: "https",
@@ -20,6 +25,6 @@ const nextConfig = {
 			},
 		],
 	},
-}
+};
 
-export default withBundleAnalyzer(nextConfig)
+export default withBundleAnalyzer(withNextIntl(nextConfig));

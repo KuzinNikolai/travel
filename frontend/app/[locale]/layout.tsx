@@ -1,11 +1,14 @@
+import * as i18n from "next-intl"
+import { siteConfig } from "@app/configs/siteConfig"
 import { inter } from "@assets/fonts"
 import "@assets/globals.css"
-import { Provider as ReactQueryClientV2Provider } from "@serverActions"
-import { siteConfig } from "@app/configs/siteConfig"
-import { cn } from "@share/lib"
+import * as ReactQueryClientV2 from "@serverActions"
+import { cn, logger, type PagesProps } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import type { Metadata } from "next"
 import type { FC, PropsWithChildren } from "react"
+import { getMessages } from "next-intl/server"
+import { i18nConfig, i18nUtils } from "@app/i18n"
 
 export const metadata: Metadata = {
 	title: {
@@ -18,9 +21,12 @@ export const metadata: Metadata = {
 	},
 }
 
-const RootLayout: FC<PropsWithChildren> = ({ children }) => {
+const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async ({ children, params }) => {
+	const lang = i18nUtils.isValidLocale(params.locale) ? params.locale : i18nConfig.defaultLocale
+	const messages = await getMessages({ locale: lang })
+
 	return (
-		<html lang='en'>
+		<html lang={lang}>
 			<head>
 				<meta
 					name='viewport'
@@ -28,10 +34,15 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
 				/>
 			</head>
 			<body className={cn(inter.className, "flex min-h-dvh flex-col")}>
-				<ReactQueryClientV2Provider>
-					{children}
-					<Toaster />
-				</ReactQueryClientV2Provider>
+				<i18n.NextIntlClientProvider
+					locale={lang}
+					messages={messages}
+				>
+					<ReactQueryClientV2.Provider>
+						{children}
+						<Toaster />
+					</ReactQueryClientV2.Provider>
+				</i18n.NextIntlClientProvider>
 			</body>
 		</html>
 	)

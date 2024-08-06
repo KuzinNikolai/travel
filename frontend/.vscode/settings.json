@@ -1,6 +1,9 @@
 {
 	"i18n-ally.localesPaths": "messages",
 	"i18n-ally.enabledFrameworks": ["next-intl"],
+	"i18n-ally.extract.autoDetect": true,
+	"i18n-ally.keystyle": "nested",
+	"i18n-ally.sourceLanguage": "ru",
 
 	"[typescript][typescriptreact][json][jsonc][jsonl]": {
 		"editor.defaultFormatter": "biomejs.biome"
@@ -11,7 +14,5 @@
 	},
 	"editor.quickSuggestions": {
 		"strings": "on"
-	},
-	"i18n-ally.extract.autoDetect": true,
-	"i18n-ally.keystyle": "nested"
+	}
 }
