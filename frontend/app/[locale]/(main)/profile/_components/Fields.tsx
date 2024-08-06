@@ -81,7 +81,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 						className='w-full justify-start rounded-none py-6 text-primary-400'
 						asChild
 					>
-						<Link href="/profile/become-guide">Стать гидом</Link>
+						<Link href='/profile/become-guide'>Стать гидом</Link>
 					</Button>
 				</FieldItem>
 			)}

@@ -19,8 +19,17 @@ export const ProfileHeader: FC<HeaderProps> = ({ type }) => {
 					asChild
 				>
 					<Link href='/profile/edit'>
-						<Typography variant='span' className='sr-only md:not-sr-only'>Редактировать</Typography>
-						<Icon name="Pencil" className="h-5 w-5 md:hidden" aria-disabled />
+						<Typography
+							variant='span'
+							className='sr-only md:not-sr-only'
+						>
+							Редактировать
+						</Typography>
+						<Icon
+							name='Pencil'
+							className='h-5 w-5 md:hidden'
+							aria-disabled
+						/>
 					</Link>
 				</Button>
 			}

@@ -27,7 +27,7 @@ export const UserAvatar: FC<UserAvatarProps> = ({ size, photo, username, firstNa
 			style={{ ...props.style, width: avatarSize.width, height: avatarSize.height }}
 		>
 			{photo ? (
-				<Avatar.Root className="h-full w-full">
+				<Avatar.Root className='h-full w-full'>
 					<Avatar.Image
 						src={photo}
 						className='h-full w-full rounded-full object-cover object-center'

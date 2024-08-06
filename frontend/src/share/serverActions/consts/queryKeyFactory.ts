@@ -16,7 +16,7 @@ const travelData = {
 	detailCountry: (countrySlug: string) => ["countries", countrySlug],
 
 	cities: () => ["cities"],
-	city: (id: number) => ["cities", id.toString()], 
+	city: (id: number) => ["cities", id.toString()],
 	cityList: () => ["cities", "list"],
 	detailCity: (citySlug: string) => ["cities", citySlug],
 

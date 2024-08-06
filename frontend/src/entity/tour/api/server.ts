@@ -31,7 +31,7 @@ export async function getDetailTour(tourSlug: string) {
 	const json = SafeJson.parse(text)
 
 	if (!json) {
-		logger.fatal("[GET DETAIL TOUR] Invalid response", text)		
+		logger.fatal("[GET DETAIL TOUR] Invalid response", text)
 		return null
 	}
 

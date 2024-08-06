@@ -1,1 +1,1 @@
-export * from './isAuthorized'
+export * from "./isAuthorized"

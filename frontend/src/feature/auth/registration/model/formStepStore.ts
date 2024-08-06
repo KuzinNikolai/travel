@@ -25,6 +25,6 @@ export const useFormStepsStore = create(
 				set({ currentStep: step })
 			},
 		}),
-		{ name: "registration-steps",  },
+		{ name: "registration-steps" },
 	),
 )
