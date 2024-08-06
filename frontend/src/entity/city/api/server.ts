@@ -1,5 +1,5 @@
-import { detailTourSchema, tourSchema } from "@entity/tour"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
+import { serverErrorResponseSchema } from "@share/constants/schemes"
 import { logger, SafeJson, Time } from "@share/lib"
 import { cityItemSchema, detailCitySchema } from "../consts/schema"
 
@@ -47,10 +47,15 @@ export const getDetailCity = async (citySlug: string) => {
 			return
 		}
 
-		const { success, data, error } = await detailCitySchema.safeParseAsync(json)
+		const { success, data, error } = await detailCitySchema.or(serverErrorResponseSchema).safeParseAsync(json)
 
 		if (!success) {
 			logger.fail("[getDetailCityResponseParse]", json, "\n", error)
+			return
+		}
+
+		if ("detail" in data) {
+			logger.debug("[getDetailCityResponseParse]", json, citySlug)
 			return
 		}
 
