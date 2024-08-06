@@ -1,3 +1,17 @@
 {
-	"tailwindConfigViewer.workspacePath": "."
+	"i18n-ally.localesPaths": "messages",
+	"i18n-ally.enabledFrameworks": ["next-intl"],
+
+	"[typescript][typescriptreact][json][jsonc][jsonl]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"editor.quickSuggestions": {
+		"strings": "on"
+	},
+	"i18n-ally.extract.autoDetect": true,
+	"i18n-ally.keystyle": "nested"
 }
