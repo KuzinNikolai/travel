@@ -7,8 +7,7 @@ export const editUserSchema = userSchema
 		last_name: true,
 	})
 	.extend({
-		photo: z.instanceof(File)
-		.refine((file) => /image\/(jpeg|png|webp|avif)/.test(file.type), {
+		photo: z.instanceof(File).refine((file) => /image\/(jpeg|png|webp|avif)/.test(file.type), {
 			message: "INVALID_FILE_TYPE",
 			path: ["photo"],
 		}),

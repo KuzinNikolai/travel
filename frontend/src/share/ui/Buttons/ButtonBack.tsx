@@ -9,16 +9,16 @@ export const ButtonBack: FC<Partial<ComponentPropsWithoutRef<typeof IconButton>>
 	const id = useId()
 
 	return (
-			<IconButton
-				id={id}
-				className='text-secondary transition delay-100 hover:text-cyan-500'
-				{...props}
-				icon='ChevronLeft'
-				asChild
-			>
-				<Link href='.'>
-					<Icon name='ChevronLeft' />
-				</Link>
-			</IconButton>
+		<IconButton
+			id={id}
+			className='text-secondary transition delay-100 hover:text-cyan-500'
+			{...props}
+			icon='ChevronLeft'
+			asChild
+		>
+			<Link href='.'>
+				<Icon name='ChevronLeft' />
+			</Link>
+		</IconButton>
 	)
 }

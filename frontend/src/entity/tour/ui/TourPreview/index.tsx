@@ -35,7 +35,7 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 				<TourWishListButton tourId={tour.id} />
 			</div>
 			<div className='flex flex-1 flex-col gap-2'>
-				<div className="flex flex-row flex-wrap items-center justify-between gap-x-2">
+				<div className='flex flex-row flex-wrap items-center justify-between gap-x-2'>
 					<Typography
 						variant='span'
 						textWidth='light'
@@ -64,7 +64,7 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 				<Typography
 					variant='content1'
 					textWidth='light'
-					className="line-clamp-4 flex-1 text-primary-400 leading-5"
+					className='line-clamp-4 flex-1 text-primary-400 leading-5'
 				>
 					{tour.meta_desc}
 				</Typography>

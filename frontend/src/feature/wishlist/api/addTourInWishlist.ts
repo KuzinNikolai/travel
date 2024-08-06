@@ -59,6 +59,6 @@ export const addTourInWishlistAction = isAuthorized
 		}
 
 		return {
-			success: true
+			success: true,
 		}
 	})

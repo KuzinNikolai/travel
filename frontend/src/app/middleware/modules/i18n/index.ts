@@ -1,1 +1,1 @@
-export * as i18nModule from './func'
+export * as i18nModule from "./func"

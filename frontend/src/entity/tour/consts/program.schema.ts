@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export enum GroupType {
 	group = 1,
@@ -17,7 +17,7 @@ const pricesSchema = z
 			child_price: z.literal(0).nullable(),
 			individual_price: z.number(),
 		}),
-	);
+	)
 
 export const programSchema = z
 	.object({
@@ -27,6 +27,6 @@ export const programSchema = z
 		description: z.string(),
 		group_size: z.number().nullable(),
 	})
-	.and(pricesSchema);
+	.and(pricesSchema)
 
-export type Program = z.infer<typeof programSchema>;
+export type Program = z.infer<typeof programSchema>

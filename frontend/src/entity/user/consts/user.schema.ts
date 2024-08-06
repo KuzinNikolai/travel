@@ -15,9 +15,13 @@ export const userSchema = z.object({
 
 	photo: z.string().nullable(),
 
-	description: z.string().max(260, {
-		message: "TO_BIG_DESCRIPTION_LENGTH (260)",
-	}).nullable().optional(),
+	description: z
+		.string()
+		.max(260, {
+			message: "TO_BIG_DESCRIPTION_LENGTH (260)",
+		})
+		.nullable()
+		.optional(),
 	is_staff: z.boolean(),
 })
 

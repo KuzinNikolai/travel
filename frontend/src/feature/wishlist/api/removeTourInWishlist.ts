@@ -48,7 +48,7 @@ export const addTourInWishlistAction = isAuthorized
 			logger.fatal("[AddTourInWishlistResponse]", error)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
-		
+
 		if ("detail" in data) {
 			throw new ZSAError("INPUT_PARSE_ERROR")
 		}

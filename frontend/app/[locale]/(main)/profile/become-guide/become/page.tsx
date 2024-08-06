@@ -12,9 +12,15 @@ const BecomePage = () => {
 	return (
 		<>
 			<HeaderWithBack />
-			<Container className="mt-4 flex flex-col items-center justify-center gap-4">
-				<Icon name='Logo' className="w-48" />
-				<Typography variant='content1' textAlign="center">
+			<Container className='mt-4 flex flex-col items-center justify-center gap-4'>
+				<Icon
+					name='Logo'
+					className='w-48'
+				/>
+				<Typography
+					variant='content1'
+					textAlign='center'
+				>
 					Выберете страну и город проведения вашей экскурсий и номер телефона для связи
 				</Typography>
 				<BecomeForm />

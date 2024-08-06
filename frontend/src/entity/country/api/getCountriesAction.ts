@@ -1,8 +1,8 @@
 "use server"
 
-import { createServerAction } from "zsa";
-import { countrySchema } from "../consts/schema";
-import { getCountries } from "./server";
+import { createServerAction } from "zsa"
+import { countrySchema } from "../consts/schema"
+import { getCountries } from "./server"
 
 export const getCountriesAction = createServerAction()
 	.output(countrySchema.array())
