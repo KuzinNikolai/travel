@@ -20,7 +20,7 @@
 			}
 		],
 		"paths": {
-			"@api/*": ["./src/app/externalApi/*"],
+			"@app/*": ["./src/app/*"],
 			"@widget/*": ["./src/widget/*"],
 			"@feature/*": ["./src/feature/*"],
 			"@entity/*": ["./src/entity/*"],

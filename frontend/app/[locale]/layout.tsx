@@ -1,7 +1,7 @@
 import { inter } from "@assets/fonts"
 import "@assets/globals.css"
 import { Provider as ReactQueryClientV2Provider } from "@serverActions"
-import { siteConfig } from "@share/config/siteConfig"
+import { siteConfig } from "@app/configs/siteConfig"
 import { cn } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import type { Metadata } from "next"
