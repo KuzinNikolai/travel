@@ -1,7 +1,7 @@
 export interface Navigation {
 	name: string
 	href: string
-	description: string
+	description?: string
 	show: boolean
 	icon: JSX.Element
 }

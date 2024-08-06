@@ -27,7 +27,7 @@ export async function getCities() {
 
 		return data
 	} catch (err) {
-		logger.fatal("[GetCitiesCatch]", err)
+		console.error("[GetCitiesCatch]", err)
 		return []
 	}
 }
@@ -61,6 +61,6 @@ export const getDetailCity = async (citySlug: string) => {
 
 		return data
 	} catch (err) {
-		logger.fatal("[GetCityCatch]", err)
+		console.error("[GetCityCatch]", err)
 	}
 }

@@ -27,9 +27,8 @@ export const BurgerSheet = () => {
 			),
 		},
 		{
-			name: "Wishlist",
+			name: "Список желаемых туров",
 			href: "/wishlist",
-			description: "lorem ipsum",
 			show: true,
 			icon: (
 				<Icon
