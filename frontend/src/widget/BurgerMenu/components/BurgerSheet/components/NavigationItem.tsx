@@ -16,8 +16,6 @@ export const NavigationItem: FC<INavigationItemProps> = ({ navigation }) => {
 			{navigation.icon}
 			<div className='flex flex-col justify-center gap-1'>
 				<Typography
-					variant='span'
-					as='p'
 					textWidth='semibold'
 					className='truncate'
 				>
@@ -25,8 +23,6 @@ export const NavigationItem: FC<INavigationItemProps> = ({ navigation }) => {
 				</Typography>
 				{navigation.description && (
 					<Typography
-						variant='span'
-						as='p'
 						textWidth='light'
 						className='truncate'
 					>

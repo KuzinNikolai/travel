@@ -13,7 +13,7 @@ import {
 } from "react-hook-form"
 
 import { cn } from "@share/lib"
-import { Label, Typography } from "../Text"
+import { Typography } from "../Text"
 
 const Form = FormProvider
 
@@ -92,7 +92,7 @@ const FormLabel = React.forwardRef<
 	const { error, formItemId } = useFormField()
 
 	return (
-		<Label
+		<Typography
 			ref={ref}
 			className={cn(error && "text-danger", className)}
 			htmlFor={formItemId}
@@ -120,15 +120,13 @@ const FormControl = React.forwardRef<React.ElementRef<typeof Slot>, React.Compon
 FormControl.displayName = "FormControl"
 
 const FormDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-	({ className, ...props }, ref) => {
+	(props, ref) => {
 		const { formDescriptionId } = useFormField()
 
 		return (
 			<Typography
 				ref={ref}
 				id={formDescriptionId}
-				variant='content1'
-				className={cn("text-muted-foreground text-sm", className)}
 				{...props}
 			/>
 		)
@@ -151,7 +149,6 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, FormMessageProps>(
 
 		return (
 			<Typography
-				variant='content1'
 				ref={ref}
 				id={formMessageId}
 				className={cn("font-medium text-danger text-sm", className)}

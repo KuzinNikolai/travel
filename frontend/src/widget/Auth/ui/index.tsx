@@ -27,9 +27,9 @@ export const Auth = () => {
 				<DialogFooter className='items-center justify-start gap-1 sm:justify-start'>
 					{tab === "login" ? (
 						<>
-							<Typography variant='span'>У вас нет аккаунта?</Typography>
+							<Typography>У вас нет аккаунта?</Typography>
 							<button
-								className='text-accent'
+								className='text-primary-50'
 								type='button'
 								onClick={() => setTab("registration")}
 							>
@@ -38,9 +38,9 @@ export const Auth = () => {
 						</>
 					) : (
 						<>
-							<Typography variant='span'>Уже есть аккаунт?</Typography>
+							<Typography>Уже есть аккаунт?</Typography>
 							<button
-								className='text-accent'
+								className='text-primary-50'
 								type='button'
 								onClick={() => setTab("login")}
 							>

@@ -2,6 +2,7 @@ import Script from "next/script"
 
 export type JsonLDScheme = {
 	[key: string]: unknown
+	"@context": string
 	"@type": string
 }
 

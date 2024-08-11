@@ -15,7 +15,6 @@ export const HeaderWithBack = forwardRef<HTMLElement, IBackHeaderProps>(({ title
 			leftColumn={<ButtonBack onClick={onBack} />}
 			centerColumn={
 				<Typography
-					variant='content1'
 					textWidth='bold'
 					textAlign='center'
 					as='h1'

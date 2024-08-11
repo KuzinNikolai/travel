@@ -17,7 +17,7 @@ export const SearchInput = () => {
 			type='text'
 			name='Search'
 			placeholder='Поиск'
-			className='bg-gray-400/20'
+			className='bg-base-160'
 			value={query}
 			onInput={(e) => {
 				setQuery(e.currentTarget.value)

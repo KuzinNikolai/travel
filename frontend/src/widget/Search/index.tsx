@@ -9,10 +9,10 @@ import { Suspense } from "react"
 const SearchTrigger = (
 	<button
 		type='button'
-		className='flex w-full max-w-[140px] items-center justify-around gap-1 rounded-xl bg-gray-200 p-2'
+		className='flex w-full max-w-[140px] items-center justify-around gap-[2px] rounded-sm bg-gray-200 p-[2px]'
 	>
 		<Icon name='Search' />
-		<Typography variant='span'>Найти тур</Typography>
+		<Typography>Найти тур</Typography>
 	</button>
 )
 
@@ -20,9 +20,9 @@ export const SearchMenu = () => {
 	return (
 		<FullScreenModal
 			trigger={SearchTrigger}
-			className='bg-background'
+			className='bg-base-170'
 		>
-			<header className='w-full py-2 pr-1'>
+			<header className='w-full py-sm pr-sm'>
 				<FullScreenModal.CloseTrigger className='flex flex-row p-1 text-secondary [&>svg]:stroke-secondary'>
 					<Icon name='ChevronLeft' /> Back
 				</FullScreenModal.CloseTrigger>

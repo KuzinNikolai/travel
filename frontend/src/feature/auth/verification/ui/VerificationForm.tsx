@@ -81,7 +81,7 @@ export const VerificationForm: FC<VerificationFormProps> = ({ onFinish }) => {
 								</InputOTP>
 							</FormControl>
 							<FormMessage />
-							<Typography variant='span'>
+							<Typography>
 								Проверьте почту на код подтверждения. Если его нет, посмотрите в папке &quot;спам&quot;.
 							</Typography>
 						</FormItem>

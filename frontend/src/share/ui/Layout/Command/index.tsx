@@ -8,6 +8,7 @@ import { Search } from "lucide-react"
 import { cn } from "@share/lib/tailwind"
 import { Dialog, DialogContent } from "@share/ui/Modals"
 import { Input } from "@share/ui/Inputs"
+import { Icon } from "@share/ui/Icon"
 
 const Command = React.forwardRef<
 	React.ElementRef<typeof CommandPrimitive>,
@@ -15,10 +16,7 @@ const Command = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<CommandPrimitive
 		ref={ref}
-		className={cn(
-			"flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
-			className,
-		)}
+		className={cn("flex h-full w-full flex-col rounded-md bg-base-180 text-base-20", className)}
 		{...props}
 	/>
 ))
@@ -29,7 +27,7 @@ interface CommandDialogProps extends DialogProps {}
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
 	return (
 		<Dialog {...props}>
-			<DialogContent className='overflow-hidden p-0 shadow-lg'>
+			<DialogContent className='overflow-hidden p-0 shadow-primary'>
 				<Command className='[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5'>
 					{children}
 				</Command>
@@ -38,25 +36,26 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
 	)
 }
 
-const CommandInput = React.forwardRef<
-	React.ElementRef<typeof CommandPrimitive.Input>,
-	React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
->(({ className, ...props }, ref) => (
-	<div
-		className='flex items-center border-b px-3'
-		cmdk-input-wrapper=''
-	>
-		<Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
-		<Input
-			ref={ref}
-			className={cn(
-				"flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
-				className,
-			)}
-			{...props}
-		/>
-	</div>
-))
+const CommandInput = React.forwardRef<React.ElementRef<typeof Input>, React.ComponentPropsWithoutRef<typeof Input>>(
+	({ className, ...props }, ref) => (
+		<div
+			className='flex w-full items-center pb-2'
+			cmdk-input-wrapper=''
+		>
+			<Input
+				ref={ref}
+				leftIcon={
+					<Icon
+						name='Search'
+						className='h-6 w-6 shrink-0 opacity-50'
+					/>
+				}
+				className='w-full'
+				{...props}
+			/>
+		</div>
+	),
+)
 
 CommandInput.displayName = CommandPrimitive.Input.displayName
 
@@ -121,7 +120,7 @@ const CommandItem = React.forwardRef<
 	<CommandPrimitive.Item
 		ref={ref}
 		className={cn(
-			'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled="true"]:pointer-events-none data-[disabled="true"]:opacity-50',
+			'relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-primary-50 aria-selected:text-primary-50-foreground data-[disabled="true"]:pointer-events-none data-[disabled="true"]:opacity-50',
 			className,
 		)}
 		{...props}

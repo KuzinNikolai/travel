@@ -5,11 +5,11 @@ import { cn } from "@share/lib"
 import { IconButton } from "@share/ui/Buttons"
 import type { FC } from "react"
 
-interface ITourWishListButtonProps {
+interface TourWishListButtonProps {
 	tourId: number
 }
 
-export const TourWishListButton: FC<ITourWishListButtonProps> = ({ tourId }) => {
+export const TourWishListButton: FC<TourWishListButtonProps> = ({ tourId }) => {
 	const wishlist = useWishlistStore()
 
 	const onToggleInWishList = () => {
@@ -23,9 +23,10 @@ export const TourWishListButton: FC<ITourWishListButtonProps> = ({ tourId }) => 
 	return (
 		<IconButton
 			icon='Heart'
+			description={wishlist.isFavoriteTour(tourId) ? "Удалить из избранного" : "Добавить в избранное"}
 			onClick={onToggleInWishList}
 			className='absolute top-2 left-2 flex items-center justify-center'
-			iconProps={{ className: cn(wishlist.tours.includes(tourId) ? "stroke-accent fill-accent" : "") }}
+			iconProps={{ className: cn(wishlist.tours.includes(tourId) ? "stroke-primary-70 fill-primary-70" : "") }}
 		/>
 	)
 }

@@ -33,7 +33,7 @@ export const FlagImagePreview: FC<FlagImagePreviewProps> = ({ iso2, onChangeCoun
 					{...props}
 					variant='ghost'
 					role='combobox'
-					className={cn("absolute px-2", props.className)}
+					className={cn("!p-2", props.className)}
 				>
 					<FlagImage
 						className='h-8'
@@ -44,7 +44,7 @@ export const FlagImagePreview: FC<FlagImagePreviewProps> = ({ iso2, onChangeCoun
 			<Popover.PopoverContent
 				side='right'
 				sideOffset={0}
-				className='w-max p-1'
+				className='w-max p-sm'
 			>
 				<Command.Command
 					className='space-y-2'
@@ -66,14 +66,14 @@ export const FlagImagePreview: FC<FlagImagePreviewProps> = ({ iso2, onChangeCoun
 										onSelect={() => onChangeCountry(country.iso2)}
 										className={cn(
 											"flex gap-2 transition-colors duration-300 hover:bg-slate-300",
-											country.iso2 === iso2 && "bg-accent",
+											country.iso2 === iso2 && "bg-primary-50",
 										)}
 									>
 										<FlagImage
 											iso2={country.iso2}
 											className='h-8'
 										/>
-										<Typography variant='content2'>{country.name}</Typography>
+										<Typography>{country.name}</Typography>
 									</Command.CommandItem>
 								))}
 						</Command.CommandGroup>

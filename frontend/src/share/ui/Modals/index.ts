@@ -1,7 +1,7 @@
 "use client"
 
 export * from "./Dialog"
-export * from "./Drawer"
-export * from "./DrawerBase"
+export * from "./Drawers/Drawer"
+export * from "./Drawers/Base"
 export * from "./FullScreenModal"
 export * from "./Sheet"

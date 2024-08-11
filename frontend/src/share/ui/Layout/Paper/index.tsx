@@ -1,22 +1,20 @@
-import { cn } from "@share/lib"
-import { type FC, type HTMLAttributes, createElement } from "react"
+import { Slot } from "@radix-ui/react-slot"
+import type { FC, HTMLAttributes } from "react"
+import { paperVariants, type PaperVariants } from "./variants"
 
-const variants = {
-	main: "bg-background-400",
-} satisfies Record<string, string>
-
-interface IPaperProps extends HTMLAttributes<HTMLDivElement> {
-	variant: keyof typeof variants
-	as?: keyof HTMLElementTagNameMap
+interface PaperProps extends Omit<HTMLAttributes<HTMLElement>, keyof PaperVariants>, PaperVariants {
+	asChild?: boolean
 }
 
-export const Paper: FC<IPaperProps> = ({ className, variant, children, as, ...props }) => {
-	return createElement(
-		as || "div",
-		{
-			...props,
-			className: cn(variants[variant], className),
-		},
-		children,
+export const Paper: FC<PaperProps> = ({ className, color, radius, size, asChild, children, ...props }) => {
+	const Comp = asChild ? Slot : "div"
+
+	return (
+		<Comp
+			className={paperVariants({ color, radius, size, className })}
+			{...props}
+		>
+			{children}
+		</Comp>
 	)
 }

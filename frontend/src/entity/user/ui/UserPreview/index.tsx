@@ -28,7 +28,7 @@ export const UserPreview: UserPreviewComponents & FC = () => {
 				lastName={user.last_name}
 			/>
 			<Typography
-				variant='content1'
+				variant='contentPrimary'
 				as='p'
 				textWidth='light'
 				className='truncate text-left'

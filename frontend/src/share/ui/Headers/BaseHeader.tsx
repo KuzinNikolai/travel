@@ -20,10 +20,10 @@ export const BaseHeader = forwardRef<HTMLElement, IHeaderProps>(
 					"backdrop-blur-3xl",
 				)}
 			>
-				<Container className={clsx("py-2", "grid grid-cols-[0.5fr_1fr_0.5fr] items-center justify-between gap-2")}>
-					<div className={clsx("", "flex items-center justify-start gap-2")}>{leftColumn}</div>
-					<div className={clsx("", "flex items-center justify-center gap-2")}>{centerColumn}</div>
-					<div className={clsx("", "flex items-center justify-end gap-2")}>{rightColumn}</div>
+				<Container className={clsx("py-sm", "grid grid-cols-[0.5fr_1fr_0.5fr] items-center justify-between gap-md")}>
+					<div className={clsx("", "flex items-center justify-start gap-sm")}>{leftColumn}</div>
+					<div className={clsx("", "flex items-center justify-center gap-sm")}>{centerColumn}</div>
+					<div className={clsx("", "flex items-center justify-end gap-sm")}>{rightColumn}</div>
 				</Container>
 			</header>
 		)

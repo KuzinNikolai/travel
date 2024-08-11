@@ -5,11 +5,11 @@ import type { FC } from "react"
 import type { z } from "zod"
 import type { cityItemSchema } from "../consts/schema"
 
-type PopularCityProps = z.infer<typeof cityItemSchema>
+type PopularCityProps = Pick<z.infer<typeof cityItemSchema>, "name" | "slug" | "photo" | "photo_alt" | "tour_count">
 
 export const PopularCity: FC<PopularCityProps> = (props) => {
 	return (
-		<li className='relative h-[140px] w-full overflow-hidden rounded-lg bg-background-400'>
+		<li className='relative h-[140px] w-full overflow-hidden rounded-md bg-base-170'>
 			<div className='absolute top-0 left-0 h-full w-full'>
 				<Image
 					src={props.photo}
@@ -18,23 +18,22 @@ export const PopularCity: FC<PopularCityProps> = (props) => {
 					height={300}
 					className='w-full object-cover object-center'
 				/>
-				{/* <div className="absolute left-0 top-0 w-full h-full bg-primary opacity-20"></div> */}
 			</div>
-			<div className='absolute right-0 bottom-0 left-0 flex flex-col gap-[4px] p-3'>
+			<div className='absolute right-0 bottom-0 left-0 flex h-full flex-col justify-between gap-sm p-md'>
 				<Typography
-					variant='content2'
+					variant='h3'
+					as='h3'
 					textTransform='uppercase'
 					textWidth='semibold'
-					className='text-primary-100'
+					className='inline text-base-180 shadow-sm drop-shadow-primary'
 				>
 					{props.name}
 				</Typography>
 				<Typography
-					variant='content2'
-					textTransform='uppercase'
-					className='text-primary-100'
+					variant='contentLarge'
+					className='inline text-base-160 drop-shadow-primary'
 				>
-					экскурсий: {props.tour_count || 0}
+					Экскурсий: {props.tour_count || 0}
 				</Typography>
 			</div>
 			<Link

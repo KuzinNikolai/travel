@@ -43,8 +43,13 @@ export const List: FC<IListProps> = ({ tours }) => {
 				height={emptyCart.height}
 				alt='Изображение отображающее пустая корзину'
 			/>
-			<Typography variant='h2'>Упс! Желаемых туров нет!</Typography>
-			<Typography variant='content2'>Похоже, вы еще не добавляли туров.</Typography>
+			<Typography
+				variant='h2'
+				as='h2'
+			>
+				Упс! Желаемых туров нет!
+			</Typography>
+			<Typography>Похоже, вы еще не добавляли туров.</Typography>
 		</div>
 	)
 }

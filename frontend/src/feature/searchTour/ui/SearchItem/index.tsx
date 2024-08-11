@@ -19,11 +19,11 @@ const SearchItem: SearchElements & FC<z.infer<typeof searchItemSchema>> = ({ cit
 					document.body.style.overflow = "auto"
 					document.body.style.pointerEvents = "auto"
 				}}
-				className='flex items-center gap-2 hover:text-accent hover:[&_svg]:stroke-accent'
+				className='flex items-center gap-2 hover:text-primary-50 hover:[&_svg]:stroke-primary-50'
 			>
 				<Icon name={tourSlug ? "LocateFixed" : "Map"} />
 				<Typography
-					variant='content2'
+					variant='contentPrimary'
 					as='p'
 				>
 					{title}
