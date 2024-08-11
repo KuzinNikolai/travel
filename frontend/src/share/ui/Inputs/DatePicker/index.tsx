@@ -33,8 +33,8 @@ export const DatePicker: FC<IDatePickerProps & CalendarProps> = ({
 					onSelect={onSelect}
 					disabled={disable}
 					classNames={{
-						root: "bg-background-400",
-						day_today: "bg-gray-200",
+						root: "bg-base-180",
+						day_today: "bg-base-170",
 						day_selected: "bg-transparent",
 					}}
 				/>
