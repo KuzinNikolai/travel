@@ -14,7 +14,7 @@ export const Header: FC<HeaderProps> = ({ title, action }) => {
 			leftColumn={<ButtonBack />}
 			centerColumn={
 				<Typography
-					variant='h4'
+					variant='h6'
 					as='h1'
 					textAlign='center'
 				>

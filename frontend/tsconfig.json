@@ -21,6 +21,7 @@
 		],
 		"paths": {
 			"@app/*": ["./src/app/*"],
+			"@pages/*": ["./src/app_pages/*"],
 			"@widget/*": ["./src/widget/*"],
 			"@feature/*": ["./src/feature/*"],
 			"@entity/*": ["./src/entity/*"],

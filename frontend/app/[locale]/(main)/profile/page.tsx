@@ -1,10 +1,6 @@
-import { ProfilePage } from "./_components/ProfilePage"
+import { UserProfile } from "@pages/UserProfile"
 
-const Profile = () => {
-	return <ProfilePage />
-}
-
-export default Profile
+export default UserProfile
 
 export function generateMetadata() {
 	return {

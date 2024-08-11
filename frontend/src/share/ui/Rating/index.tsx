@@ -17,7 +17,7 @@ export const Rating: FC<IRatingProps> & { Skeleton: typeof RatingSkeleton } = ({
 					key={index}
 					name='Star'
 					aria-hidden
-					className={clsx("h-5 w-5 stroke-[2px] stroke-star", index < Math.round(rating) ? "fill-star" : "fill-none")}
+					className={clsx("h-5 w-5 stroke-[2px] stroke-primary-90", index < Math.round(rating) ? "fill-primary-90" : "fill-none")}
 				/>
 			))}
 		</div>

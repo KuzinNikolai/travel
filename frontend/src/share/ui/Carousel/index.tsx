@@ -228,9 +228,9 @@ const CarouselLengthViewer = React.forwardRef<HTMLDivElement, React.HTMLAttribut
 				ref={ref}
 				{...props}
 			>
-				<Typography variant='span'>{selectedItem + 1}</Typography>
-				<Typography variant='span'>/</Typography>
-				<Typography variant='span'>{api?.scrollSnapList().length || 0}</Typography>
+				<Typography>{selectedItem + 1}</Typography>
+				<Typography>/</Typography>
+				<Typography>{api?.scrollSnapList().length || 0}</Typography>
 			</div>
 		)
 	},
@@ -238,7 +238,7 @@ const CarouselLengthViewer = React.forwardRef<HTMLDivElement, React.HTMLAttribut
 CarouselLengthViewer.displayName = "CarouselLengthViewer"
 
 const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-	({ className, variant = "outline", size = "icon", ...props }, ref) => {
+	({ className, variant = "outline", size = "md", ...props }, ref) => {
 		const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
 		return (
@@ -266,7 +266,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
 CarouselPrevious.displayName = "CarouselPrevious"
 
 const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
-	({ className, variant = "outline", size = "icon", ...props }, ref) => {
+	({ className, variant = "outline", size = "md", ...props }, ref) => {
 		const { orientation, scrollNext, canScrollNext } = useCarousel()
 
 		return (

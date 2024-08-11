@@ -5,7 +5,6 @@ import Image from "next/image"
 import Link from "next/link"
 import type { FC } from "react"
 import type { Tour as TTour } from "../../consts"
-import style from "./Tour.module.css"
 import { TourWishListButton } from "./TourWishListButton"
 import { Skeleton } from "@share/ui/Skeleton"
 import { cn } from "@share/lib"
@@ -18,14 +17,19 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 	const pathToTour = `/${tour.city_slug}/${tour.slug}`
 
 	return (
-		<li className={clsx("grid w-full grid-cols-[130px_1fr] gap-3", style["under-line"])}>
+		<li
+			className={clsx(
+				"grid w-full grid-cols-[130px_1fr] gap-sm",
+				"after:col-span-2 after:block after:h-[1px] after:w-full after:bg-base-140",
+			)}
+		>
 			<div className='relative'>
 				<Image
 					src={tour.photo}
 					alt={tour.meta_desc}
 					width={137}
 					height={137}
-					className='h-full w-full rounded object-cover object-center'
+					className="h-full min-h-48 w-full rounded-sm object-cover object-center"
 				/>
 				<Link
 					href={pathToTour}
@@ -37,7 +41,8 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 			<div className='flex flex-1 flex-col gap-2'>
 				<div className='flex flex-row flex-wrap items-center justify-between gap-x-2'>
 					<Typography
-						variant='span'
+						variant='contentPrimary'
+						as='span'
 						textWidth='light'
 						textTransform='uppercase'
 						className='text-primary-400'
@@ -45,7 +50,8 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 						{tour.type}
 					</Typography>
 					<Typography
-						variant='span'
+						variant='contentPrimary'
+						as='span'
 						textWidth='normal'
 						className='text-primary-400'
 					>
@@ -54,24 +60,25 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 				</div>
 				<Link href={pathToTour}>
 					<Typography
-						variant='h5'
+						variant='h6'
 						as='h3'
 						textWidth='semibold'
+						className="line-clamp-2 flex"
 					>
 						{tour.title}
 					</Typography>
 				</Link>
 				<Typography
-					variant='content1'
+					variant='contentPrimary'
 					textWidth='light'
-					className='line-clamp-4 flex-1 text-primary-400 leading-5'
+					className="line-clamp-3 flex-1 text-primary-400 leading-5"
 				>
 					{tour.meta_desc}
 				</Typography>
 				<div className='flex flex-row justify-between'>
 					<Rating rating={tour.average_rating} />
 					<Typography
-						variant='span'
+						variant='contentPrimary'
 						textWidth='light'
 						className='text-primary-400'
 					>
@@ -84,7 +91,12 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 }
 
 const TourSkeleton = () => (
-	<div className={cn("grid w-full grid-cols-[137px_1fr] gap-4", style["under-line"])}>
+	<div
+		className={cn(
+			"grid w-full grid-cols-[137px_1fr] gap-4",
+			"after:col-span-2 after:block after:h-[1px] after:w-full after:bg-base-140",
+		)}
+	>
 		<Skeleton className='h-full' />
 		<div className='flex flex-1 flex-col gap-3'>
 			<div className='flex flex-row flex-wrap justify-between gap-x-2'>

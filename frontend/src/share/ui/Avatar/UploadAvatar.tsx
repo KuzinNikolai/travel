@@ -52,8 +52,7 @@ export const UploadImage = forwardRef<HTMLInputElement, UploadAvatarProps>(({ si
 				)}
 			>
 				<Typography
-					variant='small'
-					as='p'
+					variant='contentSecondary'
 					className='sr-only'
 				>
 					Добавьте изображение к профилю

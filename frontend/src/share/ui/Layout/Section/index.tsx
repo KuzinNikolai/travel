@@ -1,46 +1,61 @@
 import { cn } from "@share/lib"
-import { Typography, type TypographyVariants } from "@share/ui/Text"
-import type { FC, HTMLAttributes, ReactElement } from "react"
+import { Typography } from "@share/ui/Text"
+import type { ComponentProps, ComponentPropsWithRef, FC, HTMLAttributes, ReactElement } from "react"
 import { Container } from "../Container"
 import { Paper } from "../Paper"
+import React from "react"
 
-interface IBoxProps extends HTMLAttributes<HTMLElement> {
-	title: string
-	titleType?: TypographyVariants
+interface ContainerProps extends Omit<ComponentPropsWithRef<typeof Paper>, "title"> {
+	title?: string | ReactElement
 	hiddenTitle?: boolean
 	header?: ReactElement | null
 	containerClassNames?: string
+	contentProps?: HTMLAttributes<HTMLDivElement>
 }
 
-export const Section: FC<IBoxProps> = ({
+export const Section: FC<ContainerProps> = ({
 	className,
 	header,
 	title,
-	titleType = "h2",
 	hiddenTitle = false,
 	children,
 	containerClassNames,
+	contentProps,
 	...props
 }) => {
 	return (
 		<Paper
-			variant='main'
-			as='section'
+			color='primary'
+			asChild
+			className={cn("py-md", className)}
 			{...props}
-			className={cn("py-3", className)}
 		>
-			<Container className={cn("flex flex-col", !hiddenTitle || header ? "gap-4" : "", containerClassNames)}>
-				<div className='flex items-center justify-between'>
-					<Typography
-						variant={titleType}
-						className={hiddenTitle ? "sr-only" : undefined}
+			<section>
+				<Container className={cn("flex flex-col", !hiddenTitle || header ? "gap-md" : "", containerClassNames)}>
+					{(header || title) && (
+						<div className='flex items-center justify-between'>
+							{typeof title === "string" ? (
+								<Typography
+									variant='h4'
+									as='h2'
+									className={hiddenTitle ? "sr-only" : undefined}
+								>
+									{title}
+								</Typography>
+							) : (
+								title
+							)}
+							{header}
+						</div>
+					)}
+					<div
+						{...contentProps}
+						className={cn("flex flex-col gap-cm", contentProps?.className)}
 					>
-						{title}
-					</Typography>
-					{header}
-				</div>
-				{children}
-			</Container>
+						{children}
+					</div>
+				</Container>
+			</section>
 		</Paper>
 	)
 }

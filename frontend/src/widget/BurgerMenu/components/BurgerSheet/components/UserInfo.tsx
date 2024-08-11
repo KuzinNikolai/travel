@@ -37,8 +37,6 @@ export const UserInfo = () => {
 		</Link>
 	) : (
 		<Typography
-			variant='span'
-			as='p'
 			textWidth='light'
 			className='text-danger'
 		>

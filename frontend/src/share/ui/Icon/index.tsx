@@ -1,10 +1,10 @@
 import { icons as lucideIconsPack } from "lucide-react"
-import { type FC, type HTMLAttributes, forwardRef } from "react"
+import React, { type FC, type HTMLAttributes, ReactHTMLElement, forwardRef } from "react"
 import { customIconsPack } from "./CustomIcons"
 
 type IconsName = keyof (typeof lucideIconsPack & typeof customIconsPack)
 
-interface IconProps extends HTMLAttributes<SVGSVGElement> {
+interface IconProps extends HTMLAttributes<SVGSVGElement & HTMLElement> {
 	name?: IconsName
 }
 

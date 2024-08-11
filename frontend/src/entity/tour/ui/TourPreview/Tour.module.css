@@ -1,9 +1,0 @@
-.under-line:not(:last-child)::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  grid-column: span 2;
-  background-color: var(--primary-400);
-  opacity: 0.2;
-}

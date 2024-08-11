@@ -26,6 +26,7 @@ export const programSchema = z
 		title: z.string(),
 		description: z.string(),
 		group_size: z.number().nullable(),
+		duration: z.string().nullable(),
 	})
 	.and(pricesSchema)
 

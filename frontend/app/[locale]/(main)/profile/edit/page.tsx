@@ -1,9 +1,7 @@
-import { ProfileEditPage } from "./components/ProfilePage"
+import { UserProfileEdit } from "@pages/UserProfileEdit"
 
 export const metadata = {
 	title: "Edit profile",
 }
 
-const EditProfile = ProfileEditPage
-
-export default EditProfile
+export default UserProfileEdit

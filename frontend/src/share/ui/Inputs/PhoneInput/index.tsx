@@ -20,11 +20,13 @@ export const InputPhone = forwardRef<HTMLInputElement, PhoneInputProps>((props, 
 
 	return (
 		<div className='relative'>
-			<FlagImagePreview
-				iso2={country.iso2}
-				onChangeCountry={(val) => setCountry(val)}
-			/>
 			<Input
+				leftIcon={
+					<FlagImagePreview
+						iso2={country.iso2}
+						onChangeCountry={(val) => setCountry(val)}
+					/>
+				}
 				className='pl-[50px]'
 				type='tel'
 				value={inputValue}

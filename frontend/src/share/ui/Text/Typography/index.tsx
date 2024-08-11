@@ -1,37 +1,43 @@
 import { Slot } from "@radix-ui/react-slot"
-import { cn } from "@share/lib"
 import { createElement, forwardRef, type HTMLAttributes, type PropsWithChildren } from "react"
-import { tags, typographyVariants, type TypographyVariantsProps } from "./variants"
+import { typographyVariants, type TypographyVariantsProps } from "./variants"
 
-interface ITypographyProps extends PropsWithChildren<HTMLAttributes<HTMLElement> & TypographyVariantsProps> {
+interface TypographyProps extends PropsWithChildren<HTMLAttributes<HTMLElement> & TypographyVariantsProps> {
 	as?: keyof HTMLElementTagNameMap
 	asChild?: boolean
 }
 
-export const Typography = forwardRef<HTMLElement, ITypographyProps>(
-	({ as, asChild, variant, textWidth, textStyle, textTransform, textAlign, className, children, ...props }, ref) => {
+export const Typography = forwardRef<HTMLElement, TypographyProps>(
+	(
+		{ as, asChild, variant, textWidth, textStyle, textTransform, textAlign, className, textColor, children, ...props },
+		ref,
+	) => {
+		const classes = typographyVariants({
+			variant,
+			textWidth,
+			textStyle,
+			textTransform,
+			textAlign,
+			textColor,
+			className,
+		})
+
 		if (asChild) {
 			return (
 				<Slot
-					className={cn(typographyVariants({ variant, textWidth, textStyle, textTransform, textAlign, className }))}
+					className={classes}
 					{...props}
 					ref={ref}
-				/>
+				>
+					{children}
+				</Slot>
 			)
 		}
 
-		return createElement(
-			as || tags[variant || "content1"],
-			{
-				...props,
-				className: cn(typographyVariants({ variant, textWidth, textStyle, textTransform, textAlign, className })),
-				ref,
-			},
-			children,
-		)
+		return createElement(as || "p", { ...props, className: classes, ref }, children)
 	},
 )
 
 Typography.displayName = "Typography"
 
-export type TypographyVariants = Exclude<TypographyVariantsProps["variant"], null | undefined>
+export * as TypographyVariants from "./variants"

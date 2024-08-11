@@ -1,14 +1,14 @@
-import * as i18n from "next-intl"
 import { siteConfig } from "@app/configs/siteConfig"
+import { i18nConfig, i18nUtils } from "@app/i18n"
 import { inter } from "@assets/fonts"
 import "@assets/globals.css"
 import * as ReactQueryClientV2 from "@serverActions"
-import { cn, logger, type PagesProps } from "@share/lib"
+import { cn, type PagesProps } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import type { Metadata } from "next"
-import type { FC, PropsWithChildren } from "react"
+import * as i18n from "next-intl"
 import { getMessages } from "next-intl/server"
-import { i18nConfig, i18nUtils } from "@app/i18n"
+import type { FC, PropsWithChildren } from "react"
 
 export const metadata: Metadata = {
 	title: {
@@ -33,13 +33,13 @@ const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async 
 					content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'
 				/>
 			</head>
-			<body className={cn(inter.className, "flex min-h-dvh flex-col")}>
+			<body className={cn(inter.className, "flex min-h-screen flex-col")}>
 				<i18n.NextIntlClientProvider
 					locale={lang}
 					messages={messages}
 				>
 					<ReactQueryClientV2.Provider>
-						{children}
+						<div className="flex h-full flex-1 flex-col">{children}</div>
 						<Toaster />
 					</ReactQueryClientV2.Provider>
 				</i18n.NextIntlClientProvider>

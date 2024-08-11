@@ -1,15 +1,11 @@
 import { cn } from "@share/lib"
 import type { FC, HTMLAttributes, PropsWithChildren } from "react"
 
-interface IContainerProps extends PropsWithChildren<HTMLAttributes<HTMLDivElement>> {
-	fixed?: boolean
-}
-
-export const Container: FC<IContainerProps> = ({ fixed = true, className, children, ...props }) => {
+export const Container: FC<HTMLAttributes<HTMLDivElement>> = ({ className, children, ...props }) => {
 	return (
 		<div
 			{...props}
-			className={cn(className, fixed && "container")}
+			className={cn("mx-auto max-w-[1200px] p-sm", className)}
 		>
 			{children}
 		</div>

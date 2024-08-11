@@ -18,7 +18,7 @@ export const Link = forwardRef<HTMLAnchorElement, ILinkProps>(
 			<NextLink
 				{...props}
 				ref={ref}
-				className={clsx("flex items-center px-3 py-2", props.className)}
+				className={clsx("flex items-center px-sm py-sm", props.className)}
 			>
 				{leftIcon}
 				{children}

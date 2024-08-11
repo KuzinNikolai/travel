@@ -27,10 +27,10 @@ export const VerifyCode: FC<VerifyCodeProps> = ({ onFinish }) => {
 	return (
 		<>
 			<div className='flex flex-col text-content1'>
-				<Typography variant='content1'>
+				<Typography variant='contentPrimary'>
 					Код подтверждения отправлен на почту{" "}
 					<Typography
-						variant='span'
+						variant='contentPrimary'
 						textWidth='bold'
 					>
 						{formData?.email ?? "неизвестно"}
@@ -38,7 +38,7 @@ export const VerifyCode: FC<VerifyCodeProps> = ({ onFinish }) => {
 					, если это не правильная почта вы можете вернуться на 1 этап.
 				</Typography>
 				<Button
-					variant='link'
+					variant='secondary'
 					className='contents text-content1 text-danger'
 					onClick={onRevert}
 				>
