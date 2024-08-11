@@ -144,6 +144,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 						/>
 					</div>
 					<Button
+						variant='primary'
 						className='mt-10 w-full'
 						type='submit'
 						disabled={!form.formState.isValid || !form.formState.isDirty || isPending}

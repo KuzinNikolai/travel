@@ -13,9 +13,9 @@ const buttonVariants = cva(
 				disabled: "text-base-60 bg-base-160 transition-none cursor-not-allowed focus-visible:ring-transparent",
 			},
 			size: {
-				lg: "px-sm py-[8px] text-contentLarge text-medium",
-				md: "px-[12px] py-[6px] text-contentPrimary text-medium",
-				sm: "px-[16px] py-[4px] text-contentSecondary text-medium",
+				lg: "px-sm py-[15x] text-contentLarge text-medium",
+				md: "px-[12px] py-[10px] text-contentPrimary text-medium",
+				sm: "px-[10px] py-[6px] text-contentSecondary text-medium",
 			},
 		},
 		defaultVariants: {

@@ -138,7 +138,6 @@ export const BecomeForm = () => {
 					disabled={!form.formState.isValid || becomeGuide.isPending}
 					className='w-full'
 					variant='primary'
-					size='lg'
 				>
 					Отправить
 				</Button>
