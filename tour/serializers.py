@@ -313,7 +313,10 @@ class TourDetailSerializer(TranslatableModelSerializer):
     min_price = serializers.SerializerMethodField()
 
     def get_photos(self, obj):
-        return [photo.image.file.url for photo in obj.photos.all()]
+        request = self.context.get("request")
+        if request is not None:
+            return [request.build_absolute_uri(photo.image.url) for photo in obj.photos.all() if photo.image and hasattr(photo.image, 'url')]
+        return []
 
     def get_min_price(self, tour):
         try:
