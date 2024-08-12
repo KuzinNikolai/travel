@@ -313,7 +313,12 @@ class TourDetailSerializer(TranslatableModelSerializer):
     min_price = serializers.SerializerMethodField()
 
     def get_photos(self, obj):
-        return [photo.image.file.url for photo in obj.photos.all()]
+        results = []
+        request = self.context.get("request")
+        for photo in obj.photos.all():
+            url = request.build_absolute_uri(photo.image.url)
+            results.append({"id": photo.id, "url": url})
+        return results
 
     def get_min_price(self, tour):
         try:
@@ -344,9 +349,8 @@ class TourDetailSerializer(TranslatableModelSerializer):
 
 class TourUpdateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
-    photos_urls = serializers.SerializerMethodField()
+    photos = serializers.SerializerMethodField()
     translations = TranslatedFields(shared_model=Tour)
-
     class Meta:
         model = Tour
         fields = (
@@ -372,7 +376,6 @@ class TourUpdateSerializer(TranslatableModelSerializer):
             "faqs",
             "programs",
             "photos",
-            "photos_urls",
             "author",
             "translations",
         )
@@ -388,15 +391,13 @@ class TourUpdateSerializer(TranslatableModelSerializer):
 
         return super().update(instance, validated_data)
 
-    def get_photos_urls(self, obj):
+    def get_photos(self, obj):
         results = []
         request = self.context.get("request")
-
         for photo in obj.photos.all():
             url = request.build_absolute_uri(photo.image.url)
-            results.append(url)
+            results.append({"id": photo.id, "url": url})
         return results
-
 
 class CategoryListSerializer(serializers.ModelSerializer):
 
