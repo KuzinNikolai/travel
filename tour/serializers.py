@@ -225,7 +225,6 @@ class TourCreateSerializer(TranslatableModelSerializer):
     photo = serializers.ImageField(required=False)
     author = UserSerializer(read_only=True)
     translations = TranslatedFieldsField(shared_model=Tour)
-    photos_urls = serializers.SerializerMethodField()
 
     class Meta:
         model = Tour
@@ -254,7 +253,6 @@ class TourCreateSerializer(TranslatableModelSerializer):
             "photos",
             "author",
             "translations",
-            "photos_urls",
         )
 
     def create(self, validated_data):
@@ -266,7 +264,8 @@ class TourCreateSerializer(TranslatableModelSerializer):
         langs_data = validated_data.pop("lang", [])
         faqs_data = validated_data.pop("faqs", [])
         photos_data = validated_data.pop("photos", [])
-
+        
+        validated_data["author"] = self.context["request"].user
         tour = Tour.objects.create(**validated_data)
         tour.included.set(included_data)
         tour.notincluded.set(notincluded_data)
@@ -278,11 +277,7 @@ class TourCreateSerializer(TranslatableModelSerializer):
         tour.photos.set(photos_data)
 
         return tour
-
-    def get_photos_urls(self, obj):
-        return obj.photos.all().values_list("file", flat=True)
-
-
+    
 # Добавление туров конец
 
 

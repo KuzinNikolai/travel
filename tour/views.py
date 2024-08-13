@@ -141,20 +141,20 @@ class TourCreateView(generics.CreateAPIView):
         user_email_message = f'Ваш тур "{tour.title}" был успешно добавлен.\n' f"Категория: {tour.cat.name}\n"
 
         # Отправка письма админу
-        send_mail(
-            admin_email_subject,
-            admin_email_message,
-            settings.DEFAULT_FROM_EMAIL,
-            [settings.ADMIN_EMAIL],
-        )
+        # send_mail(
+        #     admin_email_subject,
+        #     admin_email_message,
+        #     settings.DEFAULT_FROM_EMAIL,
+        #     [settings.ADMIN_EMAIL],
+        # )
 
-        # Отправка письма текущему пользователю
-        send_mail(
-            user_email_subject,
-            user_email_message,
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-        )
+        # # Отправка письма текущему пользователю
+        # send_mail(
+        #     user_email_subject,
+        #     user_email_message,
+        #     settings.DEFAULT_FROM_EMAIL,
+        #     [user.email],
+        # )
         # Return the serialized data and status code
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
