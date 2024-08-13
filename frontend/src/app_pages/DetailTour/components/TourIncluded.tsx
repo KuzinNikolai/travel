@@ -2,13 +2,16 @@ import type { DetailTour } from "@entity/tour"
 import { Icon } from "@share/ui/Icon"
 import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
+import { getTranslations } from "next-intl/server"
 import type { FC } from "react"
 
 type TourIncludedProps = Pick<DetailTour, "included" | "notincluded">
 
-export const TourIncluded: FC<TourIncludedProps> = ({ included, notincluded }) => {
+export const TourIncluded: FC<TourIncludedProps> = async ({ included, notincluded }) => {
+	const t = await getTranslations()
+
 	return (
-		<Section title='Что включено'>
+		<Section title={t("pages.detailTour.included")}>
 			<ul className='flex flex-col gap-sm'>
 				{included.map((include) => (
 					<li

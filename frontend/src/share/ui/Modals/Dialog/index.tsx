@@ -74,12 +74,9 @@ const DialogTitle = React.forwardRef<
 	React.ElementRef<typeof DialogPrimitive.Title>,
 	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
-	<Typography
-		variant='h3'
+	<DialogPrimitive.Title
 		ref={ref}
-		textColor='base-0'
-		textWidth='medium'
-		className={cn("leading-none tracking-tight", className)}
+		className={cn("sr-only", className)}
 		{...props}
 	/>
 ))

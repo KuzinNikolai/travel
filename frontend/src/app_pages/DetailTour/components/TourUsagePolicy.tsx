@@ -2,21 +2,24 @@ import { Button } from "@share/ui/Buttons"
 import { Section } from "@share/ui/Layout"
 import { Drawer } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
+import { getTranslations } from "next-intl/server"
 import type { FC } from "react"
 
 interface ITourUsagePolicy {
 	usagePolicy: string
 }
 
-export const TourUsagePolicy: FC<ITourUsagePolicy> = ({ usagePolicy }) => {
+export const TourUsagePolicy: FC<ITourUsagePolicy> =  async ({ usagePolicy }) => {
+	const t = await getTranslations()
+
 	return (
 		<Section
-			title='Политика использования'
+			title={t("pages.detailTour.userPolicy")}
 			header={
 				usagePolicy.length > 130 ? (
 					<Drawer
-						title='Политика использования'
-						trigger={<Button variant="outline">Читать далее</Button>}
+						title={t("pages.detailTour.userPolicy")}
+						trigger={<Button variant="outline">{t("pages.detailTour.readMore")}</Button>}
 					>
 						<Typography variant='contentPrimary' className="leading-5">{usagePolicy}</Typography>
 					</Drawer>

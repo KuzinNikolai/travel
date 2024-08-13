@@ -9,6 +9,7 @@ import { Icon } from "@share/ui/Icon"
 import { Drawer, DrawerFooter } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
 import { useAuthStore } from "@widget/Auth"
+import { useTranslations } from "next-intl"
 import { usePathname, useRouter } from "next/navigation"
 import type { FC } from "react"
 
@@ -43,6 +44,8 @@ const Price: FC<PriceProps> = ({ title, currency, price }) => {
 }
 
 export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
+	const t = useTranslations("components.tourProgram")
+
 	const {
 		query: { data: user },
 	} = useUser()
@@ -74,7 +77,7 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 						name={isIndividual ? "User" : "Users"}
 						className='h-6 w-6'
 					/>
-					<Typography>{isIndividual ? "ИНДИВИДУАЛЬНО" : "ГРУППОВАЯ СБОРНАЯ"}</Typography>
+					<Typography>{(isIndividual ? t("type.individual") : t("type.group")).toUpperCase()}</Typography>
 				</div>
 				<div className='flex items-center gap-1'>
 					<Icon
@@ -96,20 +99,20 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 				{isIndividual ? (
 					<Price
 						currency={currency}
-						title='Индивидуальный'
+						title={t("type.individual")}
 						price={program.individual_price || 0}
 					/>
 				) : (
 					<>
 						<Price
 							currency={currency}
-							title='Взрослый'
+							title={t("price.adult")}
 							price={program.adult_price || 0}
 						/>
 						{(program.child_price || 0) > 0 && (
 							<Price
 								currency={currency}
-								title='Ребенок'
+								title={t("price.child")}
 								price={program.child_price || 0}
 							/>
 						)}
@@ -123,7 +126,7 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 					className='flex-1'
 					onClick={onMoveOrder}
 				>
-					Заказать
+					{t("actions.order")}
 				</Button>
 				<Drawer
 					title={program.title}
@@ -133,7 +136,7 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 							variant='outline'
 							className='flex-1'
 						>
-							Подробнее
+							{t("actions.moreDetail")}
 						</Button>
 					}
 				>
@@ -148,20 +151,20 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 						{isIndividual ? (
 							<Price
 								currency={currency}
-								title='Индивидуальный'
+								title={t("type.individual")}
 								price={program.individual_price || 0}
 							/>
 						) : (
 							<>
 								<Price
 									currency={currency}
-									title='Взрослый'
+									title={t("price.adult")}
 									price={program.adult_price || 0}
 								/>
 								{program.child_price && (
 									<Price
 										currency={currency}
-										title='Ребенок'
+										title={t("price.child")}
 										price={program.child_price}
 									/>
 								)}
@@ -174,7 +177,7 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) 
 							className='w-full'
 							onClick={onMoveOrder}
 						>
-							заказать
+							{t("actions.order")}
 						</Button>
 					</DrawerFooter>
 				</Drawer>

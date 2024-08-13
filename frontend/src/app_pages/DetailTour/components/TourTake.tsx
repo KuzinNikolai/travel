@@ -2,13 +2,16 @@ import type { DetailTour } from "@entity/tour"
 import { Icon } from "@share/ui/Icon"
 import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
+import { getTranslations } from "next-intl/server"
 import type { FC } from "react"
 
 type TourTakeProps = Pick<DetailTour, "take">
 
-export const TourTake: FC<TourTakeProps> = ({ take }) => {
+export const TourTake: FC<TourTakeProps> = async ({ take }) => {
+	const t = await getTranslations()
+
 	return (
-		<Section title='Взять с собой'>
+		<Section title={t("pages.detailTour.tourTake")}>
 			<ul className='flex flex-col gap-1'>
 				{take.map((take) => (
 					<li

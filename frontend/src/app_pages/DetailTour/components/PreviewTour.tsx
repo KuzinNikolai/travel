@@ -1,13 +1,15 @@
 import type { DetailTour } from "@entity/tour"
 import { Container, Section } from "@share/ui/Layout"
-import { Typography } from "@share/ui/Text"
 import { Rating } from "@share/ui/Rating"
+import { Typography } from "@share/ui/Text"
+import { getTranslations } from "next-intl/server"
 import type { FC } from "react"
-import { PreviewTourImages } from "./PreviewTourImages"
 
 type PreviewTourProps = Pick<DetailTour, "title" | "meta_desc" | "currency_prefix" | "min_price" | "average_rating">
 
-export const PreviewTour: FC<PreviewTourProps> = (props) => {
+export const PreviewTour: FC<PreviewTourProps> = async (props) => {
+	const t = await getTranslations()
+
 	return (
 		<Section className='flex flex-col gap-m pb-md'>
 			<Container className='flex flex-col gap-md'>
@@ -37,7 +39,7 @@ export const PreviewTour: FC<PreviewTourProps> = (props) => {
 						className='text-secondary-40'
 						as='span'
 					>
-						Смотрите ниже что включено в цену
+						{t("pages.detailTour.previewTour.seeDown")}
 					</Typography>
 				</div>
 			</Container>

@@ -5,8 +5,11 @@ import { useUser } from "@entity/user"
 import { Icon } from "@share/ui/Icon"
 import { NavigationItem } from "./components/NavigationItem"
 import { UserInfo } from "./components/UserInfo"
+import { useTranslations } from "next-intl"
 
 export const BurgerSheet = () => {
+	const t = useTranslations("components.burgerMenu")
+
 	const {
 		query: { data: user, isFetched, isSuccess },
 	} = useUser()
@@ -15,9 +18,9 @@ export const BurgerSheet = () => {
 
 	const navigation = [
 		{
-			name: "Мои заказы",
+			name: t("navigation.myOrders.title"),
 			href: "/orders",
-			description: "Заказы за всё время",
+			description: t("navigation.myOrders.description"),
 			show: isAuthorized,
 			icon: (
 				<Icon
@@ -27,7 +30,7 @@ export const BurgerSheet = () => {
 			),
 		},
 		{
-			name: "Список желаемых туров",
+			name: t("navigation.wishlist"),
 			href: "/wishlist",
 			show: true,
 			icon: (

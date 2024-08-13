@@ -1,4 +1,5 @@
 import { getDetailTour } from "@entity/tour"
+import { getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 import type { FC } from "react"
 import { Header } from "./components/Header"
@@ -16,6 +17,8 @@ interface DetailTourProps {
 }
 
 export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
+	const t = await getTranslations()
+
 	const tour = await getDetailTour(tourSlug)
 
 	if (!tour) {
@@ -28,7 +31,7 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 			<section>
 				<PreviewTourImages
 					photos={tour.photos}
-					alt={tour.photo_alt}
+					alt={tour.photo_alt || t("pages.detailTour.previewTour.photoAlt")}
 				/>
 				<div className='flex flex-col gap-md'>
 					<PreviewTour {...tour} />

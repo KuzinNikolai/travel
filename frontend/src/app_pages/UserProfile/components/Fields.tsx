@@ -2,11 +2,16 @@ import { useUserTokenStore, type User } from "@entity/user"
 import { useLogout } from "@feature/auth/logout"
 import { Button } from "@share/ui/Buttons"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
 import type { FC, PropsWithChildren } from "react"
 
 const FieldItem: FC<PropsWithChildren> = ({ children }) => {
-	return <li className='after:block after:h-[1px] after:w-full after:bg-base-140'>{children}</li>
+	return (
+		<li className='after:block after:h-[1px] after:w-full after:bg-base-140 [&>div]:py-4 [&>div]:first-of-type:pt-none'>
+			{children}
+		</li>
+	)
 }
 
 interface FieldItemWithEditProps {
@@ -16,20 +21,20 @@ interface FieldItemWithEditProps {
 }
 
 const FieldItemWithEdit: FC<FieldItemWithEditProps> = ({ title, value, isEditable }) => {
+	const t = useTranslations("pages.profile")
+
 	return (
 		<FieldItem>
-			<div className='flex justify-between gap-sm py-6 first-of-type:pt-none'>
+			<div className='flex justify-between gap-sm'>
 				<div className='flex flex-1 flex-col gap-sm'>
 					<Typography
 						variant='contentPrimary'
-						as='p'
 						className='text-primary-400'
 					>
 						{title}
 					</Typography>
 					<Typography
-						variant='h5'
-						as='p'
+						variant='h6'
 						className='text-primary-400'
 					>
 						{value}
@@ -41,7 +46,7 @@ const FieldItemWithEdit: FC<FieldItemWithEditProps> = ({ title, value, isEditabl
 						className='text-primary-50'
 						asChild
 					>
-						<Link href='/profile/edit'>Добавить</Link>
+						<Link href='/profile/edit'>{t("actions.add")}</Link>
 					</Button>
 				)}
 			</div>
@@ -54,6 +59,8 @@ interface FieldsProps {
 }
 
 export const Fields: FC<FieldsProps> = ({ user }) => {
+	const t = useTranslations("pages.profile")
+
 	const { getToken } = useUserTokenStore((state) => state)
 	const logout = useLogout()
 
@@ -70,18 +77,18 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 				/>
 			)}
 			<FieldItemWithEdit
-				title={fullNameExists ? "К вам обращаться" : "Как к вам обращаться?"}
-				value={fullNameExists ? `${user.first_name} ${user.last_name}` : "Фамилия и имя не указаны"}
+				title={t("fields.fullName.title")}
+				value={fullNameExists ? `${user.first_name} ${user.last_name}` : t("fields.fullName.placeholder")}
 				isEditable={!fullNameExists}
 			/>
 			{!isStaff && (
 				<FieldItem>
 					<Button
 						variant='ghost'
-						className="!justify-start !py-6 w-full rounded-none"
+						className='!justify-start !py-6 w-full rounded-none'
 						asChild
 					>
-						<Link href='/profile/become/info'>Стать гидом</Link>
+						<Link href='/profile/become/info'>{t("actions.become")}</Link>
 					</Button>
 				</FieldItem>
 			)}
@@ -89,10 +96,10 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 				<FieldItem>
 					<Button
 						variant='ghost'
-						className="!justify-start !py-6 w-full rounded-none"
+						className='!justify-start !py-6 w-full rounded-none'
 						asChild
 					>
-						<Link href='/orders'>Заказы</Link>
+						<Link href='/orders'>{t("actions.orders")}</Link>
 					</Button>
 				</FieldItem>
 			)}
@@ -100,18 +107,18 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 				{/* // TODO: Add use call to support function  */}
 				<Button
 					variant='ghost'
-					className="!justify-start !py-6 w-full rounded-none"
+					className='!justify-start !py-6 w-full rounded-none'
 				>
-					Поддержка
+					{t("actions.support")}
 				</Button>
 			</FieldItem>
 			<FieldItem>
 				<Button
 					variant='ghost'
 					onClick={() => logout.mutateAsync({ token: getToken() || "" })}
-					className="!justify-start !py-6 w-full rounded-none text-danger"
+					className='!justify-start !py-6 w-full rounded-none text-danger'
 				>
-					Выйти
+					{t("actions.logout")}
 				</Button>
 			</FieldItem>
 		</ul>

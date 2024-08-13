@@ -21,7 +21,7 @@ export const useWishlistStore = create(
 			tours: [] as WishItem[],
 
 			isFavoriteTour(tourId) {
-				return get().tours.includes(tourId)
+				return !!get().tours.find((_tourId) => _tourId === tourId)
 			},
 			addTour(tourId) {
 				const { tours } = get()

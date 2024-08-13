@@ -1,19 +1,22 @@
+import { cn } from "@share/lib"
 import { Rating } from "@share/ui/Rating"
+import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import clsx from "clsx"
+import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import Link from "next/link"
 import type { FC } from "react"
 import type { Tour as TTour } from "../../consts"
 import { TourWishListButton } from "./TourWishListButton"
-import { Skeleton } from "@share/ui/Skeleton"
-import { cn } from "@share/lib"
 
 interface TourProps {
 	tour: TTour
 }
 
-export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({ tour }) => {
+export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = async ({ tour }) => {
+	const t = await getTranslations()
+
 	const pathToTour = `/${tour.city_slug}/${tour.slug}`
 
 	return (
@@ -26,14 +29,14 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 			<div className='relative'>
 				<Image
 					src={tour.photo}
-					alt={tour.meta_desc}
+					alt={t("components.popularTours.imgAlt", { name: tour.title })}
 					width={137}
 					height={137}
-					className="h-full min-h-48 w-full rounded-sm object-cover object-center"
+					className='h-full min-h-48 w-full rounded-sm object-cover object-center'
 				/>
 				<Link
 					href={pathToTour}
-					aria-label={`Ссылка на тур ${tour.title}`}
+					aria-label={t("components.popularTours.link", { name: tour.title })}
 					className='absolute top-0 right-0 bottom-0 left-0'
 				/>
 				<TourWishListButton tourId={tour.id} />
@@ -63,7 +66,7 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 						variant='h6'
 						as='h3'
 						textWidth='semibold'
-						className="line-clamp-2 flex"
+						className='line-clamp-2 flex'
 					>
 						{tour.title}
 					</Typography>
@@ -71,7 +74,7 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 				<Typography
 					variant='contentPrimary'
 					textWidth='light'
-					className="line-clamp-3 flex-1 text-primary-400 leading-5"
+					className='line-clamp-3 flex-1 text-primary-400 leading-5'
 				>
 					{tour.meta_desc}
 				</Typography>
@@ -82,7 +85,7 @@ export const TourPreview: FC<TourProps> & { Skeleton: typeof TourSkeleton } = ({
 						textWidth='light'
 						className='text-primary-400'
 					>
-						${tour.min_price || 0}
+						{tour.currency_prefix} {tour.min_price || 0}
 					</Typography>
 				</div>
 			</div>

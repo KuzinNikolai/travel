@@ -11,12 +11,15 @@ import { Typography } from "@share/ui/Text"
 import { useEffect, type FC } from "react"
 import { useForm } from "react-hook-form"
 import { UserInfoItem } from "./UserInfoItem"
+import { useTranslations } from "next-intl"
 
 interface UserEditFormProps {
 	user: User
 }
 
 export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
+	const t = useTranslations("pages.profile")
+
 	const { query, fetchRun } = useGetCity()
 
 	const { getToken } = useUserTokenStore()
@@ -64,7 +67,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 
 	return (
 		<Section
-			title='Настройка профиля'
+			title={t("type.editProfile")}
 			containerClassNames='h-full'
 			hiddenTitle
 		>
@@ -77,7 +80,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 								as='p'
 								className='mb-4'
 							>
-								Гид в {query.isLoading ? "загружается..." : query.data?.name}
+								{t("userInfo.guideIn", { country: query.data?.country })}
 							</Typography>
 						)}
 						<UploadAvatar
@@ -90,11 +93,11 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 							size={{ width: 90, height: 90 }}
 						/>
 						<UserInfoItem
-							label='username'
+							label={t("userInfo.userName")}
 							value={user.username}
 						/>
 						<UserInfoItem
-							label='email'
+							label={t("userInfo.email")}
 							value={user.email}
 						/>
 					</div>
@@ -104,7 +107,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 								name='description'
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>О себе</FormLabel>
+										<FormLabel>{t("fields.aboutMe.title")}</FormLabel>
 										<Textarea
 											{...field}
 											value={field.value || ""}
@@ -114,7 +117,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 										<FormMessage
 											i18n={(message) =>
 												message.includes("TO_BIG_DESCRIPTION_LENGTH")
-													? `Максимальная длина описания ${message.match(/\d/gi)?.join("")} символов`
+													? t("fields.aboutMe.maxSize", { maxSize: message.match(/\d/gi)?.join("") })
 													: ""
 											}
 										/>
@@ -127,7 +130,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 							name='full_name'
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Полное имя</FormLabel>
+									<FormLabel>{t("fields.fullName.title")}</FormLabel>
 									<Input
 										{...field}
 										disabled={isPending}
@@ -149,7 +152,7 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 						type='submit'
 						disabled={!form.formState.isValid || !form.formState.isDirty || isPending}
 					>
-						Сохранить
+						{t("actions.save")}
 					</Button>
 				</form>
 			</Form>

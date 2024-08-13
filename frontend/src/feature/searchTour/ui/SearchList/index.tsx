@@ -3,8 +3,10 @@ import { SearchGroup } from "../SearchGroup"
 import { SearchItem } from "../SearchItem"
 import { Icon } from "@share/ui/Icon"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 
 export const SearchList = () => {
+	const t = useTranslations("components.searchTour")
 	const { data, query } = useSearch()
 
 	if (query.isFetching || query.isPending) {
@@ -26,7 +28,7 @@ export const SearchList = () => {
 				>
 					{group.items.map((item) => (
 						<SearchItem
-							key={item.tourSlug}
+							key={`${item.title} ${item.tourSlug}`}
 							{...item}
 						/>
 					))}
@@ -36,12 +38,7 @@ export const SearchList = () => {
 	) : (
 		<div className='flex gap-2'>
 			<Icon name='LocateOff' />
-			<Typography
-				variant='h3'
-				as='p'
-			>
-				Ничего не найдено
-			</Typography>
+			<Typography variant='h3'>{t("notFound")}</Typography>
 		</div>
 	)
 }

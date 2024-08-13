@@ -14,22 +14,13 @@ export const NavigationItem: FC<INavigationItemProps> = ({ navigation }) => {
 			className='grid grid-cols-[24px_1fr] items-center gap-2 border-b-[1px] border-b-primary-400 pb-2'
 		>
 			{navigation.icon}
-			<div className='flex flex-col justify-center gap-1'>
-				<Typography
-					textWidth='semibold'
-					className='truncate'
-				>
-					{navigation.name}
-				</Typography>
-				{navigation.description && (
-					<Typography
-						textWidth='light'
-						className='truncate'
-					>
-						{navigation.description}
-					</Typography>
-				)}
-			</div>
+			<Typography
+				textWidth='semibold'
+				className='truncate'
+			>
+				{navigation.name}
+			</Typography>
+			{navigation.description && <Typography textWidth='light' className="col-span-3">{navigation.description}</Typography>}
 		</Link>
 	)
 }

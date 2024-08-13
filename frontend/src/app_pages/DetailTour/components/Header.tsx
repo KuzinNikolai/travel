@@ -4,6 +4,7 @@ import { useWishlistStore } from "@feature/wishlist"
 import { cn, useScrollable } from "@share/lib"
 import { IconButton, ShareButton } from "@share/ui/Buttons"
 import { Container } from "@share/ui/Layout"
+import { useTranslations } from "next-intl"
 import { useEffect, useState, type FC } from "react"
 
 interface IHeader {
@@ -11,6 +12,8 @@ interface IHeader {
 }
 
 export const Header: FC<IHeader> = ({ tourId }) => {
+	const t = useTranslations()
+
 	const wishlist = useWishlistStore()
 
 	const [locationHref, setLocationHref] = useState("")
@@ -29,6 +32,8 @@ export const Header: FC<IHeader> = ({ tourId }) => {
 		}
 	}
 
+	const inWishlist = wishlist.isFavoriteTour(tourId) ? t("components.wishlist.remove") : t("components.wishlist.add")
+
 	return (
 		<div
 			className={cn(
@@ -39,19 +44,19 @@ export const Header: FC<IHeader> = ({ tourId }) => {
 			<Container className='flex items-center justify-between'>
 				<IconButton
 					icon='ChevronLeft'
-					description='Назад'
+					description={t("share.back")}
 					onClick={onBack}
 				/>
 				<div className='flex items-center gap-2'>
 					<IconButton
 						icon='Heart'
-						description={wishlist.isFavoriteTour(tourId) ? "Удалить из избранного" : "Добавить в избранное"}
+						description={inWishlist}
 						iconProps={{ className: wishlist.tours.includes(tourId) ? "stroke-primary-70 fill-primary-70" : "" }}
 						onClick={onToggleInWishList}
 					/>
 					<ShareButton
 						shareData={{ url: locationHref }}
-						description='Поделиться экскурсией'
+						description={t("pages.detailTour.actions.share")}
 					/>
 				</div>
 			</Container>

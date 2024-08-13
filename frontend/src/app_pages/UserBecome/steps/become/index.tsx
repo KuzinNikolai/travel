@@ -3,12 +3,15 @@ import { Typography } from "@share/ui/Text"
 import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
 import { BecomeForm } from "./_components/BecomeForm"
 import { Container, Section } from "@share/ui/Layout"
+import { getTranslations } from "next-intl/server"
 
 export const metadata = {
 	title: "Become supplier",
 }
 
-export const BecomeStep = () => {
+export const BecomeStep = async () => {
+	const t = await getTranslations()
+
 	return (
 		<Section
 			className='flex-1'
@@ -22,7 +25,7 @@ export const BecomeStep = () => {
 				variant='contentPrimary'
 				textAlign='center'
 			>
-				Выберете страну и город проведения вашей экскурсий и номер телефона для связи
+				{t("pages.become.form.title")}
 			</Typography>
 			<BecomeForm />
 		</Section>

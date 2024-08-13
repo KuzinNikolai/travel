@@ -1,8 +1,8 @@
 "use client"
 
-// import { Carousel, CarouselContent, CarouselItem, CarouselLengthViewer, Typography } from "@share/ui"
 import { Carousel, CarouselContent, CarouselItem, CarouselLengthViewer } from "@share/ui/Carousel"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 import Image from "next/image"
 import type { FC } from "react"
 
@@ -12,6 +12,8 @@ interface IPreviewTourImagesProps {
 }
 
 export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], alt }) => {
+	const t = useTranslations("pages.detailTour.previewTour")
+
 	if (!photos?.length) {
 		return (
 			<div className='h-[50vh] w-full'>
@@ -21,7 +23,7 @@ export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], al
 					as='p'
 					color='danger'
 				>
-					Изображение не добавлено
+					{t("photoNotAdded")}
 				</Typography>
 			</div>
 		)
@@ -39,7 +41,7 @@ export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], al
 				{photos.map((photo) => (
 					<CarouselItem key={photo}>
 						<Image
-							alt='Фотография к экскурсии'
+							alt={t("photoAlt")}
 							src={photo}
 							priority
 							width={300}
@@ -53,7 +55,7 @@ export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], al
 		</Carousel>
 	) : (
 		<Image
-			alt={alt || "Фотография к экскурсии"}
+			alt={alt || t("photoAlt")}
 			src={photos[0]}
 			width={300}
 			height={300}
