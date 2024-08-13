@@ -1,4 +1,5 @@
 import { Typography } from "@share/ui/Text"
+import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import Link from "next/link"
 import type { FC } from "react"
@@ -7,13 +8,15 @@ import type { cityItemSchema } from "../consts/schema"
 
 type PopularCityProps = Pick<z.infer<typeof cityItemSchema>, "name" | "slug" | "photo" | "photo_alt" | "tour_count">
 
-export const PopularCity: FC<PopularCityProps> = (props) => {
+export const PopularCity: FC<PopularCityProps> = async (props) => {
+	const t = await getTranslations()
+
 	return (
 		<li className='relative h-[140px] w-full overflow-hidden rounded-md bg-base-170'>
 			<div className='absolute top-0 left-0 h-full w-full'>
 				<Image
 					src={props.photo}
-					alt=''
+					alt={t("components.popularCities.imageAlt", { city: props.name })}
 					width={300}
 					height={300}
 					className='w-full object-cover object-center'
@@ -33,13 +36,13 @@ export const PopularCity: FC<PopularCityProps> = (props) => {
 					variant='contentLarge'
 					className='inline text-base-160 drop-shadow-primary'
 				>
-					Экскурсий: {props.tour_count || 0}
+					{t("components.popularCities.tourCount", { count: props.tour_count || 0 })}
 				</Typography>
 			</div>
 			<Link
 				href={`/${props.slug}`}
 				className='absolute top-0 right-0 bottom-0 left-0'
-				aria-label={`Ссылка на страницу ${props.name} города`}
+				aria-label={t("components.popularCities.linkToCity", { city: props.name })}
 			/>
 		</li>
 	)

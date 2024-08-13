@@ -3,102 +3,62 @@ import { Icon, type IconsName } from "@share/ui/Icon"
 import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
 import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
+import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import type { FC } from "react"
+import { OfferTourItem } from "./components/OfferTourItem"
+import { HowWeAreWorking } from "./components/HowWeAreWorking"
 
 export const metadata = {
 	title: "Become guide",
 }
 
-interface OfferTourItemProps {
-	icon: IconsName
-	label: string
-	description: string
-}
+export const BecomeInfoStep = async () => {
+	const t = await getTranslations()
 
-const OfferTourItem: FC<OfferTourItemProps> = ({ label, description, icon }) => {
-	return (
-		<li className='flex gap-3'>
-			<Icon
-				name={icon}
-				className='mt-1 min-h-9 min-w-9'
-			/>
-			<div className='flex flex-col gap-1'>
-				<Typography
-					variant='h6'
-					as='h3'
-					className='text-base-20'
-				>
-					{label}
-				</Typography>
-				<Typography
-					className='text-base-40'
-				>
-					{description}
-				</Typography>
-			</div>
-		</li>
-	)
-}
-
-export const BecomeInfoStep = () => {
 	return (
 		<>
-			<HeaderWithBack title='Become' />
+			<HeaderWithBack title={t("pages.become.title")} />
 			<Section contentProps={{ className: "flex flex-col gap-md" }}>
 				<div className='space-y-3'>
 					<Typography
 						variant='h4'
 						as='h2'
 					>
-						GetTrip - Онлайн сервис по поиску экскурсий, туров.
+						{t("pages.become.content.aboutUs.title")}
 					</Typography>
-					<Typography className='text-primary-400'>
-						Сервис GetTrip – это инновационная платформа, где путешественники могут легко найти и заказать туры и
-						экскурсии у местных гидов и компаний. Присоединяйтесь к нашему динамичному сообществу любителей путешествий,
-						делитесь своими знаниями, знакомьтесь с интересными людьми и зарабатывайте, занимаясь любимым делом! GetTrip
-						помогает вам открывать новые горизонты, создавая незабываемые впечатления для вас и ваших гостей.
-					</Typography>
+					<Typography className='text-primary-400'>{t("pages.become.content.aboutUs.description")}</Typography>
 				</div>
 				<div className='space-y-3'>
 					<Typography
 						variant='h4'
 						as='h2'
 					>
-						Кто может стать гидом?
+						{t("pages.become.content.whoCanJoin.title")}
 					</Typography>
-					<Typography className='text-primary-400'>
-						Мы приглашаем как профессиональных гидов, так и любителей, знающих свой город и увлечённых проводить
-						экскурсии. Присоединяйтесь к нам и поделитесь своей страстью и знаниями, чтобы создавать уникальные и
-						запоминающиеся экскурсии и туры.
-					</Typography>
+					<Typography className='text-primary-400'>{t("pages.become.content.whoCanJoin.description")}</Typography>
 				</div>
 				<div className='space-y-3'>
 					<Typography
 						variant='h4'
 						as='h2'
 					>
-						Как предложить свою экскурсию?
+						{t("pages.become.content.howToOfferYourTour.title")}
 					</Typography>
 					<ul className='flex list-none flex-col gap-sm'>
 						<OfferTourItem
-							label='Отправка тура'
-							description='Мы придаем особое значение ясной концепции экскурсии, которая отражает ваш уникальный взгляд на город, место проведения экскурсии'
+							label={t("pages.become.content.howToOfferYourTour.sendingTour.title")}
+							description={t("pages.become.content.howToOfferYourTour.sendingTour.description")}
 							icon='ImageUp'
 						/>
 						<OfferTourItem
-							label='Ответ'
-							description='После получения заявки мы свяжемся с вами, чтобы обсудить соответствие наших критериев экскурс экскурсии и договориться о дальнейших шагах.'
-							icon='View'
-						/>
-						<OfferTourItem
-							label='Звонок'
-							description='Мы проведем звонок для обсуждения ключевых идей, содержания экскурсии и условий сотрудничества'
+							label={t("pages.become.content.howToOfferYourTour.call.title")}
+							description={t("pages.become.content.howToOfferYourTour.call.description")}
 							icon='PhoneIncoming'
 						/>
 						<OfferTourItem
-							label='Размещение на сайте'
-							description='Мы создадим описание экскурсии, которое максимально привлечет внимание клиентов, и опубликуем информацию на нашем сайте для максимальной доступности.'
+							label={t("pages.become.content.howToOfferYourTour.postingOnWebsite.title")}
+							description={t("pages.become.content.howToOfferYourTour.postingOnWebsite.description")}
 							icon='BookUp'
 						/>
 					</ul>
@@ -108,32 +68,34 @@ export const BecomeInfoStep = () => {
 					className='my-5'
 					asChild
 				>
-					<Link href='./form'>Стать гидом</Link>
+					<Link href='./form'>{t("pages.become.becomeAction")}</Link>
 				</Button>
 				<div className='space-y-3'>
 					<Typography
 						variant='h4'
 						as='h2'
-						className="text-base-20"
+						className='text-base-0'
 					>
-						Как мы работаем?
+						{t("pages.become.content.howWeAreWorking.title")}
 					</Typography>
-					<Typography
-						variant='contentPrimary'
-						className='text-base-40'
-					>
-						Размещение ваших предложений на нашем сайте бесплатно. Мы тщательно подходим к выбору экскурсий, публикуя
-						только те, которые отвечают актуальному спросу. Комиссия с продажи ваших экскурсий Мы берем комиссию в
-						размере 20% от стоимости каждого заказа экскурсий. Мы вкладываем деньги в продвижение экскурсий, а вы
-						отвечаете за их проведение
-					</Typography>
+					<ul className='space-y-3'>
+						<HowWeAreWorking
+							label={t("pages.become.content.howWeAreWorking.freePlacement.title")}
+							description={t("pages.become.content.howWeAreWorking.freePlacement.description")}
+						/>
+						<HowWeAreWorking
+							label={t("pages.become.content.howWeAreWorking.salesCommission.title")}
+							description={t("pages.become.content.howWeAreWorking.salesCommission.description")}
+						/>
+						<Typography className='!mt-7 text-base-20'>{t("pages.become.content.howWeAreWorking.partnership")}</Typography>
+					</ul>
 				</div>
 				<Button
 					variant='outline'
 					className='my-5'
 					asChild
 				>
-					<Link href='./form'>Стать гидом</Link>
+					<Link href='./form'>{t("pages.become.becomeAction")}</Link>
 				</Button>
 			</Section>
 		</>

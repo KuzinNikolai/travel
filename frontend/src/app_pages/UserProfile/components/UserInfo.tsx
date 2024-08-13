@@ -1,6 +1,7 @@
 import { useGetCity } from "@entity/city"
 import { UserAvatar, type User } from "@entity/user"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 import { useEffect, type FC } from "react"
 
 interface UserInfoItemProps {
@@ -12,10 +13,10 @@ const UserInfoItem: FC<UserInfoItemProps> = ({ label, value }) => {
 	return (
 		<div className='mb-2 flex w-full flex-col items-center justify-center'>
 			<Typography
-				variant='h6'
+				variant='h7'
 				className='text-base-20'
 			>
-				{label}
+				{label.toLowerCase()}
 			</Typography>
 			<Typography
 				variant='h5'
@@ -33,6 +34,8 @@ interface UserInfoProps {
 }
 
 export const UserInfo: FC<UserInfoProps> = ({ user }) => {
+	const t = useTranslations("pages.profile")
+
 	const { query, fetchRun } = useGetCity()
 
 	useEffect(() => {
@@ -47,7 +50,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
 					as='p'
 					className='mb-2'
 				>
-					Гид в {query.isLoading ? "загружается..." : query.data?.name}
+					{t("userInfo.guideIn", { country: query.data?.name })}
 				</Typography>
 			)}
 			<UserAvatar
@@ -59,11 +62,11 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
 				size={{ width: 90, height: 90 }}
 			/>
 			<UserInfoItem
-				label='username'
+				label={t("userInfo.userName")}
 				value={user.username}
 			/>
 			<UserInfoItem
-				label='email'
+				label={t("userInfo.email")}
 				value={user.email}
 			/>
 		</div>

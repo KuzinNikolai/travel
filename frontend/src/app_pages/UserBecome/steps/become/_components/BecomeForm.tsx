@@ -10,11 +10,14 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/For
 import { Icon } from "@share/ui/Icon"
 import { InputPhone, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@share/ui/Inputs"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 import { redirect } from "next/navigation"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
 export const BecomeForm = () => {
+	const t = useTranslations("pages.become.form")
+
 	const { getToken } = useUserTokenStore()
 
 	const form = useForm<BecomeGuide>({
@@ -52,9 +55,9 @@ export const BecomeForm = () => {
 								onValueChange={(value) => field.onChange(Number.parseInt(value))}
 							>
 								<SelectTrigger className='w-full justify-between'>
-									<FormLabel>* Страна</FormLabel>
+									<FormLabel>* {t("fields.country.title")}</FormLabel>
 									<div className='flex items-center gap-2'>
-										<SelectValue placeholder='Select a fruit' />
+										<SelectValue placeholder={t("fields.country.title")} />
 										<Icon
 											name='ChevronDown'
 											className='h-4 w-4'
@@ -62,9 +65,9 @@ export const BecomeForm = () => {
 									</div>
 								</SelectTrigger>
 								<SelectContent ref={field.ref}>
-									{countryListQuery.isLoading && <Typography>Загрузка стран...</Typography>}
+									{countryListQuery.isLoading && <Typography>{t("fields.country.loading")}</Typography>}
 									{countryListQuery.isFetched && !countryListQuery.data?.length && (
-										<Typography>Не удалось загрузить страны</Typography>
+										<Typography>{t("fields.country.notLoaded")}</Typography>
 									)}
 									{countryListQuery.data?.length &&
 										countryListQuery.data.map((country) => (
@@ -93,9 +96,9 @@ export const BecomeForm = () => {
 									onValueChange={(value) => field.onChange(Number.parseInt(value))}
 								>
 									<SelectTrigger className='w-full justify-between'>
-										<FormLabel>* Город</FormLabel>
+										<FormLabel>* {t("fields.city.title")}</FormLabel>
 										<div className='flex items-center gap-2'>
-											<SelectValue placeholder='Select a fruit' />
+											<SelectValue placeholder={t("fields.city.title")} />
 											<Icon
 												name='ChevronDown'
 												className='h-4 w-4'
@@ -103,9 +106,9 @@ export const BecomeForm = () => {
 										</div>
 									</SelectTrigger>
 									<SelectContent ref={field.ref}>
-										{cityListQuery.isLoading && <Typography>Загрузка городов...</Typography>}
+										{cityListQuery.isLoading && <Typography>{t("fields.city.loading")}</Typography>}
 										{cityListQuery.isFetched && !cityListQuery.data?.length && (
-											<Typography>Не удалось загрузить города</Typography>
+											<Typography>{t("fields.city.notLoaded")}</Typography>
 										)}
 										{cityListQuery.data?.length &&
 											cityListQuery.data.map((city) => (
@@ -127,7 +130,7 @@ export const BecomeForm = () => {
 					name='phone'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Номер телефона</FormLabel>
+							<FormLabel>* {t("fields.phone")}</FormLabel>
 							<InputPhone {...field} />
 						</FormItem>
 					)}
@@ -139,7 +142,7 @@ export const BecomeForm = () => {
 					className='w-full'
 					variant='primary'
 				>
-					Отправить
+					{t("fields.submit")}
 				</Button>
 			</form>
 		</Form>

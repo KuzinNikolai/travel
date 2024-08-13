@@ -2,6 +2,7 @@
 
 import { createDebounce, logger, Time, useSearchParams } from "@share/lib"
 import { Input } from "@share/ui/Inputs"
+import { useTranslations } from "next-intl"
 import { useState } from "react"
 
 const debounce = createDebounce((query: string, setParam: (key: "q", value: string) => void) => {
@@ -9,6 +10,8 @@ const debounce = createDebounce((query: string, setParam: (key: "q", value: stri
 }, 600)
 
 export const SearchInput = () => {
+	const t = useTranslations("components.searchTour")
+
 	const { getSearchParam, setSearchParam } = useSearchParams<"q">()
 	const [query, setQuery] = useState(getSearchParam("q") || "")
 
@@ -16,7 +19,7 @@ export const SearchInput = () => {
 		<Input
 			type='text'
 			name='Search'
-			placeholder='Поиск'
+			placeholder={t("placeholder")}
 			className='bg-base-160'
 			value={query}
 			onInput={(e) => {

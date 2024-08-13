@@ -1,14 +1,14 @@
 import type { IAdvantage } from "@entity/advantage.entity"
 import { Icon } from "@share/ui/Icon"
 import { Section } from "@share/ui/Layout"
+import { getTranslations } from "next-intl/server"
 import { Advantage } from "./Advantage"
 
-export const AdvantageList = [
+export const AdvantageList = (t: Awaited<ReturnType<typeof getTranslations<never>>>) => [
 	{
-		id: 1,
-		title: "Отмена тура",
-		description: "Бесплатная отмена экскурсии за 48 часов",
-		iconLabel: "Иконка часов",
+		title: t("pages.mainPage.advantages.tourCancellation.title"),
+		description: t("pages.mainPage.advantages.tourCancellation.description"),
+		iconLabel: t("pages.mainPage.advantages.tourCancellation.iconLabel"),
 		icon: (
 			<Icon
 				name='Clock9'
@@ -17,10 +17,9 @@ export const AdvantageList = [
 		),
 	},
 	{
-		id: 2,
-		title: "Отзывы",
-		description: "Отзывы от реальных людей которые побывали на экскурсиях",
-		iconLabel: "Иконка отзывов",
+		title: t("pages.mainPage.advantages.reviews.title"),
+		description: t("pages.mainPage.advantages.reviews.description"),
+		iconLabel: t("pages.mainPage.advantages.reviews.iconLabel"),
 		icon: (
 			<Icon
 				name='Star'
@@ -29,10 +28,9 @@ export const AdvantageList = [
 		),
 	},
 	{
-		id: 3,
-		title: "Предоплата",
-		description: "Мы не берем полную оплату за наш сервис, а лишь предоплату",
-		iconLabel: "Иконка бронирования",
+		title: t("pages.mainPage.advantages.prepayment.title"),
+		description: t("pages.mainPage.advantages.prepayment.description"),
+		iconLabel: t("pages.mainPage.advantages.prepayment.iconLabel"),
 		icon: (
 			<Icon
 				name='HandCoins'
@@ -42,13 +40,15 @@ export const AdvantageList = [
 	},
 ] satisfies IAdvantage[]
 
-export const Advantages = () => {
+export const Advantages = async () => {
+	const t = await getTranslations()
+
 	return (
 		<Section>
 			<ul className='m-none flex list-none flex-row justify-between gap-sm overflow-x-auto'>
-				{AdvantageList.map((advantage) => (
+				{AdvantageList(t).map((advantage, index) => (
 					<Advantage
-						key={advantage.id}
+						key={`${index}-${advantage.title}`}
 						advantage={advantage}
 					/>
 				))}

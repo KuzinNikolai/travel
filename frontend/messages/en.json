@@ -1,217 +1,247 @@
 {
-	"components": {
-		"auth": {
-			"login": {
-				"title": "Log In",
-				"action": "log in",
-				"accountNotAlready": "Don't have an account?"
-			},
-			"register": {
-				"title": "Register",
-				"action": "register",
-				"accountAlready": "Already have an account?"
-			}
-		},
-		"searchTour": {
-			"action": "Search for a tour",
-			"placeholder": "Search"
-		},
-		"tourProgram": {
-			"type": {
-				"individual": "Individual",
-				"group": "Group"
-			},
-			"price": {
-				"adult": "Adult",
-				"child": "Child"
-			},
-			"actions": {
-				"order": "Order",
-				"moreDetail": "More details"
-			}
-		},
-		"buttonBack": {
-			"action": "Back"
-		},
-		"burgerMenu": {
-			"expandButton": "Burger menu expand button"
-		}
-	},
-	"pages": {
-		"mainPage": {
-			"popularTours": {
-				"title": "Popular Tours",
-				"emptyTours": "No tours found"
-			},
-			"advantages": {
-				"title": "Advantages",
-				"tourCancellation": {
-					"title": "Tour Cancellation",
-					"description": "Free cancellation of the tour up to 48 hours in advance",
-					"icon": "Clock9",
-					"iconLabel": "Clock icon"
-				},
-				"reviews": {
-					"title": "Reviews",
-					"description": "Reviews from real people who have been on tours",
-					"icon": "Star",
-					"iconLabel": "Reviews icon"
-				},
-				"prepayment": {
-					"title": "Prepayment",
-					"description": "We do not take full payment for our service, only a prepayment",
-					"icon": "HandCoins",
-					"iconLabel": "Booking icon"
-				}
-			}
-		},
-		"profile": {
-			"title": "Profile",
-			"actions": {
-				"add": "Add",
-				"edit": "Edit",
-				"become": "Become a guide",
-				"support": "Support",
-				"logout": "Log out"
-			},
-			"userInfo": {
-				"guideIn": "Guide in {country}",
-				"userName": "Username",
-				"email": "Email"
-			},
-			"fields": {
-				"aboutMe": {
-					"title": "About Me",
-					"placeholder": "Describe yourself"
-				},
-				"fullName": {
-					"title": "Last Name and First Name",
-					"placeholder": "Last Name First Name"
-				},
-				"wishlist": "Wishlist"
-			}
-		},
-		"become": {
-			"title": "Become a Guide",
-			"becomeAction": "Offer your tour",
-			"content": {
-				"aboutUs": {
-					"title": "GetTrip - Online service for finding excursions and tours.",
-					"description": "GetTrip is an innovative platform where travelers can easily find and book tours and excursions with local guides and companies. Join our dynamic community of travel enthusiasts, share your knowledge, meet interesting people, and earn while doing what you love! GetTrip helps you discover new horizons, creating unforgettable experiences for you and your guests."
-				},
-				"whoCanJoin": {
-					"title": "Who can become a guide?",
-					"description": "We invite both professional guides and enthusiasts who know their city and are passionate about conducting tours. Join us and share your passion and knowledge to create unique and memorable excursions and tours."
-				},
-				"howToOfferYourTour": {
-					"title": "How to offer your excursion?",
-					"sendingTour": {
-						"title": "Sending the tour",
-						"description": "We place special importance on a clear concept of the excursion that reflects your unique perspective on the city and the location of the excursion."
-					},
-					"call": {
-						"title": "Call",
-						"description": "We will conduct a call to discuss key ideas, the content of the excursion, and the terms of cooperation."
-					},
-					"postingOnWebsite": {
-						"title": "Posting on the website",
-						"description": "We will create a description of the excursion that will attract the most attention from clients and publish the information on our website for maximum accessibility."
-					}
-				},
-				"howWeAreWorking": {
-					"title": "How do we work?",
-					"freePlacement": {
-						"title": "Placement of your offers on our website is free.",
-						"description": "We carefully select excursions, publishing only those that meet current demand."
-					},
-					"salesCommission": {
-						"title": "Commission from the sale of your excursions.",
-						"description": "We take a commission of 20% from the cost of each excursion order."
-					},
-					"partnership": "We invest money in promoting excursions, and you are responsible for conducting them."
-				}
-			},
-			"form": {
-				"title": "Select the country and city for your excursion and a contact phone number",
-				"fields": {
-					"country": {
-						"title": "Country",
-						"loading": "Loading countries...",
-						"notLoaded": "Failed to load countries"
-					},
-					"city": {
-						"title": "City",
-						"loading": "Loading cities...",
-						"notLoaded": "Failed to load cities"
-					},
-					"phone": "Phone number",
-					"submit": "Submit application"
-				}
-			}
-		},
-		"cityTours": {
-			"title": "Excursions in {city}",
-			"emptyTours": "No excursions added in this {city}",
-			"meta": {
-				"keywords": "Excursions in {city}, {city}, City {city, string}"
-			}
-		},
-		"detailTour": {
-			"title": "Detailed description of {tourName=tour}",
-			"meta": {
-				"title": "Tour {tourName} in {city}",
-				"keywords": "Detailed description of {tourName}, {tourName}, {city}, City {city}"
-			},
-			"actions": {
-				"back": "Back",
-				"addToWishlist": "Add to wishlist",
-				"share": "Share the excursion"
-			},
-			"readMore": "Read more",
-			"previewTour": {
-				"photoAlt": "Photo for the excursion",
-				"photoNotAdded": "Photo not added",
-				"seeDown": "See below what is included in the excursion"
-			},
-			"information": {
-				"title": "About the excursion",
-				"pregnantPossible": {
-					"can": "Pregnant women can",
-					"cant": "Pregnant women cannot"
-				},
-				"children": {
-					"can": "Children are allowed. (Children up to {maxAge, plural, 1= {# year} other {# years}} free)",
-					"cant": "Children are not allowed"
-				}
-			},
-			"programs": "Programs and prices",
-			"description": "Description",
-			"included": "Included",
-			"notIncluded": "Not included",
-			"tourTake": "Take with you",
-			"userPolicy": "Usage policy",
-			"reviews": "Reviews"
-		},
-		"orderTour": {
-			"title": "Order excursion",
-			"fields": {
-				"fullName": "Last Name and First Name",
-				"phone": "Phone number",
-				"hotelAddress": "Hotel address",
-				"numberOfAdults": "Number of adults",
-				"numberOfChildren": "Number of children",
-				"excursionDate": "Date of excursion",
-				"comment": "Comment on the order"
-			},
-			"submit": "Submit order"
-		},
-		"wishlist": {
-			"title": "Wishlist",
-			"emptyWishlist": {
-				"title": "Wishlist is empty",
-				"description": "It seems you haven't added any tours yet",
-				"iconLabel": "Image showing an empty basket"
-			}
-		}
-	}
+  "share": {
+    "locale": "english",
+    "logo": "Logo",
+    "back": "Back",
+    "close": "Close"
+  },
+  "components": {
+    "auth": {
+      "login": {
+        "title": "Log In",
+        "action": "log in",
+        "accountNotAlready": "Don't have an account?"
+      },
+      "register": {
+        "title": "Register",
+        "action": "register",
+        "accountAlready": "Already have an account?"
+      }
+    },
+    "searchTour": {
+      "action": "Search",
+      "placeholder": "Search",
+      "notFound": "No results found"
+    },
+    "tourProgram": {
+      "type": {
+        "individual": "Individual",
+        "group": "Group"
+      },
+      "price": {
+        "adult": "Adult",
+        "child": "Child"
+      },
+      "actions": {
+        "order": "Order",
+        "moreDetail": "More details"
+      }
+    },
+    "burgerMenu": {
+      "expandButton": "Burger menu expand button",
+      "navigation": {
+        "myOrders": {
+          "title": "My orders",
+          "description": "Orders for all time"
+        },
+        "wishlist": "List of desired tours"
+      }
+    },
+    "wishlist": {
+      "add": "Add to wishlist",
+      "remove": "Remove from wishlist"
+    },
+    "popularCities": {
+      "imageAlt": "Photo with city {city}",
+      "tourCount": "Tours: {count}",
+      "linkToCity": "See all tours in {city}"
+    },
+    "popularTours": {
+      "imgAlt": "Photo for the tour {name}",
+      "link": "More details about the tour {name}"
+    }
+  },
+  "pages": {
+    "mainPage": {
+      "popularTours": {
+        "title": "Popular Tours",
+        "emptyTours": "No tours found"
+      },
+      "advantages": {
+        "title": "Advantages",
+        "tourCancellation": {
+          "title": "Tour Cancellation",
+          "description": "Free cancellation of the tour up to 48 hours in advance",
+          "icon": "Clock9",
+          "iconLabel": "Clock icon"
+        },
+        "reviews": {
+          "title": "Reviews",
+          "description": "Reviews from real people who have been on tours",
+          "icon": "Star",
+          "iconLabel": "Reviews icon"
+        },
+        "prepayment": {
+          "title": "Prepayment",
+          "description": "We do not take full payment for our service, only a prepayment",
+          "icon": "HandCoins",
+          "iconLabel": "Booking icon"
+        }
+      }
+    },
+    "profile": {
+      "type": {
+        "userProfile": "User profile",
+        "supplierProfile": "Supplier profile",
+        "editProfile": "Edit profile",
+        "editSupplierProfile": "Edit supplier profile"
+      },
+      "actions": {
+        "add": "Add",
+        "edit": "Edit",
+        "become": "Become a guide",
+        "support": "Support",
+        "logout": "Log out",
+        "orders": "Orders",
+        "save": "Save"
+      },
+      "userInfo": {
+        "guideIn": "Guide in {country}",
+        "userName": "Username",
+        "email": "Email"
+      },
+      "fields": {
+        "aboutMe": {
+          "title": "About Me",
+          "placeholder": "Describe yourself",
+          "maxSize": "Maximum description length {maxSize} characters"
+        },
+        "fullName": {
+          "title": "Last Name and First Name",
+          "placeholder": "Last Name First Name"
+        },
+        "wishlist": "Wishlist"
+      }
+    },
+    "become": {
+      "title": "Become a Guide",
+      "becomeAction": "Offer your tour",
+      "content": {
+        "aboutUs": {
+          "title": "GetTrip - Online service for finding excursions and tours",
+          "description": "GetTrip is an innovative platform where travelers can easily find and book tours and excursions with local guides and companies. Join our dynamic community of travel enthusiasts, share your knowledge, meet interesting people, and earn while doing what you love! GetTrip helps you discover new horizons, creating unforgettable experiences for you and your guests"
+        },
+        "whoCanJoin": {
+          "title": "Who can become a guide?",
+          "description": "We invite both professional guides and enthusiasts who know their city and are passionate about conducting tours. Join us and share your passion and knowledge to create unique and memorable excursions and tours"
+        },
+        "howToOfferYourTour": {
+          "title": "How to offer your excursion?",
+          "sendingTour": {
+            "title": "Sending the tour",
+            "description": "We place special importance on a clear concept of the excursion that reflects your unique perspective on the city and the location of the excursion"
+          },
+          "call": {
+            "title": "Call",
+            "description": "We will conduct a call to discuss key ideas, the content of the excursion, and the terms of cooperation"
+          },
+          "postingOnWebsite": {
+            "title": "Posting on the website",
+            "description": "We will create a description of the excursion that will attract the most attention from clients and publish the information on our website for maximum accessibility"
+          }
+        },
+        "howWeAreWorking": {
+          "title": "How do we work?",
+          "freePlacement": {
+            "title": "Placement of your offers on our website is free",
+            "description": "We carefully select excursions, publishing only those that meet current demand"
+          },
+          "salesCommission": {
+            "title": "Commission from the sale of your excursions",
+            "description": "We take a commission of 20% from the cost of each excursion order"
+          },
+          "partnership": "We invest money in promoting excursions, and you are responsible for conducting them"
+        }
+      },
+      "form": {
+        "title": "Select the country and city for your excursion and a contact phone number",
+        "fields": {
+          "country": {
+            "title": "Country",
+            "loading": "Loading countries...",
+            "notLoaded": "Failed to load countries"
+          },
+          "city": {
+            "title": "City",
+            "loading": "Loading cities...",
+            "notLoaded": "Failed to load cities"
+          },
+          "phone": "Phone number",
+          "submit": "Submit application"
+        }
+      }
+    },
+    "cityTours": {
+      "title": "Excursions in {city}",
+      "emptyTours": "No excursions added in this {city}",
+      "meta": {
+        "keywords": "Excursions in {city}, {city}, City {city, string}"
+      }
+    },
+    "detailTour": {
+      "title": "Detailed description of {tourName=tour}",
+      "meta": {
+        "title": "Tour {tourName} in {city}",
+        "keywords": "Detailed description of {tourName}, {tourName}, {city}, City {city}"
+      },
+      "actions": {
+        "share": "Share the excursion"
+      },
+      "readMore": "Read more",
+      "previewTour": {
+        "photoAlt": "Photo for the excursion",
+        "photoNotAdded": "Photo not added",
+        "seeDown": "See below what is included in the excursion"
+      },
+      "information": {
+        "title": "About the excursion",
+        "pregnantPossible": {
+          "can": "Pregnant women can",
+          "cant": "Pregnant women cannot"
+        },
+        "children": {
+          "can": "Children are allowed. (Children up to {maxAge, plural, 1= {# year} other {# years}} free)",
+          "cant": "Children are not allowed"
+        }
+      },
+      "programs": "Programs and prices",
+      "description": "Description",
+      "included": "Included",
+      "notIncluded": "Not included",
+      "tourTake": "Take with you",
+      "userPolicy": "Usage policy",
+      "reviews": "Reviews"
+    },
+    "orderTour": {
+      "title": "Order excursion",
+      "fields": {
+        "fullName": "Last Name and First Name",
+        "phone": "Phone number",
+        "hotelAddress": "Hotel address",
+        "numberOfAdults": "Number of adults",
+        "numberOfChildren": "Number of children",
+        "excursionDate": "Date of excursion",
+        "comment": "Comment on the order"
+      },
+      "submit": "Submit order"
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "emptyWishlist": {
+        "title": "Wishlist is empty",
+        "description": "It seems you haven't added any tours yet",
+        "iconLabel": "Image showing an empty basket"
+      }
+    }
+  }
 }

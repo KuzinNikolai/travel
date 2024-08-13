@@ -3,15 +3,16 @@
 import { DialogContent } from "@radix-ui/react-dialog"
 import { cn } from "@share/lib"
 import type { FC, PropsWithChildren } from "react"
-import { Dialog, DialogClose, DialogTrigger } from "../Dialog"
+import { Dialog, DialogClose, DialogTitle, DialogTrigger } from "../Dialog"
 import { Portal } from "@share/ui/Portal"
 import { Container } from "@share/ui/Layout"
 
-interface IFullScreenModalSubComponents {
+interface FullScreenModalSubComponents {
 	CloseTrigger: typeof DialogClose
 }
 
-interface IFullScreenModalProps extends PropsWithChildren {
+interface FullScreenModalProps extends PropsWithChildren {
+	title: string
 	trigger?: React.ReactNode
 	expand?: boolean
 	onOpenChange?: (open: boolean) => void
@@ -26,7 +27,8 @@ const openChange = (open: boolean) => {
 	}
 }
 
-export const FullScreenModal: FC<IFullScreenModalProps> & IFullScreenModalSubComponents = ({
+export const FullScreenModal: FC<FullScreenModalProps> & FullScreenModalSubComponents = ({
+	title,
 	expand,
 	trigger,
 	className,
@@ -41,6 +43,7 @@ export const FullScreenModal: FC<IFullScreenModalProps> & IFullScreenModalSubCom
 			{trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
 			<Portal>
 				<DialogContent className={cn("fixed top-0 left-0 z-50 h-full w-full", className)}>
+					<DialogTitle>{title}</DialogTitle>
 					<Container>{children}</Container>
 				</DialogContent>
 			</Portal>
