@@ -1,6 +1,6 @@
 import { Typography } from "@share/ui/Text"
 import { getTranslations } from "next-intl/server"
-import Image from "next/image"
+import { Image } from "@share/ui/Image"
 import Link from "next/link"
 import type { FC } from "react"
 import type { z } from "zod"

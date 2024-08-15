@@ -1,9 +1,9 @@
 "use client"
 
 import { Carousel, CarouselContent, CarouselItem, CarouselLengthViewer } from "@share/ui/Carousel"
+import { Image } from "@share/ui/Image"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
-import Image from "next/image"
 import type { FC } from "react"
 
 interface IPreviewTourImagesProps {
