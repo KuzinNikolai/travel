@@ -98,7 +98,7 @@ class FAQSerializer(serializers.ModelSerializer):
 class ReviewSerializer(TranslatableModelSerializer):
     user_full_name = serializers.SerializerMethodField()
     user_photo = serializers.SerializerMethodField()  # Добавляем поле для вывода полного имени пользователя
-    translations = TranslatedFields(shared_model=Reviews)
+    translations = TranslatedFieldsField(shared_model=Reviews)
 
     class Meta:
         model = Reviews
@@ -264,7 +264,7 @@ class TourCreateSerializer(TranslatableModelSerializer):
         langs_data = validated_data.pop("lang", [])
         faqs_data = validated_data.pop("faqs", [])
         photos_data = validated_data.pop("photos", [])
-        
+
         validated_data["author"] = self.context["request"].user
         tour = Tour.objects.create(**validated_data)
         tour.included.set(included_data)
@@ -277,7 +277,8 @@ class TourCreateSerializer(TranslatableModelSerializer):
         tour.photos.set(photos_data)
 
         return tour
-    
+
+
 # Добавление туров конец
 
 
@@ -328,15 +329,56 @@ class TourDetailSerializer(TranslatableModelSerializer):
     def get_photo_alt(self, tour):
         return tour.title
 
-    class Meta:
-        model = Tour
-        exclude = ("is_published",)
-
     # Метод для получения ссылки на текущий тур
     def get_tour_link(self, obj):
         request = self.context.get("request")
         if request is not None:
             return request.build_absolute_uri(obj.get_absolute_url())
+
+    class Meta:
+        model = Tour
+        fields = [
+            "id",
+            "title",
+            "duration",
+            "meta_desc",
+            "meta_keywords",
+            "description",
+            "usage_policy",
+            "country",
+            "country_slug",
+            "city",
+            "city_slug",
+            "slug",
+            "included",
+            "notincluded",
+            "take",
+            "adult_price",
+            "child_price",
+            "children_possible",
+            "what_age_child_free",
+            "pregnant_possible",
+            "photo",
+            "time_create",
+            "time_update",
+            "cat",
+            "type",
+            "transfer",
+            "tags",
+            "lang",
+            "faqs",
+            "group_size",
+            "average_rating",
+            "promotions",
+            "author",
+            "photo_alt",
+            "currency_prefix",
+            "programs",
+            "reviews",
+            "tour_link",
+            "photos",
+            "min_price",
+        ]
 
 
 # Подробная информация о туре и возможность редактиров конец
@@ -345,7 +387,8 @@ class TourDetailSerializer(TranslatableModelSerializer):
 class TourUpdateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     photos = serializers.SerializerMethodField()
-    translations = TranslatedFields(shared_model=Tour)
+    translations = TranslatedFieldsField(shared_model=Tour)
+
     class Meta:
         model = Tour
         fields = (
@@ -394,6 +437,7 @@ class TourUpdateSerializer(TranslatableModelSerializer):
             results.append({"id": photo.id, "url": url})
         return results
 
+
 class CategoryListSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -415,7 +459,7 @@ class OrderSerializer(TranslatableModelSerializer):
     manager_phone = serializers.SerializerMethodField()
     manager_email = serializers.SerializerMethodField()
     cash_on_tour = serializers.SerializerMethodField()
-    translations = TranslatedFields(shared_model=Order)
+    translations = TranslatedFieldsField(shared_model=Order)
 
     class Meta:
         model = Order
