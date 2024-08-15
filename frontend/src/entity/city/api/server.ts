@@ -7,60 +7,60 @@ export async function getCities() {
 	try {
 		const resp = await fetch(`${API_DOMAIN}/api/v1/cities`, {
 			method: "GET",
-			next: { revalidate: Time.toMs("4s") },
+			next: { revalidate: 4 },
 		})
 
 		const text = await resp.text()
 		const json = SafeJson.parse(text)
 
 		if (!json) {
-			logger.fatal("[getCities]", text)
+			logger.fatal("[getCities-parse]", text)
 			return []
 		}
 
 		const { success, data, error } = await cityItemSchema.array().safeParseAsync(json)
 
 		if (!success) {
-			logger.fail("[GetCitiesResponseParse]", json, error)
+			logger.fail("[getCities-validation]", json, error)
 			return []
 		}
 
 		return data
 	} catch (err) {
-		console.error("[GetCitiesCatch]", err)
+		console.error("[getCities-catch]", err)
 		return []
 	}
 }
 
 export const getDetailCity = async (citySlug: string) => {
 	try {
-		const resp = await fetch(`${API_DOMAIN}/api/v1/city/${citySlug}`, {
+		const resp = await fetch(`${API_DOMAIN}/api/v1/cities/city/${citySlug}`, {
 			method: "GET",
-			next: { revalidate: Time.toMs("4s") },
+			next: { revalidate: 4 },
 		})
 
 		const text = await resp.text()
 		const json = SafeJson.parse(text)
 
 		if (!json) {
-			logger.fatal("[getDetailCity]", text)
+			logger.fatal("[getDetailCity-parse]", text)
 			return
 		}
 
 		const { success, data, error } = await detailCitySchema.or(serverErrorResponseSchema).safeParseAsync(json)
 
 		if (!success) {
-			logger.fail("[getDetailCityResponseParse]", json, "\n", error)
+			logger.fail("[getDetailCity-validation]", json, error)
 			return
 		}
 
 		if ("detail" in data) {
-			logger.debug("[getDetailCityResponseParse]", json, citySlug)
+			logger.debug("[getDetailCity-internal-error]", json, citySlug)
 			return
 		}
 
 		return data
 	} catch (err) {
-		console.error("[GetCityCatch]", err)
+		console.error("[getDetailCity-catch]", err)
 	}
 }

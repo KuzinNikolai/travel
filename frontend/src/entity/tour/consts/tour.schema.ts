@@ -36,7 +36,7 @@ export const tourSchema = z.object({
 })
 
 export const detailTourSchema = tourSchema.extend({
-	meta_keywords: z.string(),
+	meta_keywords: z.string().nullable(),
 
 	lang: z.string().array(),
 	transfer: z.string().array(),
@@ -49,7 +49,12 @@ export const detailTourSchema = tourSchema.extend({
 	notincluded: infoItemSchema.array(),
 	take: infoItemSchema.array(),
 
-	photos: z.string().array(),
+	photos: z
+		.object({
+			id: z.number(),
+			url: z.string(),
+		})
+		.array(),
 	adult_price: z.number().nullable(),
 	child_price: z.number().nullable(),
 	children_possible: z.boolean(),
@@ -58,6 +63,8 @@ export const detailTourSchema = tourSchema.extend({
 	usage_policy: z.string(),
 	promotions: z.boolean(),
 	author: z.number(),
+
+	group_size: z.number().nullable(),
 
 	time_create: z.string(),
 	time_update: z.string().nullable(),

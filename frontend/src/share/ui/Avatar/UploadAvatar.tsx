@@ -1,3 +1,5 @@
+"use client"
+
 import { forwardRef, useState } from "react"
 import type { RefCallBack } from "react-hook-form"
 import { Typography } from "../Text"

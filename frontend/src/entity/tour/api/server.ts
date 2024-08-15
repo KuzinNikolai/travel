@@ -3,21 +3,33 @@ import { detailTourSchema, tourSchema } from "../consts"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 
 export async function getTours() {
-	const resp = await fetch(`${API_DOMAIN}/api/v1/tours/`, { method: "GET" })
+	try {
+		const resp = await fetch(`${API_DOMAIN}/api/v1/tours/`, { method: "GET" })
+	
+		if (!resp.ok) {
+			return []
+		}
+	
+		const text = await resp.text()
+		const toursJson = SafeJson.parse(text)
 
-	if (!resp.ok) {
+		if (!toursJson) {
+			logger.fatal("[getTours - parse]", text)
+			return []
+		}
+
+		const { success, data, error } = await tourSchema.array().safeParseAsync(toursJson)
+	
+		if (!success) {
+			logger.fail("[getTours - validation]", error)
+			return []
+		}
+	
+		return data
+	} catch (err) {
+		logger.fatal("[getTours - catch]", err)
 		return []
 	}
-
-	const toursJson = await resp.json()
-	const { success, data, error } = await tourSchema.array().safeParseAsync(toursJson)
-
-	if (!success) {
-		logger.fail("[GET TOURS] Invalid response", error)
-		return []
-	}
-
-	return data
 }
 
 export async function getDetailTour(tourSlug: string) {
@@ -31,14 +43,14 @@ export async function getDetailTour(tourSlug: string) {
 	const json = SafeJson.parse(text)
 
 	if (!json) {
-		logger.fatal("[GET DETAIL TOUR] Invalid response", text)
+		logger.fatal("[getDetailTour - parse]", text)
 		return null
 	}
 
 	const { success, data, error } = await detailTourSchema.safeParseAsync(json)
 
 	if (!success) {
-		logger.fail("[GET DETAIL TOUR] Invalid response", error)
+		logger.fail("[getDetailTour - validation]", json, error)
 		return null
 	}
 

@@ -30,7 +30,7 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 			<Header tourId={tour.id} />
 			<section>
 				<PreviewTourImages
-					photos={tour.photos}
+					photos={tour.photos.map((photo) => photo.url)}
 					alt={tour.photo_alt || t("pages.detailTour.previewTour.photoAlt")}
 				/>
 				<div className='flex flex-col gap-md'>

@@ -34,10 +34,14 @@ const client = {
 	clientHelpList: () => ["helpList"],
 }
 
-const guide = {
-	guideOffers: () => ["guideOffers"],
-	guideProfile: (guideId: number) => ["guideProfile", guideId.toString()],
-	guideOrders: () => ["guideOrders"],
+const review = {
+	reviewListByTour: (tourId: number) => ["reviewList", `reviews-${tourId.toString()}`],
+}
+
+const supplier = {
+	supplierOffers: () => ["guideOffers"],
+	supplierProfile: (guideId: number) => ["guideProfile", guideId.toString()],
+	supplierOrders: () => ["guideOrders"],
 }
 
 export const queryKeyFactory = createServerActionsKeyFactory({
@@ -46,5 +50,6 @@ export const queryKeyFactory = createServerActionsKeyFactory({
 	...user,
 	...search,
 	...client,
-	...guide,
+	...review,
+	...supplier,
 } as const)
