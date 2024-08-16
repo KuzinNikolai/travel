@@ -59,6 +59,9 @@
     "popularTours": {
       "imgAlt": "Photo for the tour {name}",
       "link": "More details about the tour {name}"
+    },
+    "reviews": {
+      "emptyReviews": "No one has shared their opinion yet"
     }
   },
   "pages": {

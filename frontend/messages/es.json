@@ -59,6 +59,9 @@
     "popularTours": {
       "imgAlt": "Foto de la excursion {name}",
       "link": "Más información sobre la excursion {name}"
+    },
+    "reviews": {
+      "emptyReviews": "Nadie ha compartido su opinión todavía"
     }
   },
   "pages": {

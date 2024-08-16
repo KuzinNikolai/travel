@@ -11,6 +11,8 @@ import { TourInformation } from "./components/TourInformation"
 import { ToutPrograms } from "./components/TourPrograms"
 import { TourTake } from "./components/TourTake"
 import { TourUsagePolicy } from "./components/TourUsagePolicy"
+import { Section } from "@share/ui/Layout"
+import { Reviews } from "@widget/Reviews"
 
 interface DetailTourProps {
 	tourSlug: string
@@ -37,7 +39,7 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 					<PreviewTour {...tour} />
 					<TourDescription description={tour.description} />
 					<TourInformation {...tour} />
-					{tour.programs.length && (
+					{tour.programs.length > 0 && (
 						<ToutPrograms
 							programs={tour.programs}
 							currency_prefix={tour.currency_prefix}
@@ -52,6 +54,9 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 					) : null}
 					{tour.take.length > 0 && <TourTake take={tour.take} />}
 					<TourUsagePolicy usagePolicy={tour.usage_policy} />
+					<Section>
+						<Reviews tourId={tour.id} />
+					</Section>
 				</div>
 			</section>
 		</>
