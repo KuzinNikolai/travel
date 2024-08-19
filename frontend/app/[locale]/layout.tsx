@@ -5,6 +5,7 @@ import "@assets/globals.css"
 import * as ReactQueryClientV2 from "@serverActions"
 import { cn, type PagesProps } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
+import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
 import * as i18n from "next-intl"
 import { getMessages } from "next-intl/server"
@@ -39,7 +40,10 @@ const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async 
 					messages={messages}
 				>
 					<ReactQueryClientV2.Provider>
-						<div className="flex h-full flex-1 flex-col">{children}</div>
+						<div className='flex h-full flex-1 flex-col'>
+							{children}
+							<Auth />
+						</div>
 						<Toaster />
 					</ReactQueryClientV2.Provider>
 				</i18n.NextIntlClientProvider>

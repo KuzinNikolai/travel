@@ -88,7 +88,7 @@ export const FirstInfo = () => {
 					)}
 				/>
 				<Button
-					variant='secondary'
+					variant='primary'
 					type='submit'
 					disabled={!form.formState.isValid || registration.isPending}
 					className='w-full'

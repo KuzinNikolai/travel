@@ -75,7 +75,8 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 					)}
 				/>
 				<Button
-					variant='secondary'
+					variant='primary'
+					className="w-full"
 					type='submit'
 					disabled={!form.formState.isValid || login.isPending}
 				>

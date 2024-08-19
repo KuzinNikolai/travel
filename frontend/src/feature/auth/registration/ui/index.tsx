@@ -7,7 +7,7 @@ import { FirstInfo } from "./Steps/FirstInfo"
 import { VerifyCode } from "./Steps/VerifyCode"
 
 interface RegistrationFormProps {
-	onFinish: () => void
+	onFinish?: () => void
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
@@ -20,7 +20,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
 
 	const steps = {
 		[RegistrationSteps.FirstInfo]: <FirstInfo />,
-		[RegistrationSteps.Verify]: <VerifyCode onFinish={onFinish} />,
+		[RegistrationSteps.Verify]: onFinish && <VerifyCode onFinish={onFinish} />,
 	} satisfies { [key in RegistrationSteps]: ReactNode }
 
 	return steps[currentStep as keyof typeof steps]

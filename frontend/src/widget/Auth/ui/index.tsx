@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@share/ui/Mod
 import { Typography } from "@share/ui/Text"
 import { useCallback, useState } from "react"
 import { useAuthStore } from "../model/useAuthStore"
+import { Button } from "@share/ui/Buttons"
 
 export const Auth = () => {
 	const { auth, setExpand } = useAuthStore()
@@ -28,24 +29,24 @@ export const Auth = () => {
 					{tab === "login" ? (
 						<>
 							<Typography>У вас нет аккаунта?</Typography>
-							<button
-								className='text-primary-50'
-								type='button'
+							<Button
+								variant="ghost"
+								className="normal-case"
 								onClick={() => setTab("registration")}
 							>
 								Зарегистрироваться
-							</button>
+							</Button>
 						</>
 					) : (
 						<>
 							<Typography>Уже есть аккаунт?</Typography>
-							<button
-								className='text-primary-50'
-								type='button'
+							<Button
+								variant='ghost'
+								className="normal-case"
 								onClick={() => setTab("login")}
 							>
 								Войти
-							</button>
+							</Button>
 						</>
 					)}
 				</DialogFooter>
