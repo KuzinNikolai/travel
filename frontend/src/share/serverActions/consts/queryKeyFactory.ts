@@ -35,7 +35,7 @@ const client = {
 }
 
 const review = {
-	reviewListByTour: (tourId: number) => ["reviewList", `reviews-${tourId.toString()}`],
+	reviewListByTour: (tourId: number) => [`reviews-${tourId.toString()}`],
 }
 
 const supplier = {
