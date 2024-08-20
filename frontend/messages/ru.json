@@ -61,7 +61,12 @@
       "link": "Подробнее о экскурсии {name}"
     },
     "reviews": {
-      "emptyReviews": "Пока никто не поделился своим мнением"
+      "emptyReviews": "Пока никто не поделился своим мнением",
+      "writeReview": "Написать отзыв"
+    },
+    "rating": {
+      "title": "Рейтинг: {rating}",
+      "label": "Рейтинг: {rating} из {ratingMax}"
     }
   },
   "pages": {
@@ -223,7 +228,14 @@
       "notIncluded": "Не включено",
       "tourTake": "Взять с собой",
       "userPolicy": "Политика использования",
-      "reviews": "Отзывы"
+      "reviews": {
+        "title": "Отзывы",
+        "titleAllReviews": "Все отзывы",
+        "emptyReviews": "Пока никто не поделился своим мнением",
+        "actions": {
+          "showAllReviews": "Смотреть все отзывы"
+        }
+      }
     },
     "orderTour": {
       "title": "Заказ экскурсии",

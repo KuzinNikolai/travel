@@ -1,30 +1,29 @@
-import { getDetailTour } from "@entity/tour"
-import { getTranslations } from "next-intl/server"
-import { notFound } from "next/navigation"
-import type { FC } from "react"
-import { Header } from "./components/Header"
-import { PreviewTour } from "./components/PreviewTour"
-import { PreviewTourImages } from "./components/PreviewTourImages"
-import { TourDescription } from "./components/TourDescriptions"
-import { TourIncluded } from "./components/TourIncluded"
-import { TourInformation } from "./components/TourInformation"
-import { ToutPrograms } from "./components/TourPrograms"
-import { TourTake } from "./components/TourTake"
-import { TourUsagePolicy } from "./components/TourUsagePolicy"
-import { Section } from "@share/ui/Layout"
-import { Reviews } from "@widget/Reviews"
+import { getDetailTour } from "@entity/tour";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import type { FC } from "react";
+import { Header } from "./components/Header";
+import { PreviewReviews } from "./components/PreviewReviews";
+import { PreviewTour } from "./components/PreviewTour";
+import { PreviewTourImages } from "./components/PreviewTourImages";
+import { TourDescription } from "./components/TourDescriptions";
+import { TourIncluded } from "./components/TourIncluded";
+import { TourInformation } from "./components/TourInformation";
+import { ToutPrograms } from "./components/TourPrograms";
+import { TourTake } from "./components/TourTake";
+import { TourUsagePolicy } from "./components/TourUsagePolicy";
 
 interface DetailTourProps {
-	tourSlug: string
+	tourSlug: string;
 }
 
 export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
-	const t = await getTranslations()
+	const t = await getTranslations();
 
-	const tour = await getDetailTour(tourSlug)
+	const tour = await getDetailTour(tourSlug);
 
 	if (!tour) {
-		return notFound()
+		return notFound();
 	}
 
 	return (
@@ -35,7 +34,7 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 					photos={tour.photos.map((photo) => photo.url)}
 					alt={tour.photo_alt || t("pages.detailTour.previewTour.photoAlt")}
 				/>
-				<div className='flex flex-col gap-md'>
+				<div className="flex flex-col gap-md">
 					<PreviewTour {...tour} />
 					<TourDescription description={tour.description} />
 					<TourInformation {...tour} />
@@ -54,11 +53,15 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 					) : null}
 					{tour.take.length > 0 && <TourTake take={tour.take} />}
 					<TourUsagePolicy usagePolicy={tour.usage_policy} />
-					<Section>
-						<Reviews tourId={tour.id} />
-					</Section>
+					<PreviewReviews
+						tour={{
+							id: tour.id,
+							title: tour.title,
+							reviews: tour.reviews,
+						}}
+					/>
 				</div>
 			</section>
 		</>
-	)
-}
+	);
+};
