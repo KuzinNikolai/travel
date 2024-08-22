@@ -1,13 +1,18 @@
-"use client"
+"use client";
 
-import { type ComponentPropsWithRef, type MouseEventHandler, forwardRef } from "react"
-import { IconButton } from "../IconButton"
+import {
+	type ComponentPropsWithRef,
+	type MouseEventHandler,
+	forwardRef,
+} from "react";
+import { IconButton } from "../IconButton";
 
-interface ShareButtonProps extends Partial<ComponentPropsWithRef<typeof IconButton>> {
-	shareData: ShareData
-	asChild?: boolean
-	onSuccess?: () => void
-	onError?: () => void
+interface ShareButtonProps
+	extends Partial<ComponentPropsWithRef<typeof IconButton>> {
+	shareData: ShareData;
+	asChild?: boolean;
+	onSuccess?: () => void;
+	onError?: () => void;
 }
 
 const ShareButton = forwardRef<HTMLButtonElement, ShareButtonProps>(
@@ -15,32 +20,32 @@ const ShareButton = forwardRef<HTMLButtonElement, ShareButtonProps>(
 		const onClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
 			try {
 				if (navigator.share) {
-					navigator.share(shareData)
+					navigator.share(shareData);
 				} else {
-					const shareDataStr = `${`${shareData.title} | `}${`${shareData.text} | `}${shareData.url}`
-					navigator.clipboard.writeText(shareDataStr)
+					const shareDataStr = `${`${shareData.title} | `}${`${shareData.text} | `}${shareData.url}`;
+					navigator.clipboard.writeText(shareDataStr);
 				}
 			} catch (error) {
 				if (error instanceof DOMException) {
-					console.error(error)
+					console.error(error);
 				}
 			}
 
-			cbOnClick?.(e)
-		}
+			cbOnClick?.(e);
+		};
 
 		return (
 			<IconButton
 				description="Share"
 				{...props}
 				onClick={onClick}
-				icon='Share'
+				icon="Share"
 				ref={ref}
 			/>
-		)
+		);
 	},
-)
+);
 
-ShareButton.displayName = "ShareButton"
+ShareButton.displayName = "ShareButton";
 
-export { ShareButton, type ShareButtonProps as IButtonProps }
+export { ShareButton, type ShareButtonProps as IButtonProps };

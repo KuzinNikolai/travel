@@ -1,1 +1,1 @@
-export * from './lib/generateHeader'
+export * from "./lib/generateHeader";

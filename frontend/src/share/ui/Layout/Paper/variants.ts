@@ -1,4 +1,4 @@
-import { cva, type VariantProps } from "class-variance-authority"
+import { type VariantProps, cva } from "class-variance-authority";
 
 const paperVariants = cva("relative overflow-hidden rounded-sm", {
 	variants: {
@@ -16,15 +16,15 @@ const paperVariants = cva("relative overflow-hidden rounded-sm", {
 			sm: "rounded-sm",
 			md: "rounded-md",
 			lg: "rounded-lg",
-		}
+		},
 	},
 	defaultVariants: {
 		color: "primary",
 		size: "sm",
 		radius: "md",
-	}
-})
+	},
+});
 
-type PaperVariants = VariantProps<typeof paperVariants>
+type PaperVariants = VariantProps<typeof paperVariants>;
 
-export { paperVariants, type PaperVariants }
+export { paperVariants, type PaperVariants };
