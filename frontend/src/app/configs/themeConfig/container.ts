@@ -1,4 +1,4 @@
-import { pxToRem } from "./utils"
+import { pxToRem } from "./utils";
 
 const container = {
 	center: true,
@@ -9,8 +9,8 @@ const container = {
 		lg: "1024px",
 		xl: "1280px",
 	},
-} as const
+} as const;
 
-type Container = typeof container
+type Container = typeof container;
 
-export { container, type Container }
+export { container, type Container };

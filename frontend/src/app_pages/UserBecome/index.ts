@@ -1,2 +1,2 @@
-export { BecomeInfoStep } from "./steps/info"
-export { BecomeStep } from "./steps/become"
+export { BecomeInfoStep } from "./steps/info";
+export { BecomeStep } from "./steps/become";

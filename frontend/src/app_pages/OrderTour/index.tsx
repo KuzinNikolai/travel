@@ -1,19 +1,26 @@
-"use client"
+"use client";
 
-import { useToast } from "@share/ui/Popups"
-import { useForm } from "react-hook-form"
-import type { z } from "zod"
-import { paymentFormSchema } from "./formSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
-import { Section } from "@share/ui/Layout"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
-import { DatePicker, Input, Textarea, InputPhone } from "@share/ui/Inputs"
-import { Button } from "@share/ui/Buttons"
-import { format } from "date-fns"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@share/ui/Buttons";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@share/ui/Form";
+import { DatePicker, Input, InputPhone, Textarea } from "@share/ui/Inputs";
+import { Section } from "@share/ui/Layout";
+import { useToast } from "@share/ui/Popups";
+import { HeaderWithBack } from "@widget/Headers/HeaderWithBack";
+import { format } from "date-fns";
+import { useForm } from "react-hook-form";
+import type { z } from "zod";
+import { paymentFormSchema } from "./formSchema";
 
 export const OrderTour = () => {
-	const { toast } = useToast()
+	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof paymentFormSchema>>({
 		resolver: zodResolver(paymentFormSchema),
@@ -26,7 +33,7 @@ export const OrderTour = () => {
 			comment: "",
 			hotel: "",
 		},
-	})
+	});
 
 	function onSubmit(values: z.infer<typeof paymentFormSchema>) {
 		// Do something with the form values.
@@ -34,20 +41,17 @@ export const OrderTour = () => {
 		toast({
 			title: "submit",
 			description: "TEST",
-		})
+		});
 	}
 
 	return (
 		<>
 			<HeaderWithBack title="Заказ экскурсии" />
-			<Section className='h-full'>
+			<Section className="h-full">
 				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className='space-y-4'
-					>
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 						<FormField
-							name='name'
+							name="name"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Ваше имя</FormLabel>
@@ -59,7 +63,7 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='tel'
+							name="tel"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Номер телефона</FormLabel>
@@ -71,7 +75,7 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='hotel'
+							name="hotel"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Адрес отеля</FormLabel>
@@ -83,15 +87,20 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='numberOfAdults'
+							name="numberOfAdults"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Взрослых</FormLabel>
 									<FormControl>
 										<Input
-											type='number'
+											type="number"
 											{...field}
-											onChange={(e) => form.setValue("numberOfAdults", Number.parseInt(e.target.value) || 0)}
+											onChange={(e) =>
+												form.setValue(
+													"numberOfAdults",
+													Number.parseInt(e.target.value) || 0,
+												)
+											}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -99,15 +108,20 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='numberOfChildren'
+							name="numberOfChildren"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Детей (3-12 лет)</FormLabel>
 									<FormControl>
 										<Input
-											type='number'
+											type="number"
 											{...field}
-											onChange={(e) => form.setValue("numberOfChildren", Number.parseInt(e.target.value) || 0)}
+											onChange={(e) =>
+												form.setValue(
+													"numberOfChildren",
+													Number.parseInt(e.target.value) || 0,
+												)
+											}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -115,15 +129,20 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='numberOfYoungerChildren'
+							name="numberOfYoungerChildren"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Детей (0-3 лет)</FormLabel>
 									<FormControl>
 										<Input
-											type='number'
+											type="number"
 											{...field}
-											onChange={(e) => form.setValue("numberOfYoungerChildren", Number.parseInt(e.target.value) || 0)}
+											onChange={(e) =>
+												form.setValue(
+													"numberOfYoungerChildren",
+													Number.parseInt(e.target.value) || 0,
+												)
+											}
 										/>
 									</FormControl>
 									<FormMessage />
@@ -131,9 +150,9 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='excursionDate'
+							name="excursionDate"
 							render={({ field }) => (
-								<FormItem className='flex items-center justify-between space-y-[0px]'>
+								<FormItem className="flex items-center justify-between space-y-[0px]">
 									<FormLabel>Дата экскурсии</FormLabel>
 									<FormControl>
 										<DatePicker
@@ -142,10 +161,12 @@ export const OrderTour = () => {
 											trigger={
 												<Button
 													onClick={() => form.setFocus("excursionDate")}
-													className='m-0 rounded bg-gray-200 p-1'
+													className="m-0 rounded bg-gray-200 p-1"
 													{...field}
 												>
-													{field.value ? format(field.value, "PPP") : "Укажите дату"}
+													{field.value
+														? format(field.value, "PPP")
+														: "Укажите дату"}
 												</Button>
 											}
 											disable={(date: Date) => date.getTime() <= Date.now()}
@@ -156,7 +177,7 @@ export const OrderTour = () => {
 							)}
 						/>
 						<FormField
-							name='comment'
+							name="comment"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Комментарий к заказу</FormLabel>
@@ -167,10 +188,10 @@ export const OrderTour = () => {
 								</FormItem>
 							)}
 						/>
-						<button type='submit'>Отправить заказ</button>
+						<button type="submit">Отправить заказ</button>
 					</form>
 				</Form>
 			</Section>
 		</>
-	)
-}
+	);
+};

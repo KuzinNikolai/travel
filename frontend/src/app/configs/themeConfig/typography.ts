@@ -1,4 +1,4 @@
-import { pxToRem } from "./utils"
+import { pxToRem } from "./utils";
 
 const typography = {
 	h1: [
@@ -99,20 +99,20 @@ const typography = {
 			lineHeight: "1em",
 		},
 	],
-} as const
+} as const;
 
-type Typography = typeof typography
+type Typography = typeof typography;
 
-const variants = Object.keys(typography) as Array<keyof Typography>
-type Variants = typeof variants
+const variants = Object.keys(typography) as Array<keyof Typography>;
+type Variants = typeof variants;
 
 const allVariants = variants.reduce(
 	(acc, variant) => {
 		// @ts-expect-error
-		acc[variant] = `text-${variant}`
-		return acc
+		acc[variant] = `text-${variant}`;
+		return acc;
 	},
-	{} as { [Key in Variants[number]]: `text-${Key}` }
-)
+	{} as { [Key in Variants[number]]: `text-${Key}` },
+);
 
-export { typography, variants, allVariants, type Typography, type Variants }
+export { typography, variants, allVariants, type Typography, type Variants };
