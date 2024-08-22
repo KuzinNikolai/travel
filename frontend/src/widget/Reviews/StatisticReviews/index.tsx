@@ -2,11 +2,11 @@
 
 import { calculateOverallRating, useReviews } from "@entity/review"
 import type { DetailTour } from "@entity/tour"
-import { Rating } from "@share/ui/RatingOld"
+import { Rating } from "@share/ui/Rating"
 import { Typography } from "@share/ui/Text"
 import type { FC } from "react"
 import { ReviewStatisticItem } from "./components/ReviewStatisticItem"
-import { WriteReviewForm } from "./store/WriteReviewForm"
+import { WriteReviewForm } from "@widget/Reviews/WriteReviewForm"
 import { getRatingTotalCount } from "./utils/getRatingTotalCount"
 
 type StatisticReviewsProps = Pick<DetailTour, "id">
@@ -44,11 +44,11 @@ export const StatisticReviews: FC<StatisticReviewsProps> = ({ id }) => {
 						variant='h7'
 						className='text-base-60'
 					>
-						{allReviews?.length}
+						{allReviews?.length || 0}
 					</Typography>
 				</div>
 				<div className='flex justify-between'>
-					<Rating rating={reviewsTotalScore} />
+					<Rating className="h-7 w-7" rating={reviewsTotalScore} />
 					<WriteReviewForm tourId={id} />
 				</div>
 			</div>

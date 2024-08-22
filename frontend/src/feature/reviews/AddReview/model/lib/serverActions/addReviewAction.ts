@@ -41,7 +41,5 @@ export const addReviewAction = isAuthorized
 			throw new ZSAError("INTERNAL_SERVER_ERROR");
 		}
 
-		// revalidateTag(queryKeyFactory.reviewListByTour(input.tourId)[1])
-
 		return resp;
 	});

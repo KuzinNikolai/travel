@@ -1,3 +1,5 @@
+"use client"
+
 import type { Tour } from "@entity/tour"
 import { AddReviewForm } from "@feature/reviews/AddReview"
 import { DialogTrigger } from "@radix-ui/react-dialog"
@@ -19,7 +21,7 @@ export const WriteReviewForm: FC<WriteReviewFormProps> = ({ tourId }) => {
 			onOpenChange={(expand) => setExpand(expand)}
 			open={expand}
 		>
-			<DialogTrigger>
+			<DialogTrigger asChild>
 				<Button variant='ghost'>{t("components.reviews.writeReview")}</Button>
 			</DialogTrigger>
 			<DialogContent>

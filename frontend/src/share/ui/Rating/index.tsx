@@ -1,13 +1,12 @@
 import { cn } from "@share/lib";
 import type { ComponentProps, FC } from "react";
 import { Icon } from "../Icon";
-import { RatingSkeleton } from "./RatingSkeleton";
 
 interface RatingProps extends ComponentProps<typeof Icon> {
 	rating: number;
 }
 
-export const Rating: FC<RatingProps> & { Skeleton: typeof RatingSkeleton } = ({
+export const Rating: FC<RatingProps> = ({
 	rating,
 	...props
 }) => {
@@ -20,8 +19,8 @@ export const Rating: FC<RatingProps> & { Skeleton: typeof RatingSkeleton } = ({
 					name="Star"
 					aria-hidden
 					className={cn(
-						"h-5 w-5 stroke-[2px] stroke-primary-90",
-						index < Math.round(rating) ? "fill-primary-90" : "fill-none",
+						"h-5 w-5 stroke-[2px] stroke-trinity-gold",
+						index < Math.round(rating) ? "fill-trinity-gold" : "fill-none",
 						props.className,
 					)}
 				/>
@@ -29,5 +28,3 @@ export const Rating: FC<RatingProps> & { Skeleton: typeof RatingSkeleton } = ({
 		</div>
 	);
 };
-
-Rating.Skeleton = RatingSkeleton;

@@ -1,6 +1,6 @@
 import { cn } from "@share/lib";
 import { Image } from "@share/ui/Image";
-import { Rating } from "@share/ui/RatingOld";
+import { Rating } from "@share/ui/Rating";
 import { Skeleton } from "@share/ui/Skeleton";
 import { Typography } from "@share/ui/Text";
 import clsx from "clsx";
@@ -112,7 +112,7 @@ const TourSkeleton = () => (
 				<Skeleton className="h-[1.25rem] w-full" />
 			</div>
 			<div className="flex flex-row justify-between gap-4">
-				<Rating.Skeleton />
+				<Rating rating={0} />
 				<Skeleton className="line-clamp-4 h-5 w-full flex-1 text-primary-400" />
 			</div>
 		</div>

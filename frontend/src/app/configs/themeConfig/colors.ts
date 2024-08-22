@@ -43,6 +43,9 @@ const colors = {
 		80: "#00b2d1",
 		90: "#00c7eb",
 	},
+	trinity: {
+		gold: "#f5bd5d"
+	}
 }
 
 type Colors = typeof colors

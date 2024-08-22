@@ -1,70 +1,54 @@
-"use client";
+"use client"
 
-import { ClientReview, useReviews } from "@entity/review";
-import type { DetailTour } from "@entity/tour";
-import { useLocale } from "@share/lib";
-import { Button } from "@share/ui/Buttons";
-import { Section } from "@share/ui/Layout";
-import { Drawer } from "@share/ui/Modals";
-import { Typography } from "@share/ui/Text";
-import { StatisticReviews } from "@widget/Reviews/StatisticReviews";
-import { useTranslations } from "next-intl";
-import { type FC, useMemo } from "react";
+import { ReviewItem, useReviews } from "@entity/review"
+import type { DetailTour } from "@entity/tour"
+import { useLocale } from "@share/lib"
+import { Button } from "@share/ui/Buttons"
+import { Section } from "@share/ui/Layout"
+import { List } from "@share/ui/List"
+import { Typography } from "@share/ui/Text"
+import { WriteReviewForm } from "@widget/Reviews/WriteReviewForm"
+import { useTranslations } from "next-intl"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { type FC, useMemo } from "react"
 
 interface PreviewReviewsProps {
-	tour: Pick<DetailTour, "id" | "title" | "reviews">;
+	tour: Pick<DetailTour, "id" | "title" | "reviews">
 }
 
 export const PreviewReviews: FC<PreviewReviewsProps> = ({ tour }) => {
-	const t = useTranslations("pages.detailTour.reviews");
-	const { currentLang } = useLocale();
+	const t = useTranslations("pages.detailTour.reviews")
+	const { currentLang } = useLocale()
 
-	const { data: allReviews, isPaused: pendingAllReviews } = useReviews(tour.id);
+	const pathname = usePathname()
+	const { data: allReviews, isPaused: pendingAllReviews } = useReviews(tour.id)
 
 	const previewReviews = useMemo(() => {
-		if (!allReviews) return [];
-		return allReviews
-			.toSorted((current, next) =>
-				current.created_date > next.created_date ? -1 : 0,
-			)
-			.slice(0, 3);
-	}, [allReviews]);
+		if (!allReviews) return []
+		return allReviews.toSorted((current, next) => (current.created_date > next.created_date ? -1 : 0)).slice(0, 3)
+	}, [allReviews])
 
 	return (
 		<Section
 			title={t("title")}
 			header={
 				!pendingAllReviews && (allReviews?.length || 0) > 3 ? (
-					<Drawer
-						title={t("titleAllReviews")}
-						trigger={
-							<Button variant="outline">{t("actions.showAllReviews")}</Button>
-						}
-						contentProps={{
-							className: "flex flex-1 flex-col gap-md",
-						}}
+					<Button
+						variant='ghost'
+						asChild
 					>
-						<StatisticReviews id={tour.id} />
-						<div className="flex max-h-full flex-col gap-sm overflow-y-auto">
-							{allReviews?.map((review) => (
-								<ClientReview
-									key={review.id}
-									review={{
-										...review,
-										text: (review.translations[currentLang || "en"] || review)
-											.text,
-									}}
-								/>
-							))}
-						</div>
-					</Drawer>
-				) : null
+						<Link href={`${pathname}/reviews`}>смотреть все отзывы</Link>
+					</Button>
+				) : (
+					<WriteReviewForm tourId={tour.id} />
+				)
 			}
 		>
-			<div className="flex flex-col gap-sm">
+			<List orientation='vertical'>
 				{previewReviews.length > 0 ? (
 					previewReviews.map((review) => (
-						<ClientReview
+						<ReviewItem
 							key={review.id}
 							review={{
 								...review,
@@ -75,7 +59,7 @@ export const PreviewReviews: FC<PreviewReviewsProps> = ({ tour }) => {
 				) : (
 					<Typography>{t("emptyReviews")}</Typography>
 				)}
-			</div>
+			</List>
 		</Section>
-	);
-};
+	)
+}
