@@ -50,7 +50,7 @@ export const Section: FC<ContainerProps> = ({
 					)}
 					<div
 						{...contentProps}
-						className={cn("flex flex-col gap-cm", contentProps?.className)}
+						className={cn("flex flex-col gap-md", contentProps?.className)}
 					>
 						{children}
 					</div>

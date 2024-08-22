@@ -1,6 +1,6 @@
 import type { DetailTour } from "@entity/tour";
 import { Section } from "@share/ui/Layout";
-import { Rating } from "@share/ui/RatingOld";
+import { Rating } from "@share/ui/Rating";
 import { Typography } from "@share/ui/Text";
 import { getTranslations } from "next-intl/server";
 import type { FC } from "react";

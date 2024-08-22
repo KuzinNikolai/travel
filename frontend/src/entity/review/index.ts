@@ -7,4 +7,4 @@ export * from "./models/lib/serverActions/getAllTourReviews";
 
 export * from "./models/lib/utils/calculateOverallRating";
 
-export * from "./ui/ClientReview";
+export * from "./ui/ReviewItem";

@@ -42,7 +42,7 @@ export const RatingItem: FC<RatingItemProps> = ({
 				id={id}
 				type="radio"
 				name="rating"
-				className="sr-only absolute [&+svg]:focus-visible:stroke-2 [&+svg]:focus-visible:stroke-primary-90"
+				className="sr-only absolute [&+svg]:focus-visible:stroke-2 [&+svg]:focus-visible:stroke-trinity-gold"
 				onChange={() => onChange?.(currentPosition)}
 				checked={currentPosition === currentRating}
 			/>
