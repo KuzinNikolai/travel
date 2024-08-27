@@ -40,9 +40,9 @@ export const DetailTour: FC<DetailTourProps> = async ({ tourSlug }) => {
 					<TourInformation {...tour} />
 					{tour.programs.length > 0 && (
 						<ToutPrograms
+							id={tour.id}
 							programs={tour.programs}
 							currency_prefix={tour.currency_prefix}
-							slug={tour.slug}
 						/>
 					)}
 					{tour.included.length || tour.notincluded.length ? (
