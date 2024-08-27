@@ -1,34 +1,36 @@
+"use client"
+
 import type { Program, Tour } from "@entity/tour"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-interface IValues {
-	tourSlug: Tour["slug"] | null
+interface Values {
+	tourId: Tour["id"] | null
 	programId: Program["id"] | null
 }
 
-interface IMethods {
-	setTour(tourSlug: Tour["slug"]): void
+interface Methods {
+	setTour(tourId: Tour["id"]): void
 	setProgram(programId: Program["id"]): void
 	reset(): void
 }
 
-type IOrderStorage = IValues & IMethods
+type CreateOrderStorage = Values & Methods
 
-export const useOrderStore = create(
-	persist<IOrderStorage>(
+export const useCreateOrderStore = create(
+	persist<CreateOrderStorage>(
 		(set) => ({
-			tourSlug: null,
+			tourId: null,
 			programId: null,
 
-			setTour(tourSlug) {
-				set({ tourSlug })
+			setTour(tourId) {
+				set({ tourId })
 			},
 			setProgram(programId) {
 				set({ programId })
 			},
 			reset() {
-				set({ tourSlug: null, programId: null })
+				set({ tourId: null, programId: null })
 			},
 		}),
 		{
