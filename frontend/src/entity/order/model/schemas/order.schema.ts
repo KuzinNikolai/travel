@@ -17,7 +17,7 @@ export const orderSchema = z
 		program_title: z.string(),
 
 		hotel: z.string(),
-		room_number: z.string(),
+		room_number: z.string().nullable(),
 
 		pickup_time: dateTimeSchema.nullable(),
 		trip_date: dateTimeSchema.nullable(),
@@ -47,3 +47,5 @@ export const orderSchema = z
 			phone: true,
 		}),
 	)
+
+export type Order = z.infer<typeof orderSchema>
