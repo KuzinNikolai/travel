@@ -254,12 +254,51 @@
         "title": "Wishlist is empty"
       },
       "title": "Wishlist"
+    },
+    "SupplierDetailOrder": {
+      "fields": {
+        "address": "Address",
+        "cashOnTour": "Cash for tour",
+        "deposit": "Deposit",
+        "email": "Mail",
+        "fullName": "Name",
+        "hotel": "Hotel",
+        "manager": "Manager",
+        "phone": "Telephone",
+        "pickUpTime": "Check out time",
+        "program": "Program",
+        "roomNumber": "Room number",
+        "totalPrice": "Total amount",
+        "tourDate": "Tour date",
+        "transfer": "Broadcast"
+      },
+      "sections": {
+        "pickUpInfo": "Tourist address"
+      },
+      "title": "Order: #{order}"
+    },
+    "supplierOrderList": {
+      "errors": {
+        "ordersEmpty": "No one has placed an order yet"
+      },
+      "title": "Guide orders"
     }
   },
   "share": {
     "back": "Back",
     "close": "Close",
     "locale": "Russian",
-    "logo": "Logo"
+    "logo": "Logo",
+    "entities": {
+      "city": "City",
+      "country": "Country",
+      "tour": "Tour"
+    },
+    "free": "For free",
+    "notSpecified": "Not specified",
+    "phoneNumber": "Phone number"
+  },
+  "errors": {
+    "touristNotFound": "An error occurred and the tourist was not found"
   }
 }

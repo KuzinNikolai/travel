@@ -3,8 +3,11 @@
 import { SupplierOrderItem } from "@entity/order"
 import { useGetAllOrders } from "@entity/order/model/lib/hooks/useGetAllOrders"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 
 export const OrderList = () => {
+	const t = useTranslations()
+
 	const orders = useGetAllOrders()
 
 	return (
@@ -21,7 +24,7 @@ export const OrderList = () => {
 						/>
 					</li>
 				))}
-			{orders.isSuccess && orders.data?.length === 0 && <Typography>Никто еще не сделал заказа</Typography>}
+			{orders.isSuccess && orders.data?.length === 0 && <Typography>{t('pages.supplierOrderList.errors.ordersEmpty')}</Typography>}
 		</ul>
 	)
 }
