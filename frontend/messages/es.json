@@ -273,7 +273,9 @@
         "transfer": "Transmisión"
       },
       "sections": {
-        "pickUpInfo": "Dirección turística"
+        "pickUpInfo": "Dirección turística",
+        "infoPriceAndCounts": "Información de cantidad y precio.",
+        "touristInfo": "Información turística"
       },
       "title": "Orden: #{order}"
     },

@@ -288,7 +288,9 @@
         "fullName": "Имя"
       },
       "sections": {
-        "pickUpInfo": "Адрес туриста"
+        "pickUpInfo": "Адрес туриста",
+        "touristInfo": "Информация о туристе",
+        "infoPriceAndCounts": "Информация о количестве и ценах"
       }
     },
     "supplierOrderList": {

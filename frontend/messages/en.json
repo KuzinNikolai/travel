@@ -273,7 +273,9 @@
         "transfer": "Broadcast"
       },
       "sections": {
-        "pickUpInfo": "Tourist address"
+        "pickUpInfo": "Tourist address",
+        "infoPriceAndCounts": "Count & price info",
+        "touristInfo": "Tourist information"
       },
       "title": "Order: #{order}"
     },
