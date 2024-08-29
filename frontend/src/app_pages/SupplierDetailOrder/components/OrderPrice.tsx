@@ -1,7 +1,8 @@
+"use client"
+
 import type { Order } from "@entity/order"
-import { useGetUserInfoById } from "@entity/user"
 import { Typography } from "@share/ui/Text"
-import Link from "next/link"
+import { useTranslations } from "next-intl"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
 
@@ -14,6 +15,8 @@ export const OrderPrice: FC<Order> = ({
 	quantity_children,
 	quantity_infant,
 }) => {
+	const t = useTranslations()
+
 	return (
 		<section>
 			<Typography
@@ -23,16 +26,16 @@ export const OrderPrice: FC<Order> = ({
 				Count & price info
 			</Typography>
 			<ul className='mt-sm flex flex-col gap-sm'>
-				<ListItem title='Передача'>
-					<Typography>{transfer === 0 ? "Бесплатно" : transfer}</Typography>
+				<ListItem title={t('pages.SupplierDetailOrder.fields.transfer')}>
+					<Typography>{transfer === 0 ? t('share.free') : transfer}</Typography>
 				</ListItem>
-				<ListItem title='Общая сумма'>
+				<ListItem title={t('pages.SupplierDetailOrder.fields.totalPrice')}>
 					<Typography className="text-primary-50">{total_price}</Typography>
 				</ListItem>
-				<ListItem title='Депозит'>
+				<ListItem title={t('pages.SupplierDetailOrder.fields.deposit')}>
 					<Typography className="text-primary-50">{deposit}</Typography>
 				</ListItem>
-				<ListItem title='Наличные на тур'>
+				<ListItem title={t('pages.SupplierDetailOrder.fields.cashOnTour')}>
 					<Typography className="text-primary-50">{cash_on_tour}</Typography>
 				</ListItem>
 			</ul>
