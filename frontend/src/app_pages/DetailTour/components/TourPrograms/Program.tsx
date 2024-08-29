@@ -3,7 +3,7 @@
 import { inter } from "@assets/fonts"
 import { type DetailTour, GroupType, type Program } from "@entity/tour"
 import { useUser } from "@entity/user"
-import { useCreateOrderStore } from "@feature/order/createOrder"
+import { useOrderStore } from "@feature/order"
 import { Button } from "@share/ui/Buttons"
 import { Icon } from "@share/ui/Icon"
 import { Drawer, DrawerFooter } from "@share/ui/Modals"
@@ -14,7 +14,7 @@ import { usePathname, useRouter } from "next/navigation"
 import type { FC } from "react"
 
 interface IProgramProps {
-	tourId: DetailTour["id"]
+	tourSlug: DetailTour["slug"]
 	program: Program
 	currency: string
 }
@@ -43,7 +43,7 @@ const Price: FC<PriceProps> = ({ title, currency, price }) => {
 	)
 }
 
-export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) => {
+export const TourProgram: FC<IProgramProps> = ({ program, tourSlug, currency }) => {
 	const t = useTranslations("components.tourProgram")
 
 	const {
@@ -53,7 +53,7 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 	const pathname = usePathname()
 	const authModal = useAuthStore()
 	const router = useRouter()
-	const { setProgram, setTour } = useCreateOrderStore()
+	const { setProgram, setTour } = useOrderStore()
 
 	const onMoveOrder = () => {
 		if (!user) {
@@ -61,7 +61,7 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 			return
 		}
 
-		setTour(tourId)
+		setTour(tourSlug)
 		setProgram(program.id)
 		router.push(`${pathname}/order`)
 	}
