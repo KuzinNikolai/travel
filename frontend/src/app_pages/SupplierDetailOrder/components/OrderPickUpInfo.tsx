@@ -5,7 +5,6 @@ import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
-import { Skeleton } from "@share/ui/Skeleton"
 
 interface OrderPickUpInfoProps {
 	hotel: Order["hotel"]
@@ -13,11 +12,7 @@ interface OrderPickUpInfoProps {
 	room: Order["room_number"]
 }
 
-export const OrderPickUpInfo: FC<OrderPickUpInfoProps> & { Skeleton: typeof OrderPickUpInfoSkeleton } = ({
-	address,
-	hotel,
-	room,
-}) => {
+export const OrderPickUpInfo: FC<OrderPickUpInfoProps> = ({ address, hotel, room }) => {
 	const t = useTranslations()
 
 	return (
@@ -42,17 +37,3 @@ export const OrderPickUpInfo: FC<OrderPickUpInfoProps> & { Skeleton: typeof Orde
 		</section>
 	)
 }
-
-const OrderPickUpInfoSkeleton = () => (
-	<div>
-		<Skeleton className='h-6 w-1/3' />
-		<ul className='mt-sm flex flex-col gap-2'>
-			{new Array(3).fill(0).map((_, index) => (
-				<ListItem.Skeleton key={index}>
-					<Skeleton className='h-6 w-3/4' />
-				</ListItem.Skeleton>
-			))}
-		</ul>
-	</div>
-)
-OrderPickUpInfo.Skeleton = OrderPickUpInfoSkeleton

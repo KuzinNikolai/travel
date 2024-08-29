@@ -2,11 +2,10 @@
 
 import type { Order } from "@entity/order"
 import { Icon } from "@share/ui/Icon"
-import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import type { FC, PropsWithChildren } from "react"
+import type { FC } from "react"
 
 interface OrderHeaderProps {
 	manager: Order["manager"]
@@ -14,11 +13,7 @@ interface OrderHeaderProps {
 	managerEmail: Order["manager_email"]
 }
 
-export const OrderHeader: FC<OrderHeaderProps> & { Skeleton: typeof OrderHeaderSkeleton } = ({
-	manager,
-	managerEmail,
-	managerPhone,
-}) => {
+export const OrderHeader: FC<OrderHeaderProps> = ({ manager, managerEmail, managerPhone }) => {
 	const t = useTranslations()
 
 	return (
@@ -52,21 +47,3 @@ export const OrderHeader: FC<OrderHeaderProps> & { Skeleton: typeof OrderHeaderS
 		</section>
 	)
 }
-
-const OrderHeaderSkeleton = () => (
-	<div>
-		<Skeleton className='h-10 w-36' />
-		<div className='mt-sm flex flex-col gap-sm'>
-			{new Array(4).fill(0).map((_, index) => (
-				<div
-					key={index}
-					className='grid grid-cols-[20%,1fr] gap-sm'
-				>
-					<Skeleton className='h-6 w-full' />
-					<Skeleton className='h-6 w-1/2' />
-				</div>
-			))}
-		</div>
-	</div>
-)
-OrderHeader.Skeleton = OrderHeaderSkeleton

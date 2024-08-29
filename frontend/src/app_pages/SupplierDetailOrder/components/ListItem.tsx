@@ -1,31 +1,15 @@
-import { cn } from "@share/lib"
-import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
-import type { FC, HTMLAttributes } from "react"
+import type { FC, PropsWithChildren, ReactNode } from "react"
 
-interface ListItemProps extends HTMLAttributes<HTMLElement> {
+interface ListItemProps {
 	title: string
 }
 
-export const ListItem: FC<ListItemProps> & { Skeleton: typeof ListItemSkeleton } = ({ title, children, ...props }) => {
+export const ListItem: FC<PropsWithChildren<ListItemProps>> = ({ title, children }) => {
 	return (
-		<li
-			{...props}
-			className={cn("grid grid-cols-2 items-center justify-between", props.className)}
-		>
+		<li className="grid grid-cols-2 items-center justify-between">
 			<Typography>{title}:</Typography>
-			<div className={cn("w-full text-end")}>{children}</div>
+			<div className="w-full text-end">{children}</div>
 		</li>
 	)
 }
-
-const ListItemSkeleton: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
-	<div
-		{...props}
-		className={cn("grid grid-cols-2 items-center justify-between", props.className)}
-	>
-		<Skeleton className='h-6 w-1/2' />
-		<div className="flex w-full justify-end">{children}</div>
-	</div>
-)
-ListItem.Skeleton = ListItemSkeleton

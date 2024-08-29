@@ -6,15 +6,12 @@ import Link from "next/link"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
 import { useTranslations } from "next-intl"
-import { Skeleton } from "@share/ui/Skeleton"
 
 interface OrderTouristsInfoProps {
 	user: User | null
 }
 
-export const OrderTouristsInfo: FC<OrderTouristsInfoProps> & { Skeleton: typeof OrderTouristsInfoSkeleton } = ({
-	user,
-}) => {
+export const OrderTouristsInfo: FC<OrderTouristsInfoProps> = ({ user }) => {
 	const t = useTranslations()
 
 	if (user === null) {
@@ -30,14 +27,14 @@ export const OrderTouristsInfo: FC<OrderTouristsInfoProps> & { Skeleton: typeof 
 				Tourists info
 			</Typography>
 			<ul className='mt-sm flex flex-col gap-2'>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.fullName")}>
+				<ListItem title={t('pages.SupplierDetailOrder.fields.fullName')}>
 					{user.first_name || user.last_name ? (
 						<Typography>{`${user?.first_name} ${user.last_name}`}</Typography>
 					) : (
 						<Typography>{user.username}</Typography>
 					)}
 				</ListItem>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.email")}>
+				<ListItem title={t('pages.SupplierDetailOrder.fields.email')}>
 					<Typography asChild>
 						<Link href={`mailto:${user.email}`}>{user.email}</Link>
 					</Typography>
@@ -55,17 +52,3 @@ export const OrderTouristsInfo: FC<OrderTouristsInfoProps> & { Skeleton: typeof 
 		</section>
 	)
 }
-
-const OrderTouristsInfoSkeleton = () => (
-	<div>
-		<Skeleton className='h-6 w-1/3' />
-		<ul className='mt-sm flex flex-col gap-2'>
-			{new Array(3).fill(0).map((_, index) => (
-				<ListItem.Skeleton key={index}>
-					<Skeleton className='h-6 w-3/4' />
-				</ListItem.Skeleton>
-			))}
-		</ul>
-	</div>
-)
-OrderTouristsInfo.Skeleton = OrderTouristsInfoSkeleton
