@@ -6,6 +6,7 @@ import { format } from "date-fns"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
 import { useTranslations } from "next-intl"
+import { Skeleton } from "@share/ui/Skeleton"
 
 interface OrderTourInfoProps {
 	country: Order["country_name"]
@@ -16,7 +17,14 @@ interface OrderTourInfoProps {
 	pickUpTime: Order["pickup_time"]
 }
 
-export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, program, dateTrip, pickUpTime }) => {
+export const OrderTourInfo: FC<OrderTourInfoProps> & { Skeleton: typeof OrderTourInfoSkeleton } = ({
+	country,
+	city,
+	tour,
+	program,
+	dateTrip,
+	pickUpTime,
+}) => {
 	const t = useTranslations()
 
 	return (
@@ -43,7 +51,10 @@ export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, pro
 					<Typography>{program}</Typography>
 				</ListItem>
 				<ListItem title={t("pages.SupplierDetailOrder.fields.tourDate")}>
-					<Typography asChild>
+					<Typography
+						className='text-primary-50'
+						asChild
+					>
 						<time
 							className='block'
 							dateTime={dateTrip ? format(dateTrip, "MM-dd-yyyy") : ""}
@@ -53,7 +64,10 @@ export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, pro
 					</Typography>
 				</ListItem>
 				<ListItem title={t("pages.SupplierDetailOrder.fields.pickUpTime")}>
-					<Typography asChild>
+					<Typography
+						className='text-primary-50'
+						asChild
+					>
 						{pickUpTime ? (
 							<time
 								className='block'
@@ -70,3 +84,30 @@ export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, pro
 		</section>
 	)
 }
+
+const OrderTourInfoSkeleton = () => (
+	<div className='flex flex-col gap-sm'>
+		<Typography
+			variant='h6'
+			textWidth='bold'
+			as='h2'
+			className='sr-only absolute'
+		>
+			Order info
+		</Typography>
+		<ul className='flex flex-col gap-2'>
+			{new Array(4).fill(0).map((_, index) => (
+				<ListItem.Skeleton key={index}>
+					<Skeleton className='h-6 w-3/4' />
+				</ListItem.Skeleton>
+			))}
+			<ListItem.Skeleton>
+				<Skeleton className='h-6 w-2/3 from-primary-50/20 to-primary-40/20' />
+			</ListItem.Skeleton>
+			<ListItem.Skeleton>
+				<Skeleton className='h-6 w-2/6 from-primary-50/20 to-primary-40/20' />
+			</ListItem.Skeleton>
+		</ul>
+	</div>
+)
+OrderTourInfo.Skeleton = OrderTourInfoSkeleton

@@ -13,7 +13,7 @@ export const Skeleton: FC<ICustomSkeletonProps> = forwardRef<HTMLDivElement, ICu
 				className={cn(
 					"bg-gradient-to-r",
 					isBackgroundBlack ? "from-base-120 to-base-140" : "from-base-40/20 to-base-60/20",
-					"animate-pulse rounded",
+					"animate-pulse rounded-sm",
 					className,
 				)}
 				{...props}

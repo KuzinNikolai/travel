@@ -33,7 +33,7 @@ export const SupplierDetailOrder: FC<SurlierDetailOrderProps> = ({ params }) => 
 
 	return (
 		<>
-			<Header title={t('pages.SupplierDetailOrder.title', { order: orderNumber })} />
+			<Header title={t("pages.SupplierDetailOrder.title", { order: orderNumber })} />
 			<Section className='h-full flex-1'>
 				<List
 					orientation='vertical'
@@ -63,7 +63,13 @@ export const SupplierDetailOrder: FC<SurlierDetailOrderProps> = ({ params }) => 
 							<OrderPrice {...order} />
 						</>
 					) : (
-						<>Skeleton</>
+						<>
+							<OrderHeader.Skeleton />
+							<OrderTourInfo.Skeleton />
+							<OrderTouristsInfo.Skeleton />
+							<OrderPickUpInfo.Skeleton />
+							<OrderPrice.Skeleton />
+						</>
 					)}
 				</List>
 			</Section>
