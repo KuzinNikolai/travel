@@ -5,7 +5,7 @@ type FetchFunc = (url: FetchArgs[0], init?: FetchArgs[1]) => Promise<Awaited<Fet
 
 export const safeFetch: FetchFunc = async (url, init) => {
 	try {
-		return await fetch(url, {
+		return fetch(url, {
 			...init,
 			credentials: "include",
 		})
