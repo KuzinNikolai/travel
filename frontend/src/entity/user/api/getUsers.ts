@@ -2,7 +2,7 @@ import { generateHeader } from "@share/api"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { serverErrorResponseSchema } from "@share/constants/schemes"
 import { logger, SafeJson } from "@share/lib"
-import { userSchema } from "../model/schemas"
+import { userSchema, type User } from "../consts"
 
 export async function getUsers(token: string) {
 	try {

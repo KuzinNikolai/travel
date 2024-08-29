@@ -1,5 +1,6 @@
 "use client"
 
+import { logger } from "@share/lib"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 

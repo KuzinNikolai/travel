@@ -1,6 +1,6 @@
 "use client"
 
-import { useUser } from "@entity/user"
+import { useUser } from "@entity/user/model/useUser"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import type { FC } from "react"

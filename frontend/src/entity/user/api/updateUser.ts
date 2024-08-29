@@ -1,5 +1,5 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { type User, userSchema } from "../model/schemas"
+import { type User, userSchema } from "../consts"
 import { logger, SafeJson } from "@share/lib"
 
 const serverResponseSchema = userSchema

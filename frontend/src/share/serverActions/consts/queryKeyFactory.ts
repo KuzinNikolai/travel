@@ -24,10 +24,7 @@ const travelData = {
 	detailTour: (tourSlug: string) => ["tours", tourSlug],
 }
 
-const user = {
-	account: () => ["account"],
-	clientData: (clientId: number) => [`clientInfo-${clientId}`],
-}
+const user = { account: () => ["account"] }
 
 const search = { search: (searchParam: string) => ["search", `search$${searchParam}`] }
 
@@ -45,7 +42,6 @@ const supplier = {
 	supplierOffers: () => ["guideOffers"],
 	supplierProfile: (guideId: number) => ["guideProfile", guideId.toString()],
 	supplierOrders: () => ["guideOrders"],
-	supplierOrder: (orderId: number) => ["guideOrders", orderId.toString()],
 }
 
 export const queryKeyFactory = createServerActionsKeyFactory({
