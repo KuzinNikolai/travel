@@ -5,7 +5,6 @@ import { createOrderSchema } from "../../schemas/createOrder.schema"
 import { createOrder } from "../../api/createOrder"
 import { orderSchema } from "@entity/order"
 import { logger, SafeJson } from "@share/lib"
-import { ZSAError } from "zsa"
 
 export const createOrderAction = isAuthorized
 	.createServerAction()
@@ -14,7 +13,7 @@ export const createOrderAction = isAuthorized
 		const resp = await createOrder(input, input.token)
 
 		if (!resp) {
-			throw new ZSAError("INTERNAL_SERVER_ERROR")
+			return
 		}
 
 		const text = await resp.text()
@@ -22,14 +21,14 @@ export const createOrderAction = isAuthorized
 
 		if (!json) {
 			logger.error("[createOrderAction - response parse error]", resp)
-			throw new ZSAError("INTERNAL_SERVER_ERROR")
+			return
 		}
 
 		const { success, data, error } = await orderSchema.safeParseAsync(json)
 
 		if (!success) {
 			logger.error("[createOrderAction - response validation error]", resp, error)
-			throw new ZSAError("INTERNAL_SERVER_ERROR")
+			return
 		}
 
 		return data
