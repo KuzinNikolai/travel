@@ -1,11 +1,8 @@
-"use client"
-
 import type { Order } from "@entity/order"
 import { Typography } from "@share/ui/Text"
 import { format } from "date-fns"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
-import { useTranslations } from "next-intl"
 
 interface OrderTourInfoProps {
 	country: Order["country_name"]
@@ -17,8 +14,6 @@ interface OrderTourInfoProps {
 }
 
 export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, program, dateTrip, pickUpTime }) => {
-	const t = useTranslations()
-
 	return (
 		<section className='flex flex-col gap-sm'>
 			<Typography
@@ -30,19 +25,19 @@ export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, pro
 				Order info
 			</Typography>
 			<ul className='flex flex-col gap-2'>
-				<ListItem title={t("share.entities.country")}>
+				<ListItem title='Country'>
 					<Typography>{country}</Typography>
 				</ListItem>
-				<ListItem title={t("share.entities.city")}>
+				<ListItem title='City'>
 					<Typography>{city}</Typography>
 				</ListItem>
-				<ListItem title={t("share.entities.tour")}>
+				<ListItem title='Tour'>
 					<Typography>{tour}</Typography>
 				</ListItem>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.program")}>
+				<ListItem title='Program'>
 					<Typography>{program}</Typography>
 				</ListItem>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.tourDate")}>
+				<ListItem title='Date trip'>
 					<Typography asChild>
 						<time
 							className='block'
@@ -52,7 +47,7 @@ export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, pro
 						</time>
 					</Typography>
 				</ListItem>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.pickUpTime")}>
+				<ListItem title='Pick-up time'>
 					<Typography asChild>
 						{pickUpTime ? (
 							<time
@@ -62,7 +57,7 @@ export const OrderTourInfo: FC<OrderTourInfoProps> = ({ country, city, tour, pro
 								{pickUpTime && format(pickUpTime, "HH:MM")}
 							</time>
 						) : (
-							<p>{t("share.notSpecified")}</p>
+							<p>Не указан</p>
 						)}
 					</Typography>
 				</ListItem>

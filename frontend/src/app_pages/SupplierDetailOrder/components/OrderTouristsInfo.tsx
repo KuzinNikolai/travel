@@ -1,21 +1,16 @@
-"use client"
-
 import type { User } from "@entity/user"
 import { Typography } from "@share/ui/Text"
 import Link from "next/link"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
-import { useTranslations } from "next-intl"
 
 interface OrderTouristsInfoProps {
 	user: User | null
 }
 
 export const OrderTouristsInfo: FC<OrderTouristsInfoProps> = ({ user }) => {
-	const t = useTranslations()
-
 	if (user === null) {
-		return <Typography variant='h7'>{t("errors.touristNotFound")}</Typography>
+		return <Typography variant='h7'>Произошла ошибка и турист не был найден</Typography>
 	}
 
 	return (
@@ -27,24 +22,24 @@ export const OrderTouristsInfo: FC<OrderTouristsInfoProps> = ({ user }) => {
 				Tourists info
 			</Typography>
 			<ul className='mt-sm flex flex-col gap-2'>
-				<ListItem title={t('pages.SupplierDetailOrder.fields.fullName')}>
+				<ListItem title='Имя'>
 					{user.first_name || user.last_name ? (
 						<Typography>{`${user?.first_name} ${user.last_name}`}</Typography>
 					) : (
 						<Typography>{user.username}</Typography>
 					)}
 				</ListItem>
-				<ListItem title={t('pages.SupplierDetailOrder.fields.email')}>
+				<ListItem title='Почта'>
 					<Typography asChild>
 						<Link href={`mailto:${user.email}`}>{user.email}</Link>
 					</Typography>
 				</ListItem>
-				<ListItem title={t("share.phoneNumber")}>
+				<ListItem title='Номер телефона'>
 					<Typography asChild>
 						{user.phone ? (
 							<Link href={`tel:${user.phone}`}>{user.phone}</Link>
 						) : (
-							<Typography>{t("share.notSpecified")}</Typography>
+							<Typography>Телефон не указан</Typography>
 						)}
 					</Typography>
 				</ListItem>

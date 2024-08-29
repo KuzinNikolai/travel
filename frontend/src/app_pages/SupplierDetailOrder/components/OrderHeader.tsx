@@ -1,9 +1,6 @@
-"use client"
-
 import type { Order } from "@entity/order"
 import { Icon } from "@share/ui/Icon"
 import { Typography } from "@share/ui/Text"
-import { useTranslations } from "next-intl"
 import Link from "next/link"
 import type { FC } from "react"
 
@@ -14,8 +11,6 @@ interface OrderHeaderProps {
 }
 
 export const OrderHeader: FC<OrderHeaderProps> = ({ manager, managerEmail, managerPhone }) => {
-	const t = useTranslations()
-
 	return (
 		<section>
 			<Icon
@@ -24,21 +19,21 @@ export const OrderHeader: FC<OrderHeaderProps> = ({ manager, managerEmail, manag
 			/>
 			<ul className='mt-sm flex flex-col gap-sm'>
 				<li className='grid grid-cols-[20%,1fr] gap-sm'>
-					<Typography>{t("pages.SupplierDetailOrder.fields.address")}:</Typography>
+					<Typography>Address:</Typography>
 					<address>1100 Welcome street, Manhattan, 112003, New York, NY</address>
 				</li>
 				<li className='grid grid-cols-[20%,1fr] gap-sm'>
-					<Typography>{t("pages.SupplierDetailOrder.fields.manager")}:</Typography>
+					<Typography>Manager:</Typography>
 					<Typography>{manager}</Typography>
 				</li>
 				<li className='grid grid-cols-[20%,1fr] gap-sm'>
-					<Typography>{t("pages.SupplierDetailOrder.fields.phone")}:</Typography>
+					<Typography>Phone:</Typography>
 					<Typography asChild>
 						<Link href={`tel:${managerPhone}`}>{managerPhone}</Link>
 					</Typography>
 				</li>
 				<li className='grid grid-cols-[20%,1fr] gap-sm'>
-					<Typography>{t("pages.SupplierDetailOrder.fields.email")}:</Typography>
+					<Typography>Email:</Typography>
 					<Typography asChild>
 						<Link href={`mailto:${managerEmail}`}>{managerEmail}</Link>
 					</Typography>

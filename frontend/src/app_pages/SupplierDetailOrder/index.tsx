@@ -13,7 +13,6 @@ import { OrderPickUpInfo } from "./components/OrderPickUpInfo"
 import { OrderPrice } from "./components/OrderPrice"
 import { OrderTourInfo } from "./components/OrderTourInfo"
 import { OrderTouristsInfo } from "./components/OrderTouristsInfo"
-import { useTranslations } from "next-intl"
 
 type SurlierDetailOrderProps = PagesProps<{
 	order: string
@@ -21,8 +20,6 @@ type SurlierDetailOrderProps = PagesProps<{
 
 export const SupplierDetailOrder: FC<SurlierDetailOrderProps> = ({ params }) => {
 	const { order: orderNumber } = params
-
-	const t = useTranslations()
 
 	const { query, order } = useGetOrder(orderNumber)
 	const tourist = useGetUserInfoById(order?.user || -1)
@@ -33,7 +30,7 @@ export const SupplierDetailOrder: FC<SurlierDetailOrderProps> = ({ params }) => 
 
 	return (
 		<>
-			<Header title={t('pages.SupplierDetailOrder.title', { order: orderNumber })} />
+			<Header title={`Заказ: #${orderNumber}`} />
 			<Section className='h-full flex-1'>
 				<List
 					orientation='vertical'

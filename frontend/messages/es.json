@@ -254,51 +254,12 @@
         "title": "La lista de deseos está vacía"
       },
       "title": "Lista de deseos"
-    },
-    "SupplierDetailOrder": {
-      "fields": {
-        "address": "DIRECCIÓN",
-        "cashOnTour": "Efectivo para el tour",
-        "deposit": "Depósito",
-        "email": "Correo",
-        "fullName": "Nombre",
-        "hotel": "Hotel",
-        "manager": "Gerente",
-        "phone": "Teléfono",
-        "pickUpTime": "hora de salida",
-        "program": "Programa",
-        "roomNumber": "Número de habitación",
-        "totalPrice": "Monto total",
-        "tourDate": "fecha de la gira",
-        "transfer": "Transmisión"
-      },
-      "sections": {
-        "pickUpInfo": "Dirección turística"
-      },
-      "title": "Orden: #{order}"
-    },
-    "supplierOrderList": {
-      "errors": {
-        "ordersEmpty": "Nadie ha realizado un pedido todavía"
-      },
-      "title": "Órdenes de guía"
     }
   },
   "share": {
     "back": "Atrás",
     "close": "Cerca",
     "locale": "ruso",
-    "logo": "Logo",
-    "entities": {
-      "city": "Ciudad",
-      "country": "País",
-      "tour": "Recorrido"
-    },
-    "free": "gratis",
-    "notSpecified": "No especificado",
-    "phoneNumber": "Número de teléfono"
-  },
-  "errors": {
-    "touristNotFound": "Se produjo un error y no se encontró al turista."
+    "logo": "Logo"
   }
 }

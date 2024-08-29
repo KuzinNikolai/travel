@@ -1,8 +1,8 @@
-"use client"
-
 import type { Order } from "@entity/order"
+import { useGetUserInfoById } from "@entity/user"
+import { Icon } from "@share/ui/Icon"
 import { Typography } from "@share/ui/Text"
-import { useTranslations } from "next-intl"
+import Link from "next/link"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
 
@@ -13,25 +13,23 @@ interface OrderPickUpInfoProps {
 }
 
 export const OrderPickUpInfo: FC<OrderPickUpInfoProps> = ({ address, hotel, room }) => {
-	const t = useTranslations()
-
 	return (
 		<section>
 			<Typography
 				variant='h6'
 				as='h2'
 			>
-				{t("pages.SupplierDetailOrder.sections.pickUpInfo")}
+				Адрес туриста
 			</Typography>
 			<ul className='mt-sm flex flex-col gap-sm'>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.hotel")}>
+				<ListItem title='Отель'>
 					<Typography>{hotel}</Typography>
 				</ListItem>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.address")}>
+				<ListItem title='Адрес'>
 					<Typography>{address}</Typography>
 				</ListItem>
-				<ListItem title={t("pages.SupplierDetailOrder.fields.roomNumber")}>
-					<Typography>{room || t("share.notSpecified")}</Typography>
+				<ListItem title='Номер комнаты'>
+					<Typography>{room || "Не указан"}</Typography>
 				</ListItem>
 			</ul>
 		</section>
