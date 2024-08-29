@@ -18,7 +18,7 @@ export const List: FC<ListProps> = ({ orientation, showDivider = false, children
 				} satisfies Record<ListProps["orientation"], string>
 			)[orientation],
 			showDivider
-				? "gap-md [&>*:last-of-type]:after:h-0 [&>*]:after:mt-sm [&>*]:after:block [&>*]:after:h-[1px] [&>*]:after:w-full [&>*]:after:bg-base-140"
+				? "gap-md [&>*:last-of-type]:after:h-0 [&>*]:after:mt-md [&>*]:after:block [&>*]:after:h-[1px] [&>*]:after:w-full [&>*]:after:bg-base-140"
 				: "gap-sm",
 			props.className,
 		)}
