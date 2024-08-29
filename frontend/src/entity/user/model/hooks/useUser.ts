@@ -2,8 +2,8 @@
 
 import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 import { useServerActionQuery } from "@share/serverActions/model"
-import { getUser } from "../api/getUser"
-import { useUserTokenStore } from "./userTokenStore"
+import { getUser } from "../serverActions/getUser"
+import { useUserTokenStore } from "../stores/userTokenStore"
 
 export function useUser() {
 	const { getToken } = useUserTokenStore()

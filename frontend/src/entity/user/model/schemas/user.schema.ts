@@ -13,7 +13,7 @@ export const userSchema = z.object({
 	country: z.number().nullable(),
 	city: z.number().nullable(),
 
-	photo: z.string(),
+	photo: z.string().nullable(),
 
 	description: z
 		.string()
