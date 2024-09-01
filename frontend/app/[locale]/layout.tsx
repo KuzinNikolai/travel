@@ -1,5 +1,6 @@
 import { siteConfig } from "@app/configs/siteConfig"
-import { i18nConfig, i18nUtils } from "@app/i18n"
+import { Providers } from "@app/provider"
+import { getLang } from "@app/provider/modules/i18n/getLang"
 import { inter } from "@assets/fonts"
 import "@assets/globals.css"
 import * as ReactQueryClientV2 from "@serverActions"
@@ -7,8 +8,6 @@ import { cn, type PagesProps } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
-import * as i18n from "next-intl"
-import { getMessages } from "next-intl/server"
 import type { FC, PropsWithChildren } from "react"
 
 export const metadata: Metadata = {
@@ -22,9 +21,12 @@ export const metadata: Metadata = {
 	},
 }
 
-const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async ({ children, params }) => {
-	const lang = i18nUtils.isValidLocale(params.locale) ? params.locale : i18nConfig.defaultLocale
-	const messages = await getMessages({ locale: lang })
+const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async ({
+	children,
+	params,
+	searchParams,
+}) => {
+	const { lang } = await getLang(params.locale)
 
 	return (
 		<html lang={lang}>
@@ -35,18 +37,16 @@ const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async 
 				/>
 			</head>
 			<body className={cn(inter.className, "flex min-h-screen flex-col")}>
-				<i18n.NextIntlClientProvider
-					locale={lang}
-					messages={messages}
+				<Providers
+					params={params}
+					searchParams={searchParams}
 				>
-					<ReactQueryClientV2.Provider>
-						<div className='flex h-full flex-1 flex-col'>
-							{children}
-							<Auth />
-						</div>
-						<Toaster />
-					</ReactQueryClientV2.Provider>
-				</i18n.NextIntlClientProvider>
+					<div className='flex h-full flex-1 flex-col'>
+						{children}
+						<Auth />
+					</div>
+					<Toaster />
+				</Providers>
 			</body>
 		</html>
 	)
