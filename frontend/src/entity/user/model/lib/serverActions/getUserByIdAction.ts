@@ -5,7 +5,7 @@ import { userSchema } from "@entity/user/model/schemas"
 import { isAuthorized } from "@share/serverActions"
 import { z } from "zod"
 
-export const getUserById = isAuthorized
+export const getUserByIdAction = isAuthorized
 	.createServerAction()
 	.input(userSchema.pick({ id: true }))
 	.output(userSchema.or(z.null()))

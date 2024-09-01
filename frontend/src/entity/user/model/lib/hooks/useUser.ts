@@ -2,10 +2,10 @@
 
 import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 import { useServerActionQuery } from "@share/serverActions/model"
-import { getUser } from "../serverActions/getUser"
+import { getUserAction } from "../serverActions/getUserAction"
 
 export function useUser() {
-	const query = useServerActionQuery(getUser, {
+	const query = useServerActionQuery(getUserAction, {
 		input: {},
 		queryKey: queryKeyFactory.account(),
 	})
