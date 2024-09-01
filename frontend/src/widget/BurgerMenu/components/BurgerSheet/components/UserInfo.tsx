@@ -9,17 +9,14 @@ import Link from "next/link"
 export const UserInfo = () => {
 	const { setExpand } = useAuthStore()
 
-	const {
-		query: { data, isLoading },
-		isAuthorized,
-	} = useUser()
+	const { query, isAuthorized } = useUser()
 
 	if (!isAuthorized) {
 		return (
 			<Button
 				variant='ghost'
 				className='w-full items-center justify-center'
-				disabled={isLoading}
+				disabled={query.isLoading}
 				onClick={() => setExpand(true)}
 			>
 				Авторизоваться
@@ -27,11 +24,7 @@ export const UserInfo = () => {
 		)
 	}
 
-	if (isLoading) {
-		return <UserPreview.Skeleton />
-	}
-
-	return data ? (
+	return query.data ? (
 		<Link href='/profile'>
 			<UserPreview />
 		</Link>

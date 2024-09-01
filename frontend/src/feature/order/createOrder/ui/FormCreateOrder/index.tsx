@@ -1,6 +1,6 @@
 "use client"
 
-import { useUser, useUserTokenStore } from "@entity/user"
+import { useUser } from "@entity/user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
@@ -20,8 +20,6 @@ export const FormCreateOrder = () => {
 		isAuthorized,
 		query: { data: user },
 	} = useUser()
-	const tokenStore = useUserTokenStore()
-
 	const { programId, tourId } = useCreateOrderStore()
 
 	const form = useForm<CreateOrder>({
@@ -45,10 +43,7 @@ export const FormCreateOrder = () => {
 	})
 
 	const onSubmit = form.handleSubmit((data) => {
-		createOrder({
-			...data,
-			token: tokenStore.getToken() as string,
-		})
+		createOrder(data)
 	})
 
 	useEffect(() => {

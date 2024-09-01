@@ -10,8 +10,8 @@ import { ZSAError } from "zsa"
 export const createOrderAction = isAuthorized
 	.createServerAction()
 	.input(createOrderSchema)
-	.handler(async ({ input }) => {
-		const resp = await createOrder(input, input.token)
+	.handler(async ({ input, ctx }) => {
+		const resp = await createOrder(input, ctx.token)
 
 		if (!resp) {
 			throw new ZSAError("INTERNAL_SERVER_ERROR")

@@ -1,51 +1,49 @@
-import { userSchema } from "@entity/user"
-import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { serverErrorResponseSchema, tokenSchema } from "@share/constants/schemes"
-import { logger, SafeJson } from "@share/lib"
+import { getUser, userSchema } from "@entity/user"
+import { cookies } from "next/headers"
 import { z } from "zod"
 import { createServerActionProcedure, ZSAError } from "zsa"
 
 const outputSchema = z.promise(z.object({ user: userSchema, token: z.string() }))
-const userResponseSchema = userSchema
-
-const detailInvalidToken = /^Недопустимый токен.$/gi
 
 export const isAuthorized = createServerActionProcedure()
-	.input(z.object({ token: tokenSchema }))
+	.input(z.object({}))
 	.output(outputSchema)
-	.handler(async ({ input: { token } }) => {
-		const resp = await fetch(`${API_DOMAIN}/api/v1/auth/users/me`, {
-			method: "GET",
-			headers: { Authorization: `Token ${token}` },
-		})
+	.handler(async () => {
+		const clientCookies = cookies()
 
-		const text = await resp.text()
-		const json = SafeJson.parse(text)
+		const authorization = clientCookies.get("Authorization")
 
-		if (!json) {
-			logger.fatal(text)
-			throw new ZSAError("INTERNAL_SERVER_ERROR")
-		}
-
-		const { success, data, error } = await userResponseSchema.or(serverErrorResponseSchema).safeParseAsync(json)
-
-		if (!success) {
-			logger.fatal("[isAuthorized] parsing user response error:", error)
-			throw new ZSAError("INTERNAL_SERVER_ERROR")
-		}
-
-		if ("detail" in data) {
-			const isInvalidToken = detailInvalidToken.test(data.detail)
-
-			if (isInvalidToken) {
-				throw new ZSAError("NOT_AUTHORIZED")
-			}
-
+		if (!authorization) {
 			throw new ZSAError("NOT_AUTHORIZED")
 		}
 
-		return {
-			token,
-			user: data,
+		function deleteToken() {
+			clientCookies.delete("Authorization")
 		}
+
+		const [type, token] = authorization.value.split(" ")
+
+		const resp = await getUser(token)
+
+		switch (resp) {
+			case getUser.errors.INVALID_TOKEN: {
+				deleteToken()
+				throw new ZSAError("INPUT_PARSE_ERROR")
+			}
+			case getUser.errors.NOT_AUTHORIZED: {
+				deleteToken()
+				throw new ZSAError("NOT_AUTHORIZED")
+			}
+			case getUser.errors.INTERNAL_SERVER_ERROR: {
+				throw new ZSAError("INTERNAL_SERVER_ERROR")
+			}
+			case getUser.errors.INVALID_USER: {
+				throw new ZSAError("INTERNAL_SERVER_ERROR")
+			}
+			case getUser.errors.VALIDATION_ERROR: {
+				throw new ZSAError("INPUT_PARSE_ERROR")
+			}
+		}
+
+		return resp
 	})

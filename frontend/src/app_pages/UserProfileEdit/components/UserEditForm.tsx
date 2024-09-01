@@ -1,5 +1,5 @@
 import { useGetCity } from "@entity/city"
-import { useUserTokenStore, type User } from "@entity/user"
+import type { User } from "@entity/user"
 import { editUserSchema, useEditUser, type EditUser } from "@feature/editUser"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { UploadAvatar } from "@share/ui/Avatar"
@@ -22,7 +22,6 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 
 	const { query, fetchRun } = useGetCity()
 
-	const { getToken } = useUserTokenStore()
 	const { mutate, isPending } = useEditUser()
 
 	useEffect(() => {
@@ -58,10 +57,8 @@ export const UserEditForm: FC<UserEditFormProps> = ({ user }) => {
 
 		const size = Array.from(formData.keys()).length
 
-		const token = getToken()
-
-		if (size > 0 && token) {
-			mutate({ formData, token })
+		if (size > 0) {
+			mutate({ formData })
 		}
 	})
 

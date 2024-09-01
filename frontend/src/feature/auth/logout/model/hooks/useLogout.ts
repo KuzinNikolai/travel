@@ -4,13 +4,11 @@ import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 import { useServerActionMutation } from "@share/serverActions/model"
 import { useToast } from "@share/ui/Popups"
 import { useQueryClient } from "@tanstack/react-query"
-import { logoutAction } from "../api/logoutAction"
-import { useUserTokenStore } from "@entity/user"
+import { logoutAction } from "../serverActions/logoutAction"
 
 export function useLogout() {
 	const queryClient = useQueryClient()
 
-	const userToken = useUserTokenStore()
 	const { toast } = useToast()
 
 	const mutation = useServerActionMutation(logoutAction, {
@@ -23,7 +21,6 @@ export function useLogout() {
 				})
 			}
 
-			userToken.setToken(null)
 			queryClient.invalidateQueries({ queryKey: queryKeyFactory.account() })
 		},
 		onError(err) {

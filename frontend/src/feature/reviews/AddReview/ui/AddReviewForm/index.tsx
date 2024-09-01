@@ -1,7 +1,7 @@
 "use client"
 
 import type { Tour } from "@entity/tour"
-import { useUser, useUserTokenStore } from "@entity/user"
+import { useUser } from "@entity/user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { isServerEnv, logger, useLocale } from "@share/lib"
 import { Button } from "@share/ui/Buttons"
@@ -22,7 +22,6 @@ interface AddReviewFormProps {
 export const AddReviewForm: FC<AddReviewFormProps> = ({ tourId, onSuccessAdd }) => {
 	const { currentLang } = useLocale()
 
-	const token = useUserTokenStore()
 	const {
 		query: { data: user, isPending: isUserPending },
 	} = useUser()
@@ -55,7 +54,6 @@ export const AddReviewForm: FC<AddReviewFormProps> = ({ tourId, onSuccessAdd }) 
 		if (isServerEnv() || !currentLang) return
 		addReview({
 			...data,
-			token: token.getToken() || "",
 			created_date: new Date(),
 			translations: { [currentLang]: { text: data.text } },
 		})

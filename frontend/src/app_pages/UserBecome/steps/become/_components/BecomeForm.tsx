@@ -2,7 +2,6 @@
 
 import { useGetCityList } from "@entity/city"
 import { useGetCountryList } from "@entity/country"
-import { useUserTokenStore } from "@entity/user"
 import { type BecomeGuide, becomeGuideSchema, useBecomeGuide } from "@feature/becomeGuide"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@share/ui/Buttons"
@@ -18,8 +17,6 @@ import { useForm } from "react-hook-form"
 export const BecomeForm = () => {
 	const t = useTranslations("pages.become.form")
 
-	const { getToken } = useUserTokenStore()
-
 	const form = useForm<BecomeGuide>({
 		resolver: zodResolver(becomeGuideSchema),
 	})
@@ -30,7 +27,7 @@ export const BecomeForm = () => {
 	const cityListQuery = useGetCityList()
 
 	const handleSubmit = form.handleSubmit((data) => {
-		becomeGuide.mutate({ ...data, token: getToken() || "" })
+		becomeGuide.mutate({ ...data })
 	})
 
 	useEffect(() => {

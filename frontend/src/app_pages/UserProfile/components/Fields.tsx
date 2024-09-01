@@ -1,4 +1,4 @@
-import { useUserTokenStore, type User } from "@entity/user"
+import type { User } from "@entity/user"
 import { useLogout } from "@feature/auth/logout"
 import { Button } from "@share/ui/Buttons"
 import { Typography } from "@share/ui/Text"
@@ -61,7 +61,6 @@ interface FieldsProps {
 export const Fields: FC<FieldsProps> = ({ user }) => {
 	const t = useTranslations("pages.profile")
 
-	const { getToken } = useUserTokenStore((state) => state)
 	const logout = useLogout()
 
 	const isStaff = user.is_staff
@@ -115,7 +114,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 			<FieldItem>
 				<Button
 					variant='ghost'
-					onClick={() => logout.mutateAsync({ token: getToken() || "" })}
+					onClick={() => logout.mutateAsync({ input: {} })}
 					className='!justify-start !py-6 w-full rounded-none text-danger'
 				>
 					{t("actions.logout")}

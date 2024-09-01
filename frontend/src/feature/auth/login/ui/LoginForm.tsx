@@ -12,8 +12,8 @@ import { Input } from "@share/ui/Inputs";
 import { type FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { loginRequestSchema } from "../consts/loginActionSchema";
-import { useLogin } from "../model/useLogin";
+import { useLogin } from "../model/hooks/useLogin";
+import { loginRequestSchema } from "../api/login";
 
 interface LoginFormProps {
 	onFinish: () => void;

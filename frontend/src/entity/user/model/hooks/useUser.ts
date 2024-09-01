@@ -3,13 +3,10 @@
 import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 import { useServerActionQuery } from "@share/serverActions/model"
 import { getUser } from "../serverActions/getUser"
-import { useUserTokenStore } from "../stores/userTokenStore"
 
 export function useUser() {
-	const { getToken } = useUserTokenStore()
-
 	const query = useServerActionQuery(getUser, {
-		input: { token: getToken() || "" },
+		input: {},
 		queryKey: queryKeyFactory.account(),
 	})
 

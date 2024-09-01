@@ -1,28 +1,25 @@
 "use client"
 
-import { useUserTokenStore } from "@entity/user"
 import { __DEV__ } from "@share/constants/mode"
 import { logger } from "@share/lib"
 import { useServerActionMutation } from "@share/serverActions/model"
 import { useToast } from "@share/ui/Popups"
 import { useQueryClient } from "@tanstack/react-query"
-import { loginAction } from "../api/loginAction"
+import { loginAction } from "../serverActions/loginAction"
 import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 
 export function useLogin() {
 	const queryClient = useQueryClient()
 
-	const { setToken } = useUserTokenStore()
 	const { toast } = useToast()
 
 	const mutation = useServerActionMutation(loginAction, {
-		onSuccess: (data) => {
+		onSuccess: () => {
 			if (__DEV__) {
 				logger.info("Login success")
-				toast({ title: "Успешно вход в систему", description: data.token })
+				toast({ title: "Успешно вход в систему", })
 			}
 
-			setToken(data.token)
 			queryClient.invalidateQueries({ queryKey: queryKeyFactory.account() })
 		},
 		onError(err) {
