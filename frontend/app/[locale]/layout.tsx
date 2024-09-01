@@ -21,11 +21,7 @@ export const metadata: Metadata = {
 	},
 }
 
-const RootLayout: FC<PropsWithChildren<PagesProps<{ locale: string }>>> = async ({
-	children,
-	params,
-	searchParams,
-}) => {
+const RootLayout: FC<PropsWithChildren<PagesProps>> = async ({ children, params, searchParams }) => {
 	const { lang } = await getLang(params.locale)
 
 	return (
