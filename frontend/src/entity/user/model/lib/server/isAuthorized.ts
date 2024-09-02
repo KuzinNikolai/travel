@@ -1,3 +1,5 @@
+"use server"
+
 import { getUser } from "@entity/user/api/getUser"
 import { cookies } from "next/headers"
 
