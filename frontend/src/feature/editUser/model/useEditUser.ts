@@ -18,7 +18,7 @@ export function useEditUser() {
 					description: "Профиль успешно отредактирован",
 				})
 			}
-			userClient.setQueryData(queryKeyFactory.account(), data)
+			userClient.setQueryData(queryKeyFactory.user(), data)
 		},
 		onError(err) {
 			switch (err.code) {

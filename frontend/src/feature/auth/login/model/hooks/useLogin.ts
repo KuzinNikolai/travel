@@ -20,7 +20,7 @@ export function useLogin() {
 				toast({ title: "Успешно вход в систему", })
 			}
 
-			queryClient.invalidateQueries({ queryKey: queryKeyFactory.account() })
+			queryClient.invalidateQueries({ queryKey: queryKeyFactory.user() })
 		},
 		onError(err) {
 			switch (err.code) {

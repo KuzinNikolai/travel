@@ -18,7 +18,7 @@ export const useBecomeGuide = () => {
 					description: "Вы стали гидом",
 				})
 			}
-			queryClient.invalidateQueries({ queryKey: queryKeyFactory.account() })
+			queryClient.invalidateQueries({ queryKey: queryKeyFactory.user() })
 		},
 		onError(err) {
 			switch (err.code) {

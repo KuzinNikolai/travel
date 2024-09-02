@@ -10,50 +10,46 @@ const staticData = {
 	tourCatagories: () => ["tourCategories"],
 }
 
-const travelData = {
+const share = {
+	user: () => ["user"],
+
 	countries: () => ["countries"],
 	countryList: () => ["countries", "list"],
 	detailCountry: (countrySlug: string) => ["countries", countrySlug],
-
+	
 	cities: () => ["cities"],
 	city: (id: number) => ["cities", id.toString()],
 	cityList: () => ["cities", "list"],
 	detailCity: (citySlug: string) => ["cities", citySlug],
-
+	
 	tours: () => ["tours"],
 	detailTour: (tourSlug: string) => ["tours", tourSlug],
-}
+	reviewListByTour: (tourId: number) => [`reviews-${tourId.toString()}`],
 
-const user = {
-	account: () => ["account"],
-	clientData: (clientId: number) => [`clientInfo-${clientId}`],
+	search: (searchParam: string) => ["search", `search$${searchParam}`],
 }
-
-const search = { search: (searchParam: string) => ["search", `search$${searchParam}`] }
 
 const client = {
 	clientOrders: () => ["clientOrders"],
 	clientWishlist: () => ["clientWishlist"],
 	clientHelpList: () => ["helpList"],
-}
 
-const review = {
-	reviewListByTour: (tourId: number) => [`reviews-${tourId.toString()}`],
+	// TEMP
+	clientData: (userId: number) => [`clientData-${userId}`],
 }
 
 const supplier = {
-	supplierOffers: () => ["guideOffers"],
 	supplierProfile: (guideId: number) => ["guideProfile", guideId.toString()],
+
+	supplierTours: () => ["guideOffers"],
+
 	supplierOrders: () => ["guideOrders"],
 	supplierOrder: (orderId: number) => ["guideOrders", orderId.toString()],
 }
 
 export const queryKeyFactory = createServerActionsKeyFactory({
 	...staticData,
-	...travelData,
-	...user,
-	...search,
+	...share,
 	...client,
-	...review,
 	...supplier,
 } as const)

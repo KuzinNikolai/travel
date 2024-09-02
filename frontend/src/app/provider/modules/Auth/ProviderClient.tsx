@@ -14,9 +14,9 @@ export function ProviderClient({ children, user }: PropsWithChildren<ProviderCli
 
 	useLayoutEffect(() => {
 		if (user) {
-			queryClient.setQueryData<User>(queryKeyFactory.account(), user)
+			queryClient.setQueryData<User>(queryKeyFactory.user(), user)
 		} else {
-			queryClient.setQueryData(queryKeyFactory.account(), null)
+			queryClient.setQueryData(queryKeyFactory.user(), null)
 		}
 	}, [user, queryClient])
 

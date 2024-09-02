@@ -7,7 +7,7 @@ import { getUserAction } from "../serverActions/getUserAction"
 export function useUser() {
 	const query = useServerActionQuery(getUserAction, {
 		input: {},
-		queryKey: queryKeyFactory.account(),
+		queryKey: queryKeyFactory.user(),
 	})
 
 	return {
