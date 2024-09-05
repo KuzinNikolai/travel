@@ -1,13 +1,14 @@
 import { siteConfig } from "@app/configs/siteConfig"
+import { i18nConfig } from "@app/i18n"
 import { Providers } from "@app/provider"
 import { getLang } from "@app/provider/modules/i18n/getLang"
 import { inter } from "@assets/fonts"
 import "@assets/globals.css"
-import * as ReactQueryClientV2 from "@serverActions"
 import { cn, type PagesProps } from "@share/lib"
 import { Toaster } from "@share/ui/Popups"
 import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
+import { unstable_setRequestLocale } from "next-intl/server"
 import type { FC, PropsWithChildren } from "react"
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<PropsWithChildren<PagesProps>> = async ({ children, params, searchParams }) => {
 	const { lang } = await getLang(params.locale)
+	unstable_setRequestLocale(params.locale)
 
 	return (
 		<html lang={lang}>
@@ -49,3 +51,7 @@ const RootLayout: FC<PropsWithChildren<PagesProps>> = async ({ children, params,
 }
 
 export default RootLayout
+
+export function generateStaticParams() {
+	return i18nConfig.locales.map((locale) => ({ locale }))
+}

@@ -1,14 +1,11 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { serverErrorResponseSchema } from "@share/constants/schemes"
-import { logger, SafeJson, Time } from "@share/lib"
+import { logger, SafeJson } from "@share/lib"
 import { cityItemSchema, detailCitySchema } from "../consts/schema"
 
 export async function getCities() {
 	try {
-		const resp = await fetch(`${API_DOMAIN}/api/v1/cities`, {
-			method: "GET",
-			next: { revalidate: 4 },
-		})
+		const resp = await fetch(`${API_DOMAIN}/api/v1/cities`, { method: "GET" })
 
 		const text = await resp.text()
 		const json = SafeJson.parse(text)
@@ -34,10 +31,7 @@ export async function getCities() {
 
 export const getDetailCity = async (citySlug: string) => {
 	try {
-		const resp = await fetch(`${API_DOMAIN}/api/v1/cities/city/${citySlug}`, {
-			method: "GET",
-			next: { revalidate: 4 },
-		})
+		const resp = await fetch(`${API_DOMAIN}/api/v1/cities/city/${citySlug}`, { method: "GET" })
 
 		const text = await resp.text()
 		const json = SafeJson.parse(text)

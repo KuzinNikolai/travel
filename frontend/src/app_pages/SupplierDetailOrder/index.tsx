@@ -15,13 +15,11 @@ import { OrderTourInfo } from "./components/OrderTourInfo"
 import { OrderTouristsInfo } from "./components/OrderTouristsInfo"
 import { useTranslations } from "next-intl"
 
-type SurlierDetailOrderProps = PagesProps<{
+type SurlierDetailOrderProps = {
 	order: string
-}>
+}
 
-export const SupplierDetailOrder: FC<SurlierDetailOrderProps> = ({ params }) => {
-	const { order: orderNumber } = params
-
+export const SupplierDetailOrder: FC<SurlierDetailOrderProps> = ({ order: orderNumber }) => {
 	const t = useTranslations()
 
 	const { query, order } = useGetOrder(orderNumber)

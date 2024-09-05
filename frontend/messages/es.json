@@ -23,13 +23,13 @@
       }
     },
     "popularCities": {
-      "imageAlt": "Foto de la ciudad {ciudad}",
-      "linkToCity": "Ver todas las excursiones en {ciudad}",
+      "imageAlt": "Foto de la ciudad {city}",
+      "linkToCity": "Ver todas las excursiones en {city}",
       "tourCount": "Excursiones: {count}"
     },
     "popularTours": {
-      "imgAlt": "Foto de la excursión {nombre}",
-      "link": "Más detalles sobre la excursión {nombre}"
+      "imgAlt": "Foto de la excursión {name}",
+      "link": "Más detalles sobre la excursión {name}"
     },
     "rating": {
       "label": "Calificación: {rating} de {ratingMax}",
