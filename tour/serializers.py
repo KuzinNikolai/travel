@@ -141,7 +141,7 @@ class ProgramSerializer(serializers.ModelSerializer):
         ]
 
 
-class TourListSerializer(serializers.ModelSerializer):
+class TourListSerializer(TranslatableModelSerializer):
     """Выводим туры и цену из программы для превью"""
 
     min_price = serializers.SerializerMethodField()
@@ -217,6 +217,7 @@ class TourListSerializer(serializers.ModelSerializer):
             "average_rating",
             "currency_prefix",
             "is_published",
+            "author",
         )
 
 
