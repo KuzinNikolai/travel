@@ -10,12 +10,12 @@ class CharFilterinFilter(filters.BaseInFilter, filters.CharFilter):
 
 class TourFilter(filters.FilterSet):
     tags = CharFilterinFilter(field_name='tags__tag', lookup_expr='in')
-    cat = filters.ModelChoiceFilter(field_name='cat', queryset=Category.objects.all())
+    category = filters.ModelChoiceFilter(field_name='category', queryset=Category.objects.all())
     adult_price = filters.RangeFilter(field_name='programs__adult_price')
 
     class Meta:
         model = Tour
-        fields = ['tags', 'cat', 'adult_price']
+        fields = ['tags', 'category', 'adult_price']
 
 
 class CategoryFilter(filters.FilterSet):

@@ -13,9 +13,18 @@ from tour.serializers import *
 class CustomUserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'age', 'photo', 'is_staff', 'phone', 'country', 'city')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'age', 'photo', 'is_staff', 'phone', 'country', 'city', "description")
         
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        if instance.is_staff:
+            data["company_name"] = instance.company_name
+            data["company_address"] = instance.company_address
+            data["company_vat"] = instance.company_vat
+            data["director_name"] = instance.director_name 
         
+        return data
         
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -94,7 +103,7 @@ class GuideProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'photo', 'country', 'city', 'count_tours', 'total_customers', 'total_reviews', 'average_rating', 'tours']
+        fields = ['id', 'first_name', 'last_name', 'photo', 'country', 'city', 'company_name', 'company_address', 'company_vat', 'director_name', 'count_tours', 'total_customers', 'total_reviews', 'average_rating', 'tours']
 
     def get_tours(self, user):
         tours = Tour.objects.filter(author=user)

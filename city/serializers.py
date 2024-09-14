@@ -23,7 +23,7 @@ class CityListSerializer(serializers.ModelSerializer):
         return city.title   
 
     def get_popular_tours(self, city):
-        popular_tours = city.tours.filter(average_rating=5)[:3]
+        popular_tours = city.tours.filter(average_rating__gt=0).order_by("-average_rating")[:3]
         context = {'request': self.context.get('request')}
         return TourListSerializer(popular_tours, many=True, context=context).data  
         

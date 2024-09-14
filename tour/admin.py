@@ -59,7 +59,7 @@ class ProgrammInline(TranslatableInlineModelAdmin, admin.StackedInline):
 
 class TourAdmin(TranslatableAdmin):
     inlines = [ProgrammInline, PhotoInline]  # Объедините оба включения в одном списке
-    list_display = ("id", "title", "time_create", "author", "photo", "is_published")
+    list_display = ("id", "title", "datetime_create", "author", "photo", "is_published")
     list_display_links = ("id", "title", "author")
     search_fields = ("title",)
 

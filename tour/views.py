@@ -131,14 +131,14 @@ class TourCreateView(generics.CreateAPIView):
         admin_email_subject = "Новый тур добавлен"
         admin_email_message = (
             f"Название тура: {tour.title}\n"
-            f"Категория: {tour.cat.name}\n"
+            f"Категория: {tour.category.name}\n"
             f"Имя гида: {user.first_name} {user.last_name}\n"
             f"Почта гида: {user.email}\n"
             f"Номер телефона: {user.phone}\n"
         )
 
         user_email_subject = "Ваш тур был добавлен"
-        user_email_message = f'Ваш тур "{tour.title}" был успешно добавлен.\n' f"Категория: {tour.cat.name}\n"
+        user_email_message = f'Ваш тур "{tour.title}" был успешно добавлен.\n' f"Категория: {tour.category.name}\n"
 
         # Отправка письма админу
         # send_mail(
@@ -161,7 +161,7 @@ class TourCreateView(generics.CreateAPIView):
 
     def get(self, request, *args, **kwargs):
         tags = TagTour.objects.values_list("translations__tag", flat=True)
-        cat = Category.objects.values_list("translations__name", flat=True)
+        category = Category.objects.values_list("translations__name", flat=True)
         type = Type.objects.values_list("translations__name", flat=True)
         langs = LangTour.objects.values_list("translations__name", flat=True)
         transfers = Transfer.objects.values_list("translations__name", flat=True)
@@ -172,7 +172,7 @@ class TourCreateView(generics.CreateAPIView):
 
         data = {
             "tags": list(tags),
-            "cat": list(cat),
+            "category": list(category),
             "type": list(type),
             "langs": list(langs),
             "transfers": list(transfers),
@@ -540,7 +540,7 @@ class OptionsApiView(generics.GenericAPIView):
     def get(self, request):
         serializer_methods = {
             "tags": "get_tags",
-            "cat": "get_cat",
+            "category": "get_categories",
             "type": "get_type",
             "langs": "get_langs",
             "transfers": "get_transfers",

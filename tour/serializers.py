@@ -10,25 +10,12 @@ User = get_user_model()
 
 
 # Полный вывод тегов
-class TagSerializer(serializers.ModelSerializer):
-    active_image = serializers.SerializerMethodField()
-    inactive_image = serializers.SerializerMethodField()
+class TagSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=TagTour) 
 
     class Meta:
         model = TagTour
-        fields = ["tag", "slug", "active_image", "inactive_image"]
-
-    def get_active_image(self, tag):
-        request = self.context.get("request")
-        if tag.active_image and request:
-            return request.build_absolute_uri(tag.active_image.url)
-        return None
-
-    def get_inactive_image(self, tag):
-        request = self.context.get("request")
-        if tag.inactive_image and request:
-            return request.build_absolute_uri(tag.inactive_image.url)
-        return None
+        fields = ["tag", "slug", "translations"]
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -90,9 +77,10 @@ class TypeSerializer(serializers.ModelSerializer):
 
 
 class FAQSerializer(serializers.ModelSerializer):
+    translations = TranslatedFieldsField(shared_model=FAQ)
     class Meta:
         model = FAQ
-        fields = ["id", "question", "answer"]
+        fields = ["id", "question", "answer", "translations"]
 
 
 class ReviewSerializer(TranslatableModelSerializer):
@@ -123,9 +111,15 @@ class ReviewSerializer(TranslatableModelSerializer):
             return self.context["request"].build_absolute_uri(obj.user.photo.url)
         return None
 
+class DurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Duration
+        fields = ["day", "hour"]
 
-class ProgramSerializer(serializers.ModelSerializer):
 
+class ProgramSerializer(TranslatableModelSerializer):
+    duration = DurationSerializer()
+    translations = TranslatedFieldsField(shared_model=Programm)
     class Meta:
         model = Programm
         fields = [
@@ -138,21 +132,45 @@ class ProgramSerializer(serializers.ModelSerializer):
             "adult_price",
             "child_price",
             "individual_price",
+            "promotion_price",
+            "translations"
         ]
 
+class PhotoSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Photo) 
+    class Meta:
+        model = Photo
+        fields = ["id", "tour", "image", "photo_alt", "create_date_time", "translations"]
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        tour = validated_data["tour"]
+
+        if tour.author != user:
+            raise PermissionDenied("You don't have permission to add photo to this tour.")
+
+        return super().create(validated_data)
 
 class TourListSerializer(TranslatableModelSerializer):
     """Выводим туры и цену из программы для превью"""
 
     min_price = serializers.SerializerMethodField()
-
+    min_price_with_promotions = serializers.SerializerMethodField()
+    author = UserSerializer()
+    translations = TranslatedFieldsField(shared_model=Tour)
+    
     def get_min_price(self, tour):
         try:
             min_program = tour.programs.order_by("adult_price").first()
             return min_program.adult_price
         except AttributeError:
             return None
-
+    def get_min_price_with_promotions(self, tour):
+        try:
+            min_program = tour.programs.order_by("promotion_price").first()
+            return min_program.promotion_price
+        except AttributeError:
+            return None
     def get_currency_prefix(self, tour):
         return tour.country.currency_prefix
 
@@ -162,9 +180,8 @@ class TourListSerializer(TranslatableModelSerializer):
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     city_slug = serializers.SlugRelatedField(slug_field="slug", source="city", read_only=True)
 
-    photo_alt = serializers.SerializerMethodField()
     currency_prefix = serializers.SerializerMethodField()
-    cat = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    category = serializers.SlugRelatedField(slug_field="name", read_only=True)
     average_rating = serializers.FloatField(default=0.00)
     type = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
@@ -191,9 +208,7 @@ class TourListSerializer(TranslatableModelSerializer):
             return tour.photo.url
         return None
 
-    def get_photo_alt(self, tour):
-        return tour.title
-
+    
     class Meta:
         model = Tour
         fields = (
@@ -208,16 +223,18 @@ class TourListSerializer(TranslatableModelSerializer):
             "duration",
             "type",
             "slug",
-            "cat",
+            "category",
             "tags",
+            "lang",
+            "promotions",
             "min_price",
             "photo",
             "photos",
-            "photo_alt",
             "average_rating",
             "currency_prefix",
             "is_published",
             "author",
+            "translations"
         )
 
 
@@ -225,6 +242,8 @@ class TourCreateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     photo = serializers.ImageField(required=False)
     author = UserSerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(source='category', queryset=Category.objects.all())
+    duration = DurationSerializer() 
     translations = TranslatedFieldsField(shared_model=Tour)
 
     class Meta:
@@ -240,7 +259,7 @@ class TourCreateSerializer(TranslatableModelSerializer):
             "included",
             "notincluded",
             "take",
-            "cat",
+            "category_id",
             "tags",
             "type",
             "children_possible",
@@ -265,9 +284,11 @@ class TourCreateSerializer(TranslatableModelSerializer):
         langs_data = validated_data.pop("lang", [])
         faqs_data = validated_data.pop("faqs", [])
         photos_data = validated_data.pop("photos", [])
+        duration_data = validated_data.pop("duration")
 
         validated_data["author"] = self.context["request"].user
-        tour = Tour.objects.create(**validated_data)
+        duration = Duration.objects.create(**duration_data)
+        tour = Tour.objects.create(duration=duration, **validated_data)
         tour.included.set(included_data)
         tour.notincluded.set(notincluded_data)
         tour.take.set(take_data)
@@ -286,18 +307,15 @@ class TourCreateSerializer(TranslatableModelSerializer):
 class TourDetailSerializer(TranslatableModelSerializer):
     country = serializers.SlugRelatedField(slug_field="name", read_only=True)
     country_slug = serializers.SlugRelatedField(slug_field="slug", source="country", read_only=True)
-
     city = serializers.SlugRelatedField(slug_field="name", read_only=True)
     city_slug = serializers.SlugRelatedField(slug_field="slug", source="city", read_only=True)
-
     photo_alt = serializers.SerializerMethodField()
-
     currency_prefix = serializers.SerializerMethodField()
-    cat = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    category = serializers.SlugRelatedField(slug_field="name", read_only=True)
     type = serializers.SlugRelatedField(slug_field="name", read_only=True)
     lang = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
     transfer = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
-    faqs = FaqSerializer(many=True)
+    faqs = FAQSerializer(many=True)
     programs = ProgramSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(default=0.00)
     tags = TagSerializer(many=True)
@@ -306,16 +324,16 @@ class TourDetailSerializer(TranslatableModelSerializer):
     take = TakeSerializer(many=True)
     reviews = ReviewSerializer(many=True)
     tour_link = serializers.SerializerMethodField()
-    photos = serializers.SerializerMethodField()
+    photos = PhotoSerializer(many=True)
     min_price = serializers.SerializerMethodField()
 
-    def get_photos(self, obj):
-        results = []
-        request = self.context.get("request")
-        for photo in obj.photos.all():
-            url = request.build_absolute_uri(photo.image.url)
-            results.append({"id": photo.id, "url": url})
-        return results
+    # def get_photos(self, obj):
+    #     results = []
+    #     request = self.context.get("request")
+    #     for photo in obj.photos.all():
+    #         url = request.build_absolute_uri(photo.image.url)
+    #         results.append({"id": photo.id, "url": url})
+    #     return results
 
     def get_min_price(self, tour):
         try:
@@ -345,7 +363,6 @@ class TourDetailSerializer(TranslatableModelSerializer):
             "meta_desc",
             "meta_keywords",
             "description",
-            "usage_policy",
             "country",
             "country_slug",
             "city",
@@ -360,9 +377,9 @@ class TourDetailSerializer(TranslatableModelSerializer):
             "what_age_child_free",
             "pregnant_possible",
             "photo",
-            "time_create",
-            "time_update",
-            "cat",
+            "datetime_create",
+            "datetime_update",
+            "category",
             "type",
             "transfer",
             "tags",
@@ -388,6 +405,8 @@ class TourDetailSerializer(TranslatableModelSerializer):
 class TourUpdateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     photos = serializers.SerializerMethodField()
+    category_id = serializers.PrimaryKeyRelatedField(source='category', queryset=Category.objects.all())
+    duration = DurationSerializer()
     translations = TranslatedFieldsField(shared_model=Tour)
 
     class Meta:
@@ -403,7 +422,7 @@ class TourUpdateSerializer(TranslatableModelSerializer):
             "included",
             "notincluded",
             "take",
-            "cat",
+            "category_id",
             "tags",
             "type",
             "children_possible",
@@ -427,6 +446,20 @@ class TourUpdateSerializer(TranslatableModelSerializer):
         if request.user != instance.author:
             if not request.user.is_superuser:
                 raise PermissionDenied("You do not have permission to edit this tour.")
+            
+        duration_data = validated_data.pop("duration", None)
+        if duration_data:
+            # If there is existing duration data associated with the instance
+            if instance.duration:
+                # Update the existing Duration object
+                for attr, value in duration_data.items():
+                    setattr(instance.duration, attr, value)
+                instance.duration.save()
+            else:
+                # Create a new Duration object if none exists
+                duration = Duration.objects.create(**duration_data)
+                instance.duration = duration
+
 
         return super().update(instance, validated_data)
 
@@ -460,6 +493,8 @@ class OrderSerializer(TranslatableModelSerializer):
     manager_phone = serializers.SerializerMethodField()
     manager_email = serializers.SerializerMethodField()
     cash_on_tour = serializers.SerializerMethodField()
+    currency_prefix = serializers.SerializerMethodField()
+    program_info = ProgramSerializer(source="program") 
     translations = TranslatedFieldsField(shared_model=Order)
 
     class Meta:
@@ -475,8 +510,9 @@ class OrderSerializer(TranslatableModelSerializer):
             "tour",
             "email",
             "phone",
-            "program_title",
             "program",
+            "program_title",
+            "program_info",
             "hotel",
             "room_number",
             "pickup_time",
@@ -492,6 +528,7 @@ class OrderSerializer(TranslatableModelSerializer):
             "transfer",
             "deposit",
             "cash_on_tour",
+            "currency_prefix",
             "translations",
         ]
         extra_kwargs = {
@@ -532,6 +569,9 @@ class OrderSerializer(TranslatableModelSerializer):
     def get_cash_on_tour(self, obj):
         total_price = self.get_total_price(obj)
         return total_price - obj.deposit
+
+    def get_currency_prefix(self, obj):
+        return obj.tour.country.currency_prefix
 
     def validate(self, data):
         if not data.get("email"):
@@ -605,24 +645,9 @@ class WishlistSerializer(serializers.ModelSerializer):
         fields = ["id", "user", "tour"]
 
 
-class PhotoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Photo
-        fields = "__all__"
-
-    def create(self, validated_data):
-        user = self.context["request"].user
-        tour = validated_data["tour"]
-
-        if tour.author != user:
-            raise PermissionDenied("You don't have permission to add photo to this tour.")
-
-        return super().create(validated_data)
-
-
 class OptionsSerializer(serializers.Serializer):
     tags = serializers.SerializerMethodField()
-    cat = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
     type = serializers.SerializerMethodField()
     langs = serializers.SerializerMethodField()
     transfers = serializers.SerializerMethodField()
@@ -635,7 +660,7 @@ class OptionsSerializer(serializers.Serializer):
         tags = TagTour.objects.all()
         return [{"id": tag.id, "tag": tag.tag} for tag in tags]
 
-    def get_cat(self, obj):
+    def get_categories(self, obj):
         cats = Category.objects.all()
         return [{"id": cat.id, "name": cat.name} for cat in cats]
 
@@ -669,6 +694,7 @@ class OptionsSerializer(serializers.Serializer):
 
 
 class ProgramCreateSerializer(TranslatableModelSerializer):
+    duration = DurationSerializer()
     translations = TranslatedFieldsField(shared_model=Programm)
 
     class Meta:
@@ -694,4 +720,22 @@ class ProgramCreateSerializer(TranslatableModelSerializer):
         if tour.author != user:
             raise PermissionDenied("You don't have permission to add program to this tour.")
 
-        return super().create(validated_data)
+        duration_data = validated_data.pop("duration")
+        duration = Duration.objects.create(**duration_data)
+        program = Programm.objects.create(duration=duration, **validated_data)
+        return program
+    
+    def update(self, instance, validated_data):
+        duration_data = validated_data.pop("duration", None)
+        if duration_data:
+            if instance.duration:
+                # Duration.objects.filter(id=instance.duration.id).update(**duration_data)
+                for attr, value in duration_data.items():
+                    setattr(instance.duration, attr, value)
+                instance.duration.save()
+
+            else:
+                duration = Duration.objects.create(**duration_data)
+                instance.duration = duration
+        instance = super().update(instance, validated_data)
+        return instance    

@@ -48,7 +48,7 @@ class CategoryDetailView(ListAPIView):
         cat_slug = self.kwargs.get('cat_slug')
 
         # Получаем все туры, принадлежащие выбранной категории
-        tours = Tour.objects.filter(cat__slug=cat_slug)
+        tours = Tour.objects.filter(category__slug=cat_slug)
 
         # Фильтруем туры по выбранному городу
         tours_in_city = tours.filter(city__slug=city_slug)
