@@ -12,7 +12,7 @@ from city.models import City
 from country.models import Country
 from parler.models import TranslatableModel, TranslatedFields
 from parler.managers import TranslatableQuerySet
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -29,11 +29,10 @@ class Tour(TranslatableModel):
         pass
 
     translations = TranslatedFields(
-        title=models.CharField(max_length=255, db_index=True),
-        duration=models.CharField(blank=True, max_length=50),
-        meta_desc=models.TextField(blank=True, db_index=True),
+        title=models.CharField(max_length=120, db_index=True),
+        meta_desc=models.TextField(max_length=600, blank=True, db_index=True),
         meta_keywords=models.CharField(max_length=255, blank=True, null=True),
-        description=models.TextField(blank=True, db_index=True),
+        description=models.TextField(max_length=2000, blank=True, db_index=True),
         usage_policy=models.TextField(
             blank=True,
             default="""
@@ -55,10 +54,10 @@ class Tour(TranslatableModel):
     what_age_child_free = models.IntegerField(blank=True, null=True, verbose_name="До скольки лет дети бесплатно?")
     pregnant_possible = models.BooleanField(default=False, null=True, verbose_name="Возможно ли посещение беременным?")
     photo = models.ImageField(blank=True, null=True, upload_to="photos/%Y/%m/%d/")
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
+    datetime_create = models.DateTimeField(auto_now_add=True)
+    datetime_update = models.DateTimeField(auto_now=True)
     is_published = models.IntegerField(choices=Status.choices, default=Status.DRAFT)
-    cat = models.ForeignKey("Category", on_delete=models.PROTECT, db_index=True, related_name="tours")
+    category = models.ForeignKey("Category", on_delete=models.PROTECT, db_index=True, related_name="tours")
     type = models.ForeignKey("Type", on_delete=models.PROTECT, verbose_name="Тип поездки")
     transfer = models.ManyToManyField("Transfer", blank=True, verbose_name="Какой трансфер предусмотрен?")
     tags = models.ManyToManyField("TagTour", blank=True, related_name="tags", verbose_name="Теги")
@@ -70,6 +69,7 @@ class Tour(TranslatableModel):
     author = models.ForeignKey(
         get_user_model(), on_delete=models.SET_NULL, related_name="tours", null=True, default=None
     )
+    duration = models.ForeignKey("Duration", on_delete=models.CASCADE, null=True, blank=True)
     objects = CustomQuerySet.as_manager()
 
     published = PublishedManager()
@@ -125,12 +125,11 @@ class Type(TranslatableModel):
 class Programm(TranslatableModel):
     translations = TranslatedFields(
         title=models.CharField(max_length=255, db_index=True),
-        duration=models.CharField(blank=True, max_length=50),
         description=models.TextField(blank=True, db_index=True),
     )
-
+    duration = models.ForeignKey("Duration", on_delete=models.CASCADE, null=True, blank=True)
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, db_index=True, related_name="programs")
-    type = models.ForeignKey(Type, on_delete=models.CASCADE, null=True, related_name="type")
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, related_name="type")
     group_size = models.IntegerField(
         blank=True,
         null=True,
@@ -138,6 +137,7 @@ class Programm(TranslatableModel):
     adult_price = models.IntegerField(blank=True, null=True)
     child_price = models.IntegerField(blank=True, null=True)
     individual_price = models.IntegerField(blank=True, null=True)
+    promotion_price = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -195,12 +195,12 @@ class TagTour(TranslatableModel):
     )
 
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    active_image = models.ImageField(
-        upload_to="photos/tag/active/", blank=True, null=True, verbose_name="Изображение для активного тега"
-    )
-    inactive_image = models.ImageField(
-        upload_to="photos/tag/inactive/", blank=True, null=True, verbose_name="Изображение для неактивного тега"
-    )
+    # active_image = models.ImageField(
+    #     upload_to="photos/tag/active/", blank=True, null=True, verbose_name="Изображение для активного тега"
+    # )
+    # inactive_image = models.ImageField(
+    #     upload_to="photos/tag/inactive/", blank=True, null=True, verbose_name="Изображение для неактивного тега"
+    # )
 
     def __str__(self):
         return self.tag
@@ -361,7 +361,7 @@ class Reviews(TranslatableModel):
     )
     created_date = models.DateTimeField(default=now)
 
-    translations = TranslatedFields(text=models.TextField())
+    translations = TranslatedFields(text=models.TextField(max_length=2000, validators=[MinValueValidator(2)]))
 
     def __str__(self):
         return f"{self.user.first_name} - {self.created_date}"
@@ -402,9 +402,15 @@ def get_upload_path(instance, filename):
     return os.path.join("tour_photos", f"city_{city_id}", f"tour_{tour_id}", filename)
 
 
-class Photo(models.Model):
+class Photo(TranslatableModel):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to=get_upload_path)
-
+    create_date_time = models.DateTimeField(auto_now_add=True)
+    
+    translations = TranslatedFields(photo_alt=models.CharField(max_length=120))
     def __str__(self):
         return self.tour.title
+
+class Duration(models.Model):
+    day = models.IntegerField(null=True, blank=True)
+    hour = models.IntegerField(null=True, blank=True, validators=[MaxValueValidator(24)])

@@ -10,7 +10,7 @@ class Country(TranslatableModel):
         name = models.CharField(max_length=50),
         meta_desc = models.TextField(blank=True, db_index=True),
         meta_keywords = models.CharField(max_length=255, blank=True, null=True),
-        description = models.TextField(blank=True, db_index=True),
+        description = models.TextField(max_length=600, blank=True, db_index=True),
     )       
 
     slug = models.SlugField(max_length=100, unique=True, db_index=True)

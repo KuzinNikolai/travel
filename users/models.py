@@ -7,19 +7,24 @@ from city.models import City
 from country.models import Country
 from django.utils.crypto import get_random_string
 from parler.models import TranslatableModel, TranslatedFields
-
+from django.core.validators import MinValueValidator
 class User(AbstractUser):
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
     email = models.EmailField(unique=True)
     photo = models.ImageField(upload_to='users/avatar', blank=True, null=True, verbose_name='Аватар')
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
-    age = models.PositiveIntegerField(null=True, blank=True)
+    age = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(16)])
     email_verification_code = models.CharField(max_length=6, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     phone = models.CharField(max_length=15, null=True, blank=True)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    company_name = models.CharField(max_length=255, blank=True, null=True)
+    company_address = models.CharField(max_length=255, blank=True, null=True) 
+    company_vat = models.CharField(max_length=255, blank=True, null=True) 
+    director_name = models.CharField(max_length=255, blank=True, null=True) 
+    description = models.CharField(max_length=255, blank=True, null=True) 
 
     def save(self, *args, **kwargs):
         if not self.username:
