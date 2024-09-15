@@ -228,6 +228,7 @@ class TourListSerializer(TranslatableModelSerializer):
             "lang",
             "promotions",
             "min_price",
+            "min_price_with_promotions",
             "photo",
             "photos",
             "average_rating",
