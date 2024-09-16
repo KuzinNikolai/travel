@@ -207,7 +207,7 @@ class TourUpdateView(generics.RetrieveUpdateAPIView):
 # Вывод туров только для автора
 class MyOffersListView(generics.ListAPIView):
     queryset = Tour.objects.all()
-    serializer_class = TourListSerializer
+    serializer_class = TourDetailSerializer 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):

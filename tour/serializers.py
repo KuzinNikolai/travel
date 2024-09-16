@@ -198,10 +198,11 @@ class TourListSerializer(TranslatableModelSerializer):
     currency_prefix = serializers.SerializerMethodField()
     category = serializers.SlugRelatedField(slug_field="name", read_only=True)
     average_rating = serializers.FloatField(default=0.00)
-    type = serializers.SlugRelatedField(slug_field="name", read_only=True)
-
+    lang = serializers.SlugRelatedField(slug_field="slug", read_only=True, many=True)
+    
     tags = TagSerializer(many=True)
     photos = PhotoSerializer(many=True)
+    duration = DurationSerializer()
     # def get_photos(self, obj):
     #     request = self.context.get("request")
     #     if request is not None:
@@ -224,15 +225,17 @@ class TourListSerializer(TranslatableModelSerializer):
         model = Tour
         fields = (
             "id",
+            "datetime_create",
+            "datetime_update",
             "country",
             "country_slug",
             "city",
             "city_slug",
             "title",
             "meta_desc",
+            "meta_keywords",
             "description",
             "duration",
-            "type",
             "slug",
             "category",
             "tags",
@@ -332,7 +335,7 @@ class TourDetailSerializer(TranslatableModelSerializer):
     category = serializers.SlugRelatedField(slug_field="name", read_only=True)
     type = serializers.SlugRelatedField(slug_field="name", read_only=True)
     lang = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
-    transfer = serializers.SlugRelatedField(slug_field="name", read_only=True, many=True)
+    transfer = TransferSerializer(many=True)
     faqs = FAQSerializer(many=True)
     programs = ProgramSerializer(many=True, read_only=True)
     average_rating = serializers.FloatField(default=0.00)
