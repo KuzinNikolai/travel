@@ -508,7 +508,7 @@ class RemoveFromWishlistView(generics.DestroyAPIView):
 class PhotoApiView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     queyrset = Photo.objects.all()
-    serializer_class = PhotoSerializer
+    serializer_class = PhotoCreateSerializer
 
     def get_queryset(self):
         user = self.request.user

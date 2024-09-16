@@ -40,14 +40,15 @@ class CityDetailSerializer(serializers.ModelSerializer):
     tours = TourListSerializer(read_only=True, many=True)
     tour_count = serializers.SerializerMethodField()
     photo_alt = serializers.SerializerMethodField()
+    country = serializers.SlugRelatedField(slug_field='name', read_only=True)
 
     def get_photo_alt(self, city):
         return city.title 
 
     class Meta:
         model = City
-        fields = ('id', 'name', 'title', 'slug', 'description', 'tour_count', 'tours', 'photo','photo_alt')
-
+        fields = ('id', 'name', 'title', 'slug', 'meta_desc', 'description', 'photo', 'photo_alt', 'tour_count', 'country', 'tours')
+    
     def get_tour_count(self, city):
         return city.tours.count()
 

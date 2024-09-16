@@ -14,10 +14,10 @@ class Status(models.IntegerChoices):
 class City(TranslatableModel):
     translations = TranslatedFields(
         title=models.CharField(max_length=255, blank=True, null=True),
-        meta_desc=models.TextField(blank=True, db_index=True),
+        meta_desc=models.TextField(max_length=600, blank=True, db_index=True),
         meta_keywords=models.CharField(max_length=255, blank=True, null=True),
         name=models.CharField(max_length=50),
-        description=models.TextField(blank=True, db_index=True),
+        description=models.TextField(max_length=600, blank=True, db_index=True),
     )
 
     country = models.ForeignKey(Country, null=True, on_delete=models.CASCADE, related_name="cities")

@@ -407,7 +407,8 @@ class Photo(TranslatableModel):
     image = models.ImageField(upload_to=get_upload_path)
     create_date_time = models.DateTimeField(auto_now_add=True)
     
-    translations = TranslatedFields(photo_alt=models.CharField(max_length=120))
+    translations = TranslatedFields(photo_alt=models.CharField(max_length=120, null=True, blank=True))
+    
     def __str__(self):
         return self.tour.title
 

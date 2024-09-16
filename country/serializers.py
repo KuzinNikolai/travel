@@ -3,7 +3,7 @@ from .models import *
 from city.serializers import CityListForCountrySerializer, CityListSerializer
 
 class CountryListSerializer(serializers.ModelSerializer):
-    cities = CityListForCountrySerializer(read_only=True, many=True)
+    cities = CityListSerializer(read_only=True, many=True)
     tour_count = serializers.SerializerMethodField()
     
     class Meta:

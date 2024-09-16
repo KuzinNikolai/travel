@@ -19,49 +19,48 @@ class TagSerializer(TranslatableModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ["id", "username", "first_name", "email", "photo"]
+        fields = ["id", "username", "full_name", "first_name", "last_name", "email", "photo"]
+    
+    def get_full_name(self, instance):
+        return instance.get_full_name()
+    
 
-
-class IncludedSerializer(serializers.ModelSerializer):
+class IncludedSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Included)
     class Meta:
         model = Included
-        fields = ["id", "name"]
+        fields = ["id", "name", "translations"]
 
 
-class NotIncludedSerializer(serializers.ModelSerializer):
+class NotIncludedSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=NotIncluded)
     class Meta:
         model = NotIncluded
-        fields = ["id", "name"]
+        fields = ["id", "name", "translations"]
 
 
-class TakeSerializer(serializers.ModelSerializer):
+class TakeSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Take)
     class Meta:
         model = Take
-        fields = ["id", "name"]
+        fields = ["id", "name", "translations"]
 
 
-class TransferSerializer(serializers.ModelSerializer):
+class TransferSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Transfer)
     class Meta:
         model = Transfer
-        fields = ["id", "name"]
+        fields = ["id", "name", "translations"]
 
 
 class LangTourSerializer(serializers.ModelSerializer):
     class Meta:
         model = LangTour
         fields = ["id", "name"]
-
-
-# Подробная информация о туре и возможность редактиров
-class FaqSerializer(serializers.Serializer):
-    question = serializers.CharField()
-    answer = serializers.CharField()
-
-    class Meta:
-        model = FAQ
-        fields = ["id", "question", "answer"]
 
 
 class CatSerializer(serializers.ModelSerializer):
@@ -137,7 +136,24 @@ class ProgramSerializer(TranslatableModelSerializer):
         ]
 
 class PhotoSerializer(TranslatableModelSerializer):
-    translations = TranslatedFieldsField(shared_model=Photo) 
+    translations = TranslatedFieldsField(shared_model=Photo)
+
+    class Meta:
+        model = Photo
+        fields = ["id", "image", "photo_alt", "create_date_time", "translations"] 
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        tour = validated_data["tour"]
+
+        if tour.author != user:
+            raise PermissionDenied("You don't have permission to add photo to this tour.")
+
+        return super().create(validated_data)
+
+class PhotoCreateSerializer(TranslatableModelSerializer):
+    translations = TranslatedFieldsField(shared_model=Photo, required=False) 
+    
     class Meta:
         model = Photo
         fields = ["id", "tour", "image", "photo_alt", "create_date_time", "translations"]
@@ -150,7 +166,6 @@ class PhotoSerializer(TranslatableModelSerializer):
             raise PermissionDenied("You don't have permission to add photo to this tour.")
 
         return super().create(validated_data)
-
 class TourListSerializer(TranslatableModelSerializer):
     """Выводим туры и цену из программы для превью"""
 
@@ -186,19 +201,16 @@ class TourListSerializer(TranslatableModelSerializer):
     type = serializers.SlugRelatedField(slug_field="name", read_only=True)
 
     tags = TagSerializer(many=True)
-
-    # photos = PhotoSerializer(many=True, required=False)
-    photos = serializers.SerializerMethodField()
-
-    def get_photos(self, obj):
-        request = self.context.get("request")
-        if request is not None:
-            return [
-                request.build_absolute_uri(photo.image.url)
-                for photo in obj.photos.all()
-                if photo.image and hasattr(photo.image, "url")
-            ]
-        return []
+    photos = PhotoSerializer(many=True)
+    # def get_photos(self, obj):
+    #     request = self.context.get("request")
+    #     if request is not None:
+    #         return [
+    #             request.build_absolute_uri(photo.image.url)
+    #             for photo in obj.photos.all()
+    #             if photo.image and hasattr(photo.image, "url")
+    #         ]
+    #     return []
 
     def get_photo(self, tour):
         request = self.context.get("request")
@@ -208,7 +220,6 @@ class TourListSerializer(TranslatableModelSerializer):
             return tour.photo.url
         return None
 
-    
     class Meta:
         model = Tour
         fields = (
@@ -237,7 +248,13 @@ class TourListSerializer(TranslatableModelSerializer):
             "author",
             "translations"
         )
-
+    
+    def to_representation(self, instance):
+        representation =  super().to_representation(instance)
+        translations = representation.get("translations", {})
+        for lang, data in translations.items():
+            data.pop("usage_policy")
+        return representation
 
 class TourCreateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
@@ -711,6 +728,7 @@ class ProgramCreateSerializer(TranslatableModelSerializer):
             "adult_price",
             "child_price",
             "individual_price",
+            "promotion_price",
             "translations",
         ]
 
