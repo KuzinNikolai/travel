@@ -301,7 +301,9 @@ DJOSER = {
         "user": "users.serializers.CustomUserSerializer",
         "current_user": "users.serializers.CustomUserSerializer",
         "user_create": "users.serializers.CustomUserCreateSerializer",
-    }
+    },
+    'USER_ID_FIELD': 'email',
+    'LOGIN_FIELD': 'email',  # Ensure you're using email for login
 }
 
 
