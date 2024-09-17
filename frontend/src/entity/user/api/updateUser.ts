@@ -1,48 +1,50 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
+import { fetcher } from "@share/packages/fetcher"
 import { type User, userSchema } from "../model/schemas"
-import { logger, SafeJson } from "@share/lib"
-
-const serverResponseSchema = userSchema
+import { safeApi } from "@share/packages/safeApi"
+import { print } from "@share/packages/logger"
 
 export async function updateUser(updateData: Partial<User> | FormData, token: string) {
+	const resp = await fetcher(`${API_DOMAIN}/api/v1/auth/users/me/`, {
+		method: "PATCH",
+		body: updateData instanceof FormData ? updateData : safeApi.json.stringify(updateData),
+		token,
+	})
+
 	try {
-		const baseHeader = { Authorization: `Token ${token}` }
-
-		const resp = await fetch(`${API_DOMAIN}/api/v1/auth/users/me/`, {
-			method: "PATCH",
-			headers:
-				updateData instanceof FormData ? baseHeader : Object.assign(baseHeader, { "Content-Type": "application/json" }),
-			body: updateData instanceof FormData ? updateData : SafeJson.stringify(updateData),
-		})
-
-		const text = await resp.text()
-		const json = SafeJson.parse(text)
-
-		if (!json) {
-			logger.fatal("[editUserAction]", text)
+		if (!resp) {
+			print.fatal("[editUserAction]", "no response")
 			return "INTERNAL_SERVER_ERROR"
 		}
 
-		const { success, data, error } = await serverResponseSchema.safeParseAsync(json)
+		const text = await resp.text()
+		const json = safeApi.json.parse(text)
+
+		if (!json) {
+			print.fatal("[editUserAction]", text)
+			return "INTERNAL_SERVER_ERROR"
+		}
+
+		const { success, data, error } = await userSchema.safeParseAsync(json)
 
 		if (!success) {
-			logger.fatal("[editUserAction]", json, error)
+			print.fatal("[editUserAction]", json, error)
 			return "INTERNAL_SERVER_ERROR"
 		}
 
 		if ("first_name" in data && Array.isArray(data.first_name)) {
-			logger.fail("[editUserActionFail]", json)
+			print.fail("[editUserActionFail]", json)
 			return "INPUT_PARSE_ERROR"
 		}
 
 		if ("last_name" in data && Array.isArray(data.last_name)) {
-			logger.fail("[editUserActionFail]", json)
+			print.fail("[editUserActionFail]", json)
 			return "INPUT_PARSE_ERROR"
 		}
 
 		return "SUCCESS"
 	} catch (error) {
-		logger.fatal("[editUserActionCatch]", error)
+		print.fatal("[editUserActionCatch]", error)
 		return "INTERNAL_SERVER_ERROR"
 	}
 }

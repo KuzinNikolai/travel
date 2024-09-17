@@ -2,7 +2,7 @@
 
 import { getUsers } from "@entity/user/api/getUsers"
 import { userSchema } from "@entity/user/model/schemas"
-import { isAuthorized } from "@share/serverActions"
+import { isAuthorized } from "@share/packages/auth"
 import { z } from "zod"
 
 export const getUserByIdAction = isAuthorized
@@ -12,7 +12,7 @@ export const getUserByIdAction = isAuthorized
 	.handler(async ({ input, ctx }) => {
 		const users = await getUsers(ctx.token)
 
-		if (users.length === 0) {
+		if ("code" in users) {
 			return null
 		}
 

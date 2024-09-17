@@ -1,6 +1,7 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { serverErrorResponseSchema } from "@share/constants/schemes"
-import { logger, SafeJson } from "@share/lib"
+import { baseErrorResponseSchema, fetcher } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
+import { safeApi } from "@share/packages/safeApi"
 import { userSchema } from "../model/schemas"
 
 const INVALID_TOKEN = /^Invalid token.$/gi
@@ -15,44 +16,53 @@ enum GetUserError {
 }
 
 export async function getUser(token: string) {
-	const resp = await fetch(`${API_DOMAIN}/api/v1/auth/users/me`, {
-		method: "GET",
-		headers: { Authorization: `Token ${token}` },
-	})
+	try {
+		const resp = await fetcher(`${API_DOMAIN}/api/v1/auth/users/me`, {
+			method: "GET",
+			headers: { Authorization: `Token ${token}` },
+		})
 
-	const text = await resp.text()
-	const json = SafeJson.parse(text)
-
-	if (!json) {
-		return GetUserError.VALIDATION_ERROR
-	}
-
-	const { success, data, error } = await userSchema.or(serverErrorResponseSchema).safeParseAsync(json)
-
-	if (!success) {
-		logger.fatal("[isAuthorized] parsing user response error:", error)
-		return GetUserError.INVALID_USER
-	}
-
-	if ("detail" in data) {
-		const isInvalidToken = INVALID_TOKEN.test(data.detail)
-
-		if (isInvalidToken) {
-			return GetUserError.INVALID_TOKEN
+		if (!resp) {
+			return GetUserError.INVALID_USER
 		}
 
-		const isNotAuthorized = NOT_AUTHORIZED.test(data.detail)
+		const text = await resp.text()
+		const json = safeApi.json.parse(text)
 
-		if (isNotAuthorized) {
-			return GetUserError.NOT_AUTHORIZED
+		if (!json) {
+			return GetUserError.VALIDATION_ERROR
 		}
 
+		const { success, data, error } = await userSchema.or(baseErrorResponseSchema).safeParseAsync(json)
+
+		if (!success) {
+			print.fatal("[isAuthorized] parsing user response error:", error)
+			return GetUserError.INVALID_USER
+		}
+
+		if ("detail" in data) {
+			const isInvalidToken = INVALID_TOKEN.test(data.detail)
+
+			if (isInvalidToken) {
+				return GetUserError.INVALID_TOKEN
+			}
+
+			const isNotAuthorized = NOT_AUTHORIZED.test(data.detail)
+
+			if (isNotAuthorized) {
+				return GetUserError.NOT_AUTHORIZED
+			}
+
+			return GetUserError.INTERNAL_SERVER_ERROR
+		}
+
+		return {
+			token,
+			user: data,
+		}
+	} catch (error) {
+		print.fatal("[getUser - exception]", error)
 		return GetUserError.INTERNAL_SERVER_ERROR
-	}
-
-	return {
-		token,
-		user: data,
 	}
 }
 

@@ -3,8 +3,7 @@ export * from "./api/updateUser"
 
 export * from "./model/schemas"
 
-export * from "./model/lib/server/getAuthorizedUser"
-export * from "./model/lib/server/isAuthorized"
+export * from "./model/lib/server/getToken"
 
 export * from "./model/lib/hooks/useGetUserInfoById"
 export * from "./model/lib/hooks/useUser"

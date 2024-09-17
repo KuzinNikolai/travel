@@ -19,7 +19,7 @@ const InfoItem: FC<InfoItemProps> & { Skeleton: typeof InfoItemSkeleton } = ({ t
 			variant='contentPrimary'
 			className='flex flex-col gap-sm p-sm'
 		>
-			<Typography>{title}</Typography>
+			<Typography as="span">{title}</Typography>
 			{typeof text === "string" ? (
 				<Typography
 					variant='contentLarge'
@@ -51,12 +51,8 @@ export const SupplierOrderItem: FC<SupplierOrderItemProps> & { Skeleton: typeof 
 	return (
 		<Paper
 			color='secondary'
-			className='!p-0 relative grid grid-cols-[40%,1px,1fr] border-l-4 border-l-green-500'
+			className='!p-0 grid grid-cols-[40%,1px,1fr] border-l-4 border-l-green-500'
 		>
-			<Link
-				href={`/profile/orders/${order_number}`}
-				className='absolute top-0 right-0 bottom-0 left-0'
-			/>
 			<InfoItem
 				title='Номер'
 				text={`#${order_number}`}

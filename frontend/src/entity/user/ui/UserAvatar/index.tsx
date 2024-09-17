@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import { Avatar } from "@share/ui/Avatar"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"

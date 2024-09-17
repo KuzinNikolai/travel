@@ -1,7 +1,6 @@
 "use client"
 
-import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
-import { useServerActionQuery } from "@share/serverActions/model"
+import { queryKeyFactory, useServerActionQuery } from "@share/packages/serverActions"
 import { getUserAction } from "../serverActions/getUserAction"
 
 export function useUser() {

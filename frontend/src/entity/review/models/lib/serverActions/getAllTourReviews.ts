@@ -2,8 +2,8 @@
 
 import { z } from "zod"
 import { createServerAction } from "zsa"
-import { getTourReviews } from "../../api/getTourReviews"
-import { reviewSchema } from "../../schema/schema"
+import { getTourReviews } from "../../../api/getTourReviews"
+import { reviewSchema } from "../../schemas/review"
 
 const getAllTourReviewsInputSchema = z.object({ tourId: z.number() })
 
@@ -15,7 +15,7 @@ export const getAllTourReviews = createServerAction()
 
 		const resp = await getTourReviews(tourId)
 
-		if (!resp) {
+		if ("code" in resp) {
 			return []
 		}
 

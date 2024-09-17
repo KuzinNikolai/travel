@@ -1,8 +1,7 @@
 "use client"
 
-import { useServerActionQuery } from "@share/serverActions/model"
+import { useServerActionQuery, queryKeyFactory } from "@share/packages/serverActions"
 import { getUserByIdAction } from "../serverActions/getUserByIdAction"
-import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 
 export function useGetUserInfoById(userId: number) {
 	const user = useServerActionQuery(getUserByIdAction, {
