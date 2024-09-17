@@ -7,4 +7,5 @@ interface SiteConfig extends Metadata {
 export const siteConfig = {
 	name: "Gettrip",
 	description: "The best travel agency",
+	creator: "Gettrip",
 } satisfies SiteConfig

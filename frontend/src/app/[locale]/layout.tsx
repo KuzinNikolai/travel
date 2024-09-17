@@ -9,7 +9,7 @@ import { Toaster } from "@share/ui/Popups"
 import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
 import { unstable_setRequestLocale } from "next-intl/server"
-import type { FC, PropsWithChildren } from "react"
+import type { PropsWithChildren } from "react"
 
 export const metadata: Metadata = {
 	title: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 	},
 }
 
-const RootLayout: FC<PropsWithChildren<PagesProps>> = async ({ children, params, searchParams }) => {
+export default async function RootLayout({ children, params, searchParams }: PropsWithChildren<PagesProps>) {
 	const { lang } = await getLang(params.locale)
 	unstable_setRequestLocale(params.locale)
 
@@ -39,19 +39,11 @@ const RootLayout: FC<PropsWithChildren<PagesProps>> = async ({ children, params,
 					params={params}
 					searchParams={searchParams}
 				>
-					<div className='flex h-full flex-1 flex-col'>
-						{children}
-						<Auth />
-					</div>
+					<div className='flex h-full flex-1 flex-col'>{children}</div>
+					<Auth />
 					<Toaster />
 				</Providers>
 			</body>
 		</html>
 	)
-}
-
-export default RootLayout
-
-export function generateStaticParams() {
-	return i18nConfig.locales.map((locale) => ({ locale }))
 }

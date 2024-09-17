@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 import type { ThemeConfig } from "tailwindcss/types/config"
-import { CUSTOM_THEME_CONFIG } from "./src/app/configs/themeConfig"
+import { CUSTOM_THEME_CONFIG } from "./src/app-configs/configs/themeConfig"
 
 export default {
 	content: ["./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
