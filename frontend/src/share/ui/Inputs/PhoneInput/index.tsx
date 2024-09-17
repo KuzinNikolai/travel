@@ -1,4 +1,4 @@
-import { mergeRefs } from "@share/lib"
+import { mergeRefs } from "@share/packages/reactHelpers"
 import { type InputHTMLAttributes, forwardRef } from "react"
 import { defaultCountries, usePhoneInput } from "react-international-phone"
 import { Input } from "../Input"

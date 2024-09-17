@@ -26,7 +26,6 @@
 			"@entity/*": ["./src/entity/*"],
 			"@share/*": ["./src/share/*"],
 			"@assets/*": ["./src/assets/*"],
-			"@serverActions": ["./src/share/serverActions/index.tsx"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

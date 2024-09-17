@@ -1,4 +1,4 @@
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import { Button } from "@share/ui/Buttons"
 import { Command, ScrollArea, ScrollBar } from "@share/ui/Layout"
 import { Popover } from "@share/ui/Popups"

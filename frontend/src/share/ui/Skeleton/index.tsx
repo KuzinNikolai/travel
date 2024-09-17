@@ -1,4 +1,4 @@
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import { forwardRef, type FC, type HTMLAttributes } from "react"
 
 interface ICustomSkeletonProps extends HTMLAttributes<HTMLDivElement> {

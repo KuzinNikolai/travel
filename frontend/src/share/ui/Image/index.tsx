@@ -1,7 +1,7 @@
 "use client";
 
 import placeholderImg from "@assets/img/placeholder.jpg";
-import { __DEV__ } from "@share/constants/mode";
+import { __DEV__ } from "@share/constants/environment";
 import NextImage from "next/image";
 import {
 	type ComponentProps,

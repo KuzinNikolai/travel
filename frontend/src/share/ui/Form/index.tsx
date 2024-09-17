@@ -12,7 +12,7 @@ import {
 	type FieldValues,
 } from "react-hook-form"
 
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import { Typography } from "../Text"
 
 const Form = FormProvider

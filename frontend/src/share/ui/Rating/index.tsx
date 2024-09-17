@@ -1,4 +1,4 @@
-import { cn } from "@share/lib";
+import { cn } from "@share/packages/tailwindHelpers";
 import type { ComponentProps, FC } from "react";
 import { Icon } from "../Icon";
 

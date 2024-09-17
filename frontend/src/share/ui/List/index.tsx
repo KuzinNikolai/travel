@@ -1,4 +1,4 @@
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import type { FC, HTMLAttributes, PropsWithChildren } from "react"
 
 interface ListProps extends HTMLAttributes<HTMLDivElement> {

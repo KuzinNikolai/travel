@@ -1,7 +1,7 @@
 import { Typography, type TypographyVariants } from "@share/ui/Text"
 import { forwardRef, type HTMLAttributes, type InputHTMLAttributes, type ReactElement } from "react"
 import { inputVariants, type InputVariants } from "./variants"
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, keyof InputVariants> &
 	Omit<InputVariants, "leftIcon" | "rightIcon"> & {

@@ -1,7 +1,7 @@
 "use client";
 
-import { cn, logger } from "@share/lib";
-import { type ComponentProps, type FC, useEffect, useState } from "react";
+import { cn } from "@share/packages/tailwindHelpers";
+import { type ComponentProps, type FC, useState } from "react";
 import type { Icon } from "../../Icon";
 import { RatingItem } from "./RatingItem";
 
@@ -21,10 +21,6 @@ export const InputRating: FC<InputRatingProps> = ({
 	onChange,
 }) => {
 	const [hover, setHover] = useState(0);
-
-	useEffect(() => {
-		logger.debug("InputRating:", { rating, hover });
-	}, [hover, rating]);
 
 	return (
 		<fieldset className="flex items-center">

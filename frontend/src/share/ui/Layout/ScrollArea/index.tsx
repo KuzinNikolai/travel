@@ -3,7 +3,7 @@
 import * as React from "react"
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area"
 
-import { cn } from "@share/lib/tailwind"
+import { cn } from "@share/packages/tailwindHelpers"
 
 const ScrollArea = React.forwardRef<
 	React.ElementRef<typeof ScrollAreaPrimitive.Root>,

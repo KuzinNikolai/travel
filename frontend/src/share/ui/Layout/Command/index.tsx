@@ -5,7 +5,7 @@ import type { DialogProps } from "@radix-ui/react-dialog"
 import { Command as CommandPrimitive } from "cmdk"
 import { Search } from "lucide-react"
 
-import { cn } from "@share/lib/tailwind"
+import { cn } from "@share/packages/tailwindHelpers"
 import { Dialog, DialogContent } from "@share/ui/Modals"
 import { Input } from "@share/ui/Inputs"
 import { Icon } from "@share/ui/Icon"

@@ -1,4 +1,4 @@
-import { i18nConfig, i18nUtils } from "@app/i18n"
+import { i18nConfig, i18nUtils } from "@share/i18n"
 import { getMessages } from "next-intl/server"
 
 export async function getLang(locale: string) {

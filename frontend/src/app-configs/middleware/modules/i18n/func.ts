@@ -1,5 +1,5 @@
 import createMiddleware from "next-intl/middleware"
-import { i18nConfig } from "@app/i18n"
+import { i18nConfig } from "@share/i18n"
 import type { MiddlewareModuleFunc } from "../../types"
 
 const intlMiddleware = createMiddleware({

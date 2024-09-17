@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@share/lib";
+import { cn } from "@share/packages/tailwindHelpers";
 import { useTranslations } from "next-intl";
 import {
 	type ComponentProps,

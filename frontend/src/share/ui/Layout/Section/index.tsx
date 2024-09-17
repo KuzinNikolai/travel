@@ -1,9 +1,8 @@
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import { Typography } from "@share/ui/Text"
-import type { ComponentProps, ComponentPropsWithRef, FC, HTMLAttributes, ReactElement } from "react"
+import type { ComponentPropsWithRef, FC, HTMLAttributes, ReactElement } from "react"
 import { Container } from "../Container"
 import { Paper } from "../Paper"
-import React from "react"
 
 interface ContainerProps extends Omit<ComponentPropsWithRef<typeof Paper>, "title"> {
 	title?: string | ReactElement
