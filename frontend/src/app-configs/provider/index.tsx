@@ -1,4 +1,4 @@
-import type { PagesProps } from "@share/lib"
+import type { PagesProps } from "@share/types"
 import type { PropsWithChildren } from "react"
 import { i18n } from "./modules/i18n"
 import { Query } from "./modules/ReactQuery"

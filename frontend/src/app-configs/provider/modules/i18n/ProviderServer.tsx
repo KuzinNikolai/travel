@@ -1,4 +1,4 @@
-import type { PagesProps } from "@share/lib"
+import type { PagesProps } from "@share/types"
 import * as i18nIntl from "next-intl"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
