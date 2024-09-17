@@ -1,11 +1,18 @@
 "use client"
 
-import type { Navigation } from "@entity/navigation.entity"
 import { useUser } from "@entity/user"
 import { Icon } from "@share/ui/Icon"
 import { NavigationItem } from "./components/NavigationItem"
 import { UserInfo } from "./components/UserInfo"
 import { useTranslations } from "next-intl"
+
+export interface Navigation {
+	name: string
+	href: string
+	description?: string
+	show: boolean
+	icon: JSX.Element
+}
 
 export const BurgerSheet = () => {
 	const t = useTranslations("components.burgerMenu")

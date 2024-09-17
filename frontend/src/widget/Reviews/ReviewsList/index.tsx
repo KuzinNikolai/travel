@@ -1,21 +1,18 @@
 "use client";
 
-import { type Review, ReviewItem, useReviews } from "@entity/review";
+import { ReviewItem, useReviews } from "@entity/review";
 import type { Tour } from "@entity/tour";
-import { logger } from "@share/lib";
-import { RatingItem } from "@share/ui/Inputs/InputRating/RatingItem";
 import { List } from "@share/ui/List";
 import { Typography } from "@share/ui/Text";
 import { useTranslations } from "next-intl";
-import { type FC, useEffect, useMemo } from "react";
+import { type FC, useMemo } from "react";
 import { ReviewsSkeleton } from "./ReviewsSkeleton";
 
 interface ReviewListProps {
 	tourId: Tour["id"];
-	reviews?: Review[];
 }
 
-export const ReviewList: FC<ReviewListProps> = ({ tourId, reviews }) => {
+export const ReviewList: FC<ReviewListProps> = ({ tourId }) => {
 	const t = useTranslations("components.reviews");
 	const tourReviews = useReviews(tourId);
 
