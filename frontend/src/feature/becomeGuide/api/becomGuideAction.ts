@@ -1,12 +1,14 @@
 "use server"
 
+import { updateUser } from "@entity/user"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { logger, SafeJson } from "@share/lib"
-import { isAuthorized } from "@share/serverActions"
-import { becomeGuideSchema } from "../consts/becomeGuide.schema"
+import { isAuthorized } from "@share/packages/auth"
+import { fetcher } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
+import { safeApi } from "@share/packages/safeApi"
 import { z } from "zod"
 import { ZSAError } from "zsa"
-import { updateUser } from "@entity/user"
+import { becomeGuideSchema } from "../consts/becomeGuide.schema"
 
 const responseSchema = z.void()
 
@@ -30,32 +32,34 @@ export const becomeGuideAction = isAuthorized
 				throw new ZSAError("INPUT_PARSE_ERROR")
 		}
 
-		const resp = await fetch(`${API_DOMAIN}/api/v1/become-guide/`, {
+		const resp = await fetcher(`${API_DOMAIN}/api/v1/become-guide/`, {
 			method: "POST",
-			headers: {
-				Authorization: `Token ${token}`,
-				"Content-Type": "application/json",
-			},
-			body: SafeJson.stringify(input),
+			body: safeApi.json.stringify(input),
+			token,
 		})
 
-		const text = await resp.text()
-
-		if (resp.ok) {
-			return
-		}
-
-		const json = SafeJson.parse(text)
-
-		if (!json) {
-			logger.fatal("[BecomeGuided ParseResponse]", text)
+		if (!resp) {
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
-		const { success, data, error } = responseSchema.safeParse(json)
+		try {
+			const text = await resp.text()
 
-		if (!success) {
-			logger.fail("[BecomeGuided SchemaParseResponse]", data, error)
+			const json = safeApi.json.parse(text)
+
+			if (!json) {
+				print.fatal("[BecomeGuided ParseResponse]", text)
+				throw new ZSAError("INTERNAL_SERVER_ERROR")
+			}
+
+			const { success, data, error } = responseSchema.safeParse(json)
+
+			if (!success) {
+				print.fail("[BecomeGuided SchemaParseResponse]", data, error)
+				throw new ZSAError("INTERNAL_SERVER_ERROR")
+			}
+		} catch (err) {
+			print.fatal("[BecomeGuided Catch]", err)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 	})

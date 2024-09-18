@@ -1,13 +1,13 @@
-import { safeFetch } from "@share/lib"
-import type { CreateOrder } from "../schemas/createOrder.schema"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { generateHeader } from "@share/api"
+import { fetcher } from "@share/packages/fetcher"
+import { safeApi } from "@share/packages/safeApi"
+import type { CreateOrder } from "../schemas/createOrder.schema"
 
 export async function createOrder(order: CreateOrder, token: string) {
-	const resp = await safeFetch(`${API_DOMAIN}/api/v1/orders`, {
+	const resp = await fetcher(`${API_DOMAIN}/api/v1/orders`, {
 		method: "POST",
-		headers: generateHeader(token),
-		body: JSON.stringify(order),
+		body: safeApi.json.stringify(order),
+		token,
 	})
 
 	if (!resp) {

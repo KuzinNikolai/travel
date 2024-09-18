@@ -1,9 +1,9 @@
 "use server"
 
-import { isAuthorized } from "@share/serverActions"
+import { isAuthorized } from "@share/packages/auth"
 import { z } from "zod"
 import { ZSAError } from "zsa"
-import { logout } from "../../api/logour"
+import { logout } from "../../api/logout"
 
 export const logoutAction = isAuthorized
 	.createServerAction()

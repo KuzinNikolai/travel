@@ -1,13 +1,11 @@
 "use server"
 
-import { logger, SafeJson } from "@share/lib"
-import { isAuthorized } from "@share/serverActions"
+import { updateUser, userSchema } from "@entity/user"
+import { isAuthorized } from "@share/packages/auth"
 import { z } from "zod"
+import { zu } from "zod_utilz"
 import { ZSAError } from "zsa"
 import { editUserSchema } from "../schema/editUser.schema"
-import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { updateUser, userSchema } from "@entity/user"
-import { zu } from "zod_utilz"
 
 const serverResponseSchema = userSchema
 	.or(z.object({ first_name: z.string().array() }))

@@ -1,6 +1,5 @@
-import { __DEV__ } from "@share/constants/mode"
-import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
-import { useServerActionMutation } from "@share/serverActions/model"
+import { __DEV__ } from "@share/constants/environment"
+import { queryKeyFactory, useServerActionMutation } from "@share/packages/serverActions"
 import { useToast } from "@share/ui/Popups"
 import { useQueryClient } from "@tanstack/react-query"
 import { becomeGuideAction } from "../api/becomGuideAction"

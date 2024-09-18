@@ -1,36 +1,40 @@
 import { reviewSchema } from "@entity/review"
 import type { Tour } from "@entity/tour"
-import { generateHeader } from "@share/api"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { serverErrorResponseSchema } from "@share/constants/schemes"
-import { SafeJson, logger } from "@share/lib"
+import { baseErrorResponseSchema, fetcher } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
+import { safeApi } from "@share/packages/safeApi"
 import type { AddReviewData } from "../schema"
 
 export async function addReview(userToken: string, tourId: Tour["id"], review: AddReviewData) {
-	try {
-		const resp = await fetch(`${API_DOMAIN}/api/v1/tours/add_review/${tourId}`, {
-			method: "POST",
-			headers: generateHeader(userToken),
-			body: JSON.stringify({
-				...review,
-				created_date: review.created_date.toISOString(),
-			} satisfies Omit<AddReviewData, "created_date"> & {
-				created_date: string
-			}),
-		})
+	const resp = await fetcher(`${API_DOMAIN}/api/v1/tours/add_review/${tourId}`, {
+		method: "POST",
+		token: userToken,
+		body: JSON.stringify({
+			...review,
+			created_date: review.created_date.toISOString(),
+		} satisfies Omit<AddReviewData, "created_date"> & {
+			created_date: string
+		}),
+	})
 
+	if (!resp) {
+		return
+	}
+
+	try {
 		const text = await resp.text()
-		const json = SafeJson.parse(text)
+		const json = safeApi.json.parse(text)
 
 		if (!json) {
-			logger.fatal("[addReview-parse]", text)
+			print.fatal("[addReview-parse]", text)
 			return
 		}
 
-		const { success, data, error } = await reviewSchema.or(serverErrorResponseSchema).safeParseAsync(json)
+		const { success, data, error } = await reviewSchema.or(baseErrorResponseSchema).safeParseAsync(json)
 
 		if (!success) {
-			logger.fatal("[addReview-validation]", json, error)
+			print.fatal("[addReview-validation]", json, error)
 			return
 		}
 

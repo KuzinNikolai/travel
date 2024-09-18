@@ -1,6 +1,7 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { serverErrorResponseSchema } from "@share/constants/schemes"
-import { logger, safeFetch, SafeJson } from "@share/lib"
+import { baseErrorResponseSchema, fetcher } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
+import { safeApi } from "@share/packages/safeApi"
 
 enum LogoutErrors {
 	FORBIDDEN = "FORBIDDEN",
@@ -15,12 +16,7 @@ const NOT_AUTHORIZED = /^Invalid token header. No credentials provided.$/gi
 const INVALID_TOKEN = /^Invalid token.$/gi
 
 export async function logout(token: string): Promise<LogoutErrors | { success: true }> {
-	const resp = await safeFetch(`${API_DOMAIN}/api/v1/auth/token/logout`, {
-		method: "POST",
-		headers: {
-			Authorization: `Token ${token}`,
-		},
-	})
+	const resp = await fetcher(`${API_DOMAIN}/api/v1/auth/token/logout`, { method: "POST", token })
 
 	if (!resp) {
 		return LogoutErrors.INTERNAL_SERVER_ERROR
@@ -29,17 +25,17 @@ export async function logout(token: string): Promise<LogoutErrors | { success: t
 	const text = await resp.text()
 
 	if (!resp.ok) {
-		const json = SafeJson.parse(text)
+		const json = safeApi.json.parse(text)
 
 		if (!json) {
-			logger.fatal("[logoutAction]", text)
+			print.fatal("[logoutAction]", text)
 			return LogoutErrors.PARSE_ERROR
 		}
 
-		const { success, data, error } = await serverErrorResponseSchema.safeParseAsync(json)
+		const { success, data, error } = await baseErrorResponseSchema.safeParseAsync(json)
 
 		if (!success) {
-			logger.fatal("[logoutActionErrorResponseParse]", error)
+			print.fatal("[logoutActionErrorResponseParse]", error)
 			return LogoutErrors.VALIDATION_RESPONSE_ERROR
 		}
 
@@ -53,7 +49,7 @@ export async function logout(token: string): Promise<LogoutErrors | { success: t
 			return LogoutErrors.NOT_AUTHORIZED
 		}
 
-		logger.debug("[logoutActionForbidden]", data)
+		print.debug("[logoutActionForbidden]", data)
 		return LogoutErrors.FORBIDDEN
 	}
 

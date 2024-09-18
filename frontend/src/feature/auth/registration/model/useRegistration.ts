@@ -1,6 +1,6 @@
 "use client"
 
-import { useServerActionMutation } from "@share/serverActions/model"
+import { useServerActionMutation } from "@share/packages/serverActions"
 import { useToast } from "@share/ui/Popups"
 import { registrationAction } from "../api/registrationAction"
 

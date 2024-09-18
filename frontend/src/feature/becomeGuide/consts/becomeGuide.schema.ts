@@ -1,5 +1,4 @@
 import { userSchema } from "@entity/user"
-import { nonNullableObj } from "@share/lib/helpers/NoNullableObj"
 import type { z } from "zod"
 
 export const becomeGuideSchema = userSchema.pick({

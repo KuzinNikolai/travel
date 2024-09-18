@@ -4,7 +4,7 @@ import { getCities } from "@entity/city"
 import { getTours } from "@entity/tour"
 import { z } from "zod"
 import { createServerAction } from "zsa"
-import { type TSearchGroup, searchGroupSchema, type TSearchItem } from "../consts/search.schema"
+import { searchGroupSchema, type TSearchGroup, type TSearchItem } from "../consts/search.schema"
 
 const searchRequest = z.string()
 const searchResponse = searchGroupSchema.array()
@@ -27,12 +27,12 @@ export const searchAction = createServerAction()
 			searchGroups.get(searchItem.citySlug)?.items.push(searchItem)
 		}
 
-		for (const city of cities || []) {
+		for (const city of Array.isArray(cities) ? cities : []) {
 			if (!city.title.toLowerCase().includes(query.toLowerCase() || "")) continue
 			setSearchItem({ title: city.title, citySlug: city.slug })
 		}
 
-		for (const tour of tours || []) {
+		for (const tour of Array.isArray(tours) ? tours : []) {
 			if (!tour.title.toLowerCase().includes(query.toLowerCase() || "")) continue
 			setSearchItem({
 				title: tour.title,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useNoReload } from "@share/lib";
+import { useNoReload } from "@share/packages/reactHelpers";
 import { type FC, type ReactNode, useEffect } from "react";
 import { RegistrationSteps, useFormStepsStore } from "../model/formStepStore";
 import { FirstInfo } from "./Steps/FirstInfo";

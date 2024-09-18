@@ -3,12 +3,13 @@
 import type { Tour } from "@entity/tour"
 import { useUser } from "@entity/user"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { isServerEnv, logger, useLocale } from "@share/lib"
+import { __SERVER__ } from "@share/constants/environment"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Textarea } from "@share/ui/Inputs"
 import { InputRating } from "@share/ui/Inputs/InputRating"
 import { useAuthStore } from "@widget/Auth"
+import { useLocale } from "next-intl"
 import { type FC, type MouseEventHandler, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useAddReview } from "../../model/lib/hooks/useAddReview"
@@ -20,7 +21,7 @@ interface AddReviewFormProps {
 }
 
 export const AddReviewForm: FC<AddReviewFormProps> = ({ tourId, onSuccessAdd }) => {
-	const { currentLang } = useLocale()
+	const lang = useLocale()
 
 	const {
 		query: { data: user, isPending: isUserPending },
@@ -51,11 +52,12 @@ export const AddReviewForm: FC<AddReviewFormProps> = ({ tourId, onSuccessAdd }) 
 	}, [form, user, tourId])
 
 	const onSubmit = form.handleSubmit(async (data) => {
-		if (isServerEnv() || !currentLang) return
+		if (__SERVER__) return
+
 		addReview({
 			...data,
 			created_date: new Date(),
-			translations: { [currentLang]: { text: data.text } },
+			translations: { [lang]: { text: data.text } },
 		})
 	})
 

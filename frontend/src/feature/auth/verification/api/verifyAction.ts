@@ -1,34 +1,39 @@
 "use server"
 
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { logger, SafeJson } from "@share/lib"
 import { z } from "zod"
 import { createServerAction, ZSAError } from "zsa"
 import { responseSchema, verifyRequestSchema, type VerifyRequestServer } from "../consts/schema"
+import { safeApi } from "@share/packages/safeApi"
+import { fetcher } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
 
 export const verifyAction = createServerAction()
 	.input(verifyRequestSchema)
 	.output(z.void())
 	.handler(async ({ input: code }) => {
-		try {
-			const resp = await fetch(`${API_DOMAIN}/api/v1/verify-email/`, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: SafeJson.stringify({ email_verification_code: code } satisfies VerifyRequestServer),
-			})
+		const resp = await fetcher(`${API_DOMAIN}/api/v1/verify-email/`, {
+			method: "POST",
+			body: safeApi.json.stringify({ email_verification_code: code } satisfies VerifyRequestServer),
+		})
 
+		if (!resp) {
+			throw new ZSAError("INTERNAL_SERVER_ERROR")
+		}
+
+		try {
 			const text = await resp.text()
-			const json = SafeJson.parse(text)
+			const json = safeApi.json.parse(text)
 
 			if (!json) {
-				logger.fatal("[verificationAction]", text)
+				print.fatal("[verificationAction]", text)
 				throw new ZSAError("INTERNAL_SERVER_ERROR")
 			}
 
 			const { success, data, error } = await responseSchema.safeParseAsync(json)
 
 			if (!success) {
-				logger.fatal("[verifyActionResponse]", error)
+				print.fatal("[verifyActionResponse]", error)
 				throw new ZSAError("FORBIDDEN")
 			}
 
@@ -38,7 +43,7 @@ export const verifyAction = createServerAction()
 
 			return
 		} catch (err) {
-			logger.fatal("[verifyActionCatch]", err)
+			print.fatal("[verifyActionCatch]", err)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 	})

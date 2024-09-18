@@ -1,7 +1,6 @@
-import { __DEV__ } from "@share/constants/mode"
-import { logger } from "@share/lib"
-import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
-import { useServerActionMutation } from "@share/serverActions/model"
+import { __DEV__ } from "@share/constants/environment"
+import { print } from "@share/packages/logger"
+import { queryKeyFactory, useServerActionMutation } from "@share/packages/serverActions"
 import { useToast } from "@share/ui/Popups"
 import { useQueryClient } from "@tanstack/react-query"
 import { logoutAction } from "../serverActions/logoutAction"
@@ -14,7 +13,7 @@ export function useLogout() {
 	const mutation = useServerActionMutation(logoutAction, {
 		onSuccess() {
 			if (__DEV__) {
-				logger.debug("Logout success")
+				print.debug("Logout success")
 				toast({
 					title: "Успешно",
 					description: "Успешный выход с аккаунта",

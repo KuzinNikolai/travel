@@ -3,13 +3,14 @@
 import { createServerAction, ZSAError } from "zsa"
 
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { logger, SafeJson } from "@share/lib"
 import { z } from "zod"
 import {
 	registrationRequestSchema,
 	registrationServerErrorResponseSCheme,
 	registrationServerResponseSchema,
 } from "../consts/registrationAction.schema"
+import { safeApi } from "@share/packages/safeApi"
+import { print } from "@share/packages/logger"
 
 export const registrationAction = createServerAction()
 	.input(registrationRequestSchema)
@@ -18,14 +19,14 @@ export const registrationAction = createServerAction()
 		const resp = await fetch(`${API_DOMAIN}/api/v1/register/`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: SafeJson.stringify(input),
+			body: safeApi.json.stringify(input),
 		})
 
 		const text = await resp.text()
-		const json = SafeJson.parse(text)
+		const json = safeApi.json.parse(text)
 
 		if (!json) {
-			logger.fatal(`[registrationAction] ${text}`)
+			print.fatal(`[registrationAction] ${text}`)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
@@ -34,7 +35,7 @@ export const registrationAction = createServerAction()
 			.safeParseAsync(json)
 
 		if (!success) {
-			logger.fatal(`[registrationAction] ${error.message}`)
+			print.fatal(`[registrationAction] ${error.message}`)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 

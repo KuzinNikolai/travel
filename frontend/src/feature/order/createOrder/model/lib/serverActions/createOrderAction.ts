@@ -1,11 +1,12 @@
 "use server"
 
-import { isAuthorized } from "@share/serverActions"
-import { createOrderSchema } from "../../schemas/createOrder.schema"
-import { createOrder } from "../../api/createOrder"
 import { orderSchema } from "@entity/order"
-import { logger, SafeJson } from "@share/lib"
+import { isAuthorized } from "@share/packages/auth"
+import { print } from "@share/packages/logger"
+import { safeApi } from "@share/packages/safeApi"
 import { ZSAError } from "zsa"
+import { createOrder } from "../../api/createOrder"
+import { createOrderSchema } from "../../schemas/createOrder.schema"
 
 export const createOrderAction = isAuthorized
 	.createServerAction()
@@ -18,17 +19,17 @@ export const createOrderAction = isAuthorized
 		}
 
 		const text = await resp.text()
-		const json = SafeJson.parse(text)
+		const json = safeApi.json.parse(text)
 
 		if (!json) {
-			logger.error("[createOrderAction - response parse error]", resp)
+			print.error("[createOrderAction - response parse error]", resp)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
 		const { success, data, error } = await orderSchema.safeParseAsync(json)
 
 		if (!success) {
-			logger.error("[createOrderAction - response validation error]", resp, error)
+			print.error("[createOrderAction - response validation error]", resp, error)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 

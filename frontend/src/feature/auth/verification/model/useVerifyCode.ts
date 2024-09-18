@@ -2,7 +2,7 @@
 
 import { useLogin } from "@feature/auth/login"
 // import { useFormDataStore } from "@feature/registration/formDataStore"
-import { useServerActionMutation } from "@share/serverActions/model"
+import { useServerActionMutation } from "@share/packages/serverActions"
 import { useToast } from "@share/ui/Popups"
 import { verifyAction } from "../api/verifyAction"
 
