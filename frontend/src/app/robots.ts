@@ -4,14 +4,9 @@ const robots = (): MetadataRoute.Robots => ({
 	rules: [
 		{
 			userAgent: "*",
-			allow: "/",
-			disallow: "/admin",
+			// allow: "/",
+			disallow: "/",
 		},
-		// Block AI BOTS
-		// {
-		//   userAgent: [""],
-		//   disallow: "/",
-		// },
 	],
 	sitemap: "https://acme.com/sitemap.xml",
 })
