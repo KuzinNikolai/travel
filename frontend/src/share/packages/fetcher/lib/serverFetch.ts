@@ -1,6 +1,6 @@
 import { print } from "@share/packages/logger"
 import { safeApi } from "@share/packages/safeApi"
-import { z } from "zod"
+import type { z } from "zod"
 import { fetcher, serverFetcher } from ".."
 import { baseErrorResponseSchema } from "../schemas/baseErrorResponse.schema"
 
@@ -14,6 +14,12 @@ export enum ServerFetchErrors {
 	INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
 }
 
+interface ServerFetchError {
+	code: ServerFetchErrors
+	detail?: string
+	message?: string
+}
+
 interface ServerFetchProps<ResponseSchema extends z.ZodType> {
 	name: string
 	url: string
@@ -24,7 +30,9 @@ interface ServerFetchProps<ResponseSchema extends z.ZodType> {
 	init?: FetchInit
 }
 
-export async function serverFetch<ResponseSchema extends z.ZodType>(options: ServerFetchProps<ResponseSchema>) {
+export async function serverFetch<ResponseSchema extends z.ZodType>(
+	options: ServerFetchProps<ResponseSchema>,
+): Promise<z.infer<ResponseSchema> | ServerFetchError> {
 	try {
 		const resp = await fetcher(options.url, { method: options.method, ...options.init })
 
@@ -33,30 +41,41 @@ export async function serverFetch<ResponseSchema extends z.ZodType>(options: Ser
 		}
 
 		const text = await resp.text()
+		
+		if (options.responseNotJson) {
+			const { success, data, error } = await options.responseSchema.safeParseAsync(text)
+
+			if (!success) {
+				print.fail(`[${options.name} - validation]`, text, error)
+				return options.errorReturn || { code: ServerFetchErrors.PARSE_ERROR }
+			}
+
+			return data
+		}
+
 		const json = safeApi.json.parse(text)
 
-		if (!options.responseNotJson && !json) {
+		if (!json) {
 			print.fatal(`[${options.name} - parse]`, text)
 			return options.errorReturn || { code: ServerFetchErrors.PARSE_ERROR }
 		}
 
-		const { success, data, error } = await options.responseSchema
-			.or(z.undefined())
-			.or(baseErrorResponseSchema)
-			.safeParseAsync(json)
+		const { success, data, error } = await options.responseSchema.or(baseErrorResponseSchema).safeParseAsync(json)
 
 		if (!success) {
 			print.fail(`[${options.name} - validation]`, json || text, error)
 			return options.errorReturn || { code: ServerFetchErrors.PARSE_ERROR }
 		}
 
-		if (!data) {
-			return options.errorReturn || { code: ServerFetchErrors.INTERNAL_SERVER_ERROR }
-		}
-
 		if ("detail" in data) {
 			print.fail(`[${options.name} - exception]`, data)
-			return options.errorReturn || { code: ServerFetchErrors.INTERNAL_SERVER_ERROR }
+			return (
+				options.errorReturn || {
+					code: ServerFetchErrors.INTERNAL_SERVER_ERROR,
+					detail: data.detail,
+					message: data.message,
+				}
+			)
 		}
 
 		return data
