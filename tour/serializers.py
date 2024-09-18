@@ -251,6 +251,8 @@ class TourListSerializer(TranslatableModelSerializer):
         translations = representation.get("translations", {})
         for lang, data in translations.items():
             data.pop("usage_policy")
+            tour_title = data.get("title", "")
+            data["photo_alt"] = tour_title
         return representation
 
 class TourCreateSerializer(TranslatableModelSerializer):
