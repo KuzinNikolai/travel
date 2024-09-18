@@ -201,17 +201,11 @@ class TourListSerializer(TranslatableModelSerializer):
     lang = serializers.SlugRelatedField(slug_field="slug", read_only=True, many=True)
     
     tags = TagSerializer(many=True)
-    photos = PhotoSerializer(many=True)
     duration = DurationSerializer()
-    # def get_photos(self, obj):
-    #     request = self.context.get("request")
-    #     if request is not None:
-    #         return [
-    #             request.build_absolute_uri(photo.image.url)
-    #             for photo in obj.photos.all()
-    #             if photo.image and hasattr(photo.image, "url")
-    #         ]
-    #     return []
+    photo_alt = serializers.SerializerMethodField()
+
+    def get_photo_alt(self, tour):
+        return tour.title
 
     def get_photo(self, tour):
         request = self.context.get("request")
@@ -244,7 +238,7 @@ class TourListSerializer(TranslatableModelSerializer):
             "min_price",
             "min_price_with_promotions",
             "photo",
-            "photos",
+            "photo_alt",
             "average_rating",
             "currency_prefix",
             "is_published",
