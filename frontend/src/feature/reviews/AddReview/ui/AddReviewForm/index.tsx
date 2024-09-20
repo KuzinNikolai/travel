@@ -57,6 +57,7 @@ export const AddReviewForm: FC<AddReviewFormProps> = ({ tourId, onSuccessAdd }) 
 		addReview({
 			...data,
 			created_date: new Date(),
+			// @ts-expect-error
 			translations: { [lang]: { text: data.text } },
 		})
 	})

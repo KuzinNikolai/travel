@@ -14,7 +14,7 @@ export enum ServerFetchErrors {
 	INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
 }
 
-interface ServerFetchError {
+export interface ServerFetchError {
 	code: ServerFetchErrors
 	detail?: string
 	message?: string

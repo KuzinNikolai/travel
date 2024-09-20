@@ -1,6 +1,5 @@
-import { i18nConfig } from "@share/i18n";
-import { dateTimeSchema } from "@share/constants/schemes/dateTime.schema";
-import { z } from "zod";
+import { dateTimeSchema } from "@share/constants/schemes/dateTime.schema"
+import { z } from "zod"
 
 export const reviewSchema = z.object({
 	id: z.number(),
@@ -12,11 +11,11 @@ export const reviewSchema = z.object({
 	text: z.string().nullable().optional(),
 	created_date: dateTimeSchema,
 	translations: z.record(
-		z.enum(i18nConfig.locales),
+		z.string(),
 		z.object({
 			text: z.string(),
 		}),
 	),
-});
+})
 
-export type Review = z.infer<typeof reviewSchema>;
+export type Review = z.infer<typeof reviewSchema>

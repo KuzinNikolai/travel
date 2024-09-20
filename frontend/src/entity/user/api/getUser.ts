@@ -1,6 +1,7 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { baseErrorResponseSchema, fetcher } from "@share/packages/fetcher"
 import { print } from "@share/packages/logger"
+import { memoUsers } from "@share/packages/memo/listMemoElements/user"
 import { safeApi } from "@share/packages/safeApi"
 import { userSchema } from "../model/schemas"
 
@@ -16,6 +17,12 @@ enum GetUserError {
 }
 
 export async function getUser(token: string) {
+	const user = memoUsers.get(token)
+
+	if (user) {
+		return { token, user }
+	}
+
 	try {
 		const resp = await fetcher(`${API_DOMAIN}/api/v1/auth/users/me`, {
 			method: "GET",
@@ -55,6 +62,8 @@ export async function getUser(token: string) {
 
 			return GetUserError.INTERNAL_SERVER_ERROR
 		}
+
+		memoUsers.set(token, data)
 
 		return {
 			token,

@@ -198,7 +198,10 @@
       "popularTours": {
         "emptyTours": "No se encontraron recorridos",
         "title": "Tours populares"
-      }
+      },
+      "description": "Página de inicio con ciudades populares, tours y nuestras ventajas.",
+      "keywords": "tours, países, ciudades",
+      "title": "pagina de inicio"
     },
     "orderTour": {
       "fields": {
@@ -298,7 +301,13 @@
     },
     "free": "gratis",
     "notSpecified": "No especificado",
-    "phoneNumber": "Número de teléfono"
+    "phoneNumber": "Número de teléfono",
+    "userTypes": {
+      "admin": "Administración",
+      "guide": "Guía",
+      "tourist": "Turístico",
+      "user": "Usuario"
+    }
   },
   "errors": {
     "touristNotFound": "Se produjo un error y no se encontró al turista."

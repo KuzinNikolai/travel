@@ -2,12 +2,12 @@
 
 import { createServerAction } from "zsa"
 import { cityItemSchema } from "../../schema/schema"
-import { getCities } from "../../../api/getCities"
+import { getPopularCities } from "../../../api/getPopularCities"
 
 export const getCityListAction = createServerAction()
 	.output(cityItemSchema.pick({ id: true, name: true, slug: true, country: true }).array())
 	.handler(async () => {
-		const cities = await getCities()
+		const cities = await getPopularCities()
 
 		if ("code" in cities) {
 			return []

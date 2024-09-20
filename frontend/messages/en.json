@@ -198,7 +198,10 @@
       "popularTours": {
         "emptyTours": "No tours found",
         "title": "Popular tours"
-      }
+      },
+      "description": "Home page with popular cities, tours and our advantages.",
+      "keywords": "tours, countries, cities",
+      "title": "Home page"
     },
     "orderTour": {
       "fields": {
@@ -298,7 +301,13 @@
     },
     "free": "For free",
     "notSpecified": "Not specified",
-    "phoneNumber": "Phone number"
+    "phoneNumber": "Phone number",
+    "userTypes": {
+      "admin": "Admin",
+      "guide": "Guide",
+      "tourist": "Tourist",
+      "user": "User"
+    }
   },
   "errors": {
     "touristNotFound": "An error occurred and the tourist was not found"

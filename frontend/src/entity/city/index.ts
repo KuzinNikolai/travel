@@ -1,4 +1,4 @@
-export * from "./api/getCities"
+export * from "./api/getPopularCities"
 export * from "./api/getDetailCity"
 
 export * from "./model/schema/schema"

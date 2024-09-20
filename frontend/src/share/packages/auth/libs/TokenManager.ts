@@ -14,9 +14,7 @@ export class TokenManager {
 	get token() {
 		const cookie = this.#cookies.get(cookieName)?.value
 
-		if (!cookie) return undefined
-
-		const [type, token] = cookie.split(" ")
+		const [type, token] = cookie ? cookie.split(" ") : [undefined, undefined]
 
 		return {
 			type,
@@ -42,5 +40,5 @@ export class TokenManager {
 
 	static deleteToken(cookies: NextCookies) {
 		cookies.delete(cookieName)
-	}	
+	}
 }

@@ -1,17 +1,34 @@
-"use server"
-
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { i18nConfig, type Locales } from "@share/i18n"
-import { serverFetcher } from "@share/packages/fetcher"
+import { isErrorResponse, serverFetcher } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
+import { memoOrders } from "@share/packages/memo"
+import { getLocale } from "next-intl/server"
+import { cookies } from "next/headers"
 import { orderSchema } from "../model/schemas/order.schema"
 
-export async function getAllOrders(token: string, lang: Locales[number] = i18nConfig.defaultLocale) {
-	return await serverFetcher({
+export async function getAllOrders(token: string) {
+	const clientCookies = cookies()
+	
+	print.debug("[getAllOrders]", clientCookies)
+
+	if (memoOrders.hasMemoized(token)) {
+		return memoOrders.get(token) || []
+	}
+	
+	const orders = await serverFetcher({
 		name: "getAllOrders",
-		url: `${API_DOMAIN}/${lang}/api/v1/my_orders`,
+		url: `${API_DOMAIN}/${await getLocale()}/api/v1/my_orders`,
 		method: "GET",
 		init: { token },
 		responseSchema: orderSchema.array(),
 		errorReturn: [],
 	})
+
+	if (isErrorResponse(orders)) {
+		return []
+	}
+
+	memoOrders.set(token, orders)
+
+	return orders
 }

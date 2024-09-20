@@ -1,15 +1,11 @@
 "use server"
 
-import { updateUser, userSchema } from "@entity/user"
+import { updateUser } from "@entity/user"
 import { isAuthorized } from "@share/packages/auth"
 import { z } from "zod"
 import { zu } from "zod_utilz"
 import { ZSAError } from "zsa"
 import { editUserSchema } from "../schema/editUser.schema"
-
-const serverResponseSchema = userSchema
-	.or(z.object({ first_name: z.string().array() }))
-	.or(z.object({ last_name: z.string().array() }))
 
 export const editUserAction = isAuthorized
 	.createServerAction()

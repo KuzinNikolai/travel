@@ -1,6 +1,6 @@
 "use server"
 
-import { getCities } from "@entity/city"
+import { getPopularCities } from "@entity/city"
 import { getTours } from "@entity/tour"
 import { z } from "zod"
 import { createServerAction } from "zsa"
@@ -13,7 +13,7 @@ export const searchAction = createServerAction()
 	.input(searchRequest)
 	.output(searchResponse)
 	.handler(async ({ input: query }) => {
-		const [cities, tours] = await Promise.all([getCities(), getTours()])
+		const [cities, tours] = await Promise.all([getPopularCities(), getTours()])
 		const searchGroups = new Map<string, TSearchGroup>()
 
 		const setSearchItem = (searchItem: TSearchItem) => {
