@@ -1,4 +1,5 @@
-import { passwordScheme, userSchema } from "@entity/user"
+import { userSchema } from "@share/schemas"
+import { passwordScheme } from "@share/schemas/share"
 import { z } from "zod"
 
 // Client

@@ -1,6 +1,6 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { serverFetcher } from "@share/packages/fetcher"
-import { tourSchema } from "../model/schemas"
+import { tourSchema } from "@share/schemas"
 
 export async function getTours() {
 	return await serverFetcher({

@@ -1,17 +1,17 @@
 import { useGetCity } from "@entity/city"
-import type { User } from "@entity/user"
 import { editUserSchema, useEditUser, type EditUser } from "@feature/editUser"
 import { zodResolver } from "@hookform/resolvers/zod"
+import type { User } from "@share/schemas"
 import { UploadAvatar } from "@share/ui/Avatar"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Input, Textarea } from "@share/ui/Inputs"
 import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 import { useEffect, type FC } from "react"
 import { useForm } from "react-hook-form"
 import { UserInfoItem } from "./UserInfoItem"
-import { useTranslations } from "next-intl"
 
 interface UserEditFormProps {
 	user: User

@@ -1,5 +1,4 @@
-import { orderSchema } from "@entity/order"
-import { dateToDateTimeSchema } from "@share/constants/schemes"
+import { orderSchema } from "@share/schemas"
 import type { z } from "zod"
 
 export const createOrderSchema = orderSchema

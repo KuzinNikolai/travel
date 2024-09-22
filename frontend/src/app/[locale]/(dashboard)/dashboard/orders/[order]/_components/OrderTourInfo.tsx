@@ -1,12 +1,12 @@
 "use client"
 
-import type { Order } from "@entity/order"
+import type { Order } from "@share/schemas"
+import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import { format } from "date-fns"
+import { useTranslations } from "next-intl"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
-import { useTranslations } from "next-intl"
-import { Skeleton } from "@share/ui/Skeleton"
 
 interface OrderTourInfoProps {
 	country: Order["country_name"]

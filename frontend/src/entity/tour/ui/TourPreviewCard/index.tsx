@@ -1,4 +1,5 @@
 import { cn } from "@share/packages/tailwindHelpers"
+import type { Tour } from "@share/schemas"
 import { Image } from "@share/ui/Image"
 import { Rating } from "@share/ui/Rating"
 import { Skeleton } from "@share/ui/Skeleton"
@@ -6,7 +7,6 @@ import { Typography } from "@share/ui/Text"
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import type { FC } from "react"
-import type { Tour } from "../../model/schemas"
 import { TourWishListButton } from "./TourWishListButton"
 
 interface TourPreviewCardProps {
@@ -41,25 +41,6 @@ export const TourPreviewCard: FC<TourPreviewCardProps> & { Skeleton: typeof Tour
 				<TourWishListButton tourId={tour.id} />
 			</div>
 			<div className='flex flex-1 flex-col gap-2'>
-				<div className='flex flex-row flex-wrap items-center justify-between gap-x-2'>
-					<Typography
-						variant='contentPrimary'
-						as='span'
-						textWidth='light'
-						textTransform='uppercase'
-						className='text-primary-400'
-					>
-						{tour.type}
-					</Typography>
-					<Typography
-						variant='contentPrimary'
-						as='span'
-						textWidth='normal'
-						className='text-primary-400'
-					>
-						{tour.duration}
-					</Typography>
-				</div>
 				<Link href={pathToTour}>
 					<Typography
 						variant='h6'

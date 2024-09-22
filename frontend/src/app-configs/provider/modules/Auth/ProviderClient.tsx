@@ -1,7 +1,7 @@
 "use client"
 
-import type { User } from "@entity/user"
 import { queryKeyFactory } from "@share/packages/serverActions"
+import type { User } from "@share/schemas"
 import { useQueryClient } from "@tanstack/react-query"
 import { useLayoutEffect, type PropsWithChildren } from "react"
 

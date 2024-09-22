@@ -1,21 +1,23 @@
 "use client"
 
 import { inter } from "@assets/fonts"
-import { type DetailTour, GroupType, type Program } from "@entity/tour"
 import { useUser } from "@entity/user"
 import { useCreateOrderStore } from "@feature/order/createOrder"
+import { convertDurationToString } from "@share/packages/?_converter"
+import { ProgramTypeEnum, type DetailTour, type shareSchemas } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
 import { Icon } from "@share/ui/Icon"
 import { Drawer, DrawerFooter } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
 import { useAuthStore } from "@widget/Auth"
+import { daysToWeeks, weeksToDays } from "date-fns"
 import { useTranslations } from "next-intl"
 import { usePathname, useRouter } from "next/navigation"
 import type { FC } from "react"
 
 interface IProgramProps {
 	tourId: DetailTour["id"]
-	program: Program
+	program: shareSchemas.Program
 	currency: string
 }
 
@@ -44,6 +46,7 @@ const Price: FC<PriceProps> = ({ title, currency, price }) => {
 }
 
 export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) => {
+	const translateDuration = useTranslations("share.duration")
 	const t = useTranslations("components.tourProgram")
 
 	const {
@@ -67,7 +70,23 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 	}
 
 	const isIndividual =
-		program.type === GroupType.individual || (program.individual_price !== null && program.individual_price > 0)
+		program.type === ProgramTypeEnum.individual || (program.individual_price !== null && program.individual_price > 0)
+
+	const _customDuration = {
+		hour: 0,
+		day: 2,
+	}
+
+	// const duration =
+	// 	program.duration &&
+	// 	convertDurationToString(_customDuration, {
+	// 		hour: translateDuration("hour", { count: _customDuration.hour }),
+	// 		day: translateDuration("day", { count: weeksToDays(_customDuration.day) }),
+	// 		and: translateDuration("and"),
+	// 		// hour: translateDuration("hour", { count: program.duration.hour }),
+	// 		// day: translateDuration("day", { count: program.duration.day }),
+	// 		// week: translateDuration("week", { count: daysToWeeks(program.duration.day) }),
+	// 	})
 
 	return (
 		<li className='flex flex-col gap-md rounded-md bg-base-160 p-md'>
@@ -84,7 +103,8 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 						name='Clock'
 						className='h-6 w-6'
 					/>
-					<Typography>{program.duration}</Typography>
+					{/* FIX: need to fix duration format */}
+					{/* <Typography>{duration}</Typography> */}
 				</div>
 			</div>
 			<Typography

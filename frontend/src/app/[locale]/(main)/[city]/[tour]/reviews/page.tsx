@@ -1,4 +1,4 @@
-import type { Tour } from "@entity/tour"
+import type { Tour } from "@share/schemas"
 import type { PagesProps } from "@share/types"
 import { DetailTourReviews } from "./_components/DetailTourReviews"
 

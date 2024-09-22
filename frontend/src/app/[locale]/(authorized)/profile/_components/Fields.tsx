@@ -1,5 +1,5 @@
-import type { User } from "@entity/user"
 import { useLogout } from "@feature/auth/logout"
+import type { User } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"

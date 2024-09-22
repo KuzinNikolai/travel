@@ -1,10 +1,10 @@
+import type { Review } from "@share/schemas"
 import { Avatar } from "@share/ui/Avatar"
 import { Rating } from "@share/ui/Rating"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import { format } from "date-fns"
 import type { FC } from "react"
-import type { Review } from "../../models/schemas/review"
 import { ReviewItemSkeleton } from "./ReviewItemSkeleton"
 
 interface ReviewProps {

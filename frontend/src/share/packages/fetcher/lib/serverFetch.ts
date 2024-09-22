@@ -41,7 +41,7 @@ export async function serverFetch<ResponseSchema extends z.ZodType>(
 		}
 
 		const text = await resp.text()
-		
+
 		if (options.responseNotJson) {
 			const { success, data, error } = await options.responseSchema.safeParseAsync(text)
 
@@ -63,7 +63,7 @@ export async function serverFetch<ResponseSchema extends z.ZodType>(
 		const { success, data, error } = await options.responseSchema.or(baseErrorResponseSchema).safeParseAsync(json)
 
 		if (!success) {
-			print.fail(`[${options.name} - validation]`, json || text, error)
+			print.fail(`[${options.name} - validation]`, safeApi.json.stringify(json, undefined, 2) || text, error)
 			return options.errorReturn || { code: ServerFetchErrors.PARSE_ERROR }
 		}
 

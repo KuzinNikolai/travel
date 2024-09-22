@@ -1,9 +1,9 @@
 "use client"
 
 import emptyCart from "@assets/img/empty-cart.png"
-import type { Tour } from "@entity/tour"
 import { TourPreviewCard } from "@entity/tour"
 import { useWishlistStore } from "@feature/wishlist"
+import type { Tour } from "@share/schemas"
 import { Image } from "@share/ui/Image"
 import { Typography } from "@share/ui/Text"
 import type { FC } from "react"

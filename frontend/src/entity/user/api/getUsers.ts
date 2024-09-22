@@ -1,6 +1,6 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { serverFetcher } from "@share/packages/fetcher"
-import { userSchema } from "../model/schemas"
+import { userSchema } from "@share/schemas"
 
 export async function getUsers(token: string) {
 	return await serverFetcher({

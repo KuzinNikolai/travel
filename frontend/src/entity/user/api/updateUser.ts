@@ -1,10 +1,9 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { fetcher } from "@share/packages/fetcher"
-import { type User, userSchema } from "../model/schemas"
-import { safeApi } from "@share/packages/safeApi"
 import { print } from "@share/packages/logger"
 import { memoUsers } from "@share/packages/memo"
-import { z } from "zod"
+import { safeApi } from "@share/packages/safeApi"
+import { type User, userSchema } from "@share/schemas"
 
 export async function updateUser(updateData: Partial<User> | FormData, token: string) {
 	const resp = await fetcher(`${API_DOMAIN}/api/v1/auth/users/me/`, {
@@ -45,7 +44,7 @@ export async function updateUser(updateData: Partial<User> | FormData, token: st
 		}
 
 		memoUsers.set(token, data)
-		
+
 		return "SUCCESS"
 	} catch (error) {
 		print.fatal("[editUserActionCatch]", error)

@@ -1,14 +1,13 @@
-import { PopularCity, getPopularCities } from "@entity/city"
+import { PopularCity, getAllCities } from "@entity/city"
 import { isErrorResponse } from "@share/packages/fetcher"
 import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
-import { getLocale, getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 
 export async function PopularCities() {
 	const t = await getTranslations()
-	const lang = await getLocale()
 
-	const cities = await getPopularCities(lang)
+	const cities = await getAllCities()
 
 	return (
 		<Section title={t("pages.mainPage.popularTours.title")}>

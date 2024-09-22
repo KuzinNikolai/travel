@@ -1,4 +1,4 @@
-import { getUser, type User } from "@entity/user"
+import { getUser } from "@entity/user"
 import type { cookies } from "next/headers"
 import { TokenManager } from "./TokenManager"
 

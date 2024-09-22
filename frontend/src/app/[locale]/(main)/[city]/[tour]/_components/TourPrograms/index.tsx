@@ -1,4 +1,4 @@
-import type { DetailTour } from "@entity/tour"
+import type { DetailTour } from "@share/schemas"
 import { Section } from "@share/ui/Layout"
 import type { FC } from "react"
 import { TourProgram } from "./Program"

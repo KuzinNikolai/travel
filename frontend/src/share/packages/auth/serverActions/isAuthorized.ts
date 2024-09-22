@@ -1,4 +1,5 @@
-import { getUser, userSchema } from "@entity/user"
+import { getUser, } from "@entity/user"
+import { userSchema } from "@share/schemas"
 import { cookies } from "next/headers"
 import { z } from "zod"
 import { createServerActionProcedure, ZSAError } from "zsa"

@@ -1,9 +1,8 @@
-import { reviewSchema } from "@entity/review"
-import type { Tour } from "@entity/tour"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { baseErrorResponseSchema, fetcher } from "@share/packages/fetcher"
 import { print } from "@share/packages/logger"
 import { safeApi } from "@share/packages/safeApi"
+import { reviewSchema, type Tour } from "@share/schemas"
 import type { AddReviewData } from "../schema"
 
 export async function addReview(userToken: string, tourId: Tour["id"], review: AddReviewData) {

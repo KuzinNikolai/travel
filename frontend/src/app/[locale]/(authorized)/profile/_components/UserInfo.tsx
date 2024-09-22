@@ -1,5 +1,6 @@
 import { useGetCity } from "@entity/city"
-import { UserAvatar, type User } from "@entity/user"
+import { UserAvatar } from "@entity/user"
+import type { User } from "@share/schemas"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import { useEffect, type FC } from "react"

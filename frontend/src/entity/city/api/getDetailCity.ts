@@ -1,7 +1,7 @@
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { i18nConfig } from "@share/i18n"
 import { serverFetcher } from "@share/packages/fetcher"
-import { detailCitySchema } from "../model/schema/schema"
+import { detailCitySchema } from "@share/schemas"
 
 export async function getDetailCity(citySlug: string, lang = i18nConfig.defaultLocale) {
 	return await serverFetcher({

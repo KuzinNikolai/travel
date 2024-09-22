@@ -1,10 +1,9 @@
+import type { Order } from "@share/schemas"
 import { Paper } from "@share/ui/Layout"
-import { Typography } from "@share/ui/Text"
-import { isValidElement, ReactElement, type FC, type ReactNode } from "react"
-import type { Order } from "../model/schemas/order.schema"
-import { format } from "date-fns"
-import Link from "next/link"
 import { Skeleton } from "@share/ui/Skeleton"
+import { Typography } from "@share/ui/Text"
+import { format } from "date-fns"
+import type { FC, ReactNode } from "react"
 
 type SupplierOrderItemProps = Pick<Order, "order_number" | "tour_title" | "trip_date">
 

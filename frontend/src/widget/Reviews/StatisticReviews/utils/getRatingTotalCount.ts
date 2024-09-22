@@ -1,4 +1,4 @@
-import type { Review } from "@entity/review";
+import type { Review } from "@share/schemas";
 
 export function getRatingTotalCount(
 	reviews: Review[],

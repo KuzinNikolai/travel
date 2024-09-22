@@ -1,8 +1,8 @@
-import { userSchema } from "@entity/user"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { tokenSchema } from "@share/constants/schemes"
 import { serverFetcher } from "@share/packages/fetcher"
 import { safeApi } from "@share/packages/safeApi"
+import { userSchema } from "@share/schemas"
+import { tokenSchema } from "@share/schemas/share"
 import { z } from "zod"
 
 export const loginRequestSchema = userSchema.pick({ email: true }).extend({ password: z.string().min(6) })

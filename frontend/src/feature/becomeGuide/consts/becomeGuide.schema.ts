@@ -1,4 +1,4 @@
-import { userSchema } from "@entity/user"
+import { userSchema } from "@share/schemas"
 import type { z } from "zod"
 
 export const becomeGuideSchema = userSchema.pick({
@@ -6,6 +6,5 @@ export const becomeGuideSchema = userSchema.pick({
 	city: true,
 	phone: true,
 })
-// .transform(nonNullableObj)
 
 export type BecomeGuide = z.infer<typeof becomeGuideSchema>

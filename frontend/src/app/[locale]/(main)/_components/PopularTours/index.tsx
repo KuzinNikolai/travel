@@ -1,7 +1,7 @@
-import { getPopularCities } from "@entity/city"
-import type { Tour } from "@entity/tour"
+import { getAllCities } from "@entity/city"
 import { TourPreviewCard } from "@entity/tour"
 import { isErrorResponse } from "@share/packages/fetcher"
+import type { Tour } from "@share/schemas"
 import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
 import { getLocale, getTranslations } from "next-intl/server"
@@ -10,7 +10,7 @@ export const PopularTours = async () => {
 	const t = await getTranslations()
 	const locale = await getLocale()
 
-	const cities = await getPopularCities(locale)
+	const cities = await getAllCities()
 
 	const tours = (isErrorResponse(cities) ? [] : cities)?.reduce(
 		(acc, city) => (acc.push(...city.popular_tours), acc),

@@ -1,10 +1,12 @@
+"use server"
+
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { isErrorResponse, serverFetcher } from "@share/packages/fetcher"
 import { print } from "@share/packages/logger"
 import { memoOrders } from "@share/packages/memo"
+import { orderSchema } from "@share/schemas"
 import { getLocale } from "next-intl/server"
 import { cookies } from "next/headers"
-import { orderSchema } from "../model/schemas/order.schema"
 
 export async function getAllOrders(token: string) {
 	const clientCookies = cookies()

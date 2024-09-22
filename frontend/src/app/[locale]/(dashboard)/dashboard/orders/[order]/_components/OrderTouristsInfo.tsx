@@ -1,12 +1,12 @@
 "use client"
 
-import type { User } from "@entity/user"
+import type { User } from "@share/schemas"
+import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
-import { useTranslations } from "next-intl"
-import { Skeleton } from "@share/ui/Skeleton"
 
 interface OrderTouristsInfoProps {
 	user: User | null

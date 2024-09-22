@@ -1,4 +1,4 @@
-import type { DetailTour } from "@entity/tour";
+import type { DetailTour } from "@share/schemas";
 import { Icon } from "@share/ui/Icon";
 import { Section } from "@share/ui/Layout";
 import { Typography } from "@share/ui/Text";

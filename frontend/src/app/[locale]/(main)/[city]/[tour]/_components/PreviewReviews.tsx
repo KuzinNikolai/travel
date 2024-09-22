@@ -1,7 +1,7 @@
 "use client"
 
 import { ReviewItem, useReviews } from "@entity/review"
-import type { DetailTour } from "@entity/tour"
+import type { DetailTour } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
 import { Section } from "@share/ui/Layout"
 import { List } from "@share/ui/List"

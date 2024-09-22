@@ -9,8 +9,7 @@ import type { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
-
-export default async function ToursInCityPage({ params }: PagesProps<{ city: string }>) {
+export default async function ToursInCityPage({ params }: PagesProps) {
 	const t = await getTranslations()
 	const locale = await getLocale()
 

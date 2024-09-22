@@ -1,9 +1,9 @@
 "use server"
 
-import { orderSchema } from "@entity/order"
 import { isAuthorized } from "@share/packages/auth"
 import { print } from "@share/packages/logger"
 import { safeApi } from "@share/packages/safeApi"
+import { orderSchema } from "@share/schemas"
 import { ZSAError } from "zsa"
 import { createOrder } from "../../api/createOrder"
 import { createOrderSchema } from "../../schemas/createOrder.schema"

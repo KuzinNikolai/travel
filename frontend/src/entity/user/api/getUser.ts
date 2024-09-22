@@ -3,7 +3,7 @@ import { baseErrorResponseSchema, fetcher } from "@share/packages/fetcher"
 import { print } from "@share/packages/logger"
 import { memoUsers } from "@share/packages/memo/listMemoElements/user"
 import { safeApi } from "@share/packages/safeApi"
-import { userSchema } from "../model/schemas"
+import { userSchema } from "@share/schemas"
 
 const INVALID_TOKEN = /^Invalid token.$/gi
 const NOT_AUTHORIZED = /^Invalid token header. No credentials provided.$/gi

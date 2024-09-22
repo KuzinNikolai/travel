@@ -1,6 +1,6 @@
 "use client"
 
-import type { Tour } from "@entity/tour"
+import type { Tour } from "@share/schemas"
 import { useUser } from "@entity/user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { __SERVER__ } from "@share/constants/environment"
@@ -57,7 +57,6 @@ export const AddReviewForm: FC<AddReviewFormProps> = ({ tourId, onSuccessAdd }) 
 		addReview({
 			...data,
 			created_date: new Date(),
-			// @ts-expect-error
 			translations: { [lang]: { text: data.text } },
 		})
 	})

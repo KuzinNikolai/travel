@@ -1,11 +1,11 @@
 "use client"
 
-import type { Order } from "@entity/order"
+import type { Order } from "@share/schemas"
+import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import type { FC } from "react"
 import { ListItem } from "./ListItem"
-import { Skeleton } from "@share/ui/Skeleton"
 
 export const OrderPrice: FC<Order> & { Skeleton: typeof OrderPriceSkeleton } = ({
 	cash_on_tour,

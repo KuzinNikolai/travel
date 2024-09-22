@@ -1,8 +1,8 @@
 "use server"
 
-import { reviewSchema } from "@entity/review"
 import { isAuthorized } from "@share/packages/auth"
 import { print } from "@share/packages/logger"
+import { reviewSchema } from "@share/schemas"
 import { z } from "zod"
 import { ZSAError } from "zsa"
 import { addReview } from "../../api/addReview"

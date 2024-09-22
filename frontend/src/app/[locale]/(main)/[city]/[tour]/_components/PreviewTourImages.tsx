@@ -1,17 +1,17 @@
 "use client"
 
+import type { shareSchemas } from "@share/schemas"
 import { Carousel, CarouselContent, CarouselItem, CarouselLengthViewer } from "@share/ui/Carousel"
 import { Image } from "@share/ui/Image"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import type { FC } from "react"
 
-interface IPreviewTourImagesProps {
-	photos: string[]
-	alt?: string
+interface PreviewTourImagesProps {
+	photos: shareSchemas.Photo[]
 }
 
-export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], alt }) => {
+export const PreviewTourImages: FC<PreviewTourImagesProps> = ({ photos = [] }) => {
 	const t = useTranslations("pages.detailTour.previewTour")
 
 	if (!photos?.length) {
@@ -39,10 +39,10 @@ export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], al
 		>
 			<CarouselContent>
 				{photos.map((photo) => (
-					<CarouselItem key={photo}>
+					<CarouselItem key={photo.id}>
 						<Image
-							alt={t("photoAlt")}
-							src={photo}
+							alt={photo.photo_alt ?? t("photoAlt")}
+							src={photo.image}
 							priority
 							width={300}
 							height={300}
@@ -55,8 +55,8 @@ export const PreviewTourImages: FC<IPreviewTourImagesProps> = ({ photos = [], al
 		</Carousel>
 	) : (
 		<Image
-			alt={alt || t("photoAlt")}
-			src={photos[0]}
+			alt={photos[0].photo_alt || t("photoAlt")}
+			src={photos[0].image}
 			width={300}
 			height={300}
 			className='h-[50vh] w-full object-cover'

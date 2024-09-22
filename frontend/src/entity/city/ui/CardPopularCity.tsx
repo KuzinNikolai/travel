@@ -1,12 +1,11 @@
+import type { CityItem } from "@share/schemas"
+import { Image } from "@share/ui/Image"
 import { Typography } from "@share/ui/Text"
 import { getTranslations } from "next-intl/server"
-import { Image } from "@share/ui/Image"
 import Link from "next/link"
 import type { FC } from "react"
-import type { z } from "zod"
-import type { cityItemSchema } from "../model/schema/schema"
 
-type PopularCityProps = Pick<z.infer<typeof cityItemSchema>, "name" | "slug" | "photo" | "photo_alt" | "tour_count">
+type PopularCityProps = Pick<CityItem, "name" | "slug" | "photo" | "photo_alt" | "tour_count">
 
 export const PopularCity: FC<PopularCityProps> = async (props) => {
 	const t = await getTranslations()

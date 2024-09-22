@@ -1,12 +1,12 @@
 "use client"
 
-import type { Order } from "@entity/order"
+import type { Order } from "@share/schemas"
 import { Icon } from "@share/ui/Icon"
 import { Skeleton } from "@share/ui/Skeleton"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import type { FC, PropsWithChildren } from "react"
+import type { FC } from "react"
 
 interface OrderHeaderProps {
 	manager: Order["manager"]

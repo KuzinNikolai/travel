@@ -1,7 +1,7 @@
 "use client";
 
 import { ReviewItem, useReviews } from "@entity/review";
-import type { Tour } from "@entity/tour";
+import type { Tour } from "@share/schemas";
 import { List } from "@share/ui/List";
 import { Typography } from "@share/ui/Text";
 import { useTranslations } from "next-intl";
