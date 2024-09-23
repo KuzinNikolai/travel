@@ -2,9 +2,7 @@
 	"name": "frontend",
 	"version": "0.1.0",
 	"private": true,
-	"browserslist": [
-		"> 0.1%, last 4 versions, not dead"
-	],
+	"browserslist": ["> 0.1%, last 4 versions, not dead"],
 	"packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247",
 	"scripts": {
 		"analyze": "ANALYZE=true next build",
@@ -43,8 +41,8 @@
 		"embla-carousel-react": "^8.3.0",
 		"input-otp": "1.2.4",
 		"lucide-react": "^0.381.0",
-		"next": "^14.2.11",
-		"next-intl": "^3.19.3",
+		"next": "^14.2.13",
+		"next-intl": "^3.19.4",
 		"react": "^18.3.1",
 		"react-day-picker": "^8.10.1",
 		"react-dom": "^18.3.1",
@@ -55,27 +53,27 @@
 		"sharp": "^0.33.5",
 		"tailwind-merge": "^2.5.2",
 		"tailwindcss-animate": "^1.0.7",
-		"vaul": "^0.9.3",
+		"vaul": "^0.9.4",
 		"zod": "3.23.8",
 		"zod_utilz": "0.8.3",
 		"zsa": "^0.5.1",
-		"zsa-react": "^0.2.2",
+		"zsa-react": "^0.2.3",
 		"zsa-react-query": "^0.2.1",
 		"zustand": "4.5.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
-		"@next/bundle-analyzer": "^14.2.11",
+		"@next/bundle-analyzer": "^14.2.13",
 		"@next/env": "14.2.3",
-		"@types/node": "^20.16.5",
-		"@types/react": "^18.3.7",
+		"@types/node": "^20.16.6",
+		"@types/react": "^18.3.8",
 		"@types/react-dom": "^18.3.0",
 		"eslint": "^8.57.1",
 		"eslint-config-next": "14.2.3",
 		"lefthook": "1.6.18",
 		"postcss": "^8.4.47",
 		"prettier-plugin-tailwindcss": "0.6.5",
-		"tailwindcss": "^3.4.12",
+		"tailwindcss": "^3.4.13",
 		"typescript": "^5.6.2"
 	}
 }
