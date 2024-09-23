@@ -1,17 +1,13 @@
-import { Defender } from "@share/packages/auth"
-import { cookies } from "next/headers"
+import { defender } from "@share/packages/auth"
 import { notFound } from "next/navigation"
+import type { PropsWithChildren } from "react"
 
-export async function BecomeFormLayout() {
-	const clientCookies = cookies()
+export async function BecomeFormLayout({ children }: PropsWithChildren) {
+	const isStaff = await defender.isStaff()
 
-	const { isAuthorized, isStaff } = new Defender(clientCookies)
-
-	const isNotAuthorized = !await isAuthorized()
-
-	if (isNotAuthorized || await isStaff()) {
+	if (!isStaff) {
 		notFound()
 	}
-	
-	return null
+
+	return children
 }

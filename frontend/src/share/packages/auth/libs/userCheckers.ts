@@ -6,13 +6,13 @@ import { safe } from "@share/packages/safeApi"
 import { print } from "@share/packages/logger"
 import { getUser as getUserQuery } from "@entity/user"
 
-export async function getToken() {
+export function getToken() {
 	const tokenManager = TokenManager.getToken(cookies())
 	return tokenManager.token
 }
 
 export async function getUser() {
-	const token = await getToken()
+	const token = getToken()
 
 	if (!token) {
 		return

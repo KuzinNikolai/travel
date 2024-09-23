@@ -1,11 +1,10 @@
 import { getOrderById } from "@entity/order"
-import { Defender } from "@share/packages/auth"
+import { defender } from "@share/packages/auth"
 import type { PagesProps } from "@share/types"
 import { Header } from "@share/ui/Headers"
 import { Section } from "@share/ui/Layout"
 import { List } from "@share/ui/List"
-import { getLocale, getTranslations } from "next-intl/server"
-import { cookies } from "next/headers"
+import { getTranslations } from "next-intl/server"
 import { notFound, redirect } from "next/navigation"
 import { OrderHeader } from "./_components/OrderHeader"
 import { OrderPickUpInfo } from "./_components/OrderPickUpInfo"
@@ -24,20 +23,16 @@ export default async function DetailOrder({ params }: PagesProps) {
 
 	const t = await getTranslations()
 
-	const clientCookies = cookies()
-
-	const defender = new Defender(clientCookies)
-
 	const { token, tourist } = {
-		token: defender.userToken,
-		tourist: (await defender.getUser())?.user,
+		token: defender.getToken(),
+		tourist: await defender.getUser(),
 	}
 
 	if (!token || !tourist) {
 		notFound()
 	}
 
-	const order = await getOrderById(orderId, token)
+	const order = await getOrderById(orderId)
 
 	if (!order) {
 		notFound()

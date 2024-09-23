@@ -1,3 +1,5 @@
+"use client"
+
 import { useGetCity } from "@entity/city"
 import { editUserSchema, useEditUser, type EditUser } from "@feature/editUser"
 import { zodResolver } from "@hookform/resolvers/zod"

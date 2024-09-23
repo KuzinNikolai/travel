@@ -1,7 +1,7 @@
 "use server"
 
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { print } from "@share/packages/logger"
 import { safeApi } from "@share/packages/safeApi"
 import { z } from "zod"
@@ -23,7 +23,7 @@ interface AddTourInWishlistResponse {
 	tour_id: number
 }
 
-export const addTourInWishlistAction = isAuthorized
+export const addTourInWishlistAction = isAuthorizedAction
 	.createServerAction()
 	.input(addTourInWishlistRequestSchema)
 	.output(addTourInWishlistResponseSchema)

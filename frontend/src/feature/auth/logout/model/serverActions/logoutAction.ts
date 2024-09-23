@@ -1,12 +1,13 @@
 "use server"
 
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { z } from "zod"
 import { ZSAError } from "zsa"
 import { logout } from "../../api/logout"
 
-export const logoutAction = isAuthorized
+export const logoutAction = isAuthorizedAction
 	.createServerAction()
+	.input(z.unknown())
 	.output(z.object({ success: z.literal(true) }))
 	.handler(async ({ ctx }) => {
 		const resp = await logout(ctx.token)

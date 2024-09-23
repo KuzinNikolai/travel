@@ -1,6 +1,6 @@
 "use server"
 
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { print } from "@share/packages/logger"
 import { safeApi } from "@share/packages/safeApi"
 import { orderSchema } from "@share/schemas"
@@ -8,7 +8,7 @@ import { ZSAError } from "zsa"
 import { createOrder } from "../../api/createOrder"
 import { createOrderSchema } from "../../schemas/createOrder.schema"
 
-export const createOrderAction = isAuthorized
+export const createOrderAction = isAuthorizedAction
 	.createServerAction()
 	.input(createOrderSchema)
 	.handler(async ({ input, ctx }) => {

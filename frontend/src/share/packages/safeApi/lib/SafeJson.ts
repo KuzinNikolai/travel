@@ -1,14 +1,25 @@
+import { print } from "@share/packages/logger"
+import { safe } from "../safe"
+
 export class SafeJson {
 	static parse(data: string): Record<string, unknown> | undefined {
-		try {
-			return JSON.parse(data)
-		} catch (e) {}
+		const { success, data: successData, error } = safe(() => JSON.parse(data))
+
+		if (!success) {
+			print.error("[SafeJson - error]", error)
+		}
+
+		return successData
 	}
 
 	static stringify(data: unknown, replace?: never, space?: number): string | undefined {
-		try {
-			return JSON.stringify(data, replace, space)
-		} catch (e) {}
+		const { success, data: successData, error } = safe(() => JSON.stringify(data, replace, space))
+
+		if (!success) {
+			print.error("[SafeJson - error]", error)
+		}
+
+		return successData
 	}
 
 	static isStringify(data: unknown): boolean {

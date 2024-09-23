@@ -1,18 +1,14 @@
-import { Section } from "lucide-react"
+import { defender } from "@share/packages/auth"
+import { Section } from "@share/ui/Layout"
+import { getTranslations } from "next-intl/server"
+import { notFound } from "next/navigation"
 import { Fields } from "./_components/Fields"
 import { ProfileHeader } from "./_components/Header"
 import { UserInfo } from "./_components/UserInfo"
-import { Defender } from "@share/packages/auth"
-import { cookies } from "next/headers"
-import { notFound } from "next/navigation"
-import { getTranslations } from "next-intl/server"
 
 export default async function ProfilePage() {
-	const clientCookies = cookies()
-
-	const { getUser, isStaff } = new Defender(clientCookies)
-
-	const userData = await getUser()
+	const userData = await defender.getUser()
+	const isStaff = await defender.isStaff()
 
 	if (!userData) {
 		notFound()
@@ -20,21 +16,19 @@ export default async function ProfilePage() {
 
 	return (
 		<main>
-			<ProfileHeader type={(await isStaff()) ? "guide" : "user"} />
+			<ProfileHeader type={isStaff ? "guide" : "user"} />
 			<Section className='h-full flex-1'>
-				<UserInfo user={userData.user} />
-				<Fields user={userData.user} />
+				<UserInfo user={userData} />
+				<Fields user={userData} />
 			</Section>
 		</main>
 	)
 }
 
 export async function generateMetadata() {
-	const { getUser, isStaff } = new Defender(cookies())
+	const isStaff = await defender.isStaff()
 
-	const userData = await getUser()
-
-	if (!userData) {
+	if (!isStaff) {
 		return {}
 	}
 
@@ -42,6 +36,6 @@ export async function generateMetadata() {
 
 	return {
 		title: t("pages.profile.type.userProfile"),
-		description: (await isStaff()) ? t("pages.profile.type.supplierProfile") : t("pages.profile.type.userProfile"),
+		description: isStaff ? t("pages.profile.type.supplierProfile") : t("pages.profile.type.userProfile"),
 	}
 }

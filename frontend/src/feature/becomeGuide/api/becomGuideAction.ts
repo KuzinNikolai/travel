@@ -2,7 +2,7 @@
 
 import { updateUser } from "@entity/user"
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { fetcher } from "@share/packages/fetcher"
 import { print } from "@share/packages/logger"
 import { safeApi } from "@share/packages/safeApi"
@@ -12,7 +12,7 @@ import { becomeGuideSchema } from "../consts/becomeGuide.schema"
 
 const responseSchema = z.void()
 
-export const becomeGuideAction = isAuthorized
+export const becomeGuideAction = isAuthorizedAction
 	.createServerAction()
 	.input(becomeGuideSchema)
 	.output(z.void())

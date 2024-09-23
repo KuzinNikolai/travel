@@ -1,3 +1,3 @@
-import { ProviderServer } from "./ProviderServer"
+import { UserProvider } from "./ProviderServer"
 
-export const Auth = { Provider: ProviderServer }
+export const Auth = { Provider: UserProvider }

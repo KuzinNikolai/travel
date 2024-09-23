@@ -1,10 +1,12 @@
+"use client"
+
 import { Button } from "@share/ui/Buttons"
 import { Header } from "@share/ui/Headers"
 import { Icon } from "@share/ui/Icon"
 import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { useTransition, type FC } from "react"
+import type { FC } from "react"
 
 interface HeaderProps {
 	type: "user" | "guide"

@@ -1,13 +1,10 @@
-import { Defender } from "@share/packages/auth"
-import { cookies } from "next/headers"
+import { defender } from "@share/packages/auth"
 import { redirect } from "next/navigation"
 
 export default async function DashboardPage() {
-	const clientCookies = cookies()
+	const isStaff = await defender.isStaff()
 
-	const { isStaff } = new Defender(clientCookies)
-
-	if (await isStaff()) {
+	if (isStaff) {
 		redirect("/dashboard/orders")
 	}
 

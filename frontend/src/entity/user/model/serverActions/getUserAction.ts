@@ -1,5 +1,5 @@
 "use server"
 
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 
-export const getUserAction = isAuthorized.createServerAction().handler(({ ctx: { user } }) => user)
+export const getUserAction = isAuthorizedAction.createServerAction().handler(({ ctx: { user } }) => user)

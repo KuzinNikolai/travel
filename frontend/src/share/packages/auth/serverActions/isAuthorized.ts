@@ -1,38 +1,47 @@
-import { getUser, } from "@entity/user"
+import { getUser } from "@entity/user"
+import { print } from "@share/packages/logger"
+import { safe } from "@share/packages/safeApi"
 import { userSchema } from "@share/schemas"
 import { cookies } from "next/headers"
 import { z } from "zod"
 import { createServerActionProcedure, ZSAError } from "zsa"
+import { TokenManager } from "../libs/TokenManager"
 
-const outputSchema = z.promise(z.object({ user: userSchema, token: z.string() }))
+const outputSchema = z.promise(
+	z.object({
+		user: userSchema,
+		token: z.string(),
+	}),
+)
 
-export const isAuthorized = createServerActionProcedure()
-	.input(z.object({}))
+export const isAuthorizedAction = createServerActionProcedure()
+	.input(z.void())
 	.output(outputSchema)
 	.handler(async () => {
 		const clientCookies = cookies()
 
-		const authorization = clientCookies.get("Authorization")
+		const tokenManager = new TokenManager(clientCookies)
 
-		if (!authorization) {
+		const { token } = tokenManager.token
+
+		if (!token) {
 			throw new ZSAError("NOT_AUTHORIZED")
 		}
 
-		function deleteToken() {
-			clientCookies.delete("Authorization")
+		const { success: successFetchUser, data: userData, error: errorFetchUser } = await safe(getUser(token))
+
+		if (!successFetchUser) {
+			print.debug("[isAuthorized - getUser - error]", errorFetchUser)
+			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
-		const [type, token] = authorization.value.split(" ")
-
-		const resp = await getUser(token)
-
-		switch (resp) {
+		switch (userData) {
 			case getUser.errors.INVALID_TOKEN: {
-				deleteToken()
+				tokenManager.deleteToken()
 				throw new ZSAError("INPUT_PARSE_ERROR")
 			}
 			case getUser.errors.NOT_AUTHORIZED: {
-				deleteToken()
+				tokenManager.deleteToken()
 				throw new ZSAError("NOT_AUTHORIZED")
 			}
 			case getUser.errors.INTERNAL_SERVER_ERROR: {
@@ -46,5 +55,5 @@ export const isAuthorized = createServerActionProcedure()
 			}
 		}
 
-		return resp
+		return userData
 	})

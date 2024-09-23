@@ -4,10 +4,7 @@ import { queryKeyFactory, useServerActionQuery } from "@share/packages/serverAct
 import { getUserAction } from "../serverActions/getUserAction"
 
 export function useUser() {
-	const query = useServerActionQuery(getUserAction, {
-		input: {},
-		queryKey: queryKeyFactory.user(),
-	})
+	const query = useServerActionQuery(getUserAction, { input: undefined, queryKey: queryKeyFactory.user() })
 
 	return {
 		query,

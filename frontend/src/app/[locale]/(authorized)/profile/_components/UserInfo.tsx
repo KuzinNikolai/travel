@@ -1,3 +1,5 @@
+"use client"
+
 import { useGetCity } from "@entity/city"
 import { UserAvatar } from "@entity/user"
 import type { User } from "@share/schemas"

@@ -1,3 +1,4 @@
+import { tokenRegex } from "@share/schemas/share"
 import type { cookies } from "next/headers"
 
 type NextCookies = ReturnType<typeof cookies>
@@ -28,6 +29,15 @@ export class TokenManager {
 
 	deleteToken() {
 		this.#cookies.delete(cookieName)
+	}
+
+	validateToken() {
+		const { type, token } = this.token
+
+		const validPrefix = type ? type === "Token" : false
+		const validToken = token ? tokenRegex.test(token) : false
+
+		return validPrefix && validToken
 	}
 
 	static getToken(cookies: NextCookies) {

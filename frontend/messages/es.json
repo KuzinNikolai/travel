@@ -307,6 +307,11 @@
       "guide": "Guía",
       "tourist": "Turístico",
       "user": "Usuario"
+    },
+    "duration": {
+      "and": "Y",
+      "day": "{count, plural, one {día} few {días} many {días} other {ésimos días}}",
+      "hour": "{count, plural, one {hora} few {horas} many {horas} other {ésimas horas}}"
     }
   },
   "errors": {

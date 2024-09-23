@@ -1,13 +1,13 @@
 "use server"
 
 import { updateUser } from "@entity/user"
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { z } from "zod"
 import { zu } from "zod_utilz"
 import { ZSAError } from "zsa"
 import { editUserSchema } from "../schema/editUser.schema"
 
-export const editUserAction = isAuthorized
+export const editUserAction = isAuthorizedAction
 	.createServerAction()
 	.input(z.object({ formData: zu.useFormData(editUserSchema) }))
 	.output(z.void())

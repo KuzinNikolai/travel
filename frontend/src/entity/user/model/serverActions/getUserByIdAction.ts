@@ -1,11 +1,11 @@
 "use server"
 
 import { getUsers } from "@entity/user/api/getUsers"
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { userSchema } from "@share/schemas"
 import { z } from "zod"
 
-export const getUserByIdAction = isAuthorized
+export const getUserByIdAction = isAuthorizedAction
 	.createServerAction()
 	.input(userSchema.pick({ id: true }))
 	.output(userSchema.or(z.null()))

@@ -1,7 +1,7 @@
 import { getAllOrders, SupplierOrderItem } from "@entity/order"
 import { TokenManager } from "@share/packages/auth"
 import { Typography } from "@share/ui/Text"
-import { getLocale, getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 import { cookies } from "next/headers"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -17,7 +17,7 @@ export const OrderList = async () => {
 		notFound()
 	}
 
-	const orders = await getAllOrders(token)
+	const orders = await getAllOrders() || []
 
 	return (
 		<ul className='flex flex-col gap-sm'>

@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from "react"
-import { getUser } from "./getUser"
-import { ProviderClient } from "./ProviderClient"
+import { ClientProvider } from "./ClientProvider"
+import { defender } from "@share/packages/auth"
 
-export async function ProviderServer({ children }: PropsWithChildren) {
-	const user = await getUser()
+export async function UserProvider({ children }: PropsWithChildren) {
+	const user = await defender.getUser()
 
-	return <ProviderClient user={user ? user.user : null}>{children}</ProviderClient>
+	return <ClientProvider user={user || null}>{children}</ClientProvider>
 }

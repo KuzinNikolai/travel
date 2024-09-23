@@ -1,6 +1,6 @@
 "use server"
 
-import { isAuthorized } from "@share/packages/auth"
+import { isAuthorizedAction } from "@share/packages/auth"
 import { print } from "@share/packages/logger"
 import { reviewSchema } from "@share/schemas"
 import { z } from "zod"
@@ -17,7 +17,7 @@ const createReviewSchema = reviewSchema
 		user_full_name: z.string().optional(),
 	})
 
-export const addReviewAction = isAuthorized
+export const addReviewAction = isAuthorizedAction
 	.createServerAction()
 	.input(createReviewSchema)
 	.output(reviewSchema)

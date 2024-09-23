@@ -1,14 +1,11 @@
-import { Defender } from "@share/packages/auth"
-import { cookies } from "next/headers"
+import { defender } from "@share/packages/auth"
 import { notFound } from "next/navigation"
 import type { PropsWithChildren } from "react"
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
-	const clientCookies = cookies()
+	const isStaff = await defender.isStaff()
 
-	const { isStaff } = new Defender(clientCookies)
-
-	if (!isStaff()) {
+	if (!isStaff) {
 		notFound()
 	}
 

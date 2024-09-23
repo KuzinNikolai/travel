@@ -1,3 +1,5 @@
+"use client"
+
 import { useLogout } from "@feature/auth/logout"
 import type { User } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
@@ -114,7 +116,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 			<FieldItem>
 				<Button
 					variant='ghost'
-					onClick={() => logout.mutateAsync({ input: {} })}
+					onClick={() => logout.mutateAsync({})}
 					className='!justify-start !py-6 w-full rounded-none text-danger'
 				>
 					{t("actions.logout")}
