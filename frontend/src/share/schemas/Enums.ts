@@ -1,6 +1,6 @@
 export enum ProgramTypeEnum {
-	individual = 0,
-	group = 1,
+	individual = 1,
+	group = 2,
 }
 
 export enum PublishedStepsEnum {
