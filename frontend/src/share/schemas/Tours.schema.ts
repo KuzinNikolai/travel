@@ -24,7 +24,7 @@ const translateSchema = z.object({
 	title: z.string(),
 	description: z.string(),
 	meta_desc: z.string(),
-	meta_keywords: z.string(),
+	meta_keywords: z.string().nullable(),
 })
 
 export const tourSchema = metaSchema
@@ -43,7 +43,7 @@ export const tourSchema = metaSchema
 			lang: z.array(z.string()),
 
 			promotions: z.boolean(),
-			min_price: z.number(),
+			min_price: z.number().nullable(),
 			min_price_with_promotions: z.number().nullable(),
 
 			photo: z.string().url(),
@@ -73,7 +73,7 @@ export const popularTourSchema = metaSchema
 			lang: z.array(z.string()),
 
 			promotions: z.boolean(),
-			min_price: z.number(),
+			min_price: z.number().nullable(),
 			min_price_with_promotions: z.number().nullable(),
 
 			photo: z.string().url(),
@@ -130,7 +130,7 @@ export const detailTourSchema = metaSchema
 			reviews: reviewSchema.array(),
 			tour_link: z.string().url(),
 			photos: photoSchema.array(),
-			min_price: z.number(),
+			min_price: z.number().nullable(),
 		}),
 	)
 	.strict()

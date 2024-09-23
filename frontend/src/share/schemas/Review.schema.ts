@@ -7,7 +7,7 @@ const metaSchema = z.object({
 })
 
 const translateSchema = z.object({
-	text: z.string(),
+	text: z.string().nullable(),
 })
 
 const authorDataSchema = z.object({
