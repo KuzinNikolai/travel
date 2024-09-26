@@ -1,16 +1,20 @@
 // @ts-check
 
 import analyser from "@next/bundle-analyzer"
+import createMdx from "@next/mdx"
 import createNextIntlPlugin from "next-intl/plugin"
 
 const withBundleAnalyzer = analyser({
 	enabled: process.env.ANALYZE === "true",
 })
 
+const withMDX = createMdx()
+
 const withNextIntl = createNextIntlPlugin("./src/share/i18n/utils/intlUtils.ts")
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 	images: {
 		formats: ["image/avif", "image/webp"],
 		minimumCacheTTL: 60,
@@ -31,4 +35,4 @@ const nextConfig = {
 	},
 }
 
-export default withBundleAnalyzer(withNextIntl(nextConfig))
+export default withBundleAnalyzer(withMDX(withNextIntl(nextConfig)))
