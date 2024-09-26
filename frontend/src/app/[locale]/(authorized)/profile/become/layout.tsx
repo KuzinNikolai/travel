@@ -1,15 +1,13 @@
-import { defender } from "@share/packages/auth";
-import { notFound } from "next/navigation";
-import type { PropsWithChildren } from "react";
+import { defender } from "@share/packages/auth"
+import { redirect } from "next/navigation"
+import type { PropsWithChildren } from "react"
 
-export default async function BecomeFormLayout({
-	children,
-}: PropsWithChildren) {
-	const isStaff = await defender.isStaff();
+export default async function BecomeFormLayout({ children }: PropsWithChildren) {
+	const isStaff = await defender.isStaff()
 
-	if (!isStaff) {
-		notFound();
+	if (isStaff) {
+		redirect(".")
 	}
 
-	return children;
+	return children
 }

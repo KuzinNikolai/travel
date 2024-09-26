@@ -1,12 +1,14 @@
 import { defender } from "@share/packages/auth"
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 import type { PropsWithChildren } from "react"
+
+export const dynamic = "force-dynamic"
 
 export default async function AuthorizedLayout({ children }: PropsWithChildren) {
 	const isAuthorized = await defender.isAuthorized()
 
 	if (!isAuthorized) {
-		notFound()
+		redirect("/")
 	}
 
 	return children

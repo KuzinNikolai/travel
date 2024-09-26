@@ -18,7 +18,7 @@ const InfoItem: FC<InfoItemProps> & { Skeleton: typeof InfoItemSkeleton } = ({ t
 			variant='contentPrimary'
 			className='flex flex-col gap-sm p-sm'
 		>
-			<Typography as="span">{title}</Typography>
+			<Typography as='span'>{title}</Typography>
 			{typeof text === "string" ? (
 				<Typography
 					variant='contentLarge'

@@ -1,8 +1,9 @@
-import { getDetailTour } from "@entity/tour"
+import { getDetailTour, getTours } from "@entity/tour"
+import { sleep } from "@share/helpers"
 import { isErrorResponse } from "@share/packages/fetcher"
 import type { PagesProps } from "@share/types"
 import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
+import { unstable_setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { Header } from "./_components/Header"
 import { PreviewReviews } from "./_components/PreviewReviews"
@@ -14,8 +15,12 @@ import { TourInformation } from "./_components/TourInformation"
 import { ToutPrograms } from "./_components/TourPrograms"
 import { TourTake } from "./_components/TourTake"
 
+export const dynamicParams = true
+export const revalidate = 1600 // in seconds
+export const fetchCache = "force-cache"
+
 export default async function DetailTourPage({ params }: PagesProps) {
-	const t = await getTranslations()
+	unstable_setRequestLocale(params.locale)
 
 	const tour = await getDetailTour(params.tour)
 
@@ -72,4 +77,28 @@ export async function generateMetadata({ params }: PagesProps): Promise<Metadata
 		description: tour.description || "",
 		keywords: `Экскурсии ${tour.title}, ${tour.title}`,
 	}
+}
+
+export async function generateStaticParams({ params }: Omit<PagesProps<{ locale: string }>, "searchParams">) {
+	const tours = await getTours(params.locale)
+
+	if (isErrorResponse(tours)) {
+		return []
+	}
+
+	const arrayDetailTours = await Promise.all(
+		tours.map(async (tour) => {
+			await sleep(300)
+
+			const tourDetail = await getDetailTour(tour.slug)
+
+			return isErrorResponse(tourDetail) ? null : tour
+		}),
+	)
+
+	const tourSlugs = arrayDetailTours
+		.filter((tour) => !!tour)
+		.map((tour) => ({ locale: params.locale, city: tour.city, tour: tour.slug }))
+
+	return tourSlugs
 }

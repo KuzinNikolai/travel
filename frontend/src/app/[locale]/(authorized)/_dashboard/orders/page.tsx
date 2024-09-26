@@ -3,6 +3,8 @@ import { Section } from "@share/ui/Layout"
 import { getTranslations } from "next-intl/server"
 import { OrderList } from "./_components/OrderList"
 
+export const dynamic = "force-dynamic"
+
 export default async function SupplierOrders() {
 	const t = await getTranslations()
 

@@ -12,6 +12,8 @@ import { OrderPrice } from "./_components/OrderPrice"
 import { OrderTourInfo } from "./_components/OrderTourInfo"
 import { OrderTouristsInfo } from "./_components/OrderTouristsInfo"
 
+export const dynamic = "force-dynamic"
+
 export default async function DetailOrder({ params }: PagesProps) {
 	const { order: orderParam } = params
 

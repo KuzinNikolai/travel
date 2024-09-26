@@ -1,32 +1,24 @@
-"use client";
+"use client"
 
-import { cn } from "@share/packages/tailwindHelpers";
-import { type ComponentProps, type FC, useState } from "react";
-import type { Icon } from "../../Icon";
-import { RatingItem } from "./RatingItem";
+import { cn } from "@share/packages/tailwindHelpers"
+import { type ComponentProps, type FC, useState } from "react"
+import type { Icon } from "../../Icon"
+import { RatingItem } from "./RatingItem"
 
 interface InputRatingProps {
-	rating: number;
-	onBlur?: () => void;
-	onChange?: (rating: number) => void;
-	iconProps?: ComponentProps<typeof Icon>;
-	ratingMax?: number;
+	rating: number
+	onBlur?: () => void
+	onChange?: (rating: number) => void
+	iconProps?: ComponentProps<typeof Icon>
+	ratingMax?: number
 }
 
-export const InputRating: FC<InputRatingProps> = ({
-	rating,
-	ratingMax = 5,
-	iconProps,
-	onBlur,
-	onChange,
-}) => {
-	const [hover, setHover] = useState(0);
+export const InputRating: FC<InputRatingProps> = ({ rating, ratingMax = 5, iconProps, onBlur, onChange }) => {
+	const [hover, setHover] = useState(0)
 
 	return (
-		<fieldset className="flex items-center">
-			<legend className="sr-only absolute">
-				Please select your preferred contact method:
-			</legend>
+		<fieldset className='flex items-center'>
+			<legend className='sr-only absolute'>Please select your preferred contact method:</legend>
 			{[...Array(ratingMax)].map((_, i) => (
 				<RatingItem
 					currentPosition={rating}
@@ -35,8 +27,8 @@ export const InputRating: FC<InputRatingProps> = ({
 					key={i}
 					containerProps={{
 						onClick: () => {
-							onChange?.(i + 1);
-							onBlur?.();
+							onChange?.(i + 1)
+							onBlur?.()
 						},
 						onMouseEnter: () => setHover(i + 1),
 						onMouseLeave: () => setHover(0),
@@ -54,5 +46,5 @@ export const InputRating: FC<InputRatingProps> = ({
 				/>
 			))}
 		</fieldset>
-	);
-};
+	)
+}

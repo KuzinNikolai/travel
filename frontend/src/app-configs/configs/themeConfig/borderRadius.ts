@@ -1,11 +1,11 @@
-import { pxToRem } from "./utils";
+import { pxToRem } from "./utils"
 
 const borderRadius = {
 	full: "100%",
 	sm: `${pxToRem(5)}em`,
 	md: `${pxToRem(10)}em`,
-} as const;
+} as const
 
-type BorderRadius = typeof borderRadius;
+type BorderRadius = typeof borderRadius
 
-export { borderRadius, type BorderRadius };
+export { borderRadius, type BorderRadius }

@@ -48,7 +48,10 @@ export const StatisticReviews: FC<StatisticReviewsProps> = ({ id }) => {
 					</Typography>
 				</div>
 				<div className='flex justify-between'>
-					<Rating className="h-7 w-7" rating={reviewsTotalScore} />
+					<Rating
+						className='h-7 w-7'
+						rating={reviewsTotalScore}
+					/>
 					<WriteReviewForm tourId={id} />
 				</div>
 			</div>

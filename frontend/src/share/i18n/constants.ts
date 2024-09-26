@@ -19,4 +19,3 @@ const host = API_DOMAIN ? `https://${API_DOMAIN}` : `http://localhost:${port}`
 
 export { defaultLocale, defaultTZ, host, localePrefix, locales, pathnames }
 export type { DefaultLocale, Locales }
-

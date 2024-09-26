@@ -14,7 +14,7 @@ export function mergeRefs<T>(...inputRefs: (Ref<T> | undefined)[]): Ref<T> | Ref
 			if (typeof inputRef === "function") {
 				inputRef(ref)
 			} else if (inputRef) {
-				(inputRef as MutableRefObject<T | null>).current = ref
+				;(inputRef as MutableRefObject<T | null>).current = ref
 			}
 		}
 	}

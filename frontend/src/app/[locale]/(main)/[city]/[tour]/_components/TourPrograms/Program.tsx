@@ -3,50 +3,24 @@
 import { inter } from "@assets/fonts"
 import { useUser } from "@entity/user"
 import { useCreateOrderStore } from "@feature/order/createOrder"
-import { convertDurationToString } from "@share/packages/?_converter"
 import { ProgramTypeEnum, type DetailTour, type shareSchemas } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
 import { Icon } from "@share/ui/Icon"
 import { Drawer, DrawerFooter } from "@share/ui/Modals"
 import { Typography } from "@share/ui/Text"
 import { useAuthStore } from "@widget/Auth"
-import { daysToWeeks, weeksToDays } from "date-fns"
 import { useTranslations } from "next-intl"
 import { usePathname, useRouter } from "next/navigation"
 import type { FC } from "react"
+import { TourPrice } from "./ProgramPrice"
 
-interface IProgramProps {
+interface ProgramProps {
 	tourId: DetailTour["id"]
 	program: shareSchemas.Program
 	currency: string
 }
 
-interface PriceProps {
-	title: string
-	currency: string
-	price: number
-}
-
-const Price: FC<PriceProps> = ({ title, currency, price }) => {
-	return (
-		<Typography
-			variant='contentPrimary'
-			as='h3'
-			className='flex flex-nowrap gap-2 text-primary-400'
-		>
-			{title}:
-			<Typography
-				variant='contentPrimary'
-				className='text-primary'
-			>
-				{currency} {price}
-			</Typography>
-		</Typography>
-	)
-}
-
-export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) => {
-	const translateDuration = useTranslations("share.duration")
+export const TourProgram: FC<ProgramProps> = ({ program, tourId, currency }) => {
 	const t = useTranslations("components.tourProgram")
 
 	const {
@@ -71,22 +45,6 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 
 	const isIndividual =
 		program.type === ProgramTypeEnum.individual || (program.individual_price !== null && program.individual_price > 0)
-
-	const _customDuration = {
-		hour: 0,
-		day: 2,
-	}
-
-	// const duration =
-	// 	program.duration &&
-	// 	convertDurationToString(_customDuration, {
-	// 		hour: translateDuration("hour", { count: _customDuration.hour }),
-	// 		day: translateDuration("day", { count: weeksToDays(_customDuration.day) }),
-	// 		and: translateDuration("and"),
-	// 		// hour: translateDuration("hour", { count: program.duration.hour }),
-	// 		// day: translateDuration("day", { count: program.duration.day }),
-	// 		// week: translateDuration("week", { count: daysToWeeks(program.duration.day) }),
-	// 	})
 
 	return (
 		<li className='flex flex-col gap-md rounded-md bg-base-160 p-md'>
@@ -117,20 +75,20 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 			</Typography>
 			<div className='flex flex-col gap-1'>
 				{isIndividual ? (
-					<Price
+					<TourPrice
 						currency={currency}
 						title={t("type.individual")}
 						price={program.individual_price || 0}
 					/>
 				) : (
 					<>
-						<Price
+						<TourPrice
 							currency={currency}
 							title={t("price.adult")}
 							price={program.adult_price || 0}
 						/>
 						{(program.child_price || 0) > 0 && (
-							<Price
+							<TourPrice
 								currency={currency}
 								title={t("price.child")}
 								price={program.child_price || 0}
@@ -169,20 +127,20 @@ export const TourProgram: FC<IProgramProps> = ({ program, tourId, currency }) =>
 					</Typography>
 					<div className='mt-6 flex flex-col gap-1'>
 						{isIndividual ? (
-							<Price
+							<TourPrice
 								currency={currency}
 								title={t("type.individual")}
 								price={program.individual_price || 0}
 							/>
 						) : (
 							<>
-								<Price
+								<TourPrice
 									currency={currency}
 									title={t("price.adult")}
 									price={program.adult_price || 0}
 								/>
 								{program.child_price && (
-									<Price
+									<TourPrice
 										currency={currency}
 										title={t("price.child")}
 										price={program.child_price}

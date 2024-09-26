@@ -1,6 +1,6 @@
-type SetTimer = typeof setTimeout;
-type CallbackId = ReturnType<SetTimer>;
-type CallbackTimeout = Exclude<Parameters<SetTimer>[1], undefined>;
+type SetTimer = typeof setTimeout
+type CallbackId = ReturnType<SetTimer>
+type CallbackTimeout = Exclude<Parameters<SetTimer>[1], undefined>
 
 /**
  * @description
@@ -16,18 +16,15 @@ type CallbackTimeout = Exclude<Parameters<SetTimer>[1], undefined>;
  * @example
  *
  */
-export function createDebounce<T extends unknown[]>(
-  cb: (...args: T) => void,
-  timeout: CallbackTimeout
-) {
-  let timeoutId: CallbackId | null = null;
+export function createDebounce<T extends unknown[]>(cb: (...args: T) => void, timeout: CallbackTimeout) {
+	let timeoutId: CallbackId | null = null
 
-  const debounceEffect = (...arr: T) => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-    timeoutId = setTimeout(() => cb(...arr), timeout);
-  };
+	const debounceEffect = (...arr: T) => {
+		if (timeoutId) {
+			clearTimeout(timeoutId)
+		}
+		timeoutId = setTimeout(() => cb(...arr), timeout)
+	}
 
-  return debounceEffect;
+	return debounceEffect
 }

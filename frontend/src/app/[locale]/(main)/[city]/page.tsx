@@ -1,19 +1,26 @@
-import { getDetailCity } from "@entity/city"
+import { getAllCities, getDetailCity } from "@entity/city"
 import { TourPreviewCard } from "@entity/tour"
+import { sleep } from "@share/helpers"
 import { isErrorResponse } from "@share/packages/fetcher"
+import { print } from "@share/packages/logger"
 import type { PagesProps } from "@share/types"
 import { Container, Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
 import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
 import type { Metadata } from "next"
-import { getLocale, getTranslations } from "next-intl/server"
+import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 
-export default async function ToursInCityPage({ params }: PagesProps) {
-	const t = await getTranslations()
-	const locale = await getLocale()
+export const dynamicParams = true
+export const revalidate = 3200 // in seconds
+export const fetchCache = "force-cache"
 
-	const city = await getDetailCity(params.city, locale)
+export default async function ToursInCityPage({ params }: PagesProps) {
+	unstable_setRequestLocale(params.locale)
+
+	const t = await getTranslations()
+
+	const city = await getDetailCity(params.city)
 
 	if (isErrorResponse(city)) {
 		notFound()
@@ -57,4 +64,14 @@ export async function generateMetadata({ params }: PagesProps): Promise<Metadata
 		description: city.description || "",
 		keywords: `Экскурсии в ${city.name}, ${city.name}, Город ${city.name}`,
 	}
+}
+
+export async function generateStaticParams({ params }: Omit<PagesProps<{ locale: string }>, "searchParams">) {
+	const cities = await getAllCities(params.locale)
+
+	if (isErrorResponse(cities)) {
+		return []
+	}
+
+	return cities.map((city) => ({ city: city.slug }))
 }

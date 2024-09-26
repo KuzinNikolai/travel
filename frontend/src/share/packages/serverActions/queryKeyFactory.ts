@@ -16,12 +16,12 @@ const share = {
 	countries: () => ["countries"],
 	countryList: () => ["countries", "list"],
 	detailCountry: (countrySlug: string) => ["countries", countrySlug],
-	
+
 	cities: () => ["cities"],
 	city: (id: number) => ["cities", id.toString()],
 	cityList: () => ["cities", "list"],
 	detailCity: (citySlug: string) => ["cities", citySlug],
-	
+
 	tours: () => ["tours"],
 	detailTour: (tourSlug: string) => ["tours", tourSlug],
 	reviewListByTour: (tourId: number) => [`reviews-${tourId.toString()}`],

@@ -25,7 +25,7 @@ const ListItemSkeleton: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props 
 		className={cn("grid grid-cols-2 items-center justify-between", props.className)}
 	>
 		<Skeleton className='h-6 w-1/2' />
-		<div className="flex w-full justify-end">{children}</div>
+		<div className='flex w-full justify-end'>{children}</div>
 	</div>
 )
 ListItem.Skeleton = ListItemSkeleton

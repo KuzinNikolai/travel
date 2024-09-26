@@ -1,3 +1,3 @@
-"use client";
+"use client"
 
-export { VerificationForm } from "./ui/VerificationForm";
+export { VerificationForm } from "./ui/VerificationForm"

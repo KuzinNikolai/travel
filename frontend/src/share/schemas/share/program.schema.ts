@@ -7,21 +7,20 @@ const translateSchema = z.object({
 	description: z.string(),
 })
 
-export const programSchema = translateSchema
-	.extend({
-		id: z.number().int(),
+export const programSchema = translateSchema.extend({
+	id: z.number().int(),
 
-		type: z.nativeEnum(ProgramTypeEnum),
+	type: z.nativeEnum(ProgramTypeEnum),
 
-		group_size: z.number().nullable(),
-		duration: durationSchema,
+	group_size: z.number().nullable(),
+	duration: durationSchema,
 
-		adult_price: z.number().nullable(),
-		child_price: z.number().nullable(),
-		individual_price: z.number().nullable(),
-		promotion_price: z.number().nullable(),
+	adult_price: z.number().nullable(),
+	child_price: z.number().nullable(),
+	individual_price: z.number().nullable(),
+	promotion_price: z.number().nullable(),
 
-		translations: z.record(translateSchema),
-	})
+	translations: z.record(translateSchema),
+})
 
 export type Program = z.infer<typeof programSchema>

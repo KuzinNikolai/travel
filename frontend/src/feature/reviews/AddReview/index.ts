@@ -1,5 +1,5 @@
-export * from "./model/schema";
+export * from "./model/schema"
 
-export * from "./model/lib/hooks/useAddReview";
+export * from "./model/lib/hooks/useAddReview"
 
-export * from "./ui/AddReviewForm";
+export * from "./ui/AddReviewForm"

@@ -1,4 +1,4 @@
-import { SupplierOrderItem } from "@entity/order";
+import { SupplierOrderItem } from "@entity/order"
 
 export function OrderListSkeleton() {
 	return (

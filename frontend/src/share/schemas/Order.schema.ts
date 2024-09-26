@@ -9,7 +9,7 @@ export const orderSchema = z
 
 		country_name: z.string(),
 		city_name: z.string(),
-		
+
 		tour: z.number(),
 		tour_title: z.string(),
 

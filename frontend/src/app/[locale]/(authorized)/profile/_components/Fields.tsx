@@ -1,69 +1,20 @@
 "use client"
 
-import { useLogout } from "@feature/auth/logout"
 import type { User } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
-import { Typography } from "@share/ui/Text"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import type { FC, PropsWithChildren } from "react"
-
-const FieldItem: FC<PropsWithChildren> = ({ children }) => {
-	return (
-		<li className='after:block after:h-[1px] after:w-full after:bg-base-140 [&>div]:py-4 [&>div]:first-of-type:pt-none'>
-			{children}
-		</li>
-	)
-}
-
-interface FieldItemWithEditProps {
-	title: string
-	value: string
-	isEditable: boolean
-}
-
-const FieldItemWithEdit: FC<FieldItemWithEditProps> = ({ title, value, isEditable }) => {
-	const t = useTranslations("pages.profile")
-
-	return (
-		<FieldItem>
-			<div className='flex justify-between gap-sm'>
-				<div className='flex flex-1 flex-col gap-sm'>
-					<Typography
-						variant='contentPrimary'
-						className='text-primary-400'
-					>
-						{title}
-					</Typography>
-					<Typography
-						variant='h6'
-						className='text-primary-400'
-					>
-						{value}
-					</Typography>
-				</div>
-				{isEditable && (
-					<Button
-						variant='ghost'
-						className='text-primary-50'
-						asChild
-					>
-						<Link href='/profile/edit'>{t("actions.add")}</Link>
-					</Button>
-				)}
-			</div>
-		</FieldItem>
-	)
-}
+import type { FC } from "react"
+import { FieldItem } from "./FieldItem"
+import { FieldItemWithEdit } from "./FieldWithEditButton"
+import { LogoutField } from "./LogoutField"
 
 interface FieldsProps {
 	user: User
 }
 
 export const Fields: FC<FieldsProps> = ({ user }) => {
-	const t = useTranslations("pages.profile")
-
-	const logout = useLogout()
+	const t = useTranslations()
 
 	const isStaff = user.is_staff
 	const fullNameExists = !!user.first_name && !!user.last_name
@@ -73,13 +24,13 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 			{isStaff && (
 				<FieldItemWithEdit
 					title='Описание'
-					value={user.description || "Описание не указано"}
+					value={user.description || t("pages.profile.errors.emptyDescription")}
 					isEditable={!user.description}
 				/>
 			)}
 			<FieldItemWithEdit
-				title={t("fields.fullName.title")}
-				value={fullNameExists ? `${user.first_name} ${user.last_name}` : t("fields.fullName.placeholder")}
+				title={t("pages.profile.fields.fullName.title")}
+				value={fullNameExists ? `${user.first_name} ${user.last_name}` : t("pages.profile.fields.fullName.placeholder")}
 				isEditable={!fullNameExists}
 			/>
 			{!isStaff && (
@@ -89,7 +40,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 						className='!justify-start !py-6 w-full rounded-none'
 						asChild
 					>
-						<Link href='/profile/become/info'>{t("actions.become")}</Link>
+						<Link href='/profile/become'>{t("pages.profile.actions.become")}</Link>
 					</Button>
 				</FieldItem>
 			)}
@@ -100,7 +51,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 						className='!justify-start !py-6 w-full rounded-none'
 						asChild
 					>
-						<Link href='/orders'>{t("actions.orders")}</Link>
+						<Link href='/orders'>{t("pages.profile.actions.orders")}</Link>
 					</Button>
 				</FieldItem>
 			)}
@@ -110,18 +61,10 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 					variant='ghost'
 					className='!justify-start !py-6 w-full rounded-none'
 				>
-					{t("actions.support")}
+					{t("pages.profile.actions.support")}
 				</Button>
 			</FieldItem>
-			<FieldItem>
-				<Button
-					variant='ghost'
-					onClick={() => logout.mutateAsync({})}
-					className='!justify-start !py-6 w-full rounded-none text-danger'
-				>
-					{t("actions.logout")}
-				</Button>
-			</FieldItem>
+			<LogoutField />
 		</ul>
 	)
 }

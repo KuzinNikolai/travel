@@ -2,13 +2,19 @@ import { siteConfig } from "@app/configs/siteConfig"
 import { getLang } from "@app/provider/modules/i18n/getLang"
 import type { PagesProps } from "@share/types"
 import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server"
 import { Advantages } from "./_components/Advantages"
 import { Header } from "./_components/Header"
 import { PopularCities } from "./_components/PopularCities"
 import { PopularTours } from "./_components/PopularTours"
+import { i18nConfig } from "@share/i18n"
 
-export default async function Index() {
+export const revalidate = 1600 // in seconds
+export const fetchCache = "force-cache"
+
+export default async function MainPage({ params }: PagesProps) {
+	unstable_setRequestLocale(params.locale)
+
 	return (
 		<>
 			<Header />
@@ -56,4 +62,8 @@ export async function generateMetadata({ params }: PagesProps): Promise<Metadata
 			locale: lang,
 		},
 	}
+}
+
+export async function generateStaticParams() {
+	return i18nConfig.locales.map((locale) => ({ locale }))
 }

@@ -75,45 +75,10 @@
 	},
 	"pages": {
 		"become": {
+			"title": "Become a guide",
 			"becomeAction": "Offer your tour",
-			"content": {
-				"aboutUs": {
-					"description": "GetTrip is an innovative platform where travelers can easily find and book tours and excursions from local guides and companies. \nJoin our dynamic community of travel enthusiasts, share your knowledge, meet interesting people and earn money doing what you love! \nGetTrip helps you explore new horizons, creating unforgettable experiences for you and your guests",
-					"title": "GetTrip - Online service for finding excursions and tours"
-				},
-				"howToOfferYourTour": {
-					"call": {
-						"description": "We will hold a call to discuss key ideas, the content of the excursion and terms of cooperation",
-						"title": "Call"
-					},
-					"postingOnWebsite": {
-						"description": "We will create a description of the excursion that will attract the attention of clients as much as possible, and publish the information on our website for maximum accessibility",
-						"title": "Posting on the site"
-					},
-					"sendingTour": {
-						"description": "We place special emphasis on a clear tour concept that reflects your unique perspective on the city, tour location",
-						"title": "Departure of the tour"
-					},
-					"title": "How to propose your own excursion?"
-				},
-				"howWeAreWorking": {
-					"freePlacement": {
-						"description": "We carefully select excursions, publishing only those that meet current demand",
-						"title": "Posting your offers on our website is free"
-					},
-					"partnership": "We invest money in promoting excursions, and you are responsible for their implementation",
-					"salesCommission": {
-						"description": "We take a commission of 20% of the cost of each excursion order",
-						"title": "Commission from the sale of your excursions"
-					},
-					"title": "How do we work?"
-				},
-				"whoCanJoin": {
-					"description": "We invite both professional guides and amateurs who know their city and are passionate about conducting excursions. \nJoin us and share your passion and knowledge to create unique and memorable excursions and tours",
-					"title": "Who can become a guide?"
-				}
-			},
 			"form": {
+				"title": "Select the country and city of your excursion and telephone number for contact",
 				"fields": {
 					"city": {
 						"loading": "Loading cities...",
@@ -127,10 +92,8 @@
 					},
 					"phone": "Phone number",
 					"submit": "Send a request"
-				},
-				"title": "Select the country and city of your excursion and telephone number for contact"
-			},
-			"title": "Become a guide"
+				}
+			}
 		},
 		"cityTours": {
 			"emptyTours": "No excursions have been added to this {city}",

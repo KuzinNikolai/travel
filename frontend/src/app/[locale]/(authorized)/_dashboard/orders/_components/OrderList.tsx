@@ -17,7 +17,7 @@ export const OrderList = async () => {
 		notFound()
 	}
 
-	const orders = await getAllOrders() || []
+	const orders = (await getAllOrders()) || []
 
 	return (
 		<ul className='flex flex-col gap-sm'>

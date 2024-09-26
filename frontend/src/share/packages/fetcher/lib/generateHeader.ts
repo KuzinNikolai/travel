@@ -3,5 +3,5 @@ export function generateHeader(customHeaders?: HeadersInit, token?: string) {
 		"Content-Type": "application/json",
 		...(token && { Authorization: `Token ${token}` }),
 		...customHeaders,
-	};
+	}
 }

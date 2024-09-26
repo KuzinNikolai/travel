@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 export enum RegistrationSteps {
 	FirstInfo = 0,
@@ -7,14 +7,14 @@ export enum RegistrationSteps {
 }
 
 type FormState = {
-	currentStep: RegistrationSteps;
-};
-
-interface Setters {
-	setStep: (step: RegistrationSteps) => void;
+	currentStep: RegistrationSteps
 }
 
-type Store = FormState & Setters;
+interface Setters {
+	setStep: (step: RegistrationSteps) => void
+}
+
+type Store = FormState & Setters
 
 export const useRegistrationStepsStore = create(
 	persist<Store>(
@@ -25,4 +25,4 @@ export const useRegistrationStepsStore = create(
 		}),
 		{ name: "registration-steps" },
 	),
-);
+)

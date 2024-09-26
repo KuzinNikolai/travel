@@ -75,44 +75,8 @@
 	},
 	"pages": {
 		"become": {
+			"title": "Conviértete en una guía",
 			"becomeAction": "Ofrece tu tour",
-			"content": {
-				"aboutUs": {
-					"description": "GetTrip es una plataforma innovadora donde los viajeros pueden encontrar y reservar fácilmente tours y excursiones de guías y empresas locales. \n¡Únase a nuestra dinámica comunidad de entusiastas de los viajes, comparta sus conocimientos, conozca gente interesante y gane dinero haciendo lo que ama! \nGetTrip te ayuda a explorar nuevos horizontes, creando experiencias inolvidables para ti y tus invitados.",
-					"title": "GetTrip: servicio online para buscar excursiones y tours"
-				},
-				"howToOfferYourTour": {
-					"call": {
-						"description": "Realizaremos una convocatoria para discutir ideas clave, el contenido de la excursión y las condiciones de cooperación.",
-						"title": "Llamar"
-					},
-					"postingOnWebsite": {
-						"description": "Crearemos una descripción de la excursión que atraerá la atención de los clientes tanto como sea posible y publicaremos la información en nuestro sitio web para una máxima accesibilidad.",
-						"title": "Publicar en el sitio"
-					},
-					"sendingTour": {
-						"description": "Ponemos especial énfasis en un concepto de recorrido claro que refleje su perspectiva única de la ciudad y la ubicación del recorrido.",
-						"title": "Salida del recorrido"
-					},
-					"title": "¿Cómo proponer tu propia excursión?"
-				},
-				"howWeAreWorking": {
-					"freePlacement": {
-						"description": "Seleccionamos cuidadosamente las excursiones, publicando sólo aquellas que satisfacen la demanda actual.",
-						"title": "Publicar tus ofertas en nuestra web es gratuito"
-					},
-					"title": "¿Cómo trabajamos?",
-					"partnership": "Invertimos dinero en la promoción de excursiones y usted es responsable de su implementación.",
-					"salesCommission": {
-						"description": "Nos llevamos una comisión del 20% del coste de cada pedido de excursión.",
-						"title": "Comisión por la venta de tus excursiones"
-					}
-				},
-				"whoCanJoin": {
-					"description": "Invitamos tanto a guías profesionales como a aficionados que conozcan su ciudad y les apasione realizar excursiones. \nÚnase a nosotros y comparta su pasión y conocimiento para crear excursiones y tours únicos y memorables.",
-					"title": "¿Quién puede convertirse en guía?"
-				}
-			},
 			"form": {
 				"fields": {
 					"city": {
@@ -129,8 +93,7 @@
 					"submit": "Enviar una solicitud"
 				},
 				"title": "Seleccione el país y ciudad de su excursión y número de teléfono de contacto"
-			},
-			"title": "Conviértete en una guía"
+			}
 		},
 		"cityTours": {
 			"emptyTours": "No se han agregado excursiones a esta {ciudad}",

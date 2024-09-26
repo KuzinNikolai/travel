@@ -16,7 +16,7 @@ export function useLogin() {
 		onSuccess: () => {
 			if (__DEV__) {
 				print.info("Login success")
-				toast({ title: "Успешно вход в систему", })
+				toast({ title: "Успешно вход в систему" })
 			}
 
 			queryClient.invalidateQueries({ queryKey: queryKeyFactory.user() })

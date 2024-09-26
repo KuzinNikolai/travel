@@ -15,7 +15,7 @@ export async function getAllOrders() {
 	if (memoOrders.hasMemoized(token)) {
 		return memoOrders.get(token) || []
 	}
-	
+
 	const orders = await serverFetcher({
 		name: "getAllOrders",
 		url: `${API_DOMAIN}/${await getLocale()}/api/v1/my_orders`,

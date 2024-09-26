@@ -1,45 +1,37 @@
-"use client";
+"use client"
 
-import { LoginForm } from "@feature/auth/login";
-import { RegistrationForm } from "@feature/auth/registration";
-import { Button } from "@share/ui/Buttons";
-import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-} from "@share/ui/Modals";
-import { Typography } from "@share/ui/Text";
-import { useCallback, useState } from "react";
-import { useAuthStore } from "../model/useAuthStore";
+import { LoginForm } from "@feature/auth/login"
+import { RegistrationForm } from "@feature/auth/registration"
+import { Button } from "@share/ui/Buttons"
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@share/ui/Modals"
+import { Typography } from "@share/ui/Text"
+import { useCallback, useState } from "react"
+import { useAuthStore } from "../model/useAuthStore"
 
 export const Auth = () => {
-	const { auth, setExpand } = useAuthStore();
-	const [tab, setTab] = useState<"login" | "registration">("login");
+	const { auth, setExpand } = useAuthStore()
+	const [tab, setTab] = useState<"login" | "registration">("login")
 
-	const onOpenChange = (open: boolean) => !open && setExpand(false);
-	const onClose = useCallback(() => setExpand(false), []);
+	const onOpenChange = (open: boolean) => !open && setExpand(false)
+	const onClose = useCallback(() => setExpand(false), [])
 
 	return (
-		<Dialog open={auth} onOpenChange={onOpenChange}>
+		<Dialog
+			open={auth}
+			onOpenChange={onOpenChange}
+		>
 			<DialogContent>
 				<DialogHeader>
-					<Typography variant="h1">
-						{tab === "login" ? "Вход" : "Регистрация"}
-					</Typography>
+					<Typography variant='h1'>{tab === "login" ? "Вход" : "Регистрация"}</Typography>
 				</DialogHeader>
-				{tab === "login" ? (
-					<LoginForm onFinish={onClose} />
-				) : (
-					<RegistrationForm onFinish={onClose} />
-				)}
-				<DialogFooter className="items-center justify-start gap-1 sm:justify-start">
+				{tab === "login" ? <LoginForm onFinish={onClose} /> : <RegistrationForm onFinish={onClose} />}
+				<DialogFooter className='items-center justify-start gap-1 sm:justify-start'>
 					{tab === "login" ? (
 						<>
 							<Typography>У вас нет аккаунта?</Typography>
 							<Button
-								variant="ghost"
-								className="normal-case"
+								variant='ghost'
+								className='normal-case'
 								onClick={() => setTab("registration")}
 							>
 								Зарегистрироваться
@@ -49,8 +41,8 @@ export const Auth = () => {
 						<>
 							<Typography>Уже есть аккаунт?</Typography>
 							<Button
-								variant="ghost"
-								className="normal-case"
+								variant='ghost'
+								className='normal-case'
 								onClick={() => setTab("login")}
 							>
 								Войти
@@ -60,5 +52,5 @@ export const Auth = () => {
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-	);
-};
+	)
+}

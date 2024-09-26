@@ -1,14 +1,18 @@
 "use client"
 
 import type { FC } from "react"
-import { useBecomeStepsStore } from "./useBecomeSteps.store"
+import { useBecomeStore } from "./useBecomeStore"
 
 interface StepsProviderProps {
-	steps: [JSX.Element, JSX.Element]
+	info: JSX.Element
+	form: JSX.Element
 }
 
-export const StepsProvider: FC<StepsProviderProps> = ({ steps }) => {
-	const { currentStep } = useBecomeStepsStore()
+export const StepsProvider: FC<StepsProviderProps> = ({ info, form }) => {
+	const { currentStep } = useBecomeStore()
 
-	return steps.at(currentStep)
+	return {
+		0: info,
+		1: form,
+	}[currentStep]
 }

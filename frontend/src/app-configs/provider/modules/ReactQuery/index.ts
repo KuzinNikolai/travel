@@ -1,5 +1,5 @@
-import { ProviderClient } from './ProviderClient'
+import { ProviderClient } from "./ProviderClient"
 
 export const Query = {
-	Provider: ProviderClient
+	Provider: ProviderClient,
 }

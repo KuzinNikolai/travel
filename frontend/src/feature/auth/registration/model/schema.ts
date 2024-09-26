@@ -1,6 +1,6 @@
-import { userSchema } from "@share/schemas";
-import { passwordScheme } from "@share/schemas/share";
-import type { z } from "zod";
+import { userSchema } from "@share/schemas"
+import { passwordScheme } from "@share/schemas/share"
+import type { z } from "zod"
 
 export const registrationDataSchema = userSchema
 	.pick({
@@ -14,6 +14,6 @@ export const registrationDataSchema = userSchema
 		last_name: true,
 		age: true,
 	})
-	.extend({ password: passwordScheme });
+	.extend({ password: passwordScheme })
 
-export type RegistrationData = z.infer<typeof registrationDataSchema>;
+export type RegistrationData = z.infer<typeof registrationDataSchema>

@@ -27,7 +27,7 @@ export const OrderTouristsInfo: FC<OrderTouristsInfoProps> & { Skeleton: typeof 
 				variant='h6'
 				as='h2'
 			>
-				{t('pages.SupplierDetailOrder.sections.touristInfo')}
+				{t("pages.SupplierDetailOrder.sections.touristInfo")}
 			</Typography>
 			<ul className='mt-sm flex flex-col gap-2'>
 				<ListItem title={t("pages.SupplierDetailOrder.fields.fullName")}>

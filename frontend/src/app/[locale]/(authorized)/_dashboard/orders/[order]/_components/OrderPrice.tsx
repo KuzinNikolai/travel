@@ -24,7 +24,7 @@ export const OrderPrice: FC<Order> & { Skeleton: typeof OrderPriceSkeleton } = (
 				variant='h6'
 				as='h2'
 			>
-				{t('pages.SupplierDetailOrder.sections.infoPriceAndCounts')}
+				{t("pages.SupplierDetailOrder.sections.infoPriceAndCounts")}
 			</Typography>
 			<ul className='mt-sm flex flex-col gap-sm'>
 				<ListItem title={t("pages.SupplierDetailOrder.fields.transfer")}>
