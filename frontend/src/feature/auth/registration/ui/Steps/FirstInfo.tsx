@@ -1,6 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { __DEV__ } from "@share/constants/environment";
+import { print } from "@share/packages/logger";
 import { Button } from "@share/ui/Buttons";
 import {
 	Form,
@@ -11,37 +13,37 @@ import {
 	FormMessage,
 } from "@share/ui/Form";
 import { Input } from "@share/ui/Inputs";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-	type FirstInformation,
-	firstInfoSchema,
-} from "../../consts/stepsData.schema";
-import { useFormDataStore } from "../../model/formDataStore";
+import { useLoginDataStore } from "../../model/hooks/useLoginData";
+import { useRegistration } from "../../model/hooks/useRegistration";
 import {
 	RegistrationSteps,
-	useFormStepsStore,
-} from "../../model/formStepStore";
-import { useRegistration } from "../../model/useRegistration";
+	useRegistrationStepsStore,
+} from "../../model/hooks/useRegistrationSteps";
+import {
+	type RegistrationData,
+	registrationDataSchema,
+} from "../../model/schema";
 
 export const FirstInfo = () => {
-	const { setStep, currentStep } = useFormStepsStore();
-	const { setData } = useFormDataStore();
+	const t = useTranslations();
+
+	const { setStep, currentStep } = useRegistrationStepsStore();
+	const { setData } = useLoginDataStore();
 
 	const registration = useRegistration();
 
-	const form = useForm<FirstInformation>({
+	const form = useForm<RegistrationData>({
 		defaultValues: { email: "", password: "" },
-		resolver: zodResolver(firstInfoSchema),
+		resolver: zodResolver(registrationDataSchema),
 	});
 
-	const onSubmit = form.handleSubmit(async (data: FirstInformation) => {
+	const onSubmit = form.handleSubmit(async (data) => {
 		registration.mutateAsync({
 			email: data.email,
 			password: data.password,
-			first_name: "",
-			last_name: "",
-			age: null,
 		});
 
 		setData(data);
@@ -61,6 +63,19 @@ export const FirstInfo = () => {
 		form.setFocus("email");
 	}, [form]);
 
+	if (__DEV__) {
+		print.debug(
+			"Form state",
+			form.formState,
+			form.getValues(),
+			form.formState.errors,
+			{
+				isDirty: form.formState.isDirty,
+				isValid: form.formState.isValid,
+			},
+		);
+	}
+
 	return (
 		<Form {...form}>
 			<form onSubmit={onSubmit} className="space-y-3">
@@ -68,7 +83,7 @@ export const FirstInfo = () => {
 					name="email"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Почта</FormLabel>
+							<FormLabel>* {t("components.auth.fields.email")}</FormLabel>
 							<FormControl>
 								<Input type="text" {...field} required />
 							</FormControl>
@@ -80,7 +95,7 @@ export const FirstInfo = () => {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Пароль</FormLabel>
+							<FormLabel>* {t("components.auth.fields.password")}</FormLabel>
 							<FormControl>
 								<Input
 									type="password"
@@ -99,7 +114,7 @@ export const FirstInfo = () => {
 					disabled={!form.formState.isValid || registration.isPending}
 					className="w-full"
 				>
-					Зарегистрироваться
+					{t("components.auth.register.title")}
 				</Button>
 			</form>
 		</Form>

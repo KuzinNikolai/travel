@@ -1,1 +1,3 @@
-export { VerificationForm } from "./ui/VerificationForm"
+"use client";
+
+export { VerificationForm } from "./ui/VerificationForm";

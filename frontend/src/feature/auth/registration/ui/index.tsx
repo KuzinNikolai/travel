@@ -2,7 +2,10 @@
 
 import { useNoReload } from "@share/packages/reactHelpers";
 import { type FC, type ReactNode, useEffect } from "react";
-import { RegistrationSteps, useFormStepsStore } from "../model/formStepStore";
+import {
+	RegistrationSteps,
+	useRegistrationStepsStore,
+} from "../model/hooks/useRegistrationSteps";
 import { FirstInfo } from "./Steps/FirstInfo";
 import { VerifyCode } from "./Steps/VerifyCode";
 
@@ -11,7 +14,7 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
-	const { currentStep } = useFormStepsStore();
+	const { currentStep } = useRegistrationStepsStore();
 	const listenReload = useNoReload();
 
 	useEffect(() => {

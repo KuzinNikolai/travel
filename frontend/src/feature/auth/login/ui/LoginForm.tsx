@@ -1,4 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { __PROD__ } from "@share/constants/environment";
+import { print } from "@share/packages/logger";
 import { Button } from "@share/ui/Buttons";
 import {
 	Form,
@@ -9,17 +11,20 @@ import {
 	FormMessage,
 } from "@share/ui/Form";
 import { Input } from "@share/ui/Inputs";
+import { useTranslations } from "next-intl";
 import { type FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { useLogin } from "../model/hooks/useLogin";
-import { loginRequestSchema } from "../api/login";
+import { loginRequestSchema } from "../model/schema";
 
 interface LoginFormProps {
 	onFinish: () => void;
 }
 
 export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
+	const t = useTranslations();
+
 	const login = useLogin();
 
 	const form = useForm<z.infer<typeof loginRequestSchema>>({
@@ -28,6 +33,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 			password: "",
 		},
 		resolver: zodResolver(loginRequestSchema),
+		reValidateMode: "onBlur",
 	});
 
 	const onSubmit = form.handleSubmit(async (data) => {
@@ -38,9 +44,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 		if (login.isSuccess) onFinish();
 	}, [onFinish, login.isSuccess]);
 
-	useEffect(() => {
-		form.setFocus("email");
-	}, [form]);
+	const isDisableSubmitButton = !form.formState.isValid || login.isPending;
 
 	return (
 		<Form {...form}>
@@ -49,7 +53,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 					name="email"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Ваша почта</FormLabel>
+							<FormLabel>* {t("components.auth.fields.email")}</FormLabel>
 							<FormControl>
 								<Input type="email" {...field} required />
 							</FormControl>
@@ -61,7 +65,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Ваш пароль</FormLabel>
+							<FormLabel>* {t("components.auth.fields.password")}</FormLabel>
 							<FormControl>
 								<Input
 									type="password"
@@ -78,9 +82,9 @@ export const LoginForm: FC<LoginFormProps> = ({ onFinish }) => {
 					variant="primary"
 					className="w-full"
 					type="submit"
-					disabled={!form.formState.isValid || login.isPending}
+					disabled={isDisableSubmitButton}
 				>
-					Войти
+					{t("components.auth.login.title")}
 				</Button>
 			</form>
 		</Form>

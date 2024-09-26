@@ -1,27 +1,23 @@
-"use client"
+"use client";
 
-import { useLogin } from "@feature/auth/login"
-// import { useFormDataStore } from "@feature/registration/formDataStore"
-import { useServerActionMutation } from "@share/packages/serverActions"
-import { useToast } from "@share/ui/Popups"
-import { verifyAction } from "../api/verifyAction"
+import { __DEV__ } from "@share/constants/environment";
+import { useServerActionMutation } from "@share/packages/serverActions";
+import { useToast } from "@share/ui/Popups";
+import { verifyAction } from "../serverActions/verifyAction";
 
 export function useVerifyCode() {
-	const login = useLogin()
-
-	const { toast } = useToast()
-	// const { formData } = useFormDataStore()
+	const { toast } = useToast();
 
 	const mutation = useServerActionMutation(verifyAction, {
 		onSuccess: async () => {
+			if (__DEV__) {
+				return;
+			}
+
 			toast({
 				title: "Успех",
 				description: "Вы успешно подтвердили почту",
-			})
-
-			// if (formData) {
-			// 	await login.mutateAsync(formData)
-			// }
+			});
 		},
 		onError: (err) => {
 			switch (err.code) {
@@ -29,17 +25,17 @@ export function useVerifyCode() {
 					toast({
 						title: "Ошибка",
 						description: "На сервере при проверке кода произошла ошибка",
-					})
-					break
+					});
+					break;
 				}
 				default:
 					toast({
 						title: "Ошибка",
 						description: "При проверке кода произошла ошибка",
-					})
+					});
 			}
 		},
-	})
+	});
 
-	return mutation
+	return mutation;
 }

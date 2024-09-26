@@ -1,16 +1,13 @@
-import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { serverFetcher } from "@share/packages/fetcher"
-import { safeApi } from "@share/packages/safeApi"
-import { userSchema } from "@share/schemas"
-import { tokenSchema } from "@share/schemas/share"
-import { z } from "zod"
-
-export const loginRequestSchema = userSchema.pick({ email: true }).extend({ password: z.string().min(6) })
-type LoginRequest = z.infer<typeof loginRequestSchema>
+import { API_DOMAIN } from "@share/constants/API_DOMAIN";
+import { serverFetcher } from "@share/packages/fetcher";
+import { safeApi } from "@share/packages/safeApi";
+import { tokenSchema } from "@share/schemas/share";
+import { z } from "zod";
+import type { LoginRequest } from "../model/schema";
 
 const loginServerResponseSchema = z
 	.object({ auth_token: tokenSchema })
-	.or(z.object({ non_field_error: z.string().array() }))
+	.or(z.object({ non_field_error: z.string().array() }));
 
 enum LoginErrors {
 	INPUT_VALIDATION_ERROR = "INPUT_VALIDATION_ERROR",
@@ -26,17 +23,17 @@ export async function login(input: LoginRequest) {
 		init: {
 			body: safeApi.json.stringify(input),
 		},
-	})
+	});
 
 	if ("code" in data) {
-		return LoginErrors.INTERNAL_SERVER_ERROR
+		return LoginErrors.INTERNAL_SERVER_ERROR;
 	}
 
 	if ("non_field_error" in data) {
-		return LoginErrors.INPUT_VALIDATION_ERROR
+		return LoginErrors.INPUT_VALIDATION_ERROR;
 	}
 
-	return { token: data.auth_token }
+	return { token: data.auth_token };
 }
 
-login.errors = LoginErrors
+login.errors = LoginErrors;

@@ -17,12 +17,7 @@
 			"user": "Пользователь",
 			"admin": "Админ"
 		},
-		"phoneNumber": "Номер телефона",
-		"duration": {
-			"hour": "{count, plural, one {час} few {часа} many {часов} other {часа th}}",
-			"day": "{count, plural, one {день} few {дня} many {дней} other {дней th}}",
-			"and": "и"
-		}
+		"phoneNumber": "Номер телефона"
 	},
 	"components": {
 		"auth": {
@@ -34,7 +29,17 @@
 			"register": {
 				"title": "Зарегистрироваться",
 				"action": "зарегистрироваться",
-				"accountAlready": "У вас уже есть аккаунт?"
+				"accountAlready": "У вас уже есть аккаунт?",
+				"takeStepBack": "Перейти на этап регистрации"
+			},
+			"fields": {
+				"email": "Ваша почта",
+				"password": "Ваш пароль"
+			},
+			"verify": {
+				"sendedCode": "Код подтверждения отправлен на почту <email>не указана</email>, если это не правильная почта вы можете вернуться на 1 этап.",
+				"code": "Код",
+				"message": "Проверьте почту на код подтверждения. Если его нет, посмотрите в папке <span>спам<span>."
 			}
 		},
 		"searchTour": {
