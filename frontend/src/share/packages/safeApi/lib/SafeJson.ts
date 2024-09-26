@@ -12,7 +12,7 @@ export class SafeJson {
 		return successData
 	}
 
-	static stringify(data: unknown, replace?: never, space?: number): string | undefined {
+	static stringify<Data>(data: Data, replace?: never, space?: number): string | undefined {
 		const { success, data: successData, error } = safe(() => JSON.stringify(data, replace, space))
 
 		if (!success) {

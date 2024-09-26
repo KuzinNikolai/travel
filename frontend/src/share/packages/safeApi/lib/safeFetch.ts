@@ -4,10 +4,10 @@ import { safe } from "../safe"
 type Fetch = typeof fetch
 type FetchArgs = Parameters<Fetch>
 type FetchResult = ReturnType<Fetch>
-type FetchFunc = (url: FetchArgs[0], init?: FetchArgs[1]) => Promise<Awaited<FetchResult> | undefined>
+type FetchFunc = (url: FetchArgs[0], init?: FetchArgs[1], err?: string) => Promise<Awaited<FetchResult> | undefined>
 
-export const safeFetch: FetchFunc = async (url, init) => {
-	const { success, data, error } = await safe(fetch(url, init))
+export const safeFetch: FetchFunc = async (url, init, err) => {
+	const { success, data, error } = await safe(fetch(url, init), err)
 
 	if (!success) {
 		print.error("[safeFetch - error]", url, error)
