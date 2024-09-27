@@ -98,7 +98,8 @@
 		"cityTours": {
 			"emptyTours": "No se han agregado excursiones a esta {ciudad}",
 			"meta": {
-				"keywords": "Excursiones a {ciudad}, {ciudad}, Ciudad {ciudad, cadena}"
+				"keywords": "Excursiones a {ciudad}, {ciudad}, Ciudad {ciudad, cadena}",
+				"title": "Excursiones en {city}"
 			},
 			"title": "Excursiones en {ciudad}"
 		},
@@ -121,7 +122,8 @@
 			},
 			"meta": {
 				"keywords": "Descripción detallada {tourName}, {tourName}, {ciudad}, Ciudad {ciudad}",
-				"title": "Excursión {tourName} a {ciudad}"
+				"title": "Excursión {tourName} a {ciudad}",
+				"category": "Excursiones"
 			},
 			"notIncluded": "No incluido",
 			"previewTour": {
@@ -144,7 +146,10 @@
 			"userPolicy": "Política de uso"
 		},
 		"detailTourReviews": {
-			"title": "Opiniones de viajeros"
+			"title": "Opiniones de viajeros",
+			"meta": {
+				"title": "Reseñas del tour {tourName}"
+			}
 		},
 		"mainPage": {
 			"advantages": {
@@ -174,7 +179,8 @@
 			},
 			"description": "Página de inicio con ciudades populares, tours y nuestras ventajas.",
 			"keywords": "tours, países, ciudades",
-			"title": "pagina de inicio"
+			"title": "pagina de inicio",
+			"category": "recorridos"
 		},
 		"orderTour": {
 			"fields": {
@@ -187,7 +193,10 @@
 				"numberOfAdults": "Número de adultos"
 			},
 			"submit": "Enviar un pedido",
-			"title": "Ordenar una excursión"
+			"title": "Ordenar una excursión",
+			"meta": {
+				"title": "Solicitar una excursión {tour}"
+			}
 		},
 		"profile": {
 			"actions": {
@@ -221,6 +230,9 @@
 				"email": "Correo electrónico",
 				"guideIn": "Guía en {país}",
 				"userName": "Nombre de usuario"
+			},
+			"errors": {
+				"emptyDescription": "Descripción no especificada"
 			}
 		},
 		"wishlist": {
@@ -260,6 +272,15 @@
 				"ordersEmpty": "Nadie ha realizado un pedido todavía"
 			},
 			"title": "Órdenes de guía"
+		},
+		"dashboard": {
+			"meta": {
+				"description": "Panel de control para la gestión de tours.",
+				"title-template": "Panel de control"
+			}
+		},
+		"supplierTours": {
+			"title": "Visitas guiadas"
 		}
 	},
 	"share": {
@@ -284,5 +305,9 @@
 	},
 	"errors": {
 		"touristNotFound": "Se produjo un error y no se encontró al turista."
+	},
+	"meta": {
+		"abstract": "Un sitio para registrarse y reservar excursiones en ciudades de todo el mundo.",
+		"keywords": "Reservas, excursiones, turismo, programas turísticos, tours, programas, programas de turismo, programas de excursiones, guía, guías, guía de la ciudad, guía de excursiones, gettrip.co, agencia gettrip"
 	}
 }

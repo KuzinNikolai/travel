@@ -1,9 +1,11 @@
+import { siteConfig } from "@app/configs/siteConfig"
 import { getDetailTour, getTours } from "@entity/tour"
 import { sleep } from "@share/helpers"
+import { i18nConfig } from "@share/i18n"
 import { isErrorResponse } from "@share/packages/fetcher"
 import type { PagesProps } from "@share/types"
-import type { Metadata } from "next"
-import { unstable_setRequestLocale } from "next-intl/server"
+import type { Metadata, ResolvingMetadata } from "next"
+import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { Header } from "./_components/Header"
 import { PreviewReviews } from "./_components/PreviewReviews"
@@ -65,20 +67,6 @@ export default async function DetailTourPage({ params }: PagesProps) {
 	)
 }
 
-export async function generateMetadata({ params }: PagesProps): Promise<Metadata> {
-	const tour = await getDetailTour(params.tour)
-
-	if (isErrorResponse(tour)) {
-		return {}
-	}
-
-	return {
-		title: `Экскурсия ${tour.title} в городе ${tour.city}`,
-		description: tour.description || "",
-		keywords: `Экскурсии ${tour.title}, ${tour.title}`,
-	}
-}
-
 export async function generateStaticParams({ params }: Omit<PagesProps<{ locale: string }>, "searchParams">) {
 	const tours = await getTours(params.locale)
 
@@ -101,4 +89,50 @@ export async function generateStaticParams({ params }: Omit<PagesProps<{ locale:
 		.map((tour) => ({ locale: params.locale, city: tour.city, tour: tour.slug }))
 
 	return tourSlugs
+}
+
+export async function generateMetadata({ params }: PagesProps, parent: ResolvingMetadata): Promise<Metadata> {
+	const locale = await getLocale()
+	const t = await getTranslations()
+
+	const tour = await getDetailTour(params.tour)
+
+	if (isErrorResponse(tour)) {
+		return {}
+	}
+
+	return {
+		title: t("pages.detailTour.meta.title", { tourName: tour.title, city: tour.city }),
+		description: tour.meta_desc,
+		category: t("pages.detailTour.meta.category"),
+		keywords: t("pages.cityTours.meta.keywords", { tourName: tour.title, city: tour.city }),
+		alternates: {
+			canonical: `/${locale}/${params.city}`,
+			languages: Object.fromEntries(
+				i18nConfig.locales.map((locale) => [`${locale}`, `/${locale}/${tour.city_slug}/${tour.slug}`]),
+			),
+		},
+		openGraph: {
+			...(await parent).openGraph,
+			type: "website",
+			url: `${siteConfig.origin}/${params.locale}/${params.city}/${tour.slug}`,
+			ttl: 30,
+			title: t("pages.mainPage.title"),
+			description: t("pages.mainPage.description"),
+			images: [
+				{
+					url: tour.photo,
+					alt: tour.photo_alt || "",
+					width: 1200,
+					height: 630,
+				},
+				...tour.photos.map((photo) => ({
+					url: photo.image,
+					alt: tour.photo_alt || "",
+					width: 1200,
+					height: 630,
+				})),
+			].filter(Boolean),
+		},
+	}
 }

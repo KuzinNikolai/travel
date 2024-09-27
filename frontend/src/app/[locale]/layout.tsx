@@ -9,18 +9,7 @@ import type { PagesProps } from "@share/types"
 import { Toaster } from "@share/ui/Popups"
 import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
-import { unstable_setRequestLocale } from "next-intl/server"
-
-export const metadata: Metadata = {
-	title: {
-		default: siteConfig.name,
-		template: `%s - ${siteConfig.name}`,
-	},
-	description: siteConfig.description,
-	icons: {
-		icon: "/favicon.ico",
-	},
-}
+import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server"
 
 interface RootLayoutProps {
 	params: PagesProps["params"]
@@ -53,4 +42,47 @@ export default async function RootLayout({ params, children }: RootLayoutProps) 
 
 export function generateStaticParams() {
 	return i18nConfig.locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations()
+	const locale = await getLocale()
+
+	return {
+		title: {
+			default: siteConfig.name,
+			template: `%s - ${siteConfig.name}`,
+		},
+		description: siteConfig.description,
+		abstract: t("meta.abstract"),
+		keywords: t("meta.keywords"),
+		robots: {
+			index: true,
+			follow: true,
+		},
+		openGraph: {
+			type: "website",
+			ttl: 10,
+			alternateLocale: i18nConfig.locales.join(", "),
+			locale,
+			url: "/",
+			siteName: siteConfig.name,
+			title: siteConfig.name,
+			description: siteConfig.description,
+			images: [
+				{
+					url: "/logo.png",
+					width: 256,
+					height: 256,
+					alt: siteConfig.name,
+				},
+			],
+		},
+		icons: {
+			icon: "/favicon.ico",
+		},
+		category: "booking",
+		referrer: "origin-when-cross-origin",
+		creator: siteConfig.creator,
+	}
 }

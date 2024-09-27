@@ -1,13 +1,13 @@
+import { siteConfig } from "@app/configs/siteConfig"
 import { getAllCities, getDetailCity } from "@entity/city"
 import { TourPreviewCard } from "@entity/tour"
-import { sleep } from "@share/helpers"
+import { i18nConfig } from "@share/i18n"
 import { isErrorResponse } from "@share/packages/fetcher"
-import { print } from "@share/packages/logger"
 import type { PagesProps } from "@share/types"
 import { Container, Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
 import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
-import type { Metadata } from "next"
+import type { Metadata, ResolvingMetadata } from "next"
 import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 
@@ -52,20 +52,6 @@ export default async function ToursInCityPage({ params }: PagesProps) {
 	)
 }
 
-export async function generateMetadata({ params }: PagesProps): Promise<Metadata> {
-	const city = await getDetailCity(params.city)
-
-	if (isErrorResponse(city)) {
-		return {}
-	}
-
-	return {
-		title: `Экскурсии в городе ${city.name}`,
-		description: city.description || "",
-		keywords: `Экскурсии в ${city.name}, ${city.name}, Город ${city.name}`,
-	}
-}
-
 export async function generateStaticParams({ params }: Omit<PagesProps<{ locale: string }>, "searchParams">) {
 	const cities = await getAllCities(params.locale)
 
@@ -74,4 +60,40 @@ export async function generateStaticParams({ params }: Omit<PagesProps<{ locale:
 	}
 
 	return cities.map((city) => ({ city: city.slug }))
+}
+
+export async function generateMetadata({ params }: PagesProps, parent: ResolvingMetadata): Promise<Metadata> {
+	const locale = await getLocale()
+	const t = await getTranslations()
+
+	const city = await getDetailCity(params.city)
+
+	if (isErrorResponse(city)) {
+		return {}
+	}
+
+	return {
+		title: t("pages.cityTours.meta.title", { city: city.name }),
+		description: city.description,
+		category: t("pages.mainPage.category"),
+		keywords: t("pages.cityTours.meta.keywords", { city: city.name }),
+		alternates: {
+			canonical: `/${locale}/${params.city}`,
+			languages: Object.fromEntries(i18nConfig.locales.map((locale) => [`${locale}`, `/${locale}/${params.city}`])),
+		},
+		openGraph: {
+			...(await parent).openGraph,
+			type: "website",
+			url: `${siteConfig.origin}/${params.city}`,
+			ttl: 20,
+			title: t("pages.mainPage.title"),
+			description: t("pages.mainPage.description"),
+			images: {
+				url: city.photo || "",
+				alt: city.photo_alt || "",
+				width: 1200,
+				height: 630,
+			},
+		},
+	}
 }

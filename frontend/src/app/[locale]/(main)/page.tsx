@@ -38,20 +38,14 @@ export async function generateMetadata({ params }: PagesProps): Promise<Metadata
 		robots: {
 			index: true,
 			"max-image-preview": "standard",
-			"max-snippet": -1,
-			"max-video-preview": -1,
 			follow: true,
 		},
-		category: "tours",
+		category: t("pages.mainPage.category"),
 		creator: siteConfig.creator,
 		keywords: t("pages.mainPage.keywords"),
 		alternates: {
 			canonical: "/",
-			languages: {
-				ru: "/ru",
-				en: "/en",
-				es: "/es",
-			},
+			languages: Object.fromEntries(i18nConfig.locales.map((locale) => [`/${locale}`, `/${locale}`])),
 		},
 		openGraph: {
 			type: "website",

@@ -2,7 +2,7 @@ import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import type { LocalePrefix, Pathnames } from "next-intl/routing"
 import type { getRequestConfig } from "next-intl/server"
 
-const locales = ["en", "ru", "es"] as const
+const locales = ["en", "ru", "es"]
 const defaultLocale = "ru" satisfies (typeof locales)[number]
 type Locales = typeof locales
 type DefaultLocale = typeof defaultLocale
