@@ -15,7 +15,7 @@ const outputSchema = z.promise(
 )
 
 export const isAuthorizedAction = createServerActionProcedure()
-	.input(z.void())
+	.input(z.void().or(z.record(z.unknown())))
 	.output(outputSchema)
 	.handler(async () => {
 		const clientCookies = cookies()

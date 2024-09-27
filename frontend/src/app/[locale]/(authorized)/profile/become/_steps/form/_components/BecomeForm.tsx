@@ -4,6 +4,7 @@ import { useGetCityList } from "@entity/city"
 import { useGetCountryList } from "@entity/country"
 import { type BecomeGuide, becomeGuideSchema, useBecomeGuide } from "@feature/becomeGuide"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { print } from "@share/packages/logger"
 import { Button } from "@share/ui/Buttons"
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { Icon } from "@share/ui/Icon"
@@ -18,6 +19,12 @@ export const BecomeForm = () => {
 	const t = useTranslations("pages.become.form")
 
 	const form = useForm<BecomeGuide>({
+		defaultValues: {
+			city: null,
+			country: null,
+			phone: null,
+		},
+		mode: "onBlur",
 		resolver: zodResolver(becomeGuideSchema),
 	})
 
@@ -27,7 +34,7 @@ export const BecomeForm = () => {
 	const cityListQuery = useGetCityList()
 
 	const handleSubmit = form.handleSubmit((data) => {
-		becomeGuide.mutate({ ...data })
+		becomeGuide.mutateAsync(data)
 	})
 
 	useEffect(() => {
@@ -129,6 +136,7 @@ export const BecomeForm = () => {
 						<FormItem>
 							<FormLabel>* {t("fields.phone")}</FormLabel>
 							<InputPhone {...field} />
+							<FormMessage />
 						</FormItem>
 					)}
 				/>

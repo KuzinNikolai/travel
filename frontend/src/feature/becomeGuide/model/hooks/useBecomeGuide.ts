@@ -1,8 +1,11 @@
+"use client"
+
 import { __DEV__ } from "@share/constants/environment"
 import { queryKeyFactory, useServerActionMutation } from "@share/packages/serverActions"
 import { useToast } from "@share/ui/Popups"
 import { useQueryClient } from "@tanstack/react-query"
-import { becomeGuideAction } from "../api/becomGuideAction"
+import { becomeGuideAction } from "../serverActions/becomeGuideAction"
+import { print } from "@share/packages/logger"
 
 export const useBecomeGuide = () => {
 	const queryClient = useQueryClient()
@@ -38,8 +41,14 @@ export const useBecomeGuide = () => {
 					break
 				}
 			}
+
+			if (__DEV__) {
+				print.error("[useBecomeGuide - mutation]", err)
+			}
 		},
 	})
+
+	print.debug("[useBecomeGuide - mutation]", mutation)
 
 	return mutation
 }

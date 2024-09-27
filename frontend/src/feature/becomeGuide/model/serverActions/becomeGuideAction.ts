@@ -5,17 +5,30 @@ import { API_DOMAIN } from "@share/constants/API_DOMAIN"
 import { isAuthorizedAction } from "@share/packages/auth"
 import { fetcher } from "@share/packages/fetcher"
 import { print } from "@share/packages/logger"
-import { safeApi } from "@share/packages/safeApi"
+import { safe, safeApi } from "@share/packages/safeApi"
 import { z } from "zod"
 import { ZSAError } from "zsa"
-import { becomeGuideSchema } from "../consts/becomeGuide.schema"
+import { becomeGuideSchema } from "../schema"
+import { __DEV__ } from "@share/constants/environment"
 
-const responseSchema = z.void()
+const responseApiSchema = z.object({
+	message: z.string(),
+})
 
 export const becomeGuideAction = isAuthorizedAction
 	.createServerAction()
 	.input(becomeGuideSchema)
-	.output(z.void())
+	.output(z.object({ success: z.literal(true) }))
+	.onInputParseError(({ errors }) => {
+		if (__DEV__) {
+			print.error("[BecomeGuided - onInputParseError]", errors)
+		}
+	})
+	.onOutputParseError(({ errors }) => {
+		if (__DEV__) {
+			print.error("[BecomeGuided - onOutputParseError]", errors)
+		}
+	})
 	.handler(async ({ input, ctx }) => {
 		const { user, token } = ctx
 
@@ -42,24 +55,28 @@ export const becomeGuideAction = isAuthorizedAction
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
-		try {
-			const text = await resp.text()
+		const text = await safe(resp.text())
 
-			const json = safeApi.json.parse(text)
-
-			if (!json) {
-				print.fatal("[BecomeGuided ParseResponse]", text)
-				throw new ZSAError("INTERNAL_SERVER_ERROR")
-			}
-
-			const { success, data, error } = responseSchema.safeParse(json)
-
-			if (!success) {
-				print.fail("[BecomeGuided SchemaParseResponse]", data, error)
-				throw new ZSAError("INTERNAL_SERVER_ERROR")
-			}
-		} catch (err) {
-			print.fatal("[BecomeGuided Catch]", err)
+		if (!text.success) {
+			print.fail("[BecomeGuided - parse text]", text.error)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
+		}
+
+		const json = safeApi.json.parse(text.data)
+
+		if (!json) {
+			print.fatal("[BecomeGuided - parse json]", text.data)
+			throw new ZSAError("INTERNAL_SERVER_ERROR")
+		}
+
+		const { success, data, error } = responseApiSchema.safeParse(json)
+
+		if (!success) {
+			print.fail("[BecomeGuided - validate]", data, error)
+			throw new ZSAError("INTERNAL_SERVER_ERROR")
+		}
+
+		return {
+			success: true,
 		}
 	})
