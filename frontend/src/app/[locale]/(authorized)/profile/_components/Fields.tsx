@@ -51,7 +51,7 @@ export const Fields: FC<FieldsProps> = ({ user }) => {
 						className='!justify-start !py-6 w-full rounded-none'
 						asChild
 					>
-						<Link href='/orders'>{t("pages.profile.actions.orders")}</Link>
+						<Link href='/dashboard/orders'>{t("pages.profile.actions.orders")}</Link>
 					</Button>
 				</FieldItem>
 			)}

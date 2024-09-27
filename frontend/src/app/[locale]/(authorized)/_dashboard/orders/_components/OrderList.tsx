@@ -1,21 +1,10 @@
 import { getAllOrders, SupplierOrderItem } from "@entity/order"
-import { TokenManager } from "@share/packages/auth"
 import { Typography } from "@share/ui/Text"
 import { getTranslations } from "next-intl/server"
-import { cookies } from "next/headers"
 import Link from "next/link"
-import { notFound } from "next/navigation"
 
 export const OrderList = async () => {
 	const t = await getTranslations()
-
-	const clientCookies = cookies()
-
-	const { token } = TokenManager.getToken(clientCookies)
-
-	if (!token) {
-		notFound()
-	}
 
 	const orders = (await getAllOrders()) || []
 
