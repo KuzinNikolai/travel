@@ -3,9 +3,8 @@ import { Section } from "@share/ui/Layout"
 import { Typography } from "@share/ui/Text"
 import { getTranslations } from "next-intl/server"
 import { BecomeForm } from "./_components/BecomeForm"
-import { unstable_cache } from "next/cache"
 
-export default async function BecomePage() {
+export const BecomeFormStep = async () => {
 	const t = await getTranslations()
 
 	return (

@@ -1,11 +1,16 @@
 import { create } from "zustand"
 
+export enum BecomeSteps {
+	INFO = 0,
+	FORM = 1,
+}
+
 interface UseBecomeStoreState {
-	currentStep: number
-	setCurrentStep: (step: number) => void
+	currentStep: BecomeSteps
+	setCurrentStep: (step: BecomeSteps) => void
 }
 
 export const useBecomeStore = create<UseBecomeStoreState>((set) => ({
-	currentStep: 0,
+	currentStep: BecomeSteps.INFO,
 	setCurrentStep: (step: number) => set({ currentStep: step }),
 }))
