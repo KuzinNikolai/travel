@@ -1,10 +1,9 @@
+import type { Order } from "@share/schemas"
 import { Paper } from "@share/ui/Layout"
-import { Typography } from "@share/ui/Text"
-import { isValidElement, ReactElement, type FC, type ReactNode } from "react"
-import type { Order } from "../model/schemas/order.schema"
-import { format } from "date-fns"
-import Link from "next/link"
 import { Skeleton } from "@share/ui/Skeleton"
+import { Typography } from "@share/ui/Text"
+import { format } from "date-fns"
+import type { FC, ReactNode } from "react"
 
 type SupplierOrderItemProps = Pick<Order, "order_number" | "tour_title" | "trip_date">
 
@@ -19,7 +18,7 @@ const InfoItem: FC<InfoItemProps> & { Skeleton: typeof InfoItemSkeleton } = ({ t
 			variant='contentPrimary'
 			className='flex flex-col gap-sm p-sm'
 		>
-			<Typography>{title}</Typography>
+			<Typography as='span'>{title}</Typography>
 			{typeof text === "string" ? (
 				<Typography
 					variant='contentLarge'
@@ -51,12 +50,8 @@ export const SupplierOrderItem: FC<SupplierOrderItemProps> & { Skeleton: typeof 
 	return (
 		<Paper
 			color='secondary'
-			className='!p-0 relative grid grid-cols-[40%,1px,1fr] border-l-4 border-l-green-500'
+			className='!p-0 grid grid-cols-[40%,1px,1fr] border-l-4 border-l-green-500'
 		>
-			<Link
-				href={`/profile/orders/${order_number}`}
-				className='absolute top-0 right-0 bottom-0 left-0'
-			/>
 			<InfoItem
 				title='Номер'
 				text={`#${order_number}`}

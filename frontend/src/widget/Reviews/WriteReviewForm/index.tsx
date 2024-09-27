@@ -1,8 +1,8 @@
 "use client"
 
-import type { Tour } from "@entity/tour"
 import { AddReviewForm } from "@feature/reviews/AddReview"
 import { DialogTrigger } from "@radix-ui/react-dialog"
+import type { Tour } from "@share/schemas"
 import { Button } from "@share/ui/Buttons"
 import { Dialog, DialogContent } from "@share/ui/Modals"
 import { useTranslations } from "next-intl"

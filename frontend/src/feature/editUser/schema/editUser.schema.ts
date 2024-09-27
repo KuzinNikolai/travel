@@ -1,4 +1,4 @@
-import { userSchema } from "@entity/user"
+import { userSchema } from "@share/schemas"
 import { z } from "zod"
 
 export const editUserSchema = userSchema

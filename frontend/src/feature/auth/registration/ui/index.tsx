@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import { useNoReload } from "@share/lib";
-import { type FC, type ReactNode, useEffect } from "react";
-import { RegistrationSteps, useFormStepsStore } from "../model/formStepStore";
-import { FirstInfo } from "./Steps/FirstInfo";
-import { VerifyCode } from "./Steps/VerifyCode";
+import { useNoReload } from "@share/packages/reactHelpers"
+import { type FC, type ReactNode, useEffect } from "react"
+import { RegistrationSteps, useRegistrationStepsStore } from "../model/hooks/useRegistrationSteps"
+import { FirstInfo } from "./Steps/FirstInfo"
+import { VerifyCode } from "./Steps/VerifyCode"
 
 interface RegistrationFormProps {
-	onFinish?: () => void;
+	onFinish?: () => void
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({ onFinish }) => {
-	const { currentStep } = useFormStepsStore();
-	const listenReload = useNoReload();
+	const { currentStep } = useRegistrationStepsStore()
+	const listenReload = useNoReload()
 
 	useEffect(() => {
-		listenReload(true);
-	}, [listenReload]);
+		listenReload(true)
+	}, [listenReload])
 
 	const steps = {
 		[RegistrationSteps.FirstInfo]: <FirstInfo />,
 		[RegistrationSteps.Verify]: onFinish && <VerifyCode onFinish={onFinish} />,
-	} satisfies { [key in RegistrationSteps]: ReactNode };
+	} satisfies { [key in RegistrationSteps]: ReactNode }
 
-	return steps[currentStep as keyof typeof steps];
-};
+	return steps[currentStep as keyof typeof steps]
+}

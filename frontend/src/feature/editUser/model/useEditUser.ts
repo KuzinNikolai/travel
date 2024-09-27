@@ -1,9 +1,8 @@
-import { useServerActionMutation } from "@share/serverActions/model"
 import { useQueryClient } from "@tanstack/react-query"
 import { editUserAction } from "../api/editUserAction"
-import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
 import { useToast } from "@share/ui/Popups"
-import { __DEV__ } from "@share/constants/mode"
+import { __DEV__ } from "@share/constants/environment"
+import { useServerActionMutation, queryKeyFactory } from "@share/packages/serverActions"
 
 export function useEditUser() {
 	const userClient = useQueryClient()
@@ -18,7 +17,7 @@ export function useEditUser() {
 					description: "Профиль успешно отредактирован",
 				})
 			}
-			userClient.setQueryData(queryKeyFactory.account(), data)
+			userClient.setQueryData(queryKeyFactory.user(), data)
 		},
 		onError(err) {
 			switch (err.code) {

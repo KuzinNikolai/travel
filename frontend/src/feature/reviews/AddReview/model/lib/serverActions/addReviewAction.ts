@@ -1,8 +1,8 @@
 "use server"
 
-import { reviewSchema } from "@entity/review"
-import { Time, logger } from "@share/lib"
-import { isAuthorized } from "@share/serverActions"
+import { isAuthorizedAction } from "@share/packages/auth"
+import { print } from "@share/packages/logger"
+import { reviewSchema } from "@share/schemas"
 import { z } from "zod"
 import { ZSAError } from "zsa"
 import { addReview } from "../../api/addReview"
@@ -17,7 +17,7 @@ const createReviewSchema = reviewSchema
 		user_full_name: z.string().optional(),
 	})
 
-export const addReviewAction = isAuthorized
+export const addReviewAction = isAuthorizedAction
 	.createServerAction()
 	.input(createReviewSchema)
 	.output(reviewSchema)
@@ -36,7 +36,7 @@ export const addReviewAction = isAuthorized
 		})
 
 		if (!resp || "detail" in resp) {
-			logger.fail("addReviewAction - response", resp)
+			print.fail("[addReviewAction - response]", resp)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 

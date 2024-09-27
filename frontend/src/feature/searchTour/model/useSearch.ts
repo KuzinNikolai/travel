@@ -1,6 +1,5 @@
-import { logger, useSearchParams } from "@share/lib"
-import { queryKeyFactory } from "@share/serverActions/consts/queryKeyFactory"
-import { useServerActionQuery } from "@share/serverActions/model"
+import { useSearchParams } from "@share/packages/reactHelpers"
+import { queryKeyFactory, useServerActionQuery } from "@share/packages/serverActions"
 import { useMemo } from "react"
 import { searchAction } from "../api/searchAction"
 
@@ -27,7 +26,7 @@ export function useSearch() {
 		}
 
 		return query.data
-	}, [query.isFetched, query.data, searchParam])
+	}, [query.data, searchParam])
 
 	return { data, query }
 }

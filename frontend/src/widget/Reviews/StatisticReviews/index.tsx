@@ -1,13 +1,13 @@
 "use client"
 
 import { calculateOverallRating, useReviews } from "@entity/review"
-import type { DetailTour } from "@entity/tour"
 import { Rating } from "@share/ui/Rating"
 import { Typography } from "@share/ui/Text"
 import type { FC } from "react"
 import { ReviewStatisticItem } from "./components/ReviewStatisticItem"
 import { WriteReviewForm } from "@widget/Reviews/WriteReviewForm"
 import { getRatingTotalCount } from "./utils/getRatingTotalCount"
+import type { DetailTour } from "@share/schemas/Tours.schema"
 
 type StatisticReviewsProps = Pick<DetailTour, "id">
 
@@ -48,7 +48,10 @@ export const StatisticReviews: FC<StatisticReviewsProps> = ({ id }) => {
 					</Typography>
 				</div>
 				<div className='flex justify-between'>
-					<Rating className="h-7 w-7" rating={reviewsTotalScore} />
+					<Rating
+						className='h-7 w-7'
+						rating={reviewsTotalScore}
+					/>
 					<WriteReviewForm tourId={id} />
 				</div>
 			</div>

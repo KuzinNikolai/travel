@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 
 const DrawerRoot = ({ shouldScaleBackground = true, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
 	<DrawerPrimitive.Root

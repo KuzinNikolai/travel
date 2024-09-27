@@ -1,5 +1,4 @@
-export * from "./api/server"
+export * from "./api/getDetailTour"
+export * from "./api/getTours"
 
-export * from "./consts"
-
-export * from "./ui/TourPreview"
+export * from "./ui/TourPreviewCard"

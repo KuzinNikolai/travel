@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
-import * as React from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { X } from "lucide-react"
+import * as React from "react"
 
-import { cn } from "@share/lib";
-import { Typography } from "@share/ui/Text";
+import { cn } from "@share/packages/tailwindHelpers"
+import { Typography } from "@share/ui/Text"
 
-const Dialog = DialogPrimitive.Root;
+const Dialog = DialogPrimitive.Root
 
-const DialogTrigger = DialogPrimitive.Trigger;
+const DialogTrigger = DialogPrimitive.Trigger
 
-const DialogPortal = DialogPrimitive.Portal;
+const DialogPortal = DialogPrimitive.Portal
 
-const DialogClose = DialogPrimitive.Close;
+const DialogClose = DialogPrimitive.Close
 
 const DialogOverlay = React.forwardRef<
 	React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -27,8 +27,8 @@ const DialogOverlay = React.forwardRef<
 		)}
 		{...props}
 	/>
-));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+))
+DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 const DialogContent = React.forwardRef<
 	React.ElementRef<typeof DialogPrimitive.Content>,
@@ -45,42 +45,30 @@ const DialogContent = React.forwardRef<
 			{...props}
 		>
 			{children}
-			<DialogPrimitive.Close className="absolute top-4 right-4 rounded-sm opacity-70 ring-offset-secondary-90 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-primary-50 data-[state=open]:text-muted-foreground">
-				<X className="h-4 w-4" />
-				<span className="sr-only">Close</span>
+			<DialogPrimitive.Close className='absolute top-4 right-4 rounded-sm opacity-70 ring-offset-secondary-90 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-primary-50 data-[state=open]:text-muted-foreground'>
+				<X className='h-4 w-4' />
+				<span className='sr-only'>Close</span>
 			</DialogPrimitive.Close>
 		</DialogPrimitive.Content>
 	</DialogPortal>
-));
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+))
+DialogContent.displayName = DialogPrimitive.Content.displayName
 
-const DialogHeader = ({
-	className,
-	...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
-		className={cn(
-			"flex flex-col space-y-1.5 text-center sm:text-left",
-			className,
-		)}
+		className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)}
 		{...props}
 	/>
-);
-DialogHeader.displayName = "DialogHeader";
+)
+DialogHeader.displayName = "DialogHeader"
 
-const DialogFooter = ({
-	className,
-	...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
-		className={cn(
-			"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-			className,
-		)}
+		className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
 		{...props}
 	/>
-);
-DialogFooter.displayName = "DialogFooter";
+)
+DialogFooter.displayName = "DialogFooter"
 
 const DialogTitle = React.forwardRef<
 	React.ElementRef<typeof DialogPrimitive.Title>,
@@ -91,23 +79,22 @@ const DialogTitle = React.forwardRef<
 		className={cn("sr-only", className)}
 		{...props}
 	/>
-));
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
+))
+DialogTitle.displayName = DialogPrimitive.Title.displayName
 
-const DialogDescription = React.forwardRef<
-	HTMLParagraphElement,
-	React.ComponentProps<typeof Typography>
->(({ className, ...props }, ref) => (
-	<Typography
-		ref={ref}
-		variant="contentSecondary"
-		textColor="base-20"
-		textWidth="medium"
-		className={cn("leading-relaxed", className)}
-		{...props}
-	/>
-));
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
+const DialogDescription = React.forwardRef<HTMLParagraphElement, React.ComponentProps<typeof Typography>>(
+	({ className, ...props }, ref) => (
+		<Typography
+			ref={ref}
+			variant='contentSecondary'
+			textColor='base-20'
+			textWidth='medium'
+			className={cn("leading-relaxed", className)}
+			{...props}
+		/>
+	),
+)
+DialogDescription.displayName = DialogPrimitive.Description.displayName
 
 export {
 	Dialog,
@@ -120,4 +107,4 @@ export {
 	DialogPortal,
 	DialogTitle,
 	DialogTrigger,
-};
+}

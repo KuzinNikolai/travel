@@ -1,7 +1,5 @@
-export * from "./api/server"
+export * from "./api/getCountries"
+export * from "./api/getDetailCountry"
 
-export * from "./consts/schema"
-
-export * from "./model/useGetCountries"
-export * from "./model/useGetCountry"
-export * from "./model/useGetCountryList"
+export * from "./model/client/useGetCountry"
+export * from "./model/client/useGetCountryList"

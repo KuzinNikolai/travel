@@ -13,6 +13,6 @@
 	"aliases": {
 		"components": "@share/ui",
 		"ui": "@share/ui",
-		"utils": "@share/lib/tailwind"
+		"utils": "@share/packages/tailwindHelpers"
 	}
 }

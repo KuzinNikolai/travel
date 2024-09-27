@@ -1,17 +1,17 @@
 "use client"
 
-import type { Program, Tour } from "@entity/tour"
+import type { Tour, shareSchemas } from "@share/schemas"
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
 interface Values {
 	tourId: Tour["id"] | null
-	programId: Program["id"] | null
+	programId: shareSchemas.Program["id"] | null
 }
 
 interface Methods {
 	setTour(tourId: Tour["id"]): void
-	setProgram(programId: Program["id"]): void
+	setProgram(programId: shareSchemas.Program["id"]): void
 	reset(): void
 }
 

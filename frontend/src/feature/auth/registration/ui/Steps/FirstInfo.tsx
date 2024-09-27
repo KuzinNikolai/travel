@@ -1,92 +1,95 @@
-"use client";
+"use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@share/ui/Buttons";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@share/ui/Form";
-import { Input } from "@share/ui/Inputs";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import {
-	type FirstInformation,
-	firstInfoSchema,
-} from "../../consts/stepsData.schema";
-import { useFormDataStore } from "../../model/formDataStore";
-import {
-	RegistrationSteps,
-	useFormStepsStore,
-} from "../../model/formStepStore";
-import { useRegistration } from "../../model/useRegistration";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { __DEV__ } from "@share/constants/environment"
+import { print } from "@share/packages/logger"
+import { Button } from "@share/ui/Buttons"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
+import { Input } from "@share/ui/Inputs"
+import { useTranslations } from "next-intl"
+import { useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { useLoginDataStore } from "../../model/hooks/useLoginData"
+import { useRegistration } from "../../model/hooks/useRegistration"
+import { RegistrationSteps, useRegistrationStepsStore } from "../../model/hooks/useRegistrationSteps"
+import { type RegistrationData, registrationDataSchema } from "../../model/schema"
 
 export const FirstInfo = () => {
-	const { setStep, currentStep } = useFormStepsStore();
-	const { setData } = useFormDataStore();
+	const t = useTranslations()
 
-	const registration = useRegistration();
+	const { setStep, currentStep } = useRegistrationStepsStore()
+	const { setData } = useLoginDataStore()
 
-	const form = useForm<FirstInformation>({
+	const registration = useRegistration()
+
+	const form = useForm<RegistrationData>({
 		defaultValues: { email: "", password: "" },
-		resolver: zodResolver(firstInfoSchema),
-	});
+		resolver: zodResolver(registrationDataSchema),
+	})
 
-	const onSubmit = form.handleSubmit(async (data: FirstInformation) => {
+	const onSubmit = form.handleSubmit(async (data) => {
 		registration.mutateAsync({
 			email: data.email,
 			password: data.password,
-			first_name: "",
-			last_name: "",
-			age: null,
-		});
+		})
 
-		setData(data);
-	});
+		setData(data)
+	})
 
 	useEffect(() => {
 		if (currentStep !== 0) {
-			setStep(currentStep);
+			setStep(currentStep)
 		}
-	}, [setStep, currentStep]);
+	}, [setStep, currentStep])
 
 	useEffect(() => {
-		if (registration.isSuccess) setStep(RegistrationSteps.Verify);
-	}, [setStep, registration.isSuccess]);
+		if (registration.isSuccess) setStep(RegistrationSteps.Verify)
+	}, [setStep, registration.isSuccess])
 
 	useEffect(() => {
-		form.setFocus("email");
-	}, [form]);
+		form.setFocus("email")
+	}, [form])
+
+	if (__DEV__) {
+		print.debug("Form state", form.formState, form.getValues(), form.formState.errors, {
+			isDirty: form.formState.isDirty,
+			isValid: form.formState.isValid,
+		})
+	}
 
 	return (
 		<Form {...form}>
-			<form onSubmit={onSubmit} className="space-y-3">
+			<form
+				onSubmit={onSubmit}
+				className='space-y-3'
+			>
 				<FormField
-					name="email"
+					name='email'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Почта</FormLabel>
+							<FormLabel>* {t("components.auth.fields.email")}</FormLabel>
 							<FormControl>
-								<Input type="text" {...field} required />
+								<Input
+									type='text'
+									{...field}
+									required
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<FormField
-					name="password"
+					name='password'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Пароль</FormLabel>
+							<FormLabel>* {t("components.auth.fields.password")}</FormLabel>
 							<FormControl>
 								<Input
-									type="password"
+									type='password'
 									{...field}
 									required
-									autoComplete="new-password"
+									autoComplete='new-password'
 								/>
 							</FormControl>
 							<FormMessage />
@@ -94,14 +97,14 @@ export const FirstInfo = () => {
 					)}
 				/>
 				<Button
-					variant="primary"
-					type="submit"
+					variant='primary'
+					type='submit'
 					disabled={!form.formState.isValid || registration.isPending}
-					className="w-full"
+					className='w-full'
 				>
-					Зарегистрироваться
+					{t("components.auth.register.title")}
 				</Button>
 			</form>
 		</Form>
-	);
-};
+	)
+}

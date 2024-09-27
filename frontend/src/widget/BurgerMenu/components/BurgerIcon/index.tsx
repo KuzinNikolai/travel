@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import styles from "./BurgerIcon.module.css"
 
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 
 interface BurgerIconProps {
 	isActive: boolean

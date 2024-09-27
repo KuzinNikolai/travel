@@ -4,11 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@share/ui/Form"
 import { InputOTP, InputOTPSlot } from "@share/ui/Inputs"
 import { Typography } from "@share/ui/Text"
-import { useEffect, useRef, type FC } from "react"
+import { useTranslations } from "next-intl"
+import { type FC, useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { useVerifyCode } from "../model/useVerifyCode"
-import { verifyRequestSchema } from "../consts/schema"
+import { useVerifyCode } from "../model/hooks/useVerifyCode"
+import { verifyRequestSchema } from "../model/schema"
 
 interface VerificationFormProps {
 	onFinish: () => void
@@ -18,10 +19,14 @@ const verifyCodeRequestSchema = z.object({ code: verifyRequestSchema })
 type VerifyCodeRequestSchema = z.infer<typeof verifyCodeRequestSchema>
 
 export const VerificationForm: FC<VerificationFormProps> = ({ onFinish }) => {
+	const t = useTranslations()
+
 	const verify = useVerifyCode()
 
 	const formRef = useRef<HTMLFormElement>(null)
-	const form = useForm<VerifyCodeRequestSchema>({ resolver: zodResolver(verifyCodeRequestSchema) })
+	const form = useForm<VerifyCodeRequestSchema>({
+		resolver: zodResolver(verifyCodeRequestSchema),
+	})
 
 	const onSubmit = form.handleSubmit(async ({ code }) => verify.mutateAsync(code))
 
@@ -45,7 +50,7 @@ export const VerificationForm: FC<VerificationFormProps> = ({ onFinish }) => {
 					name='code'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>* Код</FormLabel>
+							<FormLabel>* {t("components.auth.verify.code")}</FormLabel>
 							<FormControl>
 								<InputOTP
 									maxLength={6}
@@ -82,7 +87,18 @@ export const VerificationForm: FC<VerificationFormProps> = ({ onFinish }) => {
 							</FormControl>
 							<FormMessage />
 							<Typography>
-								Проверьте почту на код подтверждения. Если его нет, посмотрите в папке &quot;спам&quot;.
+								{t.rich("components.auth.verify.message", {
+									span: (chunks) => (
+										<Typography
+											variant='contentPrimary'
+											textWidth='bold'
+											className='inline-flex rounded-md bg-base-150 p-2'
+											as='span'
+										>
+											{chunks}
+										</Typography>
+									),
+								})}
 							</Typography>
 						</FormItem>
 					)}

@@ -1,4 +1,4 @@
-import { useSearchParams } from "@share/lib"
+import { useSearchParams } from "@share/packages/reactHelpers"
 import type { FC, ReactNode } from "react"
 import type { z } from "zod"
 import type { searchGroupSchema } from "../../consts/search.schema"

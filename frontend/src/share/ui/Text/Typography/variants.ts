@@ -1,4 +1,4 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority"
 
 const typographyVariants = cva(null, {
 	defaultVariants: {
@@ -146,8 +146,8 @@ const typographyVariants = cva(null, {
 			textWidth: "medium",
 		},
 	],
-});
+})
 
-type TypographyVariantsProps = VariantProps<typeof typographyVariants>;
+type TypographyVariantsProps = VariantProps<typeof typographyVariants>
 
-export { typographyVariants, type TypographyVariantsProps };
+export { typographyVariants, type TypographyVariantsProps }

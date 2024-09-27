@@ -1,7 +1,7 @@
 "use client"
 
 import { DialogContent } from "@radix-ui/react-dialog"
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 import type { FC, PropsWithChildren } from "react"
 import { Dialog, DialogClose, DialogTitle, DialogTrigger } from "../Dialog"
 import { Portal } from "@share/ui/Portal"

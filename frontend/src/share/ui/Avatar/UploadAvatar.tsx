@@ -4,7 +4,7 @@ import { forwardRef, useState } from "react"
 import type { RefCallBack } from "react-hook-form"
 import { Typography } from "../Text"
 import Image from "next/image"
-import { cn } from "@share/lib"
+import { cn } from "@share/packages/tailwindHelpers"
 
 interface UploadAvatarProps {
 	isPending: boolean

@@ -1,8 +1,10 @@
 "use severer"
 
 import { API_DOMAIN } from "@share/constants/API_DOMAIN"
-import { logger, SafeJson } from "@share/lib"
-import { isAuthorized } from "@share/serverActions"
+
+import { isAuthorizedAction } from "@share/packages/auth"
+import { print } from "@share/packages/logger"
+import { safeApi } from "@share/packages/safeApi"
 import { z } from "zod"
 import { ZSAError } from "zsa"
 
@@ -21,7 +23,7 @@ interface AddTourInWishlistResponse {
 	tour_id: number
 }
 
-export const addTourInWishlistAction = isAuthorized
+export const addTourInWishlistAction = isAuthorizedAction
 	.createServerAction()
 	.input(addTourInWishlistRequestSchema)
 	.output(addTourInWishlistResponseSchema)
@@ -31,21 +33,21 @@ export const addTourInWishlistAction = isAuthorized
 
 		const resp = await fetch(`${API_DOMAIN}/api/v1/remove_wishlist/${tourId}`, {
 			method: "DELETE",
-			body: SafeJson.stringify({ user: user.id, tour_id: tourId } satisfies AddTourInWishlistResponse),
+			body: safeApi.json.stringify({ user: user.id, tour_id: tourId } satisfies AddTourInWishlistResponse),
 		})
 
 		const text = await resp.text()
-		const json = SafeJson.parse(text)
+		const json = safeApi.json.parse(text)
 
 		if (!json) {
-			logger.fatal("[AddTourInWishlist]", text)
+			print.fatal("[AddTourInWishlist]", text)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
 		const { success, data, error } = await serverAddTourResponseSchema.safeParseAsync(json)
 
 		if (!success) {
-			logger.fatal("[AddTourInWishlistResponse]", error)
+			print.fatal("[AddTourInWishlistResponse]", error)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
