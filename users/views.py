@@ -8,7 +8,13 @@ from .models import *
 from rest_framework.permissions import IsAuthenticated
 from permissions import IsOwnerOrderOnly
 from rest_framework import status, views
-from .serializers import UserRegistrationSerializer, BecomeGuideSerializer, StaticPageSerializer, GuideProfileSerializer, GuideOrderSerializer
+from .serializers import (
+    UserRegistrationSerializer,
+    BecomeGuideSerializer,
+    StaticPageSerializer,
+    GuideProfileSerializer,
+    GuideOrderSerializer,
+)
 from tour.models import Order
 from tour.serializers import OrderSerializer
 
@@ -19,38 +25,37 @@ class UserRegistrationView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         user = serializer.save()
-        
+
         # Отправка email пользователю для подтверждения
-        mail_subject_user = 'Подтвердите ваш аккаунт'
-        message_user = f'Ваш код подтверждения: {user.email_verification_code}'
-        send_mail(mail_subject_user, message_user, settings.DEFAULT_FROM_EMAIL, [user.email])
-        
+        mail_subject_user = "Подтвердите ваш аккаунт"
+        message_user = f"Ваш код подтверждения: {user.email_verification_code}"
+        # send_mail(mail_subject_user, message_user, settings.DEFAULT_FROM_EMAIL, [user.email])
+
         # Отправка email администратору о новом зарегистрированном пользователе
-        mail_subject_admin = 'Новый зарегистрированный пользователь'
-        message_admin = f'Новый пользователь зарегистрирован:\n\nUsername: {user.username}\nEmail: {user.email}\nИмя: {user.first_name}\nФамилия: {user.last_name}'
-        send_mail(mail_subject_admin, message_admin, settings.DEFAULT_FROM_EMAIL, [settings.ADMIN_EMAIL], fail_silently=False)
-        
+        mail_subject_admin = "Новый зарегистрированный пользователь"
+        message_admin = f"Новый пользователь зарегистрирован:\n\nUsername: {user.username}\nEmail: {user.email}\nИмя: {user.first_name}\nФамилия: {user.last_name}"
+        # send_mail(
+        #     mail_subject_admin, message_admin, settings.DEFAULT_FROM_EMAIL, [settings.ADMIN_EMAIL], fail_silently=False
+        # )
+
 
 class VerifyEmailView(APIView):
     def post(self, request, *args, **kwargs):
         try:
-            code = request.data.get('email_verification_code')
+            code = request.data.get("email_verification_code")
             if code is None:
-                return Response({'error': 'Код подтверждения отсутствует'}, status=status.HTTP_400_BAD_REQUEST)
-            
+                return Response({"error": "Код подтверждения отсутствует"}, status=status.HTTP_400_BAD_REQUEST)
+
             user = User.objects.get(email_verification_code=code)
             user.is_active = True
-            user.email_verification_code = ''
+            user.email_verification_code = ""
             user.save()
-            return Response({'message': 'Email успешно подтвержден'}, status=status.HTTP_200_OK)
-        
+            return Response({"message": "Email успешно подтвержден"}, status=status.HTTP_200_OK)
+
         except User.DoesNotExist:
-            return Response({'error': 'Неверный код подтверждения'}, status=status.HTTP_400_BAD_REQUEST)
-            
-            
-            
-            
-            
+            return Response({"error": "Неверный код подтверждения"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class BecomeGuideView(APIView):
 
     def post(self, request, *args, **kwargs):
@@ -58,29 +63,25 @@ class BecomeGuideView(APIView):
         serializer = BecomeGuideSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': 'Теперь вы гид!'}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
-        
-        
+            return Response({"message": "Теперь вы гид!"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class StaticPageListView(generics.ListAPIView):
     queryset = StaticPage.objects.all()
-    serializer_class = StaticPageSerializer   
-        
-        
-        
+    serializer_class = StaticPageSerializer
+
+
 class StaticPageDetailView(generics.RetrieveAPIView):
     queryset = StaticPage.objects.all()
     serializer_class = StaticPageSerializer
-    lookup_field = 'slug'        
-    
-    
-    
+    lookup_field = "slug"
+
+
 class GuideProfileView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = GuideProfileSerializer
-    lookup_field = 'pk'
-
+    lookup_field = "pk"
 
 
 class GuideOrdersView(generics.ListAPIView):
@@ -98,4 +99,4 @@ class GuideOrdersView(generics.ListAPIView):
         if queryset.exists():
             serializer = self.get_serializer(queryset, many=True)
             return Response(serializer.data)
-        return Response({'detail': 'У вас нет заказов.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"detail": "У вас нет заказов."}, status=status.HTTP_404_NOT_FOUND)
