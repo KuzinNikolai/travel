@@ -207,7 +207,7 @@ class TourUpdateView(generics.RetrieveUpdateAPIView):
 # Вывод туров только для автора
 class MyOffersListView(generics.ListAPIView):
     queryset = Tour.objects.all()
-    serializer_class = TourDetailSerializer 
+    serializer_class = TourDetailSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
@@ -297,23 +297,23 @@ class OrderCreateAPIView(generics.CreateAPIView):
             "email": order.tour.author.email,
         }
 
-        # Отправка письма админу
-        message_admin = render_to_string("emails/order_admin_notification.html", context)
-        email_admin = EmailMessage(subject, message_admin, settings.DEFAULT_FROM_EMAIL, [settings.ADMIN_EMAIL])
-        email_admin.content_subtype = "html"
-        email_admin.send()
+        # # Отправка письма админу
+        # message_admin = render_to_string("emails/order_admin_notification.html", context)
+        # email_admin = EmailMessage(subject, message_admin, settings.DEFAULT_FROM_EMAIL, [settings.ADMIN_EMAIL])
+        # email_admin.content_subtype = "html"
+        # email_admin.send()
 
-        # Отправка письма гиду
-        message_guide = render_to_string("emails/order_admin_notification.html", context)
-        email_guide = EmailMessage(subject, message_guide, settings.DEFAULT_FROM_EMAIL, [order.tour.author.email])
-        email_guide.content_subtype = "html"
-        email_guide.send()
+        # # Отправка письма гиду
+        # message_guide = render_to_string("emails/order_admin_notification.html", context)
+        # email_guide = EmailMessage(subject, message_guide, settings.DEFAULT_FROM_EMAIL, [order.tour.author.email])
+        # email_guide.content_subtype = "html"
+        # email_guide.send()
 
-        # Отправка письма пользователю
-        message_user = render_to_string("emails/order_confirmation.html", context)
-        email_user = EmailMessage(subject_user, message_user, settings.DEFAULT_FROM_EMAIL, [order.user.email])
-        email_user.content_subtype = "html"
-        email_user.send()
+        # # Отправка письма пользователю
+        # message_user = render_to_string("emails/order_confirmation.html", context)
+        # email_user = EmailMessage(subject_user, message_user, settings.DEFAULT_FROM_EMAIL, [order.user.email])
+        # email_user.content_subtype = "html"
+        # email_user.send()
 
 
 # VIEWS HELP ------------------------------
