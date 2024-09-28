@@ -1,4 +1,4 @@
-from datetime import timezone
+from django.utils import timezone
 from django.db.models import Max
 from django.utils.timezone import now
 import os
@@ -13,6 +13,7 @@ from country.models import Country
 from parler.models import TranslatableModel, TranslatedFields
 from parler.managers import TranslatableQuerySet
 from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -406,11 +407,12 @@ class Photo(TranslatableModel):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to=get_upload_path)
     create_date_time = models.DateTimeField(auto_now_add=True)
-    
+
     translations = TranslatedFields(photo_alt=models.CharField(max_length=120, null=True, blank=True))
-    
+
     def __str__(self):
         return self.tour.title
+
 
 class Duration(models.Model):
     day = models.IntegerField(null=True, blank=True)

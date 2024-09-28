@@ -11,7 +11,7 @@ User = get_user_model()
 
 # Полный вывод тегов
 class TagSerializer(TranslatableModelSerializer):
-    translations = TranslatedFieldsField(shared_model=TagTour) 
+    translations = TranslatedFieldsField(shared_model=TagTour)
 
     class Meta:
         model = TagTour
@@ -24,13 +24,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "full_name", "first_name", "last_name", "email", "photo"]
-    
+
     def get_full_name(self, instance):
         return instance.get_full_name()
-    
+
 
 class IncludedSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Included)
+
     class Meta:
         model = Included
         fields = ["id", "name", "translations"]
@@ -38,6 +39,7 @@ class IncludedSerializer(TranslatableModelSerializer):
 
 class NotIncludedSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=NotIncluded)
+
     class Meta:
         model = NotIncluded
         fields = ["id", "name", "translations"]
@@ -45,6 +47,7 @@ class NotIncludedSerializer(TranslatableModelSerializer):
 
 class TakeSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Take)
+
     class Meta:
         model = Take
         fields = ["id", "name", "translations"]
@@ -52,6 +55,7 @@ class TakeSerializer(TranslatableModelSerializer):
 
 class TransferSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Transfer)
+
     class Meta:
         model = Transfer
         fields = ["id", "name", "translations"]
@@ -77,6 +81,7 @@ class TypeSerializer(serializers.ModelSerializer):
 
 class FAQSerializer(serializers.ModelSerializer):
     translations = TranslatedFieldsField(shared_model=FAQ)
+
     class Meta:
         model = FAQ
         fields = ["id", "question", "answer", "translations"]
@@ -110,6 +115,7 @@ class ReviewSerializer(TranslatableModelSerializer):
             return self.context["request"].build_absolute_uri(obj.user.photo.url)
         return None
 
+
 class DurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Duration
@@ -119,6 +125,7 @@ class DurationSerializer(serializers.ModelSerializer):
 class ProgramSerializer(TranslatableModelSerializer):
     duration = DurationSerializer()
     translations = TranslatedFieldsField(shared_model=Programm)
+
     class Meta:
         model = Programm
         fields = [
@@ -132,15 +139,16 @@ class ProgramSerializer(TranslatableModelSerializer):
             "child_price",
             "individual_price",
             "promotion_price",
-            "translations"
+            "translations",
         ]
+
 
 class PhotoSerializer(TranslatableModelSerializer):
     translations = TranslatedFieldsField(shared_model=Photo)
 
     class Meta:
         model = Photo
-        fields = ["id", "image", "photo_alt", "create_date_time", "translations"] 
+        fields = ["id", "image", "photo_alt", "create_date_time", "translations"]
 
     def create(self, validated_data):
         user = self.context["request"].user
@@ -151,9 +159,10 @@ class PhotoSerializer(TranslatableModelSerializer):
 
         return super().create(validated_data)
 
+
 class PhotoCreateSerializer(TranslatableModelSerializer):
-    translations = TranslatedFieldsField(shared_model=Photo, required=False) 
-    
+    translations = TranslatedFieldsField(shared_model=Photo, required=False)
+
     class Meta:
         model = Photo
         fields = ["id", "tour", "image", "photo_alt", "create_date_time", "translations"]
@@ -166,6 +175,8 @@ class PhotoCreateSerializer(TranslatableModelSerializer):
             raise PermissionDenied("You don't have permission to add photo to this tour.")
 
         return super().create(validated_data)
+
+
 class TourListSerializer(TranslatableModelSerializer):
     """Выводим туры и цену из программы для превью"""
 
@@ -173,19 +184,21 @@ class TourListSerializer(TranslatableModelSerializer):
     min_price_with_promotions = serializers.SerializerMethodField()
     author = UserSerializer()
     translations = TranslatedFieldsField(shared_model=Tour)
-    
+
     def get_min_price(self, tour):
         try:
             min_program = tour.programs.order_by("adult_price").first()
             return min_program.adult_price
         except AttributeError:
             return None
+
     def get_min_price_with_promotions(self, tour):
         try:
             min_program = tour.programs.order_by("promotion_price").first()
             return min_program.promotion_price
         except AttributeError:
             return None
+
     def get_currency_prefix(self, tour):
         return tour.country.currency_prefix
 
@@ -199,7 +212,7 @@ class TourListSerializer(TranslatableModelSerializer):
     category = serializers.SlugRelatedField(slug_field="name", read_only=True)
     average_rating = serializers.FloatField(default=0.00)
     lang = serializers.SlugRelatedField(slug_field="slug", read_only=True, many=True)
-    
+
     tags = TagSerializer(many=True)
     duration = DurationSerializer()
     photo_alt = serializers.SerializerMethodField()
@@ -243,11 +256,11 @@ class TourListSerializer(TranslatableModelSerializer):
             "currency_prefix",
             "is_published",
             "author",
-            "translations"
+            "translations",
         )
-    
+
     def to_representation(self, instance):
-        representation =  super().to_representation(instance)
+        representation = super().to_representation(instance)
         translations = representation.get("translations", {})
         for lang, data in translations.items():
             data.pop("usage_policy")
@@ -255,12 +268,13 @@ class TourListSerializer(TranslatableModelSerializer):
             data["photo_alt"] = tour_title
         return representation
 
+
 class TourCreateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     photo = serializers.ImageField(required=False)
     author = UserSerializer(read_only=True)
-    category_id = serializers.PrimaryKeyRelatedField(source='category', queryset=Category.objects.all())
-    duration = DurationSerializer() 
+    category_id = serializers.PrimaryKeyRelatedField(source="category", queryset=Category.objects.all())
+    duration = DurationSerializer()
     translations = TranslatedFieldsField(shared_model=Tour)
 
     class Meta:
@@ -422,7 +436,7 @@ class TourDetailSerializer(TranslatableModelSerializer):
 class TourUpdateSerializer(TranslatableModelSerializer):
     programs = ProgramSerializer(many=True, required=False)
     photos = serializers.SerializerMethodField()
-    category_id = serializers.PrimaryKeyRelatedField(source='category', queryset=Category.objects.all())
+    category_id = serializers.PrimaryKeyRelatedField(source="category", queryset=Category.objects.all())
     duration = DurationSerializer()
     translations = TranslatedFieldsField(shared_model=Tour)
 
@@ -463,7 +477,7 @@ class TourUpdateSerializer(TranslatableModelSerializer):
         if request.user != instance.author:
             if not request.user.is_superuser:
                 raise PermissionDenied("You do not have permission to edit this tour.")
-            
+
         duration_data = validated_data.pop("duration", None)
         if duration_data:
             # If there is existing duration data associated with the instance
@@ -476,7 +490,6 @@ class TourUpdateSerializer(TranslatableModelSerializer):
                 # Create a new Duration object if none exists
                 duration = Duration.objects.create(**duration_data)
                 instance.duration = duration
-
 
         return super().update(instance, validated_data)
 
@@ -511,7 +524,7 @@ class OrderSerializer(TranslatableModelSerializer):
     manager_email = serializers.SerializerMethodField()
     cash_on_tour = serializers.SerializerMethodField()
     currency_prefix = serializers.SerializerMethodField()
-    program_info = ProgramSerializer(source="program") 
+    program_info = ProgramSerializer(source="program", read_only=True)
     translations = TranslatedFieldsField(shared_model=Order)
 
     class Meta:
@@ -742,7 +755,7 @@ class ProgramCreateSerializer(TranslatableModelSerializer):
         duration = Duration.objects.create(**duration_data)
         program = Programm.objects.create(duration=duration, **validated_data)
         return program
-    
+
     def update(self, instance, validated_data):
         duration_data = validated_data.pop("duration", None)
         if duration_data:
@@ -756,4 +769,4 @@ class ProgramCreateSerializer(TranslatableModelSerializer):
                 duration = Duration.objects.create(**duration_data)
                 instance.duration = duration
         instance = super().update(instance, validated_data)
-        return instance    
+        return instance
