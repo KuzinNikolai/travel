@@ -2,7 +2,7 @@ import { pxToRem } from "./utils"
 
 const typography = {
 	h1: [
-		`${pxToRem(48)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
@@ -10,7 +10,7 @@ const typography = {
 		},
 	],
 	h2: [
-		`${pxToRem(44)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
@@ -18,7 +18,7 @@ const typography = {
 		},
 	],
 	h3: [
-		`${pxToRem(40)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
@@ -26,7 +26,7 @@ const typography = {
 		},
 	],
 	h4: [
-		`${pxToRem(36)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
@@ -34,7 +34,7 @@ const typography = {
 		},
 	],
 	h5: [
-		`${pxToRem(32)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
@@ -42,7 +42,7 @@ const typography = {
 		},
 	],
 	h6: [
-		`${pxToRem(28)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
@@ -50,7 +50,7 @@ const typography = {
 		},
 	],
 	h7: [
-		`${pxToRem(24)}em`,
+		`${pxToRem(20)}em`,
 		{
 			fontWeight: "500",
 			letterSpacing: `${pxToRem(0)}em`,
