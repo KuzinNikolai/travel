@@ -21,10 +21,10 @@ const metaSchema = z.object({
 })
 
 const translateSchema = z.object({
-	title: z.string(),
-	description: z.string(),
-	meta_desc: z.string(),
-	meta_keywords: z.string().nullable(),
+	title: z.string().min(4).max(120),
+	description: z.string().min(10).max(2000),
+	meta_desc: z.string().min(10).max(600),
+	meta_keywords: z.string().min(4).max(90).nullable(),
 })
 
 export const tourSchema = metaSchema

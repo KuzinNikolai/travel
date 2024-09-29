@@ -76,6 +76,13 @@
 		"wishlist": {
 			"add": "Añadir a la lista de deseos",
 			"remove": "Eliminar de la lista de deseos"
+		},
+		"create-tour": {
+			"fields": {
+				"category": "Seleccionar categoría de viaje",
+				"create-tour": "Nombre del tour",
+				"not-select-category": "No seleccionado"
+			}
 		}
 	},
 	"pages": {
@@ -315,6 +322,7 @@
 		}
 	},
 	"errors": {
-		"touristNotFound": "Se produjo un error y no se encontró al turista."
+		"touristNotFound": "Se produjo un error y no se encontró al turista.",
+		"createTour": "Error al crear un nuevo recorrido"
 	}
 }

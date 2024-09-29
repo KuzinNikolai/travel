@@ -96,6 +96,13 @@
 		"rating": {
 			"title": "Рейтинг: {rating}",
 			"label": "Рейтинг: {rating} из {ratingMax}"
+		},
+		"create-tour": {
+			"fields": {
+				"create-tour": "Название тура",
+				"category": "Выберите категорию тура",
+				"not-select-category": "Не выбрана"
+			}
 		}
 	},
 	"pages": {
@@ -315,6 +322,7 @@
 		}
 	},
 	"errors": {
-		"touristNotFound": "Произошла ошибка и турист не был найден"
+		"touristNotFound": "Произошла ошибка и турист не был найден",
+		"createTour": "Ошибка в создании новго тура"
 	}
 }
