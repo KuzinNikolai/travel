@@ -1,11 +1,11 @@
-import type { Metadata } from "next"
+import { HeaderWithBack } from "@widget/Headers/HeaderWithBack"
 import { getTranslations } from "next-intl/server"
 
 export default async function ToursPage() {
 	return <>void</>
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
 	const t = await getTranslations()
 
 	return {

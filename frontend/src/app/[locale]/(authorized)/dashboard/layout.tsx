@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	return {
 		title: {
-			default: t("pages.dashboard.meta.title-template"),
+			default: t("pages.dashboard.meta.title"),
 			template: `%s - ${t("pages.dashboard.meta.title-template")}`,
 		},
 		description: `${t("pages.dashboard.meta.description")}`,

@@ -300,8 +300,14 @@
 		},
 		"dashboard": {
 			"meta": {
-				"title-template": "панель управления",
+				"title": "Панель управления",
+				"title-template": "%s - Панель управления",
 				"description": "Панель управления для управления турами"
+			},
+			"pages": {
+				"tours": {
+					"title": "Ваши туры"
+				}
 			}
 		},
 		"supplierTours": {

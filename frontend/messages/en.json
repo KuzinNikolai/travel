@@ -23,7 +23,7 @@
 			},
 			"verify": {
 				"code": "Code",
-				"message": "Check your email for the confirmation code. \nIf it's not there, look in your <span>spam<span> folder.",
+				"message": "Check your email for the confirmation code. If it's not there, look in your <span>spam<span> folder.",
 				"sendedCode": "The confirmation code has been sent to <email>not specified</email>, if this is not the correct email you can return to step 1."
 			}
 		},
@@ -185,7 +185,7 @@
 			"description": "Home page with popular cities, tours and our advantages.",
 			"keywords": "tours, countries, cities",
 			"title": "Home page",
-			"category": "tours"
+			"category": ""
 		},
 		"orderTour": {
 			"fields": {
@@ -200,7 +200,7 @@
 			"submit": "Submit an order",
 			"title": "Order an excursion",
 			"meta": {
-				"title": "Order an excursion {tour}"
+				"title": ""
 			}
 		},
 		"profile": {
@@ -281,7 +281,8 @@
 		"dashboard": {
 			"meta": {
 				"description": "Control panel for managing tours",
-				"title-template": "control Panel"
+				"title-template": "control Panel",
+				"title": "Control Panel"
 			}
 		},
 		"supplierTours": {
