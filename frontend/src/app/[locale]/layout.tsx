@@ -11,6 +11,17 @@ import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
 import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server"
 
+export const metadata: Metadata = {
+	title: {
+		default: siteConfig.name,
+		template: `%s - ${siteConfig.name}`,
+	},
+	description: siteConfig.description,
+	icons: {
+		icon: "/favicon.ico",
+	},
+}
+
 interface RootLayoutProps {
 	params: PagesProps["params"]
 	children: React.ReactNode
@@ -53,7 +64,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			default: siteConfig.name,
 			template: `%s - ${siteConfig.name}`,
 		},
-		description: siteConfig.description,
+		description: t("meta.description"),
 		abstract: t("meta.abstract"),
 		keywords: t("meta.keywords"),
 		robots: {
