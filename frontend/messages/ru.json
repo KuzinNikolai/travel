@@ -186,13 +186,15 @@
 			"title": "Экскурсии в {city}",
 			"emptyTours": "В этом {city} экскурсии не добавлены",
 			"meta": {
-				"keywords": "Экскурсии в {city}, {city}, Город {city, string}"
+				"title": "Экскурсии в городе {city}",
+				"keywords": "Экскурсии в {city}, {city}, Город {city}"
 			}
 		},
 		"detailTour": {
 			"title": "Детальное описание {tourName=экскурсии}",
 			"meta": {
 				"title": "Экскурсия {tourName} в {city}",
+				"category": "Экскурсии",
 				"keywords": "Детальное описание {tourName}, {tourName}, {city}, Город {city}"
 			},
 			"actions": {
@@ -252,7 +254,10 @@
 			}
 		},
 		"detailTourReviews": {
-			"title": "Отзывы путешественников"
+			"title": "Отзывы путешественников",
+			"meta": {
+				"title": "Отзывы к туру {tourName}"
+			}
 		},
 		"SupplierDetailOrder": {
 			"title": "Заказ: #{order}",
@@ -283,6 +288,15 @@
 				"ordersEmpty": "Никто еще не оформил заказ"
 			},
 			"title": "Заказы гида"
+		},
+		"dashboard": {
+			"meta": {
+				"title-template": "панель управления",
+				"description": "Панель управления для управления турами"
+			}
+		},
+		"supplierTours": {
+			"title": "Туры"
 		}
 	},
 	"errors": {

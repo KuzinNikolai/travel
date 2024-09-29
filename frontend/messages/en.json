@@ -98,6 +98,7 @@
 		"cityTours": {
 			"emptyTours": "No excursions have been added to this {city}",
 			"meta": {
+				"title": "Excursions in {city}",
 				"keywords": "Excursions to {city}, {city}, City {city, string}"
 			},
 			"title": "Excursions in {city}"
@@ -110,7 +111,7 @@
 			"included": "Included",
 			"information": {
 				"children": {
-					"can": "It's possible with children. \n(Children up to {maxAge, plural, 1= {",
+					"can": "Children up to {maxAge, plural, 1= {# year old} other {# years old}} are allowed for free",
 					"cant": "Not allowed with children"
 				},
 				"pregnantPossible": {
@@ -121,7 +122,8 @@
 			},
 			"meta": {
 				"keywords": "Detailed description {tourName}, {tourName}, {city}, City {city}",
-				"title": "Excursion {tourName} to {city}"
+				"title": "Excursion {tourName} to {city}",
+				"category": "Excursions"
 			},
 			"notIncluded": "Not included",
 			"previewTour": {
@@ -144,7 +146,10 @@
 			"userPolicy": "Usage Policy"
 		},
 		"detailTourReviews": {
-			"title": "Traveler reviews"
+			"title": "Traveler reviews",
+			"meta": {
+				"title": "Reviews for tour {tourName}"
+			}
 		},
 		"mainPage": {
 			"advantages": {
@@ -174,7 +179,8 @@
 			},
 			"description": "Home page with popular cities, tours and our advantages.",
 			"keywords": "tours, countries, cities",
-			"title": "Home page"
+			"title": "Home page",
+			"category": "tours"
 		},
 		"orderTour": {
 			"fields": {
@@ -187,7 +193,10 @@
 				"phone": "Phone number"
 			},
 			"submit": "Submit an order",
-			"title": "Order an excursion"
+			"title": "Order an excursion",
+			"meta": {
+				"title": "Order an excursion {tour}"
+			}
 		},
 		"profile": {
 			"actions": {
@@ -221,6 +230,9 @@
 				"email": "E-mail",
 				"guideIn": "Guide in {country}",
 				"userName": "Username"
+			},
+			"errors": {
+				"emptyDescription": "Description not specified"
 			}
 		},
 		"wishlist": {
@@ -260,6 +272,15 @@
 				"ordersEmpty": "No one has placed an order yet"
 			},
 			"title": "Guide orders"
+		},
+		"dashboard": {
+			"meta": {
+				"description": "Control panel for managing tours",
+				"title-template": "control Panel"
+			}
+		},
+		"supplierTours": {
+			"title": "Tours"
 		}
 	},
 	"share": {
@@ -284,5 +305,9 @@
 	},
 	"errors": {
 		"touristNotFound": "An error occurred and the tourist was not found"
+	},
+	"meta": {
+		"abstract": "A site for registering and booking excursions in cities around the world.",
+		"keywords": "Booking, excursions, tourism, tourist programs, tour, programs, tourism programs, excursion programs, guide, guides, city guide, excursion guide, gettrip.co, gettrip agency"
 	}
 }
