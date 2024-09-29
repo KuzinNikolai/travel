@@ -283,6 +283,11 @@
 				"description": "Control panel for managing tours",
 				"title-template": "control Panel",
 				"title": "Control Panel"
+			},
+			"pages": {
+				"tours": {
+					"title": "Your tours"
+				}
 			}
 		},
 		"supplierTours": {

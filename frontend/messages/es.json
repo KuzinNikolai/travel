@@ -281,7 +281,13 @@
 		"dashboard": {
 			"meta": {
 				"description": "Panel de control para la gestión de tours.",
-				"title-template": "Panel de control"
+				"title-template": "Panel de control",
+				"title": "Panel de control"
+			},
+			"pages": {
+				"tours": {
+					"title": "Tus tours"
+				}
 			}
 		},
 		"supplierTours": {
