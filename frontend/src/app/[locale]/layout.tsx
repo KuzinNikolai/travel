@@ -10,21 +10,11 @@ import { Toaster } from "@share/ui/Popups"
 import { Auth } from "@widget/Auth"
 import type { Metadata } from "next"
 import { getLocale, getTranslations, unstable_setRequestLocale } from "next-intl/server"
-
-export const metadata: Metadata = {
-	title: {
-		default: siteConfig.name,
-		template: `%s - ${siteConfig.name}`,
-	},
-	description: siteConfig.description,
-	icons: {
-		icon: "/favicon.ico",
-	},
-}
+import type { ReactNode } from "react"
 
 interface RootLayoutProps {
 	params: PagesProps["params"]
-	children: React.ReactNode
+	children: ReactNode
 }
 
 export default async function RootLayout({ params, children }: RootLayoutProps) {
@@ -79,7 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			url: "/",
 			siteName: siteConfig.name,
 			title: siteConfig.name,
-			description: siteConfig.description,
+			description: t("meta.description"),
 			images: [
 				{
 					url: "/logo.png",
