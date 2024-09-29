@@ -1,4 +1,8 @@
 {
+	"meta": {
+		"abstract": "A site for registering and booking excursions in cities around the world.",
+		"keywords": "Booking, excursions, tourism, tourist programs, tour, programs, tourism programs, excursion programs, guide, guides, city guide, excursion guide, gettrip.co, gettrip agency"
+	},
 	"components": {
 		"auth": {
 			"login": {
@@ -305,9 +309,5 @@
 	},
 	"errors": {
 		"touristNotFound": "An error occurred and the tourist was not found"
-	},
-	"meta": {
-		"abstract": "A site for registering and booking excursions in cities around the world.",
-		"keywords": "Booking, excursions, tourism, tourist programs, tour, programs, tourism programs, excursion programs, guide, guides, city guide, excursion guide, gettrip.co, gettrip agency"
 	}
 }

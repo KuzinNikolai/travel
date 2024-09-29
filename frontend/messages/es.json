@@ -1,4 +1,8 @@
 {
+	"meta": {
+		"abstract": "Un sitio para registrarse y reservar excursiones en ciudades de todo el mundo.",
+		"keywords": "Reservas, excursiones, turismo, programas turísticos, tours, programas, programas de turismo, programas de excursiones, guía, guías, guía de la ciudad, guía de excursiones, gettrip.co, agencia gettrip"
+	},
 	"components": {
 		"auth": {
 			"login": {
@@ -305,9 +309,5 @@
 	},
 	"errors": {
 		"touristNotFound": "Se produjo un error y no se encontró al turista."
-	},
-	"meta": {
-		"abstract": "Un sitio para registrarse y reservar excursiones en ciudades de todo el mundo.",
-		"keywords": "Reservas, excursiones, turismo, programas turísticos, tours, programas, programas de turismo, programas de excursiones, guía, guías, guía de la ciudad, guía de excursiones, gettrip.co, agencia gettrip"
 	}
 }
