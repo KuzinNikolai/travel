@@ -19,8 +19,8 @@ export const orderSchema = z
 		hotel: z.string(),
 		room_number: z.string().nullable(),
 
-		pickup_time: dateTimeSchema.nullable(),
-		trip_date: dateTimeSchema.nullable(),
+		pickup_time: z.string().datetime().nullable(),
+		trip_date: z.string().datetime().nullable(),
 
 		full_name: z.string(),
 		user: z.number(),

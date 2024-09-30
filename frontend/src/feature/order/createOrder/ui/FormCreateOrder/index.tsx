@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form"
 import { useCreateOrder } from "../../model/lib/hooks/useCreateOrder"
 import { createOrderSchema, type CreateOrder } from "../../model/schemas/createOrder.schema"
 import { useCreateOrderStore } from "../../model/store/createOrderStore"
+import { TDate } from "@share/packages/TDate"
 
 export const FormCreateOrder = () => {
 	const { mutateAsync: createOrder, isPending } = useCreateOrder()
@@ -150,8 +151,8 @@ export const FormCreateOrder = () => {
 							<FormLabel>Дата экскурсии</FormLabel>
 							<FormControl>
 								<DatePicker
-									onSelect={field.onChange}
-									defaultSelect={new Date()}
+									onSelect={(date?: Date) => field.onChange(date ? format(date, "yyyy MM dd") : field.onChange())}
+									defaultSelect={TDate.addDays(TDate.getToday(), 2)}
 									trigger={
 										<Button
 											onClick={() => form.setFocus("trip_date")}
@@ -161,7 +162,8 @@ export const FormCreateOrder = () => {
 											{field.value ? format(field.value, "PPP") : "Укажите дату"}
 										</Button>
 									}
-									disable={(date: Date) => date.getTime() <= Date.now()}
+									required
+									disable={(date) => date.getTime() <= Date.now() && TDate.addDays(date, 2).getTime() <= Date.now()}
 								/>
 							</FormControl>
 							<FormMessage />

@@ -2,7 +2,7 @@
 
 import { isAuthorizedAction } from "@share/packages/auth"
 import { print } from "@share/packages/logger"
-import { safeApi } from "@share/packages/safeApi"
+import { safe, safeApi } from "@share/packages/safeApi"
 import { orderSchema } from "@share/schemas"
 import { ZSAError } from "zsa"
 import { createOrder } from "../../api/createOrder"
@@ -18,18 +18,24 @@ export const createOrderAction = isAuthorizedAction
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
-		const text = await resp.text()
-		const json = safeApi.json.parse(text)
+		const parseText = await safe(resp.text())
+
+		if (!parseText.success) {
+			print.error("[createOrderAction - response parse error]", resp)
+			throw new ZSAError("INTERNAL_SERVER_ERROR")
+		}
+
+		const json = safeApi.json.parse(parseText.data)
 
 		if (!json) {
-			print.error("[createOrderAction - response parse error]", resp)
+			print.error("[createOrderAction - parse json error]", parseText.data)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 
 		const { success, data, error } = await orderSchema.safeParseAsync(json)
 
 		if (!success) {
-			print.error("[createOrderAction - response validation error]", resp, error)
+			print.error("[createOrderAction - response validation error]", safeApi.json.stringify(json, undefined, 2), error)
 			throw new ZSAError("INTERNAL_SERVER_ERROR")
 		}
 

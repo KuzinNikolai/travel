@@ -4,7 +4,7 @@ import { safeApi } from "@share/packages/safeApi"
 import type { CreateOrder } from "../schemas/createOrder.schema"
 
 export async function createOrder(order: CreateOrder, token: string) {
-	const resp = await fetcher(`${API_DOMAIN}/api/v1/orders`, {
+	const resp = await fetcher(`${API_DOMAIN}/api/v1/orders/`, {
 		method: "POST",
 		body: safeApi.json.stringify(order),
 		token,
