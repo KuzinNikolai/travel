@@ -135,6 +135,49 @@ export const detailTourSchema = metaSchema
 	)
 	.strict()
 
+export const supplierOffer = metaSchema
+	.merge(translateSchema)
+	.merge(
+		z.object({
+			country: z.string(),
+			country_slug: z.string(),
+			city: z.string(),
+			city_slug: z.string(),
+			category: z.string(),
+			author: z.number(),
+
+			photo_alt: z.string(),
+			photo: z.string().nullable(),
+			included: z.array(z.number()),
+			notincluded: z.array(z.number()),
+			take: z.array(z.number()),
+			transfer: z.array(z.number()),
+			tags: z.array(z.number()),
+			lang: z.array(z.number()),
+			faqs: z.array(z.number()),
+			programs: z.array(programSchema),
+			
+			type: z.string(),
+			adult_price: z.number().nullable(),
+			child_price: z.number().nullable(),
+			children_possible: z.boolean(),
+			what_age_child_free: z.number().nullable(),
+			pregnant_possible: z.boolean(),
+			group_size: z.number().nullable(),
+			promotions: z.boolean(),
+			
+			reviews: reviewSchema.array(),
+			tour_link: z.string().url(),
+			photos: z.array(z.string()),
+			min_price: z.number().nullable(),
+
+			datetime_create: z.string().datetime(),
+			datetime_update: z.string().datetime().nullable(),
+		}),
+	)
+	.strict()
+
 export type Tour = z.infer<typeof tourSchema>
 export type PopularTour = z.infer<typeof popularTourSchema>
 export type DetailTour = z.infer<typeof detailTourSchema>
+export type SupplierOffer = z.infer<typeof supplierOffer>

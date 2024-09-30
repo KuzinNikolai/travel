@@ -1,328 +1,329 @@
 {
-	"meta": {
-		"description": "Best travel agency",
-		"abstract": "A site for registering and booking excursions in cities around the world.",
-		"keywords": "Booking, excursions, tourism, tourist programs, tour, programs, tourism programs, excursion programs, guide, guides, city guide, excursion guide, gettrip.co, gettrip agency"
-	},
-	"components": {
-		"auth": {
-			"login": {
-				"accountNotAlready": "Don't have an account?",
-				"action": "login",
-				"title": "Login"
-			},
-			"register": {
-				"accountAlready": "Already have an account?",
-				"action": "register",
-				"title": "Register",
-				"takeStepBack": "Go to the registration stage"
-			},
-			"fields": {
-				"email": "Your mail",
-				"password": "Your password"
-			},
-			"verify": {
-				"code": "Code",
-				"message": "Check your email for the confirmation code. If it's not there, look in your <span>spam<span> folder.",
-				"sendedCode": "The confirmation code has been sent to <email>not specified</email>, if this is not the correct email you can return to step 1."
-			}
-		},
-		"burgerMenu": {
-			"expandButton": "Berger menu expand button",
-			"navigation": {
-				"myOrders": {
-					"description": "All-time orders",
-					"title": "My orders"
-				},
-				"wishlist": "List of desired tours"
-			}
-		},
-		"popularCities": {
-			"imageAlt": "Photo from the city {city}",
-			"linkToCity": "View all excursions in {city}",
-			"tourCount": "Excursions: {count}"
-		},
-		"popularTours": {
-			"imgAlt": "Photo from excursion {name}",
-			"link": "More details about {name} excursion"
-		},
-		"rating": {
-			"label": "Rating: {rating} out of {ratingMax}",
-			"title": "Rating: {rating}"
-		},
-		"reviews": {
-			"emptyReviews": "No one has shared their opinion yet",
-			"writeReview": "Write a review"
-		},
-		"searchTour": {
-			"action": "Search",
-			"notFound": "Nothing found",
-			"placeholder": "Search"
-		},
-		"tourProgram": {
-			"price": {
-				"child": "Child",
-				"adult": "Adult"
-			},
-			"type": {
-				"group": "Group",
-				"individual": "Individual"
-			},
-			"actions": {
-				"moreDetail": "More details",
-				"order": "Order"
-			}
-		},
-		"wishlist": {
-			"add": "Add to wishlist",
-			"remove": "Remove from wishlist"
-		},
-		"create-tour": {
-			"fields": {
-				"category": "Select tour category",
-				"create-tour": "Tour name",
-				"not-select-category": "Not selected"
-			}
-		}
-	},
-	"pages": {
-		"become": {
-			"title": "Become a guide",
-			"becomeAction": "Offer your tour",
-			"form": {
-				"title": "Select the country and city of your excursion and telephone number for contact",
-				"fields": {
-					"city": {
-						"loading": "Loading cities...",
-						"notLoaded": "Failed to load cities",
-						"title": "City"
-					},
-					"country": {
-						"loading": "Loading countries...",
-						"notLoaded": "Failed to load countries",
-						"title": "Country"
-					},
-					"phone": "Phone number",
-					"submit": "Send a request"
-				}
-			}
-		},
-		"cityTours": {
-			"emptyTours": "No excursions have been added to this {city}",
-			"meta": {
-				"title": "Excursions in {city}",
-				"keywords": "Excursions to {city}, {city}, City {city, string}"
-			},
-			"title": "Excursions in {city}"
-		},
-		"detailTour": {
-			"actions": {
-				"share": "Share excursion"
-			},
-			"description": "Description",
-			"included": "Included",
-			"information": {
-				"children": {
-					"can": "Children up to {maxAge, plural, 1= {# year old} other {# years old}} are allowed for free",
-					"cant": "Not allowed with children"
-				},
-				"pregnantPossible": {
-					"can": "Pregnant women can",
-					"cant": "Pregnant women are not allowed"
-				},
-				"title": "About the excursion"
-			},
-			"meta": {
-				"keywords": "Detailed description {tourName}, {tourName}, {city}, City {city}",
-				"title": "Excursion {tourName} to {city}",
-				"category": "Excursions"
-			},
-			"notIncluded": "Not included",
-			"previewTour": {
-				"photoAlt": "Photo for the excursion",
-				"photoNotAdded": "No photo added",
-				"seeDown": "See below what is included in the excursion"
-			},
-			"programs": "Programs and prices",
-			"readMore": "Read more",
-			"reviews": {
-				"actions": {
-					"showAllReviews": "View all reviews"
-				},
-				"emptyReviews": "No one has shared their opinion yet",
-				"title": "Reviews",
-				"titleAllReviews": "All reviews"
-			},
-			"title": "Detailed description of {tourName=excursions}",
-			"tourTake": "Take with you",
-			"userPolicy": "Usage Policy"
-		},
-		"detailTourReviews": {
-			"title": "Traveler reviews",
-			"meta": {
-				"title": "Reviews for tour {tourName}"
-			}
-		},
-		"mainPage": {
-			"advantages": {
-				"prepayment": {
-					"description": "We do not charge full payment for our service, but only an advance payment",
-					"icon": "HandCoins",
-					"iconLabel": "Booking icon",
-					"title": "Prepayment"
-				},
-				"reviews": {
-					"description": "Reviews from real people who went on excursions",
-					"icon": "Star",
-					"iconLabel": "Reviews icon",
-					"title": "Reviews"
-				},
-				"title": "Advantages",
-				"tourCancellation": {
-					"description": "Free excursion cancellation 48 hours in advance",
-					"icon": "Clock9",
-					"iconLabel": "Clock icon",
-					"title": "Tour cancellation"
-				}
-			},
-			"popularTours": {
-				"emptyTours": "No tours found",
-				"title": "Popular tours"
-			},
-			"description": "Home page with popular cities, tours and our advantages.",
-			"keywords": "tours, countries, cities",
-			"title": "Home page",
-			"category": ""
-		},
-		"orderTour": {
-			"fields": {
-				"comment": "Comments on the order",
-				"excursionDate": "Excursion date",
-				"fullName": "Last name and first name",
-				"hotelAddress": "Hotel address",
-				"numberOfAdults": "Number of adults",
-				"numberOfChildren": "Number of children",
-				"phone": "Phone number"
-			},
-			"submit": "Submit an order",
-			"title": "Order an excursion",
-			"meta": {
-				"title": ""
-			}
-		},
-		"profile": {
-			"actions": {
-				"add": "Add",
-				"become": "Become a guide",
-				"edit": "Edit",
-				"logout": "Log out",
-				"orders": "Orders",
-				"save": "Save",
-				"support": "Support"
-			},
-			"fields": {
-				"aboutMe": {
-					"maxSize": "Maximum description length {maxSize} characters",
-					"placeholder": "Describe yourself",
-					"title": "About me"
-				},
-				"fullName": {
-					"placeholder": "Last name First name",
-					"title": "Last name and first name"
-				},
-				"wishlist": "Wishlist"
-			},
-			"type": {
-				"editProfile": "Edit profile",
-				"editSupplierProfile": "Edit supplier profile",
-				"supplierProfile": "Supplier Profile",
-				"userProfile": "Profile"
-			},
-			"userInfo": {
-				"email": "E-mail",
-				"guideIn": "Guide in {country}",
-				"userName": "Username"
-			},
-			"errors": {
-				"emptyDescription": "Description not specified"
-			}
-		},
-		"wishlist": {
-			"emptyWishlist": {
-				"description": "Looks like you haven't added tours yet",
-				"iconLabel": "Image showing an empty cart",
-				"title": "Wishlist is empty"
-			},
-			"title": "Wishlist"
-		},
-		"SupplierDetailOrder": {
-			"fields": {
-				"address": "Address",
-				"cashOnTour": "Cash for tour",
-				"deposit": "Deposit",
-				"email": "Mail",
-				"fullName": "Name",
-				"hotel": "Hotel",
-				"manager": "Manager",
-				"phone": "Telephone",
-				"pickUpTime": "Check out time",
-				"program": "Program",
-				"roomNumber": "Room number",
-				"totalPrice": "Total amount",
-				"tourDate": "Tour date",
-				"transfer": "Broadcast"
-			},
-			"sections": {
-				"pickUpInfo": "Tourist address",
-				"infoPriceAndCounts": "Count & price info",
-				"touristInfo": "Tourist information"
-			},
-			"title": "Order: #{order}"
-		},
-		"supplierOrderList": {
-			"errors": {
-				"ordersEmpty": "No one has placed an order yet"
-			},
-			"title": "Guide orders"
-		},
-		"dashboard": {
-			"meta": {
-				"description": "Control panel for managing tours",
-				"title-template": "control Panel",
-				"title": "Control Panel"
-			},
-			"pages": {
-				"tours": {
-					"title": "Your tours"
-				}
-			}
-		},
-		"supplierTours": {
-			"title": "Tours"
-		}
-	},
-	"share": {
-		"back": "Back",
-		"close": "Close",
-		"locale": "Russian",
-		"logo": "Logo",
-		"entities": {
-			"city": "City",
-			"country": "Country",
-			"tour": "Tour"
-		},
-		"free": "For free",
-		"notSpecified": "Not specified",
-		"phoneNumber": "Phone number",
-		"userTypes": {
-			"admin": "Admin",
-			"guide": "Guide",
-			"tourist": "Tourist",
-			"user": "User"
-		}
-	},
-	"errors": {
-		"touristNotFound": "An error occurred and the tourist was not found",
-		"createTour": "Error in creating a new tour"
-	}
+  "meta": {
+    "description": "Best travel agency",
+    "abstract": "A site for registering and booking excursions in cities around the world.",
+    "keywords": "Booking, excursions, tourism, tourist programs, tour, programs, tourism programs, excursion programs, guide, guides, city guide, excursion guide, gettrip.co, gettrip agency"
+  },
+  "components": {
+    "auth": {
+      "login": {
+        "accountNotAlready": "Don't have an account?",
+        "action": "login",
+        "title": "Login"
+      },
+      "register": {
+        "accountAlready": "Already have an account?",
+        "action": "register",
+        "title": "Register",
+        "takeStepBack": "Go to the registration stage"
+      },
+      "fields": {
+        "email": "Your mail",
+        "password": "Your password"
+      },
+      "verify": {
+        "code": "Code",
+        "message": "Check your email for the confirmation code. If it's not there, look in your <span>spam<span> folder.",
+        "sendedCode": "The confirmation code has been sent to <email>not specified</email>, if this is not the correct email you can return to step 1."
+      }
+    },
+    "burgerMenu": {
+      "expandButton": "Berger menu expand button",
+      "navigation": {
+        "myOrders": {
+          "description": "All-time orders",
+          "title": "My orders"
+        },
+        "wishlist": "List of desired tours"
+      }
+    },
+    "popularCities": {
+      "imageAlt": "Photo from the city {city}",
+      "linkToCity": "View all excursions in {city}",
+      "tourCount": "Excursions: {count}"
+    },
+    "popularTours": {
+      "imgAlt": "Photo from excursion {name}",
+      "link": "More details about {name} excursion"
+    },
+    "rating": {
+      "label": "Rating: {rating} out of {ratingMax}",
+      "title": "Rating: {rating}"
+    },
+    "reviews": {
+      "emptyReviews": "No one has shared their opinion yet",
+      "writeReview": "Write a review"
+    },
+    "searchTour": {
+      "action": "Search",
+      "notFound": "Nothing found",
+      "placeholder": "Search"
+    },
+    "tourProgram": {
+      "price": {
+        "child": "Child",
+        "adult": "Adult"
+      },
+      "type": {
+        "group": "Group",
+        "individual": "Individual"
+      },
+      "actions": {
+        "moreDetail": "More details",
+        "order": "Order"
+      }
+    },
+    "wishlist": {
+      "add": "Add to wishlist",
+      "remove": "Remove from wishlist"
+    },
+    "create-tour": {
+      "fields": {
+        "category": "Select tour category",
+        "create-tour": "Tour name",
+        "not-select-category": "Not selected"
+      }
+    }
+  },
+  "pages": {
+    "become": {
+      "title": "Become a guide",
+      "becomeAction": "Offer your tour",
+      "form": {
+        "title": "Select the country and city of your excursion and telephone number for contact",
+        "fields": {
+          "city": {
+            "loading": "Loading cities...",
+            "notLoaded": "Failed to load cities",
+            "title": "City"
+          },
+          "country": {
+            "loading": "Loading countries...",
+            "notLoaded": "Failed to load countries",
+            "title": "Country"
+          },
+          "phone": "Phone number",
+          "submit": "Send a request"
+        }
+      }
+    },
+    "cityTours": {
+      "emptyTours": "No excursions have been added to this {city}",
+      "meta": {
+        "title": "Excursions in {city}",
+        "keywords": "Excursions to {city}, {city}, City {city, string}"
+      },
+      "title": "Excursions in {city}"
+    },
+    "detailTour": {
+      "actions": {
+        "share": "Share excursion"
+      },
+      "description": "Description",
+      "included": "Included",
+      "information": {
+        "children": {
+          "can": "Children up to {maxAge, plural, 1= {# year old} other {# years old}} are allowed for free",
+          "cant": "Not allowed with children"
+        },
+        "pregnantPossible": {
+          "can": "Pregnant women can",
+          "cant": "Pregnant women are not allowed"
+        },
+        "title": "About the excursion"
+      },
+      "meta": {
+        "keywords": "Detailed description {tourName}, {tourName}, {city}, City {city}",
+        "title": "Excursion {tourName} to {city}",
+        "category": "Excursions"
+      },
+      "notIncluded": "Not included",
+      "previewTour": {
+        "photoAlt": "Photo for the excursion",
+        "photoNotAdded": "No photo added",
+        "seeDown": "See below what is included in the excursion"
+      },
+      "programs": "Programs and prices",
+      "readMore": "Read more",
+      "reviews": {
+        "actions": {
+          "showAllReviews": "View all reviews"
+        },
+        "emptyReviews": "No one has shared their opinion yet",
+        "title": "Reviews",
+        "titleAllReviews": "All reviews"
+      },
+      "title": "Detailed description of {tourName=excursions}",
+      "tourTake": "Take with you",
+      "userPolicy": "Usage Policy"
+    },
+    "detailTourReviews": {
+      "title": "Traveler reviews",
+      "meta": {
+        "title": "Reviews for tour {tourName}"
+      }
+    },
+    "mainPage": {
+      "advantages": {
+        "prepayment": {
+          "description": "We do not charge full payment for our service, but only an advance payment",
+          "icon": "HandCoins",
+          "iconLabel": "Booking icon",
+          "title": "Prepayment"
+        },
+        "reviews": {
+          "description": "Reviews from real people who went on excursions",
+          "icon": "Star",
+          "iconLabel": "Reviews icon",
+          "title": "Reviews"
+        },
+        "title": "Advantages",
+        "tourCancellation": {
+          "description": "Free excursion cancellation 48 hours in advance",
+          "icon": "Clock9",
+          "iconLabel": "Clock icon",
+          "title": "Tour cancellation"
+        }
+      },
+      "popularTours": {
+        "emptyTours": "No tours found",
+        "title": "Popular tours"
+      },
+      "description": "Home page with popular cities, tours and our advantages.",
+      "keywords": "tours, countries, cities",
+      "title": "Home page",
+      "category": ""
+    },
+    "orderTour": {
+      "fields": {
+        "comment": "Comments on the order",
+        "excursionDate": "Excursion date",
+        "fullName": "Last name and first name",
+        "hotelAddress": "Hotel address",
+        "numberOfAdults": "Number of adults",
+        "numberOfChildren": "Number of children",
+        "phone": "Phone number"
+      },
+      "submit": "Submit an order",
+      "title": "Order an excursion",
+      "meta": {
+        "title": ""
+      }
+    },
+    "profile": {
+      "actions": {
+        "add": "Add",
+        "become": "Become a guide",
+        "edit": "Edit",
+        "logout": "Log out",
+        "orders": "Orders",
+        "save": "Save",
+        "support": "Support"
+      },
+      "fields": {
+        "aboutMe": {
+          "maxSize": "Maximum description length {maxSize} characters",
+          "placeholder": "Describe yourself",
+          "title": "About me"
+        },
+        "fullName": {
+          "placeholder": "Last name First name",
+          "title": "Last name and first name"
+        },
+        "wishlist": "Wishlist"
+      },
+      "type": {
+        "editProfile": "Edit profile",
+        "editSupplierProfile": "Edit supplier profile",
+        "supplierProfile": "Supplier Profile",
+        "userProfile": "Profile"
+      },
+      "userInfo": {
+        "email": "E-mail",
+        "guideIn": "Guide in {country}",
+        "userName": "Username"
+      },
+      "errors": {
+        "emptyDescription": "Description not specified"
+      }
+    },
+    "wishlist": {
+      "emptyWishlist": {
+        "description": "Looks like you haven't added tours yet",
+        "iconLabel": "Image showing an empty cart",
+        "title": "Wishlist is empty"
+      },
+      "title": "Wishlist"
+    },
+    "SupplierDetailOrder": {
+      "fields": {
+        "address": "Address",
+        "cashOnTour": "Cash for tour",
+        "deposit": "Deposit",
+        "email": "Mail",
+        "fullName": "Name",
+        "hotel": "Hotel",
+        "manager": "Manager",
+        "phone": "Telephone",
+        "pickUpTime": "Check out time",
+        "program": "Program",
+        "roomNumber": "Room number",
+        "totalPrice": "Total amount",
+        "tourDate": "Tour date",
+        "transfer": "Broadcast"
+      },
+      "sections": {
+        "pickUpInfo": "Tourist address",
+        "infoPriceAndCounts": "Count & price info",
+        "touristInfo": "Tourist information"
+      },
+      "title": "Order: #{order}"
+    },
+    "supplierOrderList": {
+      "errors": {
+        "ordersEmpty": "No one has placed an order yet"
+      },
+      "title": "Guide orders"
+    },
+    "dashboard": {
+      "meta": {
+        "description": "Control panel for managing tours",
+        "title-template": "control Panel",
+        "title": "Control Panel"
+      },
+      "pages": {
+        "tours": {
+          "title": "Your tours"
+        }
+      }
+    },
+    "supplierTours": {
+      "title": "Tours"
+    }
+  },
+  "share": {
+    "back": "Back",
+    "close": "Close",
+    "locale": "Russian",
+    "logo": "Logo",
+    "entities": {
+      "city": "City",
+      "country": "Country",
+      "tour": "Tour"
+    },
+    "free": "For free",
+    "notSpecified": "Not specified",
+    "phoneNumber": "Phone number",
+    "userTypes": {
+      "admin": "Admin",
+      "guide": "Guide",
+      "tourist": "Tourist",
+      "user": "User"
+    }
+  },
+  "errors": {
+    "touristNotFound": "An error occurred and the tourist was not found",
+    "createTour": "Error in creating a new tour",
+    "editTour": "Tour change error"
+  }
 }

@@ -1,328 +1,329 @@
 {
-	"meta": {
-		"description": "Лучшее туристическое агентство",
-		"abstract": "Сайт по регистрации и бронированию экскурсий в градах по всему миру.",
-		"keywords": "Бронирование, экскурсии, туризм, туристические программы, тур, программы, программы туризма, программы экскурсий, гид, гиды, гид по городам, гид по экскурсиям, gettrip.co, gettrip agency"
-	},
-	"share": {
-		"locale": "Русский",
-		"logo": "Логотип",
-		"back": "Назад",
-		"close": "Закрыть",
-		"notSpecified": "Не указан",
-		"free": "Бесплатно",
-		"entities": {
-			"country": "Страна",
-			"city": "Город",
-			"tour": "Тур"
-		},
-		"userTypes": {
-			"tourist": "Турист",
-			"guide": "Гид",
-			"user": "Пользователь",
-			"admin": "Админ"
-		},
-		"phoneNumber": "Номер телефона"
-	},
-	"components": {
-		"auth": {
-			"login": {
-				"title": "Войти",
-				"action": "войти",
-				"accountNotAlready": "У вас нет аккаунта?"
-			},
-			"register": {
-				"title": "Зарегистрироваться",
-				"action": "зарегистрироваться",
-				"accountAlready": "У вас уже есть аккаунт?",
-				"takeStepBack": "Перейти на этап регистрации"
-			},
-			"fields": {
-				"email": "Ваша почта",
-				"password": "Ваш пароль"
-			},
-			"verify": {
-				"sendedCode": "Код подтверждения отправлен на почту <email>не указана</email>, если это не правильная почта вы можете вернуться на 1 этап.",
-				"code": "Код",
-				"message": "Проверьте почту на код подтверждения. Если его нет, посмотрите в папке <span>спам<span>."
-			}
-		},
-		"searchTour": {
-			"action": "Поиск",
-			"placeholder": "Поиск",
-			"notFound": "Ничего не найдены"
-		},
-		"tourProgram": {
-			"type": {
-				"individual": "Индивидуальный",
-				"group": "Групповой"
-			},
-			"price": {
-				"adult": "Взрослый",
-				"child": "Ребенок"
-			},
-			"actions": {
-				"order": "Заказать",
-				"moreDetail": "Подробнее"
-			}
-		},
-		"burgerMenu": {
-			"expandButton": "Кнопка раскрытия бергер меню",
-			"navigation": {
-				"myOrders": {
-					"title": "Мои заказы",
-					"description": "Заказы за все время"
-				},
-				"wishlist": "Список желаемых туров"
-			}
-		},
-		"wishlist": {
-			"add": "Добавить в список желаний",
-			"remove": "Удалить из списка желаний"
-		},
-		"popularCities": {
-			"imageAlt": "Фотография с города {city}",
-			"tourCount": "Экскурсий: {count}",
-			"linkToCity": "Посмотреть все экскурсии в {city}"
-		},
-		"popularTours": {
-			"imgAlt": "Фотография с экскурсии {name}",
-			"link": "Подробнее о экскурсии {name}"
-		},
-		"reviews": {
-			"emptyReviews": "Пока никто не поделился своим мнением",
-			"writeReview": "Написать отзыв"
-		},
-		"rating": {
-			"title": "Рейтинг: {rating}",
-			"label": "Рейтинг: {rating} из {ratingMax}"
-		},
-		"create-tour": {
-			"fields": {
-				"create-tour": "Название тура",
-				"category": "Выберите категорию тура",
-				"not-select-category": "Не выбрана"
-			}
-		}
-	},
-	"pages": {
-		"mainPage": {
-			"popularTours": {
-				"title": "Популярные туры",
-				"emptyTours": "Туры не найдены"
-			},
-			"advantages": {
-				"title": "Преимущества",
-				"tourCancellation": {
-					"title": "Отмена тура",
-					"description": "Бесплатная отмена экскурсии за 48 часов",
-					"icon": "Clock9",
-					"iconLabel": "Иконка часов"
-				},
-				"reviews": {
-					"title": "Отзывы",
-					"description": "Отзывы от реальных людей которые побывали на экскурсиях",
-					"icon": "Star",
-					"iconLabel": "Иконка отзывов"
-				},
-				"prepayment": {
-					"title": "Предоплата",
-					"description": "Мы не берем полную оплату за наш сервис, а лишь предоплату",
-					"icon": "HandCoins",
-					"iconLabel": "Иконка бронирования"
-				}
-			},
-			"title": "Главная страница",
-			"description": "Главная страница с популярными городами, турами и нашими преимуществами.",
-			"keywords": "туры, страны, города",
-			"category": "туры"
-		},
-		"profile": {
-			"type": {
-				"userProfile": "Профиль",
-				"supplierProfile": "Профиль поставщика",
-				"editProfile": "Редактировать профиль",
-				"editSupplierProfile": "Редактировать профиль поставщика"
-			},
-			"actions": {
-				"add": "Добавить",
-				"edit": "Редактировать",
-				"become": "Стать гидом",
-				"support": "Поддержка",
-				"logout": "Выйти",
-				"orders": "Заказы",
-				"save": "Сохранить"
-			},
-			"userInfo": {
-				"guideIn": "Гид в {country}",
-				"userName": "Имя пользователя",
-				"email": "Электронная почта"
-			},
-			"fields": {
-				"aboutMe": {
-					"title": "О себе",
-					"placeholder": "Опишите себя",
-					"maxSize": "Максимальная длина описания {maxSize} символов"
-				},
-				"fullName": {
-					"title": "Фамилия и Имя",
-					"placeholder": "Фамилия Имя"
-				},
-				"wishlist": "Список желаемого"
-			},
-			"errors": {
-				"emptyDescription": "Описание не указано"
-			}
-		},
-		"become": {
-			"title": "Стать гидом",
-			"becomeAction": "Предложить свой тур",
-			"form": {
-				"title": "Выберете страну и город проведения вашей экскурсий и номер телефона для связи",
-				"fields": {
-					"country": {
-						"title": "Страна",
-						"loading": "Загрузка стран...",
-						"notLoaded": "Не удалось загрузить страны"
-					},
-					"city": {
-						"title": "Город",
-						"loading": "Загрузка городов...",
-						"notLoaded": "Не удалось загрузить города"
-					},
-					"phone": "Номер телефона",
-					"submit": "Отправить заявку"
-				}
-			}
-		},
-		"cityTours": {
-			"title": "Экскурсии в {city}",
-			"emptyTours": "В этом {city} экскурсии не добавлены",
-			"meta": {
-				"title": "Экскурсии в городе {city}",
-				"keywords": "Экскурсии в {city}, {city}, Город {city}"
-			}
-		},
-		"detailTour": {
-			"title": "Детальное описание {tourName=экскурсии}",
-			"meta": {
-				"title": "Экскурсия {tourName} в {city}",
-				"category": "Экскурсии",
-				"keywords": "Детальное описание {tourName}, {tourName}, {city}, Город {city}"
-			},
-			"actions": {
-				"share": "Поделиться экскурсией"
-			},
-			"readMore": "Читать далее",
-			"previewTour": {
-				"photoAlt": "Фотография к экскурсии",
-				"photoNotAdded": "Фото не добавлено",
-				"seeDown": "Смотри ниже что включено в экскурсию"
-			},
-			"information": {
-				"title": "О экскурсии",
-				"pregnantPossible": {
-					"can": "Беременным можно",
-					"cant": "Беременным нельзя"
-				},
-				"children": {
-					"can": "С детьми можно. (Дети до {maxAge, plural, 1= {# года} other {# лет}} бесплатно)",
-					"cant": "C детьми нельзя"
-				}
-			},
-			"programs": "Программы и цены",
-			"description": "Описание",
-			"included": "Включено",
-			"notIncluded": "Не включено",
-			"tourTake": "Взять с собой",
-			"userPolicy": "Политика использования",
-			"reviews": {
-				"title": "Отзывы",
-				"titleAllReviews": "Все отзывы",
-				"emptyReviews": "Пока никто не поделился своим мнением",
-				"actions": {
-					"showAllReviews": "Смотреть все отзывы"
-				}
-			}
-		},
-		"orderTour": {
-			"title": "Заказ экскурсии",
-			"fields": {
-				"fullName": "Фамилия и Имя",
-				"phone": "Номер телефона",
-				"hotelAddress": "Адрес отеля",
-				"numberOfAdults": "Количество взрослых",
-				"numberOfChildren": "Количество детей",
-				"excursionDate": "Дата экскурсии",
-				"comment": "Комментарий к заказу"
-			},
-			"submit": "Отправить заказ",
-			"meta": {
-				"title": "Заказ экскурсии {tour}"
-			}
-		},
-		"wishlist": {
-			"title": "Список желаемого",
-			"emptyWishlist": {
-				"title": "Список желаемого пуст",
-				"description": "Похоже, вы еще не добавляли туров",
-				"iconLabel": "Изображение отображающее пустая корзину"
-			}
-		},
-		"detailTourReviews": {
-			"title": "Отзывы путешественников",
-			"meta": {
-				"title": "Отзывы к туру {tourName}"
-			}
-		},
-		"SupplierDetailOrder": {
-			"title": "Заказ: #{order}",
-			"fields": {
-				"address": "Адрес",
-				"manager": "Менажер",
-				"phone": "Телефон",
-				"email": "Почта",
-				"hotel": "Отель",
-				"roomNumber": "Номер комнаты",
-				"transfer": "Передача",
-				"totalPrice": "Общая сумма",
-				"deposit": "Депозит",
-				"cashOnTour": "Наличные на тур",
-				"program": "Программа",
-				"tourDate": "Дата тура",
-				"pickUpTime": "Время выезда",
-				"fullName": "Имя"
-			},
-			"sections": {
-				"pickUpInfo": "Адрес туриста",
-				"touristInfo": "Информация о туристе",
-				"infoPriceAndCounts": "Информация о количестве и ценах"
-			}
-		},
-		"supplierOrderList": {
-			"errors": {
-				"ordersEmpty": "Никто еще не оформил заказ"
-			},
-			"title": "Заказы гида"
-		},
-		"dashboard": {
-			"meta": {
-				"title": "Панель управления",
-				"title-template": "%s - Панель управления",
-				"description": "Панель управления"
-			},
-			"pages": {
-				"tours": {
-					"title": "Ваши туры"
-				}
-			}
-		},
-		"supplierTours": {
-			"title": "Туры"
-		}
-	},
-	"errors": {
-		"touristNotFound": "Произошла ошибка и турист не был найден",
-		"createTour": "Ошибка в создании новго тура"
-	}
+  "meta": {
+    "description": "Лучшее туристическое агентство",
+    "abstract": "Сайт по регистрации и бронированию экскурсий в градах по всему миру.",
+    "keywords": "Бронирование, экскурсии, туризм, туристические программы, тур, программы, программы туризма, программы экскурсий, гид, гиды, гид по городам, гид по экскурсиям, gettrip.co, gettrip agency"
+  },
+  "share": {
+    "locale": "Русский",
+    "logo": "Логотип",
+    "back": "Назад",
+    "close": "Закрыть",
+    "notSpecified": "Не указан",
+    "free": "Бесплатно",
+    "entities": {
+      "country": "Страна",
+      "city": "Город",
+      "tour": "Тур"
+    },
+    "userTypes": {
+      "tourist": "Турист",
+      "guide": "Гид",
+      "user": "Пользователь",
+      "admin": "Админ"
+    },
+    "phoneNumber": "Номер телефона"
+  },
+  "components": {
+    "auth": {
+      "login": {
+        "title": "Войти",
+        "action": "войти",
+        "accountNotAlready": "У вас нет аккаунта?"
+      },
+      "register": {
+        "title": "Зарегистрироваться",
+        "action": "зарегистрироваться",
+        "accountAlready": "У вас уже есть аккаунт?",
+        "takeStepBack": "Перейти на этап регистрации"
+      },
+      "fields": {
+        "email": "Ваша почта",
+        "password": "Ваш пароль"
+      },
+      "verify": {
+        "sendedCode": "Код подтверждения отправлен на почту <email>не указана</email>, если это не правильная почта вы можете вернуться на 1 этап.",
+        "code": "Код",
+        "message": "Проверьте почту на код подтверждения. Если его нет, посмотрите в папке <span>спам<span>."
+      }
+    },
+    "searchTour": {
+      "action": "Поиск",
+      "placeholder": "Поиск",
+      "notFound": "Ничего не найдены"
+    },
+    "tourProgram": {
+      "type": {
+        "individual": "Индивидуальный",
+        "group": "Групповой"
+      },
+      "price": {
+        "adult": "Взрослый",
+        "child": "Ребенок"
+      },
+      "actions": {
+        "order": "Заказать",
+        "moreDetail": "Подробнее"
+      }
+    },
+    "burgerMenu": {
+      "expandButton": "Кнопка раскрытия бергер меню",
+      "navigation": {
+        "myOrders": {
+          "title": "Мои заказы",
+          "description": "Заказы за все время"
+        },
+        "wishlist": "Список желаемых туров"
+      }
+    },
+    "wishlist": {
+      "add": "Добавить в список желаний",
+      "remove": "Удалить из списка желаний"
+    },
+    "popularCities": {
+      "imageAlt": "Фотография с города {city}",
+      "tourCount": "Экскурсий: {count}",
+      "linkToCity": "Посмотреть все экскурсии в {city}"
+    },
+    "popularTours": {
+      "imgAlt": "Фотография с экскурсии {name}",
+      "link": "Подробнее о экскурсии {name}"
+    },
+    "reviews": {
+      "emptyReviews": "Пока никто не поделился своим мнением",
+      "writeReview": "Написать отзыв"
+    },
+    "rating": {
+      "title": "Рейтинг: {rating}",
+      "label": "Рейтинг: {rating} из {ratingMax}"
+    },
+    "create-tour": {
+      "fields": {
+        "create-tour": "Название тура",
+        "category": "Выберите категорию тура",
+        "not-select-category": "Не выбрана"
+      }
+    }
+  },
+  "pages": {
+    "mainPage": {
+      "popularTours": {
+        "title": "Популярные туры",
+        "emptyTours": "Туры не найдены"
+      },
+      "advantages": {
+        "title": "Преимущества",
+        "tourCancellation": {
+          "title": "Отмена тура",
+          "description": "Бесплатная отмена экскурсии за 48 часов",
+          "icon": "Clock9",
+          "iconLabel": "Иконка часов"
+        },
+        "reviews": {
+          "title": "Отзывы",
+          "description": "Отзывы от реальных людей которые побывали на экскурсиях",
+          "icon": "Star",
+          "iconLabel": "Иконка отзывов"
+        },
+        "prepayment": {
+          "title": "Предоплата",
+          "description": "Мы не берем полную оплату за наш сервис, а лишь предоплату",
+          "icon": "HandCoins",
+          "iconLabel": "Иконка бронирования"
+        }
+      },
+      "title": "Главная страница",
+      "description": "Главная страница с популярными городами, турами и нашими преимуществами.",
+      "keywords": "туры, страны, города",
+      "category": "туры"
+    },
+    "profile": {
+      "type": {
+        "userProfile": "Профиль",
+        "supplierProfile": "Профиль поставщика",
+        "editProfile": "Редактировать профиль",
+        "editSupplierProfile": "Редактировать профиль поставщика"
+      },
+      "actions": {
+        "add": "Добавить",
+        "edit": "Редактировать",
+        "become": "Стать гидом",
+        "support": "Поддержка",
+        "logout": "Выйти",
+        "orders": "Заказы",
+        "save": "Сохранить"
+      },
+      "userInfo": {
+        "guideIn": "Гид в {country}",
+        "userName": "Имя пользователя",
+        "email": "Электронная почта"
+      },
+      "fields": {
+        "aboutMe": {
+          "title": "О себе",
+          "placeholder": "Опишите себя",
+          "maxSize": "Максимальная длина описания {maxSize} символов"
+        },
+        "fullName": {
+          "title": "Фамилия и Имя",
+          "placeholder": "Фамилия Имя"
+        },
+        "wishlist": "Список желаемого"
+      },
+      "errors": {
+        "emptyDescription": "Описание не указано"
+      }
+    },
+    "become": {
+      "title": "Стать гидом",
+      "becomeAction": "Предложить свой тур",
+      "form": {
+        "title": "Выберете страну и город проведения вашей экскурсий и номер телефона для связи",
+        "fields": {
+          "country": {
+            "title": "Страна",
+            "loading": "Загрузка стран...",
+            "notLoaded": "Не удалось загрузить страны"
+          },
+          "city": {
+            "title": "Город",
+            "loading": "Загрузка городов...",
+            "notLoaded": "Не удалось загрузить города"
+          },
+          "phone": "Номер телефона",
+          "submit": "Отправить заявку"
+        }
+      }
+    },
+    "cityTours": {
+      "title": "Экскурсии в {city}",
+      "emptyTours": "В этом {city} экскурсии не добавлены",
+      "meta": {
+        "title": "Экскурсии в городе {city}",
+        "keywords": "Экскурсии в {city}, {city}, Город {city}"
+      }
+    },
+    "detailTour": {
+      "title": "Детальное описание {tourName=экскурсии}",
+      "meta": {
+        "title": "Экскурсия {tourName} в {city}",
+        "category": "Экскурсии",
+        "keywords": "Детальное описание {tourName}, {tourName}, {city}, Город {city}"
+      },
+      "actions": {
+        "share": "Поделиться экскурсией"
+      },
+      "readMore": "Читать далее",
+      "previewTour": {
+        "photoAlt": "Фотография к экскурсии",
+        "photoNotAdded": "Фото не добавлено",
+        "seeDown": "Смотри ниже что включено в экскурсию"
+      },
+      "information": {
+        "title": "О экскурсии",
+        "pregnantPossible": {
+          "can": "Беременным можно",
+          "cant": "Беременным нельзя"
+        },
+        "children": {
+          "can": "С детьми можно. (Дети до {maxAge, plural, 1= {# года} other {# лет}} бесплатно)",
+          "cant": "C детьми нельзя"
+        }
+      },
+      "programs": "Программы и цены",
+      "description": "Описание",
+      "included": "Включено",
+      "notIncluded": "Не включено",
+      "tourTake": "Взять с собой",
+      "userPolicy": "Политика использования",
+      "reviews": {
+        "title": "Отзывы",
+        "titleAllReviews": "Все отзывы",
+        "emptyReviews": "Пока никто не поделился своим мнением",
+        "actions": {
+          "showAllReviews": "Смотреть все отзывы"
+        }
+      }
+    },
+    "orderTour": {
+      "title": "Заказ экскурсии",
+      "fields": {
+        "fullName": "Фамилия и Имя",
+        "phone": "Номер телефона",
+        "hotelAddress": "Адрес отеля",
+        "numberOfAdults": "Количество взрослых",
+        "numberOfChildren": "Количество детей",
+        "excursionDate": "Дата экскурсии",
+        "comment": "Комментарий к заказу"
+      },
+      "submit": "Отправить заказ",
+      "meta": {
+        "title": "Заказ экскурсии {tour}"
+      }
+    },
+    "wishlist": {
+      "title": "Список желаемого",
+      "emptyWishlist": {
+        "title": "Список желаемого пуст",
+        "description": "Похоже, вы еще не добавляли туров",
+        "iconLabel": "Изображение отображающее пустая корзину"
+      }
+    },
+    "detailTourReviews": {
+      "title": "Отзывы путешественников",
+      "meta": {
+        "title": "Отзывы к туру {tourName}"
+      }
+    },
+    "SupplierDetailOrder": {
+      "title": "Заказ: #{order}",
+      "fields": {
+        "address": "Адрес",
+        "manager": "Менажер",
+        "phone": "Телефон",
+        "email": "Почта",
+        "hotel": "Отель",
+        "roomNumber": "Номер комнаты",
+        "transfer": "Передача",
+        "totalPrice": "Общая сумма",
+        "deposit": "Депозит",
+        "cashOnTour": "Наличные на тур",
+        "program": "Программа",
+        "tourDate": "Дата тура",
+        "pickUpTime": "Время выезда",
+        "fullName": "Имя"
+      },
+      "sections": {
+        "pickUpInfo": "Адрес туриста",
+        "touristInfo": "Информация о туристе",
+        "infoPriceAndCounts": "Информация о количестве и ценах"
+      }
+    },
+    "supplierOrderList": {
+      "errors": {
+        "ordersEmpty": "Никто еще не оформил заказ"
+      },
+      "title": "Заказы гида"
+    },
+    "dashboard": {
+      "meta": {
+        "title": "Панель управления",
+        "title-template": "%s - Панель управления",
+        "description": "Панель управления"
+      },
+      "pages": {
+        "tours": {
+          "title": "Ваши туры"
+        }
+      }
+    },
+    "supplierTours": {
+      "title": "Туры"
+    }
+  },
+  "errors": {
+    "touristNotFound": "Произошла ошибка и турист не был найден",
+    "createTour": "Ошибка в создании новго тура",
+    "editTour": " Ошибка изменения тура"
+  }
 }

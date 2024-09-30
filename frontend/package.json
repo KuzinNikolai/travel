@@ -2,7 +2,9 @@
 	"name": "frontend",
 	"version": "0.1.0",
 	"private": true,
-	"browserslist": ["> 0.1%, last 4 versions, not dead"],
+	"browserslist": [
+		"> 0.1%, last 4 versions, not dead"
+	],
 	"packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247",
 	"scripts": {
 		"analyze": "ANALYZE=true next build",
@@ -47,6 +49,7 @@
 		"lucide-react": "^0.381.0",
 		"next": "^14.2.13",
 		"next-intl": "^3.20.0",
+		"object-to-formdata": "^4.5.1",
 		"react": "^18.3.1",
 		"react-day-picker": "^8.10.1",
 		"react-dom": "^18.3.1",
