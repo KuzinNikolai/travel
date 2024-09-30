@@ -357,7 +357,7 @@ class TourDetailSerializer(TranslatableModelSerializer):
     tour_link = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True)
     min_price = serializers.SerializerMethodField()
-
+    duration = DurationSerializer()
     # def get_photos(self, obj):
     #     results = []
     #     request = self.context.get("request")
@@ -690,7 +690,7 @@ class OptionsSerializer(serializers.Serializer):
         tags = TagTour.objects.all()
         return [{"id": tag.id, "tag": tag.tag} for tag in tags]
 
-    def get_categories(self, obj):
+    def get_category(self, obj):
         cats = Category.objects.all()
         return [{"id": cat.id, "name": cat.name} for cat in cats]
 
